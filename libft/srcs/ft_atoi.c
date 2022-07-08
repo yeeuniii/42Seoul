@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:53:22 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/06 15:49:25 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/08 14:21:33 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,22 @@ int	ft_atoi(const char *str)
 }
 
 //#include <stdio.h>
+//#include <stdlib.h>
 //int	main(void)
 //{
-//	printf("%d\n", ft_atoi(" \t  \n +130"));
-//	printf("%d\n", ft_atoi("-0"));
+//	printf("ft : %d\n", ft_atoi(" \t  \n +130"));
+//	printf("atoi : %d\n", atoi(" \t  \n +130"));
+//	printf("ft : %d\n", ft_atoi("-0"));
+//	printf("atoi : %d\n", atoi("-0"));
 //	printf("%d\n", ft_atoi("0"));
 //	printf("%d\n", ft_atoi("2147483647"));
 //	printf("%d\n", ft_atoi("-2147483648"));
 //	printf("%d\n", ft_atoi("-214,7483648"));
 //	printf("%d\n", ft_atoi("---+214,7483648"));
 //	printf("%d\n", ft_atoi("abcde"));
-//
+//	printf("\n\n");
+//	printf("ft : %d\n", ft_atoi("4294967295"));
+//	printf("atoi : %d\n", atoi("4294967295"));
+//	printf("ft : %d\n", ft_atoi("42949672"));
+//	printf("atoi : %d\n", atoi("42949672"));
 //}

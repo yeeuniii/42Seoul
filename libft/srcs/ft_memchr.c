@@ -1,41 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 19:35:21 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/06 19:55:13 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/08 12:14:42 by yeepark           #+#    #+#             */
+/*   Updated: 2022/07/08 14:18:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	char	*dest;
-	int		idx;
+	unsigned int	idx;
 
-	dest = malloc(sizeof(char) * ft_strlen(s1) + 1);
 	idx = 0;
-	while (s1[idx])
+	while (idx < n)
 	{
-		dest[idx] = s1[idx];
+		if (*(unsigned char *)(s + idx) == (unsigned char)c)
+			return ((void *)(s + idx));
 		idx ++;
 	}
-	dest[idx] = 0;
-	return (dest);
+	return (0);
 }
 
-//#include <stdio.h>
 //#include <string.h>
+//#include <stdio.h>
 //
 //int	main(void)
 //{
 //	char	str[20] = "nice to meet you";
+//	char	str1[20] = "nice to meet you";
 //
-//	printf("ft : %s\n", ft_strdup(str));
-//	printf("str: %s\n", strdup(str));
+//	printf("ft : %s\n", ft_memchr(str, 'e', 8));
+//	printf("mem : %s\n", memchr(str1, 'e', 8));
+//	printf("ft : %s\n", ft_memchr(str, 'y', 15));
+//	printf("mem : %s\n", memchr(str1, 'y', 15));
+//	printf("ft : %s\n", ft_memchr(str, 0, 8));
+//	printf("mem : %s\n", memchr(str1, 0, 8));
 //}

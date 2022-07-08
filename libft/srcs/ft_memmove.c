@@ -1,37 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 16:39:02 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/06 17:09:01 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/06 21:47:58 by yeepark           #+#    #+#             */
+/*   Updated: 2022/07/08 14:45:36 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char	chr;
+	unsigned char	*tmp;
+	unsigned int	idx;
 
-	chr = (char)c;
-	while (*s != chr && *s)
-		s ++;
-	return ((char *)s);
+	tmp = (unsigned char *)ft_strdup((char *)src);
+	idx = 0;
+	while (idx < len)
+	{
+		*(unsigned char *)(dst + idx) = *(tmp + idx);
+		idx ++;
+	}
+	return (dst);
 }
 
-//#include <stdio.h>
 //#include <string.h>
-//
+//#include <stdio.h>
 //int	main(void)
 //{
-//	char	str[20] = "nice to meet you";
-//	char	str1[20] = "nice to meet you";
+//	char	str[30] = "BlockDMask";
+//	char	str1[30] = "BlockDMask";
 //
-//	printf("ft : %s\n", ft_strchr(str, ' '));
-//	printf("chr : %s\n", strchr(str1, ' '));
-//	printf("ft : %s\n", ft_strchr(str, 'n'));
-//	printf("chr : %s\n", strchr(str1, 'n'));
+//	printf("mem: %s\n", memmove(str + 2, str, sizeof(char) * 4));
+//	printf("ft: %s\n", ft_memmove(str1 + 2, str1, sizeof(char) * 4));
 //}

@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp2.c                                      :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 14:54:19 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/06 17:10:03 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/08 14:22:13 by yeepark           #+#    #+#             */
+/*   Updated: 2022/07/08 14:36:16 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
 	unsigned int	idx;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
 	idx = 0;
-	while (s1[idx] == s2[idx] && idx < n - 1)
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	while (idx < n)
+	{
+		if (str1[idx] != str2[idx])
+			return (str1[idx] - str2[idx]);
 		idx ++;
-	return (s1[idx] - s2[idx]);
+	}
+	return (0);
 }
 
 //#include <stdio.h>
@@ -27,7 +35,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 //
 //int	main(void)
 //{
-//	printf("str: %d \tft_str: %d\n", strncmp("hello", "hella", 4), ft_strncmp("hello", "hella", 4));
-//	printf("str: %d \tft_str: %d\n", strncmp("hello", "hella", 5), ft_strncmp("hello", "hella", 5));
-//	printf("str: %d \tft_str: %d\n", strncmp("hello", "he", 4), ft_strncmp("hello", "he", 4));
+//	int	a[5] = {1, 2, 3, 4, 5};
+//	int	b[5] = {1, 20, 3, 4, 5};
+//
+//	printf("%d", ft_memcmp(a, b, sizeof(int) * 5));
 //}
