@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 14:53:50 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/06 21:46:38 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/06 21:47:58 by yeepark           #+#    #+#             */
+/*   Updated: 2022/07/06 22:13:31 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned char	*arr;
+	unsigned char	*str;
+	unsigned char	*tmp;
 	unsigned int	idx;
 
-	arr = (unsigned char *)b;
+	str = (unsigned char *)dst;
+	tmp = (unsigned char *)ft_strdup((char *)src);
 	idx = 0;
 	while (idx < len)
 	{
-		arr[idx] = (unsigned char)c;
+		str[idx] = tmp[idx];
 		idx ++;
 	}
-	return (b);
+	return (dst);
 }
 
 #include <stdio.h>
@@ -32,20 +34,8 @@ void	*ft_memset(void *b, int c, size_t len)
 
 int	main(void)
 {
-	char	str[20] = "nice to meet you";
-	char	str1[20] = "nice to meet you";
+	char	str[30] = "BlockDMask";
 
-	printf("ft : %s\n", ft_memset(str, 97, 5));
-	printf("mem : %s\n", memset(str1, 97, 5));
-
-	int	arr[20];
-	int	arr1[20];
-	int	idx = 0;
-	memset(arr1, 0, 5*sizeof(int));
-	ft_memset(arr, 0, 5 * sizeof(int));
-	while (idx < 7)
-	{
-		printf("%d : mem %d // ft %d\n", idx, arr1[idx], arr[idx]);
-		idx ++;
-	}
+	printf("mem: %s\n", memmove(str, str + 2, sizeof(char) * 4));
+	printf("mem: %s\n", ft_memmove(str, str + 2, sizeof(char) * 4));
 }

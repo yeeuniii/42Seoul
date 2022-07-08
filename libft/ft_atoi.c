@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/06 14:53:22 by yeepark           #+#    #+#             */
+/*   Updated: 2022/07/06 15:49:25 by yeepark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static int	ft_isspace(char c)
@@ -5,7 +17,7 @@ static int	ft_isspace(char c)
 	return ((c >= 9 && c <= 13) || c == 32);
 }
 
-int	ft_atoi(const char *string)
+int	ft_atoi(const char *str)
 {
 	int	idx;
 	int	res;
@@ -14,16 +26,16 @@ int	ft_atoi(const char *string)
 	idx = 0;
 	res = 0;
 	sign = 1;
-	while (ft_isspace(string[idx]))
+	while (ft_isspace(str[idx]))
 		idx ++;
-	if (string[idx] == '+' || string[idx] == '-')
+	if (str[idx] == '+' || str[idx] == '-')
 	{
-		sign = (string[idx] == '+') - (string[idx] == '-');
+		sign = (str[idx] == '+') - (str[idx] == '-');
 		idx ++;
 	}
-	while (ft_isdigit(string[idx]))
+	while (ft_isdigit(str[idx]))
 	{
-		res = res * 10 + string[idx] - '0';
+		res = res * 10 + str[idx] - '0';
 		idx ++;
 	}
 	return (res * sign);
