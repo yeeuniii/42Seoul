@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:39:02 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/08 17:01:50 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/11 17:21:14 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,3 @@ char	*ft_strchr(const char *s, int c)
 	}
 	return (0);
 }
-
-//#include <stdio.h>
-//#include <string.h>
-//
-//int	main(void)
-//{
-//	char	str[20] = "nice to meet you";
-//	char	str1[20] = "nice to meet you";
-//
-//	printf("ft : %s\n", ft_strchr(str, ' '));
-//	printf("chr : %s\n", strchr(str1, ' '));
-//	printf("ft : %s\n", ft_strchr(str, 'n'));
-//	printf("chr : %s\n", strchr(str1, 'n'));
-//	printf("ft : %s\n", ft_strchr(str, 0));
-//	printf("chr : %s\n", strchr(str1, 0));
-//	printf("ft : %s\n", ft_strchr(str, 'a'));
-//	printf("chr : %s\n", strchr(str1, 'a'));
-//}

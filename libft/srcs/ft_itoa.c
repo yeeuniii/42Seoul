@@ -1,31 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 19:35:21 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/11 17:21:22 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/11 16:02:50 by yeepark           #+#    #+#             */
+/*   Updated: 2022/07/11 16:24:36 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+int	get_size(int n)
 {
-	char	*dest;
-	int		idx;
+	int	size;
 
-	dest = malloc(sizeof(char) * ft_strlen(s1) + 1);
-	if (!dest)
-		return (0);
-	idx = 0;
-	while (s1[idx])
+	size = 0;
+	if (!n)
+		return (1);
+	if (n < 0)
+		size ++;
+	while (n)
 	{
-		dest[idx] = s1[idx];
-		idx ++;
+		size ++;
+		n /= 10;
 	}
-	dest[idx] = 0;
-	return (dest);
+	return (size);
+}
+
+char	*ft_itoa(int n)
+{
+	int		idx;
+	int		size;
+	char	*str;
+
+	idx = 0;
+	size = get_size(n);
+	str = malloc(sizeof(char) * (size + 1));
+	if (!str)
+		return (0);
+	if (n < 0)
+	{
+		str[0] = '-';
+		idx = 1;
+	}
+	str[size] = 0;
+	while (idx < size)
+	{
+		size --;
+		str[size] = n % 10 * ((n > 0) - (n < 0)) + '0';
+		n /= 10;
+	}
+	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:53:55 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/08 17:12:37 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/11 17:21:34 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,3 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	dst[idx + dstlen] = 0;
 	return (srclen + dstlen);
 }
-//
-//#include <stdio.h>
-//#include <string.h>
-//
-//int	main(void)
-//{
-//	char	src[20] = "hello";
-//	char	dst[20] = "na";
-//	char	src1[20] = "hello";
-//	char	dst1[20] = "na";
-//
-//	printf("str: %lu  %s\n", strlcat(dst, src, 8), dst);
-//	printf("ft : %zu  %s\n", ft_strlcat(dst1, src1, 8), dst1);
-//}

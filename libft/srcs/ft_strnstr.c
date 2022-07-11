@@ -6,11 +6,12 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:17:36 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/06 19:33:43 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/11 17:23:13 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
@@ -19,7 +20,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 
 	idx = 0;
 	nedlen = ft_strlen(needle);
-	if (!needle)
+	if (!nedlen)
 		return ((char *)haystack);
 	while (idx <= len - nedlen && haystack[idx])
 	{
@@ -32,19 +33,3 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	}
 	return (0);
 }
-
-//#include <stdio.h>
-//#include <string.h>
-//
-//int	main(void)
-//{
-//	char	hay[30] = "12312345123";
-//	char	ned[30] = "1234";
-//
-//	printf("ft : %s\n", ft_strnstr(hay, ned, 20));
-//	printf("str : %s\n", strnstr(hay, ned, 20));
-//	printf("ft : %s\n", ft_strnstr(hay, ned, 6));
-//	printf("str : %s\n", strnstr(hay, ned, 6));
-//	printf("ft : %s\n", ft_strnstr(hay, ned, 7));
-//	printf("str : %s\n", strnstr(hay, ned, 7));
-//}
