@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:53:22 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/11 17:59:44 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/12 12:20:40 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static int	ft_isspace(char c)
 	return ((c >= 9 && c <= 13) || c == 32);
 }
 
-long long	ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	long long	res;
-	int			idx;
-	int			sign;
+	unsigned long long	res;
+	int					idx;
+	int					sign;
 
 	res = 0;
 	idx = 0;
@@ -37,17 +37,17 @@ long long	ft_atoi(const char *str)
 	{
 		res = res * 10 + str[idx] - '0';
 		idx ++;
+		if (res > 9223372036854775806 && sign == 1)
+			return (-1);
+		if (res > 9223372036854775807 && sign == -1)
+			return (0);
 	}
-//	if (res > 0 && sign < 0)
-//		return (0);
-//	if (res < 0 && sign > 0)
-//		return (-1);
-	return (res);
+	return ((int)res * sign);
 }
 
-#include <stdio.h>
-int	main(void)
-{
+//#include <stdio.h>
+//int	main(void)
+//{
 //	printf("max int");
 //	printf("ft : %d\n", ft_atoi("2147483647"));
 //	printf("atoi : %d\n", atoi("2147483647"));
@@ -62,17 +62,17 @@ int	main(void)
 //	printf("underflow of int");
 //	printf("ft : %d\n", ft_atoi("-2147483650"));
 //	printf("atoi : %d\n", atoi("-2147483650"));
-	
-	printf("max long long");
-	printf("ft : %lld\n", ft_atoi("9223372036854775807"));
-	printf("atoi : %d\n", atoi("9223372036854775807"));
-	printf("min long long");
-	printf("ft : %lld\n", ft_atoi("-9223372036854775808"));
-	printf("atoi : %d\n", atoi("-9223372036854775808"));
-	printf("overflow long long");
-	printf("ft : %lld\n", ft_atoi("9223372036854775810"));
-	printf("atoi : %d\n", atoi("9223372036854775810"));
-	printf("underflow long long");
-	printf("ft : %lld\n", ft_atoi("-9223372036854775810"));
-	printf("atoi : %d\n", atoi("-9223372036854775810"));
-}
+//	
+//	printf("max long long");
+//	printf("ft : %d\n", ft_atoi("9223372036854775807"));
+//	printf("atoi : %d\n", atoi("9223372036854775807"));
+//	printf("min long long");
+//	printf("ft : %d\n", ft_atoi("-9223372036854775808"));
+//	printf("atoi : %d\n", atoi("-9223372036854775808"));
+//	printf("overflow long long");
+//	printf("ft : %d\n", ft_atoi("9223372036854775810"));
+//	printf("atoi : %d\n", atoi("9223372036854775810"));
+//	printf("underflow long long");
+//	printf("ft : %d\n", ft_atoi("–9223372036854775808 -2"));
+//	printf("atoi : %d\n", atoi("-9223372036854775810"));
+//}

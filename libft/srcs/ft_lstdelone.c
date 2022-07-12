@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/11 15:14:24 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/12 15:18:10 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/12 20:31:57 by yeepark           #+#    #+#             */
+/*   Updated: 2022/07/12 20:40:43 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	char	*substr;
-
-	if (start > ft_strlen(s))
-		return (ft_calloc(1, 1));
-	substr = malloc(sizeof(char) * (len + 1));
-	if (!substr)
-		return (0);
-	ft_strlcpy(substr, s + start, len + 1);
-	return (substr);
+	del(lst -> content);
+	free(lst);
 }
+
+//void	f_del(void *content)
+//{
+//	free(content);
+//	printf("free~\n");
+//}
+//
+//int	main(void)
+//{
+//	char	*str = ft_strdup("hello");
+//	t_list	*lst = ft_lstnew(str);
+//
+//	ft_lstdelone(lst, f_del);
+//}

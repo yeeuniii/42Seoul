@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:53:50 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/11 17:19:46 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/12 15:13:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_memset(void *b, int c, size_t len)
 {
-	unsigned int	idx;
+	size_t	idx;
 
 	idx = 0;
 	while (idx < len)

@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/11 15:14:24 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/12 15:18:10 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/12 18:50:07 by yeepark           #+#    #+#             */
+/*   Updated: 2022/07/12 20:30:56 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	char	*substr;
-
-	if (start > ft_strlen(s))
-		return (ft_calloc(1, 1));
-	substr = malloc(sizeof(char) * (len + 1));
-	if (!substr)
-		return (0);
-	ft_strlcpy(substr, s + start, len + 1);
-	return (substr);
+	new->next = *lst;
+	*lst = new;
+//	lst = &new;
 }
+
+//int	main(void)
+//{
+//	t_list	*lst = ft_lstnew("hello");
+//	ft_lstadd_front(&lst, ft_lstnew("yeepark"));
+//	while (lst)
+//	{
+//		printf("%s\n", lst -> content);
+//		lst = lst ->next;
+//	}
+//
+//	t_list	*lst = 0;
+//	ft_lstadd_front(&lst, ft_lstnew("hi"));
+//	printf("%s\n", lst->content);
+//}

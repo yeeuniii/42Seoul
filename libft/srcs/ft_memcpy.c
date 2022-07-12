@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:31:19 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/11 17:19:35 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/12 16:34:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	unsigned int	idx;
+	size_t	idx;
 
 	idx = 0;
 	if (!dst && !src)

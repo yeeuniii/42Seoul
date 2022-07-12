@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 21:47:58 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/11 17:48:14 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/12 14:03:54 by yeepark           #+#    #+#             */
+/*   Updated: 2022/07/12 16:34:12 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,23 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned int	idx;
-	
+	size_t	idx;
 
-
-
-}
-
-#include <string.h>
-#include <stdio.h>
-int	main(void)
-{
-	char	str[30] = "BlockDMask";
-	char	str1[30] = "BlockDMask";
-
-	printf("mem: %s\n", memmove(str + 2, str, sizeof(char) * 4));
-	printf("ft: %s\n", ft_memmove(str1 + 2, str1, sizeof(char) * 4));
+	idx = 0;
+	if (!dst && !src)
+		return (0);
+	if (dst <= src)
+	{
+		while (idx < len)
+		{
+			*(unsigned char *)(dst + idx) = *(unsigned char *)(src + idx);
+			idx ++;
+		}
+	}
+	if (dst > src)
+	{
+		while (len --)
+			*(unsigned char *)(dst + len) = *(unsigned char *)(src + len);
+	}
+	return (dst);
 }

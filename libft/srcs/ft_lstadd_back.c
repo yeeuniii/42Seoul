@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/11 15:14:24 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/12 15:18:10 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/12 19:52:06 by yeepark           #+#    #+#             */
+/*   Updated: 2022/07/12 20:48:34 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	char	*substr;
-
-	if (start > ft_strlen(s))
-		return (ft_calloc(1, 1));
-	substr = malloc(sizeof(char) * (len + 1));
-	if (!substr)
-		return (0);
-	ft_strlcpy(substr, s + start, len + 1);
-	return (substr);
+	if (*lst)
+		ft_lstlast(*lst)->next = new;
+	if (!*lst)
+		*lst = new;
 }
+
+//int	main(void)
+//{
+//	t_list	*lst = ft_lstnew("hi");
+//	t_list	*lst = 0;
+//	ft_lstadd_back(&lst, ft_lstnew("hello"));
+//	printf("%s\n", lst -> content);
+//	while (lst)
+//	{
+//		printf("%s\n", lst -> content);
+//		lst = lst -> next;
+//	}
+//}

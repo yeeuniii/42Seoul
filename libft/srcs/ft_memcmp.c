@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:22:13 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/11 16:01:46 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/12 16:33:57 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	unsigned int	idx;
+	size_t			idx;
 	unsigned char	*str1;
 	unsigned char	*str2;
 

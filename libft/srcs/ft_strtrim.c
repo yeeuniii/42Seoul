@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:25:16 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/11 17:24:45 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/12 15:35:10 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ char	*ft_strtrim(char const *s1, char const *set)
 	end = ft_strlen(s1) - 1;
 	while (is_set(set, s1[start]) && s1[start])
 		start ++;
+	if (start > end)
+		return (ft_calloc(1, 1));
 	while (is_set(set, s1[end]) && end >= 0)
 		end --;
-	if (!s1[start])
-		return (malloc(1));
 	str = malloc(sizeof(char) * (end - start + 2));
 	if (!str)
 		return (0);

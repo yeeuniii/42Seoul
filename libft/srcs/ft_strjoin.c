@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:50:26 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/11 15:24:58 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/12 16:36:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	unsigned int	idx;
 	unsigned int	size;
 	char			*str;
 
-	idx = 0;
 	size = ft_strlen(s1) + ft_strlen(s2);
 	str = malloc(sizeof(char) * (size + 1));
 	if (!str)

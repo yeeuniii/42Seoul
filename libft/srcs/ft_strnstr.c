@@ -6,17 +6,16 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:17:36 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/11 17:23:13 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/12 14:55:28 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	unsigned int	idx;
-	unsigned int	nedlen;
+	size_t	idx;
+	size_t	nedlen;
 
 	idx = 0;
 	nedlen = ft_strlen(needle);
@@ -24,6 +23,8 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		return ((char *)haystack);
 	while (idx <= len - nedlen && haystack[idx])
 	{
+		if (len < nedlen)
+			return (0);
 		if (haystack[idx] == needle[0])
 		{
 			if (!ft_strncmp(haystack + idx, needle, nedlen))

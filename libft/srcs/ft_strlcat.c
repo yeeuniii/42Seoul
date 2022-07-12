@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:53:55 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/11 17:21:34 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/12 16:36:37 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	unsigned int	idx;
-	unsigned int	srclen;
-	unsigned int	dstlen;
+	size_t	idx;
+	size_t	srclen;
+	size_t	dstlen;
 
 	srclen = ft_strlen(src);
 	dstlen = ft_strlen(dst);

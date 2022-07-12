@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:39:02 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/11 17:21:14 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/12 16:35:02 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	unsigned int	idx;
+	int	idx;
 
 	idx = 0;
 	if (!c)

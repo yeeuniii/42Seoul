@@ -1,26 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/11 15:14:24 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/12 15:18:10 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/12 16:46:01 by yeepark           #+#    #+#             */
+/*   Updated: 2022/07/12 20:17:05 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+t_list	*ft_lstnew(void *content)
 {
-	char	*substr;
+	t_list	*lst;
 
-	if (start > ft_strlen(s))
-		return (ft_calloc(1, 1));
-	substr = malloc(sizeof(char) * (len + 1));
-	if (!substr)
+	lst = malloc(sizeof(t_list *));
+	if (!lst)
 		return (0);
-	ft_strlcpy(substr, s + start, len + 1);
-	return (substr);
+	lst->content = content;
+	lst->next = 0;
+	return (lst);
 }
+
+//int	main(void)
+//{
+//	t_list *lst = ft_lstnew("hi");
+//	lst -> next = ft_lstnew("my");
+//	lst -> next -> next = ft_lstnew("name");
+//	int	idx = 0;
+//	while (lst)
+//	{
+//		printf("%s\n", lst -> content);
+//		lst = lst -> next;
+//		idx ++;
+//	}
+//	printf("cnt : %d\t ", idx);
+//}

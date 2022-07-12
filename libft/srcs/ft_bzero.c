@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:13:18 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/11 17:19:01 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/12 16:33:29 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	unsigned int	idx;
+	size_t	idx;
 
 	idx = 0;
 	while (idx < n)
