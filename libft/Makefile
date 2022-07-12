@@ -15,13 +15,18 @@ BONUS_SRCS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
 OBJS = $(SRCS:.c=.o)
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 NAME = libft.a
+ifdef WITH_BONUS
+	TOTAL_OBJS = $(OBJS) $(BONUS_OBJS)
+else
+	TOTAL_OBJS = $(OBJS)
+endif
 
 all : $(NAME)
 
-bonus : $(OBJS) $(BONUS_OBJS)
-	ar rc $(NAME) $^
+bonus : 
+	@make WITH_BONUS=1
 
-$(NAME) : $(OBJS)
+$(NAME) : $(TOTAL_OBJS)
 	ar rc $@ $^
 
 %.o : %.c
@@ -35,4 +40,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : clean fclean re
+.PHONY : bonus clean fclean re

@@ -67,10 +67,8 @@ static int	ft_strcopy(char **str, char *s, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	int		idx;
 	char	**str;
 
-	idx = 0;
 	str = malloc(sizeof(char *) * (count((char *)s, c) + 1));
 	if (!str)
 		return (0);
