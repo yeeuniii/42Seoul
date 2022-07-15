@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 20:31:57 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/12 20:40:43 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/15 16:48:40 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	del(lst -> content);
+	del(lst->content);
 	free(lst);
 }
 

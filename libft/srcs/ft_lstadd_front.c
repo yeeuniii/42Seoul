@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:50:07 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/12 20:30:56 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/15 11:54:19 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 {
 	new->next = *lst;
 	*lst = new;
-//	lst = &new;
 }
 
+//	lst = &new;
 //int	main(void)
 //{
 //	t_list	*lst = ft_lstnew("hello");

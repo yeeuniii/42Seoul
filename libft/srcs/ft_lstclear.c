@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 20:40:56 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/12 20:53:04 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/15 17:23:47 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_list	*ptr;
+	t_list	*tmp;
 
-	ptr = *lst;
-	while (ptr)
+	while (*lst)
 	{
-		del(ptr->content);
-		free(ptr);
-		ptr = ptr->next;
+		tmp = *lst;
+		*lst = (*lst)->next;
+		del(tmp->content);
+		free(tmp);
 	}
 }
-
+//
 //void	f_del(void *content)
 //{
 //	free(content);
@@ -33,10 +33,8 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 //
 //int	main(void)
 //{
-//	char	*str = ft_strdup("hello");
-//	char	*str1 = ft_strdup("hello");
-//	t_list	*lst = ft_lstnew(str);
-//	ft_lstadd_back(&lst, ft_lstnew(str1));
+//	t_list *l = ft_lstnew(ft_strdup("nyancat"));
+//	l->next = ft_lstnew(ft_strdup("#TEST#"));
 //
-//	ft_lstclear(&lst, f_del);
+//	ft_lstclear(&l, f_del);
 //}

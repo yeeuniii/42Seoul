@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 19:32:51 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/12 20:16:51 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/15 12:13:21 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
+	if (!lst)
+		return (lst);
 	while (lst->next)
 		lst = lst->next;
 	return (lst);
