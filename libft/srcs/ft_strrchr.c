@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 17:11:53 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/11 17:23:29 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/17 19:07:34 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int		idx;
+	size_t	idx;
 
 	idx = ft_strlen(s);
 	if (!c)

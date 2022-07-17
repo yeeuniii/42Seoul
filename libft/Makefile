@@ -24,6 +24,7 @@ endif
 all : $(NAME)
 
 bonus : 
+	@sleep 1
 	@make WITH_BONUS=1
 
 $(NAME) : $(TOTAL_OBJS)

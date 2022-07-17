@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:35:21 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/11 17:21:22 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/17 19:09:13 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strdup(const char *s1)
 	char	*dest;
 	int		idx;
 
-	dest = malloc(sizeof(char) * ft_strlen(s1) + 1);
+	dest = malloc(sizeof(char) * (ft_strlen(s1) + 1));
 	if (!dest)
 		return (0);
 	idx = 0;

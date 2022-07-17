@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 16:26:54 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/11 16:34:21 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/17 19:06:10 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
 	unsigned int	idx;
-	unsigned int	size;
 	char			*str;
 
 	idx = 0;
-	size = ft_strlen(s);
-	str = malloc(sizeof(char) * (size + 1));
+	str = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (!str)
 		return (0);
 	while (s[idx])
