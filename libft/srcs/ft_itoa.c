@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 16:02:50 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/11 16:24:36 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/18 14:53:00 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_itoa(int n)
 	while (idx < size)
 	{
 		size --;
-		str[size] = n % 10 * ((n > 0) - (n < 0)) + '0';
+		str[size] = (n % 10) * ((n > 0) - (n < 0)) + '0';
 		n /= 10;
 	}
 	return (str);

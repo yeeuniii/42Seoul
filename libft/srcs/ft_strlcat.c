@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:53:55 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/12 16:36:37 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/18 14:14:15 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 
 	srclen = ft_strlen(src);
 	dstlen = ft_strlen(dst);
-	if (dstsize <= dstlen)
+	if (dstsize < dstlen + 1)
 		return (srclen + dstsize);
 	idx = 0;
 	while (idx < dstsize - dstlen - 1 && src[idx])

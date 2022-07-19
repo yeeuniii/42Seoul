@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:39:02 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/12 16:35:02 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/18 17:23:21 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,11 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	int	idx;
-
-	idx = 0;
-	if (!c)
-		return ((char *)(s + ft_strlen(s)));
-	while (s[idx])
+	while (*s != (char)c)
 	{
-		if (s[idx] == (char)c)
-			return ((char *)(s + idx));
-		idx ++;
+		if (!*s)
+			return (0);
+		s ++;
 	}
-	return (0);
+	return ((char *)s);
 }

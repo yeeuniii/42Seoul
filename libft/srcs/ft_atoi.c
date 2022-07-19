@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:53:22 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/17 18:58:06 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/19 16:47:45 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int	ft_isspace(char c)
 
 int	ft_atoi(const char *str)
 {
-	unsigned long long	res;
-	int					idx;
-	int					sign;
+	long	res;
+	int		idx;
+	int		sign;
 
 	res = 0;
 	idx = 0;
@@ -37,10 +37,6 @@ int	ft_atoi(const char *str)
 	{
 		res = res * 10 + str[idx] - '0';
 		idx ++;
-		if (res > 9223372036854775806 && sign == 1)
-			return (-1);
-		if (res > 9223372036854775807 && sign == -1)
-			return (0);
 	}
 	return ((int)res * sign);
 }
