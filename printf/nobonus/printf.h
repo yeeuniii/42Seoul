@@ -6,7 +6,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 
-void    handle_type(const char **format, va_list ap);
+void    handle_type(const char **format, va_list ap, int *cnt);
 
 void    handle_typec(va_list ap);
 void    handle_types(va_list ap);

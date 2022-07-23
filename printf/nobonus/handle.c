@@ -18,7 +18,7 @@ int	is_type(char c)
 			|| c == 'i' || c == 'u' || c =='x' || c == 'X');
 }
 
-void	handle_type(const char **format, va_list ap)
+void	handle_type(const char **format, va_list ap, int *cnt)
 {
 	if (!is_type(**format))
 		return ;

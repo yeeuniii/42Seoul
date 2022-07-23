@@ -15,12 +15,8 @@
 int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
-	char	*res;
 	int		cnt;
 
-	res = ft_calloc(ft_strlen(format) + 1, sizeof(char));
-	if (!res)
-		return (0);
 	va_start(ap, format);
 	cnt = 0;
 	while (*format)
@@ -28,14 +24,12 @@ int	ft_printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format ++;
-			handle_type(&format, ap, res, cnt);
-			cnt ++;
+			handle_type(&format, ap, &cnt);
 		}
-		res[cnt] = *format;
+		ft_putchar_fd(*format, 1);
 		cnt ++;
 		format ++;
 	}
-	ft_putstr_fd(res, 1);
 	va_end(ap);
 	return (cnt);
 }
