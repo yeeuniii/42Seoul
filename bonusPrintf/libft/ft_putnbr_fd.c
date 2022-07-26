@@ -6,15 +6,15 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 16:46:47 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/22 14:53:00 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/11 17:13:13 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(long long n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
-	long long	sign;
+	int	sign;
 
 	sign = ((n > 0) - (n < 0));
 	if (n < 0)
