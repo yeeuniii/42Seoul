@@ -6,34 +6,36 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:47:50 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/22 15:07:14 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/26 22:18:06 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	handle_typec(va_list ap)
+void	handle_typec(va_list ap, int *cnt)
 {
 	char	c;
 
 	c = va_arg(ap, int);
 	ft_putchar_fd(c, 1);
+	(*cnt)++;
 }
 
-void	handle_types(va_list ap)
+void	handle_types(va_list ap, int *cnt)
 {
 	char	*s;
 
 	s = va_arg(ap, char*);
 	ft_putstr_fd(s, 1);
+	(*cnt) += ft_strlen(s);
 }
 
-void	handle_typep(va_list ap)
+void	handle_typep(va_list ap, int *cnt)
 {
-	void	*p;
+	uintptr_t	p;
 
-	p = va_arg(ap, void *);
-	ft_putstr_fd("0x", 1);
-	print_hexa((unsigned long long)p, "0123456789abcdef");
+	p = va_arg(ap, uintptr_t);
+//	write(1, "0x", 2);
+	print_memory(p, "0123456789abcdef", cnt);
 }
 
