@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:47:50 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/26 23:03:42 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/07/27 00:06:22 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	handle_types(va_list ap, int *cnt)
 	char	*s;
 
 	s = va_arg(ap, char*);
-	print_string(s, cnt);
+	print_str(s, cnt);
 }
 
 void	handle_typep(va_list ap, int *cnt)
@@ -33,7 +33,7 @@ void	handle_typep(va_list ap, int *cnt)
 	uintptr_t	p;
 
 	p = va_arg(ap, uintptr_t);
-//	write(1, "0x", 2);
+	print_str("0x", cnt);
 	print_memory(p, "0123456789abcdef", cnt);
 }
 

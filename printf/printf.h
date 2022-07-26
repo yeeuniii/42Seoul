@@ -19,7 +19,8 @@ void	handle_typeu(va_list ap, int *cnt);
 void	handle_typex_low(va_list ap, int *cnt);
 void	handle_typex_up(va_list ap, int *cnt);
 void    print_char(char c, int *cnt);
-void    print_string(char *s, int *cnt);
+void    print_str(char *s, int *cnt);
+void    print_nbr(long n, int *cnt);
 void	print_hexa(unsigned int n, char *base, int *cnt);
 void	print_memory(uintptr_t n, char *base, int *cnt);
 
