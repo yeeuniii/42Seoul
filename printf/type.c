@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/22 11:47:50 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/27 00:06:22 by yeeun            ###   ########.fr       */
+/*   Created: 2022/07/27 16:38:42 by yeepark           #+#    #+#             */
+/*   Updated: 2022/07/27 19:10:04 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 void	handle_typec(va_list ap, int *cnt)
 {
@@ -24,7 +24,7 @@ void	handle_types(va_list ap, int *cnt)
 {
 	char	*s;
 
-	s = va_arg(ap, char*);
+	s = va_arg(ap, char *);
 	print_str(s, cnt);
 }
 
@@ -34,6 +34,7 @@ void	handle_typep(va_list ap, int *cnt)
 
 	p = va_arg(ap, uintptr_t);
 	print_str("0x", cnt);
+	if (!p)
+		print_char('0', cnt);
 	print_memory(p, "0123456789abcdef", cnt);
 }
-

@@ -6,16 +6,16 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:46:13 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/27 00:01:15 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/07/27 16:44:39 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 int	is_type(char c)
 {
-	return (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' 
-			|| c == 'u' || c =='x' || c == 'X' || c == '%');
+	return (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i'
+		|| c == 'u' || c == 'x' || c == 'X' || c == '%');
 }
 
 void	handle_type(const char **format, va_list ap, int *cnt)

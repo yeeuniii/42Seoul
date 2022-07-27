@@ -6,11 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:46:24 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/26 23:41:11 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/07/27 19:30:45 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 void	print_char(char c, int *cnt)
 {
@@ -20,13 +20,15 @@ void	print_char(char c, int *cnt)
 
 void	print_str(char *s, int *cnt)
 {
+	if (!s)
+		s = "(null)";
 	(*cnt) += ft_strlen(s);
 	write(1, s, ft_strlen(s));
 }
 
-void    print_nbr(long n, int *cnt)
+void	print_nbr(long n, int *cnt)
 {
-	long    sign;
+	int	sign;
 
 	sign = ((n > 0) - (n < 0));
 	if (n < 0)

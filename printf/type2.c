@@ -6,11 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:47:52 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/26 23:21:39 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/07/27 17:03:12 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 void	handle_typed(va_list ap, int *cnt)
 {
@@ -31,15 +31,19 @@ void	handle_typeu(va_list ap, int *cnt)
 void	handle_typex_low(va_list ap, int *cnt)
 {
 	unsigned int	x;
-	
+
 	x = va_arg(ap, unsigned int);
+	if (!x)
+		print_char('0', cnt);
 	print_hexa(x, "0123456789abcdef", cnt);
 }
 
 void	handle_typex_up(va_list ap, int *cnt)
 {
 	unsigned int	x;
-	
+
 	x = va_arg(ap, unsigned int);
+	if (!x)
+		print_char('0', cnt);
 	print_hexa(x, "0123456789ABCDEF", cnt);
 }
