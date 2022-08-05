@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/05 15:47:14 by yeepark           #+#    #+#             */
+/*   Updated: 2022/08/05 17:43:16 by yeepark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
@@ -28,7 +40,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		str[idx] = s1[idx];
 		idx ++;
 	}
-	while (s2[idx])
+	while (s2[idx - len1])
 	{
 		str[idx] = s2[idx - len1];
 		idx ++;
@@ -37,27 +49,20 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	return (str);
 }
 
-void    *ft_memmove(void *dst, const void *src, size_t len)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-        size_t  idx;
+	size_t	idx;
 
-        idx = 0;
-        if (!dst && !src)
-                return (0);
-        if (dst <= src)
-        {
-                while (idx < len)
-                {
-                        *(unsigned char *)(dst + idx) = *(unsigned char *)(src + idx);
-                        idx ++;
-                }
-        }
-        if (dst > src)
-        {
-                while (len --)
-                        *(unsigned char *)(dst + len) = *(unsigned char *)(src + len);
-        }
-        return (dst);
+	idx = 0;
+	if (!dstsize)
+		return (ft_strlen(src));
+	while (idx < dstsize - 1 && src[idx])
+	{
+		dst[idx] = src[idx];
+		idx ++;
+	}
+	dst[idx] = 0;
+	return (ft_strlen(src));
 }
 
 char    *ft_strdup(const char *s1)
