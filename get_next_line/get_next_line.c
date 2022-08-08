@@ -5,130 +5,123 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/05 15:47:03 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/05 17:45:21 by yeepark          ###   ########.fr       */
+/*   Created: 2022/08/08 14:04:20 by yeepark           #+#    #+#             */
+/*   Updated: 2022/08/08 18:30:33 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
 #include "get_next_line.h"
 
-int	check_read(int fd, char **buf)
-{
-	int		reading;
-
-	*buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!*buf)
-		return (0);
-	reading = read(fd, *buf, BUFFER_SIZE);
-	if (reading == -1 || !reading)
-	{
-		free(*buf);
-		*buf = 0;
-		return (0);
-	}
-	buf[0][BUFFER_SIZE] = 0;
-	return (reading);
-}
-
-int	find_newline_index(char *buf)
+int	find_newline_index(char *str)
 {
 	int	idx;
 
+	if (!str)
+		return (-1);
 	idx = 0;
-	while (idx < BUFFER_SIZE)
+	while (str[idx])
 	{
-		if (buf[idx] == '\n')
+		if (str[idx] == '\n')
 			return (idx);
 		idx ++;
 	}
 	return (-1);
 }
 
-char	*add_backup(char *buf, char **backup, int *found)
+int	update_backup(char **backup, char *buf, int reading)
 {
 	char	*tmp;
 
+	if (!reading)
+		return (1);
 	tmp = ft_strdup(*backup);
-	if (!tmp)
-	{
-		*found = -1;
-		free(buf);
-		free(backup);
-		return (NULL);	
-	}
-	free(*backup);
 	*backup = 0;
+	free(*backup);
+	if (!tmp)
+		return (0);
 	*backup = ft_strjoin(tmp, buf);
-	if (!*backup)
-	{
-		*found = -1;
-		free(buf);
-		free(tmp);
-		return (NULL);	
-	}
 	free(tmp);
-	return (NULL);
+	if (!*backup)
+		return (0);
+	return (1);
 }
 
-char	*get_line(char *buf, char **backup, int *found)
+int	check_read(int fd, char	**buf, char **backup)
 {
-	int		idx;
-	char 	*line;
-	char	*tmp;
+	int	size;
+	int	reading;
 
-	idx = find_newline_index(buf);
-	if (idx == -1)
-		return (add_backup(buf, backup, found));
-	*found = 1;
-	tmp = ft_strdup(*backup);
-	if (!tmp)
+	size = BUFFER_SIZE;
+	reading = 0;
+	printf("backup : %s\n", *backup);
+	if (find_newline_index(*backup) == -1)
 	{
-		*found = -1;
-		free(buf);
-		free(*backup);
-		return (NULL);	
+		size = read(fd, *buf, BUFFER_SIZE);
+		buf[0][size] = 0;
+		reading = 1;
 	}
-	free(*backup);
-	*backup = 0;
-	*backup = malloc(sizeof(char) * (BUFFER_SIZE - idx));
-	backup[0][BUFFER_SIZE - idx - 1] = 0;
-	ft_strlcpy(*backup, buf + idx + 1, BUFFER_SIZE - idx);
-	buf[idx + 1] = 0;
-	line = malloc(sizeof(char) * (ft_strlen(*backup) + idx + 2));
-	if (!line)
+	if ((size == -1 || size == 0) && !(**backup))
 	{
-		*found = -1;
-		free(buf);
 		free(*backup);
+		return (0);
+	}
+	if (!update_backup(backup, *buf, reading))
+	{
+		free(*backup);
+		return (0);
+	}
+	return (1);
+}
+
+char	*get_line(char **backup)
+{
+	char	*line;
+	char	*tmp;
+	int		idx;
+	
+	idx = find_newline_index(*backup);
+	tmp = ft_strdup(*backup);
+	free(*backup);
+	if (!tmp)
+		return (NULL);
+	*backup = ft_strdup(tmp + idx + 1);
+	if (!*backup)
+	{
 		free(tmp);
 		return (NULL);
 	}
-	line = ft_strjoin(tmp, buf);
+	tmp[idx + 1] = 0;
+	line = ft_strdup(tmp);
+	free(tmp);
+	if (!line)
+		return (NULL);
 	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	int			found;
 	char		*buf;
 	char		*line;
 	static char	*backup;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	line = NULL;
+	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
 		return (NULL);
-	found = 0;
-	buf = 0;
-	line = 0;
+	ft_memset(buf, 0, BUFFER_SIZE + 1);
 	if (!backup)
 		backup = ft_strdup("");
-	while (!found)
+	if (!backup)
+		return (NULL);
+	while (!line)
 	{
-		if (!check_read(fd, &buf) && !backup)
-			return (NULL);
-		line = get_line(buf, &backup, &found);
-		if (!line && found == -1)
-			return (NULL);
+		if (!(check_read(fd, &buf, &backup)))
+			break ;
+		if (find_newline_index(backup) == -1)
+			continue ;
+		line = get_line(&backup);
+		if (!line)
+			break ;
 	}
 	free(buf);
 	return (line);
@@ -137,19 +130,12 @@ char	*get_next_line(int fd)
 int	main(void)
 {
 	int	fd = open("a.txt", O_RDONLY);
-//
-//	char	*buf;
-//	char	*backup;
-//	backup = ft_strdup("");
-//	check_read(fd, &buf);
-//	printf("buf : %s\n", buf);
-//	
-//	int	idx = find_newline_index(buf);
-//	printf("%d\n", idx);
+	int	idx = 0;
 
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
+	while (idx < 6)
+	{
+		printf("%d : %s", idx, get_next_line(fd));
+		idx ++;
+	}
+	return (0);
 }

@@ -6,16 +6,32 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:47:14 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/05 17:43:16 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/08/08 17:40:23 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+void	*ft_memset(void *b, int c, size_t len)
+{
+	size_t	idx;
+
+	idx = 0;
+	while (idx < len)
+	{
+		*(unsigned char *)(b + idx) = (unsigned char)c;
+		idx ++;
+	}
+	return (b);
+}
+
+
 size_t	ft_strlen(const char *s)
 {
 	int	idx;
 
+	if (!s)
+		return (0);
 	idx = 0;
 	while (s[idx])
 		idx ++;
@@ -49,26 +65,10 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	return (str);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	size_t	idx;
-
-	idx = 0;
-	if (!dstsize)
-		return (ft_strlen(src));
-	while (idx < dstsize - 1 && src[idx])
-	{
-		dst[idx] = src[idx];
-		idx ++;
-	}
-	dst[idx] = 0;
-	return (ft_strlen(src));
-}
-
 char    *ft_strdup(const char *s1)
 {
         char    *dest;
-        int             idx;
+        int		idx;
 
         dest = malloc(sizeof(char) * (ft_strlen(s1) + 1));
         if (!dest)
@@ -82,3 +82,5 @@ char    *ft_strdup(const char *s1)
         dest[idx] = 0;
         return (dest);
 }
+
+
