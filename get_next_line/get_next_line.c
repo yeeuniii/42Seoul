@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 14:04:20 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/08 18:30:33 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/08/08 18:36:23 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	check_read(int fd, char	**buf, char **backup)
 
 	size = BUFFER_SIZE;
 	reading = 0;
-	printf("backup : %s\n", *backup);
 	if (find_newline_index(*backup) == -1)
 	{
 		size = read(fd, *buf, BUFFER_SIZE);
@@ -61,15 +60,9 @@ int	check_read(int fd, char	**buf, char **backup)
 		reading = 1;
 	}
 	if ((size == -1 || size == 0) && !(**backup))
-	{
-		free(*backup);
 		return (0);
-	}
 	if (!update_backup(backup, *buf, reading))
-	{
-		free(*backup);
 		return (0);
-	}
 	return (1);
 }
 
@@ -129,10 +122,10 @@ char	*get_next_line(int fd)
 
 int	main(void)
 {
-	int	fd = open("a.txt", O_RDONLY);
+	int	fd = open("b.txt", O_RDONLY);
 	int	idx = 0;
 
-	while (idx < 6)
+	while (idx < 150)
 	{
 		printf("%d : %s", idx, get_next_line(fd));
 		idx ++;
