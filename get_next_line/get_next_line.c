@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 14:04:20 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/08 18:36:23 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/08/09 14:32:42 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*get_line(char **backup)
 	char	*line;
 	char	*tmp;
 	int		idx;
-	
+
 	idx = find_newline_index(*backup);
 	tmp = ft_strdup(*backup);
 	free(*backup);
@@ -120,15 +120,15 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void)
-{
-	int	fd = open("b.txt", O_RDONLY);
-	int	idx = 0;
-
-	while (idx < 150)
-	{
-		printf("%d : %s", idx, get_next_line(fd));
-		idx ++;
-	}
-	return (0);
-}
+//int	main(void)
+//{
+//	int	fd = open("b.txt", O_RDONLY);
+//	int	idx = 0;
+//
+//	while (idx < 150)
+//	{
+//		printf("%d : %s", idx, get_next_line(fd));
+//		idx ++;
+//	}
+//	return (0);
+//}

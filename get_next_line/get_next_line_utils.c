@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:47:14 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/08 17:40:23 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/08/09 14:30:23 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	*ft_memset(void *b, int c, size_t len)
 	}
 	return (b);
 }
-
 
 size_t	ft_strlen(const char *s)
 {
@@ -65,22 +64,20 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	return (str);
 }
 
-char    *ft_strdup(const char *s1)
+char	*ft_strdup(const char *s1)
 {
-        char    *dest;
-        int		idx;
+	char	*dest;
+	int		idx;
 
-        dest = malloc(sizeof(char) * (ft_strlen(s1) + 1));
-        if (!dest)
-                return (0);
-        idx = 0;
-        while (s1[idx])
-        {
-                dest[idx] = s1[idx];
-                idx ++;
-        }
-        dest[idx] = 0;
-        return (dest);
+	dest = malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	if (!dest)
+		return (0);
+	idx = 0;
+	while (s1[idx])
+	{
+		dest[idx] = s1[idx];
+		idx ++;
+	}
+	dest[idx] = 0;
+	return (dest);
 }
-
-
