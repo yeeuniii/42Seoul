@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:47:23 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/08 17:40:40 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/08/19 17:01:59 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@
 
 char	*get_next_line(int fd);
 
-void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(const char *s);
-char	*ft_strjoin(const char *s1, const char *s2);
-char	*ft_strdup(const char *s1);
+char	*ft_strjoin(char *s1, char *s2, size_t readsize);
 
 #endif

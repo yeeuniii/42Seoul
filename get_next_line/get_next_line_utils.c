@@ -6,24 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:47:14 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/09 14:30:23 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/08/19 17:02:29 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-void	*ft_memset(void *b, int c, size_t len)
-{
-	size_t	idx;
-
-	idx = 0;
-	while (idx < len)
-	{
-		*(unsigned char *)(b + idx) = (unsigned char)c;
-		idx ++;
-	}
-	return (b);
-}
 
 size_t	ft_strlen(const char *s)
 {
@@ -37,47 +24,43 @@ size_t	ft_strlen(const char *s)
 	return (idx);
 }
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(char *s1, char *s2, size_t readsize)
 {
-	int		idx;
+	size_t	idx;
 	size_t	len1;
-	size_t	len2;
 	char	*str;
 
 	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	str = malloc(sizeof(char) * (len1 + len2 + 1));
+	str = malloc(sizeof(char) * (len1 + readsize + 1));
 	if (!str)
 		return (NULL);
 	idx = 0;
-	while (s1[idx])
+	while (s1 && s1[idx])
 	{
 		str[idx] = s1[idx];
 		idx ++;
 	}
-	while (s2[idx - len1])
+	while (s2 && idx < readsize + len1)
 	{
 		str[idx] = s2[idx - len1];
 		idx ++;
 	}
 	str[idx] = 0;
+	free(s1);
 	return (str);
 }
-
-char	*ft_strdup(const char *s1)
-{
-	char	*dest;
-	int		idx;
-
-	dest = malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	if (!dest)
-		return (0);
-	idx = 0;
-	while (s1[idx])
-	{
-		dest[idx] = s1[idx];
-		idx ++;
-	}
-	dest[idx] = 0;
-	return (dest);
-}
+//
+//int	main(void)
+//{
+//	static char	*backup;
+//	char	*buf = "def";
+//
+//	backup = malloc(4);
+//	backup[0] = 'a';
+//	backup[1] = 'b';
+//	backup[2] = 'c';
+//	backup[3] = 0;
+//	backup = ft_strjoin(backup , NULL);
+//	printf("%s\n", backup);
+//}
+//
