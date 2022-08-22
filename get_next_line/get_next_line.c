@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:38:07 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/22 21:36:46 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/08/22 22:21:22 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,23 +105,22 @@ char	*get_next_line(int fd)
 {
 	static char	*backup;
 
-	if (fd < 0)
+	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
 	if (!find_newline(fd, &backup))
 		return (NULL);
 	return (get_line(&backup));
 }
-//
-//int	main(void)
-//{
-//	int	fd = open("variable_nls.txt", O_RDONLY);
-//
-//	int	idx = 0;
-//
-//	while (idx < 15)
-//	{
-//		printf("%d : %s", idx, get_next_line(fd));
-//		idx ++;
-//	}
-//	return (0);
-//}
+
+int	main(void)
+{
+	int	fd = open("txt/base4.txt", O_RDONLY);
+	int	idx = 0;
+
+	while (idx < 15)
+	{
+		printf("%d : %s", idx, get_next_line(fd));
+		idx ++;
+	}
+	return (0);
+}

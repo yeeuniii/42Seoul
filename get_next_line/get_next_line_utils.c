@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:47:14 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/19 17:02:29 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/08/22 22:00:21 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,13 @@ char	*ft_strjoin(char *s1, char *s2, size_t readsize)
 		str[idx] = s1[idx];
 		idx ++;
 	}
-	while (s2 && idx < readsize + len1)
+	while (s2 && idx - len1 < readsize)
 	{
 		str[idx] = s2[idx - len1];
 		idx ++;
 	}
 	str[idx] = 0;
 	free(s1);
+	s1 = 0;
 	return (str);
 }
-//
-//int	main(void)
-//{
-//	static char	*backup;
-//	char	*buf = "def";
-//
-//	backup = malloc(4);
-//	backup[0] = 'a';
-//	backup[1] = 'b';
-//	backup[2] = 'c';
-//	backup[3] = 0;
-//	backup = ft_strjoin(backup , NULL);
-//	printf("%s\n", backup);
-//}
-//
