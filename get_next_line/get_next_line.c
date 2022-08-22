@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:38:07 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/19 17:20:02 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/08/22 21:36:46 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ int	find_newline(int fd, char **backup)
 	if (!buf)
 		return (0);
 	buf[BUFFER_SIZE] = 0;
-	while (find_newline_index(*backup) == -1)
+	while (find_newline_index(*backup) == -1
+		&& ((readsize = read(fd, buf, BUFFER_SIZE)) > 0))
 	{
-		readsize = read(fd, buf, BUFFER_SIZE);
-		if (readsize == -1 || !readsize)
-			return (0);
 		*backup = ft_strjoin(*backup, buf, readsize);
 		if (!*backup)
 			return (0);
 	}
 	free(buf);
 	buf = 0;
+	if (readsize == -1 || (readsize == 0 && !(*backup)))
+		return (0);
 	return (1);
 }
 
@@ -93,6 +93,11 @@ char	*get_line(char **backup)
 	}
 	line[idx] = 0;
 	*backup = update_backup(*backup, newline);
+	if (!(**backup))
+	{
+		free(*backup);
+		*backup = 0;
+	}
 	return (line);
 }
 
@@ -106,18 +111,17 @@ char	*get_next_line(int fd)
 		return (NULL);
 	return (get_line(&backup));
 }
-
-int	main(void)
-{
-	int	fd = open("c.txt", O_RDONLY);
-
-	int	idx = 0;
-	while (idx < 150)
-	{
-		printf("%d : %s", idx, get_next_line(fd));
-		idx ++;
-	}
-	return (0);
-}
-
-
+//
+//int	main(void)
+//{
+//	int	fd = open("variable_nls.txt", O_RDONLY);
+//
+//	int	idx = 0;
+//
+//	while (idx < 15)
+//	{
+//		printf("%d : %s", idx, get_next_line(fd));
+//		idx ++;
+//	}
+//	return (0);
+//}
