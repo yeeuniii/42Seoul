@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:38:07 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/22 22:21:22 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/08/24 16:20:55 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,18 @@ int	find_newline(int fd, char **backup)
 	if (!buf)
 		return (0);
 	buf[BUFFER_SIZE] = 0;
-	while (find_newline_index(*backup) == -1
-		&& ((readsize = read(fd, buf, BUFFER_SIZE)) > 0))
+	while (find_newline_index(*backup) == -1)
 	{
+		readsize = read(fd, buf, BUFFER_SIZE);
+		if (readsize == -1 || (readsize == 0 && !(*backup)))
+			return (ft_free(buf));
+		if (readsize == 0)
+			break ;
 		*backup = ft_strjoin(*backup, buf, readsize);
 		if (!*backup)
-			return (0);
+			return (ft_free(buf));
 	}
-	free(buf);
-	buf = 0;
-	if (readsize == -1 || (readsize == 0 && !(*backup)))
-		return (0);
+	ft_free(buf);
 	return (1);
 }
 
@@ -112,15 +113,15 @@ char	*get_next_line(int fd)
 	return (get_line(&backup));
 }
 
-int	main(void)
-{
-	int	fd = open("txt/base4.txt", O_RDONLY);
-	int	idx = 0;
-
-	while (idx < 15)
-	{
-		printf("%d : %s", idx, get_next_line(fd));
-		idx ++;
-	}
-	return (0);
-}
+//int	main(void)
+//{
+//	int	fd = open("txt/lines_around_10.txt", O_RDONLY);
+//	int	idx = 0;
+//
+//	while (idx < 15)
+//	{
+//		printf("%d : %s", idx, get_next_line(fd));
+//		idx ++;
+//	}
+//	return (0);
+//}

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:47:14 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/22 22:00:21 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/08/24 16:19:27 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,11 @@ char	*ft_strjoin(char *s1, char *s2, size_t readsize)
 	free(s1);
 	s1 = 0;
 	return (str);
+}
+
+int	ft_free(char *str)
+{
+	free(str);
+	str = 0;
+	return (0);
 }
