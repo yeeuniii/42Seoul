@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:38:07 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/24 20:44:50 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/08/25 15:41:34 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,37 +104,40 @@ char	*get_line(char **backup)
 
 char	*get_next_line(int fd)
 {
-	static char	*backup[OPEN_MAX];
+	static t_list	*lst;
+	t_list			*node;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	if (!find_newline(fd, &backup[fd]))
+	node = match_fd(fd, &lst);
+	if (!find_newline(fd, &(node->backup)))
 		return (NULL);
-	return (get_line(&backup[fd]));
+	return (get_line(&(node->backup)));
 }
 
-//#include <stdio.h>
-//#include <fcntl.h>
 //int	main(void)
 //{
 //	int	fd1 = open("a.txt", O_RDONLY);
 //	int	fd2 = open("b.txt", O_RDONLY);
+//	int	fd3 = open("c.txt", O_RDONLY);
 //
-//	printf("fd %d : %s", fd1, get_next_line(fd1));
-//	printf("fd %d : %s", fd2, get_next_line(fd2));
-//	printf("fd %d : %s", fd1, get_next_line(fd1));
-//	printf("fd %d : %s", fd2, get_next_line(fd2));
-//	printf("fd %d : %s", fd1, get_next_line(fd1));
-//	printf("fd %d : %s", fd1, get_next_line(fd1));
-//	printf("fd %d : %s", fd2, get_next_line(fd2));
-//	printf("fd %d : %s", fd1, get_next_line(fd1));
-//	printf("fd %d : %s", fd2, get_next_line(fd2));
-//	printf("fd %d : %s", fd1, get_next_line(fd1));
-//	printf("fd %d : %s", fd1, get_next_line(fd1));
-//	printf("fd %d : %s", fd1, get_next_line(fd1));
-//	printf("fd %d : %s", fd2, get_next_line(fd2));
-//	printf("fd %d : %s", fd1, get_next_line(fd1));
-//	printf("fd %d : %s", fd2, get_next_line(fd2));
-//	
+//	printf("%d : %s", fd1, get_next_line(fd1));
+//	printf("%d : %s", fd3, get_next_line(fd3));
+//	printf("%d : %s", fd2, get_next_line(fd2));
+//	printf("%d : %s", fd2, get_next_line(fd2));
+//	printf("%d : %s", fd1, get_next_line(fd1));
+//	printf("%d : %s", fd3, get_next_line(fd3));
+//	printf("%d : %s", fd2, get_next_line(fd2));
+//	printf("%d : %s", fd3, get_next_line(fd3));
+//	printf("%d : %s", fd2, get_next_line(fd2));
+//	printf("%d : %s", fd1, get_next_line(fd1));
+//	printf("%d : %s", fd2, get_next_line(fd2));
+//	printf("%d : %s", fd3, get_next_line(fd3));
+//	printf("%d : %s", fd2, get_next_line(fd2));
+//	printf("%d : %s", fd2, get_next_line(fd2));
+//	printf("%d : %s", fd3, get_next_line(fd3));
+//	printf("%d : %s", fd3, get_next_line(fd3));
+//	printf("%d : %s", fd2, get_next_line(fd2));
+//	printf("%d : %s", fd3, get_next_line(fd3));
 //	return (0);
 //}
