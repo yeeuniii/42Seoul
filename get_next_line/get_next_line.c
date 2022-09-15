@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:38:07 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/24 17:31:20 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/09/15 12:54:18 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	find_newline(int fd, char **backup)
 	char	*buf;
 	int		readsize;
 
-	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	buf = malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
 	if (!buf)
 		return (0);
 	buf[BUFFER_SIZE] = 0;
@@ -112,16 +112,3 @@ char	*get_next_line(int fd)
 		return (NULL);
 	return (get_line(&backup));
 }
-
-//int	main(void)
-//{
-//	int	fd = open("txt/lines_around_10.txt", O_RDONLY);
-//	int	idx = 0;
-//
-//	while (idx < 15)
-//	{
-//		printf("%d : %s", idx, get_next_line(fd));
-//		idx ++;
-//	}
-//	return (0);
-//}
