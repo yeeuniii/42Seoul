@@ -6,13 +6,13 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/13 11:49:10 by yeepark           #+#    #+#              #
-#    Updated: 2022/10/13 14:28:51 by yeepark          ###   ########.fr        #
+#    Updated: 2022/10/13 15:26:48 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -Wall -Wextra -Werror
 CLIB = -Lmlx -lmlx -framework OpenGL -framework Appkit -Imlx
-SRCS = main.c fractol.c
+SRCS = main.c utils.c
 OBJS = $(SRCS:.c=.o)
 NAME = fractol 
 

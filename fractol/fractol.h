@@ -6,19 +6,19 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:29:55 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/13 15:12:17 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/13 15:27:47 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# include <libft/libft.h>
+# include "libft/libft.h"
 # include <stdio.h>
 # include <math.h>
 
-# define SIZE=700
-# define ITERATION=100
+# define SIZE = 700
+# define ITERATION = 100
 
 typedef struct s_data
 {
@@ -44,5 +44,7 @@ typedef struct s_complex
 	double	re;
 	double	im;
 }	t_complex;
+
+void	ft_error(void);
 
 #endif
