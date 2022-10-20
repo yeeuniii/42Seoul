@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 14:29:55 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/19 22:46:24 by yeepark          ###   ########.fr       */
+/*   Created: 2022/10/19 14:04:58 by yeepark           #+#    #+#             */
+/*   Updated: 2022/10/19 14:34:14 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#include "fractol.h"
 
-# include "libft/libft.h"
-# include "mlx/mlx.h"
-# include "type.h"
-# include <stdio.h>
-# include <math.h>
-
-# define SIZE 800
-# define ITERATION 100 
-
-void	ft_error(void);
-int		ft_mlx_init(t_fractol *frac);
-void	ft_mlx_pixel_put(t_data *img, int re, int im, int color);
-void	draw_img(t_fractol *frac);
-void	draw_mandelbrot(t_fractol *frac, t_data *img);
-
-#endif
+int	ft_mlx_init(t_fractol *frac)
+{
+	frac->mlx = mlx_init();
+	if (!frac->mlx)
+		return (0);
+	frac->win = mlx_new_window(frac->mlx, SIZE, SIZE, "fractol");
+	if (!frac->win)
+		return (0);
+	return (1);
+}

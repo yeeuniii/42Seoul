@@ -1,31 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   type.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 14:29:55 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/19 22:46:24 by yeepark          ###   ########.fr       */
+/*   Created: 2022/10/19 14:09:42 by yeepark           #+#    #+#             */
+/*   Updated: 2022/10/19 16:21:15 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#ifndef TYPE_H
+# define TYPE_H
 
-# include "libft/libft.h"
-# include "mlx/mlx.h"
-# include "type.h"
-# include <stdio.h>
-# include <math.h>
+typedef struct s_data
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_data;
 
-# define SIZE 800
-# define ITERATION 100 
+typedef struct s_complex
+{
+	double	re;
+	double	im;
+}	t_complex;
 
-void	ft_error(void);
-int		ft_mlx_init(t_fractol *frac);
-void	ft_mlx_pixel_put(t_data *img, int re, int im, int color);
-void	draw_img(t_fractol *frac);
-void	draw_mandelbrot(t_fractol *frac, t_data *img);
+typedef struct s_fractol
+{
+	void		*mlx;
+	void		*win;
+	char		*set;
+	int			color;
+	double		limit;
+	t_complex	z;
+	t_complex	c;
+
+}	t_fractol;
 
 #endif
