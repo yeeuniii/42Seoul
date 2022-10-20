@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 16:25:24 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/19 22:51:28 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/20 21:50:16 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ void	draw_img(t_fractol *frac)
 	img.img = mlx_new_image(frac->mlx, SIZE, SIZE);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp,
 			&img.size_line, &img.endian);
-	draw_mandelbrot(frac, &img);
+	draw_set(frac, &img);
 	mlx_put_image_to_window(frac->mlx, frac->win, img.img, 0, 0);
-//	if (ft_strncmp(frac->set, "mandelbrot", 10))
-//	if (frac->set == "julia")
-//		draw_julia();
 }

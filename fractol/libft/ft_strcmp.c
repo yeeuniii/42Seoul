@@ -1,46 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type.h                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 14:09:42 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/20 22:41:20 by yeepark          ###   ########.fr       */
+/*   Created: 2022/10/20 18:44:31 by yeepark           #+#    #+#             */
+/*   Updated: 2022/10/20 22:20:14 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPE_H
-# define TYPE_H
+#include "libft.h"
 
-typedef struct s_data
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		size_line;
-	int		endian;
-}	t_data;
+	size_t	idx;
 
-typedef struct s_complex
-{
-	double	re;
-	double	im;
-}	t_complex;
-
-typedef struct s_fractol
-{
-	void		*mlx;
-	void		*win;
-	char		*set;
-	int			color;
-	double		moved_x;
-	double		moved_y;
-	double		zoom;
-	double		limit;
-	t_complex	z;
-	t_complex	c;
-
-}	t_fractol;
-
-#endif
+	idx = 0;
+	while (s1[idx] || s2[idx])
+	{
+		if (s1[idx] != s2[idx])
+			return ((unsigned char)s1[idx] - (unsigned char)s2[idx]);
+		idx ++;
+	}
+	return (0);
+}
