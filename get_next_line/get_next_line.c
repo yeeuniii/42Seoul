@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:38:07 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/24 17:31:20 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/09/15 00:32:53 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,15 +113,15 @@ char	*get_next_line(int fd)
 	return (get_line(&backup));
 }
 
-//int	main(void)
-//{
-//	int	fd = open("txt/lines_around_10.txt", O_RDONLY);
-//	int	idx = 0;
-//
-//	while (idx < 15)
-//	{
-//		printf("%d : %s", idx, get_next_line(fd));
-//		idx ++;
-//	}
-//	return (0);
-//}
+#include <stdio.h>
+#include <fcntl.h>
+int	main(void)
+{
+	int	fd = open("txt/lines_around_10.txt", O_RDONLY);
+	int	idx = 0;
+
+	printf("%d : %s", idx, get_next_line(fd));
+	
+	system("leaks a.out");
+	return (0);
+}
