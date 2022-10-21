@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:29:55 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/20 22:45:16 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/21 21:57:43 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
-void	ft_error(void);
+void	print_usage(void);
 int		ft_mlx_init(t_fractol *frac);
 void	ft_mlx_pixel_put(t_data *img, int re, int im, int color);
 void	draw_img(t_fractol *frac);
 void	draw_set(t_fractol *frac, t_data *img);
-int		hook_key(int keycode, t_fractol *frac);
+int		hook_esc_key(int keycode, t_fractol *frac);
+int		hook_allow_key(int keycode, t_fractol *frac);
 int		hook_mouse(int button, int x, int y, t_fractol *frac);
 
 #endif

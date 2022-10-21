@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:41:43 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/20 22:47:10 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/21 21:52:42 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	check_arg(int argc, char *argv[])
 {
 	if (((ft_strcmp(argv[1], "mandelbrot") && ft_strcmp(argv[1], "julia")))
 		|| argc == 1)
-		ft_error();
+		print_usage();
 }
 
 void	initialize_fractol(int argc, char *argv[], t_fractol *frac)
