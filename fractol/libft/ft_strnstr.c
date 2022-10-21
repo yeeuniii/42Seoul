@@ -1,20 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/12 19:52:06 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/25 15:53:02 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/06 19:17:36 by yeepark           #+#    #+#             */
+/*   Updated: 2022/07/18 15:43:59 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	if (*lst)
-		ft_lstlast(*lst)->next = new;
-	if (!*lst)
-		*lst = new;
+	size_t	idx;
+	size_t	nedlen;
+
+	idx = 0;
+	nedlen = ft_strlen(needle);
+	if (!nedlen)
+		return ((char *)haystack);
+	while (idx <= len - nedlen && haystack[idx])
+	{
+		if (len < nedlen)
+			return (0);
+		if (haystack[idx] == needle[0])
+		{
+			if (!ft_strncmp(haystack + idx, needle, nedlen))
+				return ((char *)(haystack + idx));
+		}
+		idx ++;
+	}
+	return (0);
 }

@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/12 19:52:06 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/25 15:53:02 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/06 14:54:04 by yeepark           #+#    #+#             */
+/*   Updated: 2022/07/06 14:54:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+size_t	ft_strlen(const char *s)
 {
-	if (*lst)
-		ft_lstlast(*lst)->next = new;
-	if (!*lst)
-		*lst = new;
+	int	idx;
+
+	idx = 0;
+	while (s[idx])
+		idx ++;
+	return (idx);
 }

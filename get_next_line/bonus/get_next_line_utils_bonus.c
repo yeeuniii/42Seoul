@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:47:14 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/25 15:41:59 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/08/29 21:47:32 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,48 +56,4 @@ int	ft_free(char *str)
 	free(str);
 	str = 0;
 	return (0);
-}
-
-t_list	*ft_lstnew(int fd)
-{
-	t_list	*lst;
-
-	lst = malloc(sizeof(t_list));
-	if (!lst)
-		return (0);
-	lst->fd = fd;
-	lst->backup = 0;
-	lst->next = 0;
-	return (lst);
-}
-
-t_list	*match_fd(int fd, t_list **lst)
-{
-	t_list	*front;
-	t_list	*new;
-	t_list	*tmp;
-
-	if (!*lst)
-	{
-		*lst = ft_lstnew(fd);
-		if (!*lst)
-			return (NULL);
-		return (*lst);
-	}
-	tmp = *lst;
-	while (tmp)
-	{
-		if (tmp->fd == fd)
-			return (tmp);
-		if (tmp->fd > fd)
-			break ;
-		front = tmp;
-		tmp = tmp->next;
-	}
-	new = ft_lstnew(fd);
-	if (!new)
-		return (NULL);
-	new->next = tmp;
-	front->next = new;
-	return (new);
 }

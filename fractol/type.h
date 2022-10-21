@@ -1,26 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   type.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/05 15:47:23 by yeepark           #+#    #+#             */
-/*   Updated: 2022/09/12 15:44:11 by yeepark          ###   ########.fr       */
+/*   Created: 2022/10/19 14:09:42 by yeepark           #+#    #+#             */
+/*   Updated: 2022/10/20 22:41:20 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef TYPE_H
+# define TYPE_H
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <limits.h>
+typedef struct s_data
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_data;
 
-char	*get_next_line(int fd);
+typedef struct s_complex
+{
+	double	re;
+	double	im;
+}	t_complex;
 
-size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char *s1, char *s2, size_t readsize);
-int		ft_free(char *str);
+typedef struct s_fractol
+{
+	void		*mlx;
+	void		*win;
+	char		*set;
+	int			color;
+	double		moved_x;
+	double		moved_y;
+	double		zoom;
+	double		limit;
+	t_complex	z;
+	t_complex	c;
+
+}	t_fractol;
 
 #endif

@@ -6,7 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:38:07 by yeepark           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/09/15 00:32:53 by yeeun            ###   ########.fr       */
+=======
+/*   Updated: 2022/09/15 12:54:18 by yeepark          ###   ########.fr       */
+>>>>>>> a13a7debf8682bda64f2b0c21c68d1b145e42f63
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +37,7 @@ int	find_newline(int fd, char **backup)
 	char	*buf;
 	int		readsize;
 
-	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	buf = malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
 	if (!buf)
 		return (0);
 	buf[BUFFER_SIZE] = 0;
@@ -112,6 +116,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	return (get_line(&backup));
 }
+<<<<<<< HEAD
 
 #include <stdio.h>
 #include <fcntl.h>
@@ -125,3 +130,5 @@ int	main(void)
 	system("leaks a.out");
 	return (0);
 }
+=======
+>>>>>>> a13a7debf8682bda64f2b0c21c68d1b145e42f63

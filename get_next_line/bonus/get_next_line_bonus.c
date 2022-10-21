@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:38:07 by yeepark           #+#    #+#             */
-/*   Updated: 2022/08/25 15:41:34 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/09/15 12:54:31 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	find_newline(int fd, char **backup)
 	char	*buf;
 	int		readsize;
 
-	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	buf = malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
 	if (!buf)
 		return (0);
 	buf[BUFFER_SIZE] = 0;
@@ -104,40 +104,11 @@ char	*get_line(char **backup)
 
 char	*get_next_line(int fd)
 {
-	static t_list	*lst;
-	t_list			*node;
+	static char	*backup[OPEN_MAX];
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	node = match_fd(fd, &lst);
-	if (!find_newline(fd, &(node->backup)))
+	if (!find_newline(fd, &backup[fd]))
 		return (NULL);
-	return (get_line(&(node->backup)));
+	return (get_line(&backup[fd]));
 }
-
-//int	main(void)
-//{
-//	int	fd1 = open("a.txt", O_RDONLY);
-//	int	fd2 = open("b.txt", O_RDONLY);
-//	int	fd3 = open("c.txt", O_RDONLY);
-//
-//	printf("%d : %s", fd1, get_next_line(fd1));
-//	printf("%d : %s", fd3, get_next_line(fd3));
-//	printf("%d : %s", fd2, get_next_line(fd2));
-//	printf("%d : %s", fd2, get_next_line(fd2));
-//	printf("%d : %s", fd1, get_next_line(fd1));
-//	printf("%d : %s", fd3, get_next_line(fd3));
-//	printf("%d : %s", fd2, get_next_line(fd2));
-//	printf("%d : %s", fd3, get_next_line(fd3));
-//	printf("%d : %s", fd2, get_next_line(fd2));
-//	printf("%d : %s", fd1, get_next_line(fd1));
-//	printf("%d : %s", fd2, get_next_line(fd2));
-//	printf("%d : %s", fd3, get_next_line(fd3));
-//	printf("%d : %s", fd2, get_next_line(fd2));
-//	printf("%d : %s", fd2, get_next_line(fd2));
-//	printf("%d : %s", fd3, get_next_line(fd3));
-//	printf("%d : %s", fd3, get_next_line(fd3));
-//	printf("%d : %s", fd2, get_next_line(fd2));
-//	printf("%d : %s", fd3, get_next_line(fd3));
-//	return (0);
-//}
