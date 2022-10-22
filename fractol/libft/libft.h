@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:11:50 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/20 18:51:02 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/22 17:50:36 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 
 int		ft_atoi(const char *str);
+double	ft_atof(const char *str);
 
 /*		malloc		*/
 void	*ft_calloc(size_t count, size_t size);

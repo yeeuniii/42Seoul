@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atof.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/22 17:27:58 by yeepark           #+#    #+#             */
+/*   Updated: 2022/10/22 17:50:16 by yeepark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include <math.h>
 
@@ -13,7 +25,7 @@ static void	calculate(const char **str, double *dst)
 	(*str)++;
 }
 
-double	ft_atof(const char *nptr)
+double	ft_atof(const char *str)
 {
 	int		sign;
 	int		digit;
@@ -24,18 +36,18 @@ double	ft_atof(const char *nptr)
 	digit = 0;
 	tmp = 0;
 	res = 0;
-	if (ft_issign(*nptr))
+	if (ft_issign(*str))
 	{
-		sign = (*nptr == '+') - (*nptr == '-');
-		nptr++;
+		sign = (*str == '+') - (*str == '-');
+		str++;
 	}
-	while (ft_isdigit(*nptr) && *nptr != '.')
-		calculate(&nptr, &res);
-	if (*nptr == '.')
-		nptr++;
-	while (ft_isdigit(*nptr))
+	while (ft_isdigit(*str) && *str != '.')
+		calculate(&str, &res);
+	if (*str == '.')
+		str++;
+	while (ft_isdigit(*str))
 	{
-		calculate(&nptr, &tmp);
+		calculate(&str, &tmp);
 		digit--;
 	}
 	res += tmp * pow(10, digit);

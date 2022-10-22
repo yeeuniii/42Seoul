@@ -6,21 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:35:35 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/21 23:12:51 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/10/22 21:53:36 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-int	hook_esc_key(int keycode, t_fractol *frac)
-{
-	if (keycode == ESC_KEY)
-	{
-		mlx_destroy_window(frac->mlx, frac->win);
-		exit(0);
-	}
-	return (0);
-}
 
 int	hook_allow_key(int keycode, t_fractol *frac)
 {
@@ -32,6 +22,36 @@ int	hook_allow_key(int keycode, t_fractol *frac)
 		frac->moved_y -= 0.2;
 	if (keycode == UP_KEY)
 		frac->moved_y += 0.2;
+	return (0);
+}
+
+int	hook_number_key(int keycode, t_fractol *frac)
+{
+	if (keycode == KEY_1)
+		frac->color = 0;
+	if (keycode == KEY_2)
+		frac->color = 1;
+	if (keycode == KEY_3)
+		frac->color = 2;
+	return (0);
+}
+
+int	hook_key(int keycode, t_fractol *frac)
+{
+	if (keycode == ESC_KEY)
+	{
+		mlx_destroy_window(frac->mlx, frac->win);
+		exit(0);
+	}
+	if (keycode == SPACE_KEY)
+	{
+		frac->color = 0;
+		frac->moved_x = 0;
+		frac->moved_y = 0;
+		frac->zoom = 1;
+	}
+	hook_number_key(keycode, frac);
+	hook_allow_key(keycode, frac);
 	draw_img(frac);
 	return (0);
 }
@@ -42,6 +62,8 @@ int	hook_mouse(int button, int x, int y, t_fractol *frac)
 		frac->zoom *= 1.2;
 	if (button == SCROLL_DOWN)
 		frac->zoom /= 1.2;
+	(frac->mouse)[0] = x;
+	(frac->mouse)[1] = y;
 	draw_img(frac);
 	return (0);
 }

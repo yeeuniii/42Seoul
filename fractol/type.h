@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:09:42 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/20 22:41:20 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/22 20:46:47 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ typedef struct s_fractol
 	void		*win;
 	char		*set;
 	int			color;
+	int			mouse[2];
 	double		moved_x;
 	double		moved_y;
 	double		zoom;
 	double		limit;
 	t_complex	z;
 	t_complex	c;
-
+	t_complex	center;
 }	t_fractol;
 
 #endif
