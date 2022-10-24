@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:35:35 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/22 21:53:36 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/24 19:21:37 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	hook_key(int keycode, t_fractol *frac)
 	}
 	hook_number_key(keycode, frac);
 	hook_allow_key(keycode, frac);
+	frac->ismouse = 0;
 	draw_img(frac);
 	return (0);
 }
@@ -64,6 +65,7 @@ int	hook_mouse(int button, int x, int y, t_fractol *frac)
 		frac->zoom /= 1.2;
 	(frac->mouse)[0] = x;
 	(frac->mouse)[1] = y;
+	frac->ismouse = 1;
 	draw_img(frac);
 	return (0);
 }

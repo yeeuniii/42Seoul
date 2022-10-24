@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:41:43 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/22 21:52:06 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/24 20:13:27 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 void	check_arg(int argc, char *argv[])
 {
-	if (((ft_strcmp(argv[1], "mandelbrot") && ft_strcmp(argv[1], "julia")))
-		|| argc == 1)
+	if (argc == 1)
+		print_usage();
+	if (ft_strcmp(argv[1], "mandelbrot") && ft_strcmp(argv[1], "julia")
+		&& ft_strcmp(argv[1], "burning ship")
+		&& ft_strcmp(argv[1], "burning_ship"))
 		print_usage();
 }
 

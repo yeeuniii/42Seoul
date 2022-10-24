@@ -6,11 +6,11 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/13 11:49:10 by yeepark           #+#    #+#              #
-#    Updated: 2022/10/22 17:48:52 by yeepark          ###   ########.fr        #
+#    Updated: 2022/10/24 19:37:31 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -O3 -fsanitize=address
 CLIB = -Lmlx -lmlx -framework OpenGL -framework Appkit -Imlx
 SRCS = main.c utils.c init.c image.c set.c hook.c \
 	   libft/ft_strcmp.c libft/ft_atof.c libft/ft_isdigit.c

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:09:42 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/22 20:46:47 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/24 20:17:10 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ typedef struct s_complex
 	double	im;
 }	t_complex;
 
+typedef struct s_coordi
+{
+	double		re_max;
+	double		re_min;
+	double		im_max;
+	double		im_min;
+	double		size_re;
+	double		size_im;
+	t_complex	z;
+	t_complex	c;
+}	t_coordi;
+
 typedef struct s_fractol
 {
 	void		*mlx;
@@ -35,13 +47,12 @@ typedef struct s_fractol
 	char		*set;
 	int			color;
 	int			mouse[2];
+	int			ismouse;
 	double		moved_x;
 	double		moved_y;
 	double		zoom;
 	double		limit;
-	t_complex	z;
-	t_complex	c;
-	t_complex	center;
+	t_coordi	coordi;
 }	t_fractol;
 
 #endif
