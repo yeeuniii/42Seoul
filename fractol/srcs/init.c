@@ -6,11 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:04:58 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/24 20:20:31 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/26 22:18:56 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../includes/fractol.h"
 
 void	initialize_coordinate(t_coordi *coordi)
 {	
@@ -49,16 +49,22 @@ void	initialize_fractol(int argc, char *argv[], t_fractol *frac)
 	frac->moved_x = 0;
 	frac->moved_y = 0;
 	frac->zoom = 1;
-	initialize_coordinate(coordi);
 }
 
-int	ft_mlx_init(t_fractol *frac)
+void	ft_mlx_init(t_fractol *frac)
 {
+	int	flag;
+
+	flag = 1;
 	frac->mlx = mlx_init();
 	if (!frac->mlx)
-		return (0);
+		flag = 0;
 	frac->win = mlx_new_window(frac->mlx, SIZE_X, SIZE_Y, "fractol");
 	if (!frac->win)
-		return (0);
-	return (1);
+		flag = 0;
+	if (!flag)
+	{
+		perror("WINDOW ERROR");
+		exit(1);
+	}
 }

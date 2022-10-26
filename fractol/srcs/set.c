@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 13:39:17 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/24 21:40:43 by yeepark          ###   ########.fr       */
+/*   Created: 2022/10/26 21:50:23 by yeepark           #+#    #+#             */
+/*   Updated: 2022/10/26 22:19:19 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../includes/fractol.h"
 
 int	is_mandelbrot(t_fractol *frac, int x, int y)
 {
@@ -99,10 +99,10 @@ void	draw_set(t_fractol *frac, t_data *img)
 	if (!ft_strcmp("burning ship", frac->set)
 		||!ft_strcmp("burning_ship", frac->set))
 		func = is_burningship;
-	color = set_color(*frac);
 	while (x < SIZE_X)
 	{
-		ft_mlx_pixel_put(img, x, y, color + func(frac, x, y) * 16);
+		color = get_color(func(frac, x, y), frac);
+		ft_mlx_pixel_put(img, x, y, color);
 		y ++;
 		if (y == SIZE_Y)
 		{
@@ -110,5 +110,4 @@ void	draw_set(t_fractol *frac, t_data *img)
 			x ++;
 		}
 	}
-	modify_coordinate(frac);
 }

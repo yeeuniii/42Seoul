@@ -6,27 +6,37 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/13 11:49:10 by yeepark           #+#    #+#              #
-#    Updated: 2022/10/24 19:37:31 by yeepark          ###   ########.fr        #
+#    Updated: 2022/10/26 22:24:03 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -Wall -Wextra -Werror -O3 -fsanitize=address
 CLIB = -Lmlx -lmlx -framework OpenGL -framework Appkit -Imlx
-SRCS = main.c utils.c init.c image.c set.c hook.c \
-	   libft/ft_strcmp.c libft/ft_atof.c libft/ft_isdigit.c
+SRC = main.c utils.c init.c image.c set.c hook.c color.c
+SRCS = $(addprefix srcs/,$(SRC))
 OBJS = $(SRCS:.c=.o)
-NAME = fractol 
+INCLUDE = includes
+SUBDIR = libft
+LIBFT = libft.a
+NAME = fractol
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) $(CLIB) $(SRCS) -o $(NAME)
-	install_name_tool -change libmlx.dylib mlx/libmlx.dylib $(NAME)
+	make -C $(SUBDIR) all
+	cp $(SUBDIR)/$(LIBFT) .
+	$(CC) $(CFLAGS) $(CLIB) $(SRCS) $(LIBFT) -o $(NAME)
+
+%.o : %.c
+	$(CC) $(CFLAGS) -c -o $@ $^ -I$(INCLUDE)
 
 clean	:
+	make -C $(SUBDIR) clean
 	rm -f $(OBJS)
+	rm -f $(LIBFT)
 
 fclean	: clean
+	make -C $(SUBDIR) fclean
 	rm -f $(NAME)
 
 re		: fclean 

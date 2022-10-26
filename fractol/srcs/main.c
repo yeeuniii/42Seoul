@@ -6,11 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:41:43 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/24 20:13:27 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/26 22:19:13 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../includes/fractol.h"
 
 void	check_arg(int argc, char *argv[])
 {
@@ -28,8 +28,8 @@ int	main(int argc, char	*argv[])
 
 	check_arg(argc, argv);
 	initialize_fractol(argc, argv, &frac);
-	if (!ft_mlx_init(&frac))
-		perror("Window err");
+	initialize_coordinate(&(frac.coordi));
+	ft_mlx_init(&frac);
 	draw_img(&frac);
 	mlx_key_hook(frac.win, hook_key, &frac);
 	mlx_mouse_hook(frac.win, hook_mouse, &frac);

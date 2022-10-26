@@ -6,11 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 16:25:24 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/24 20:19:26 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/26 22:18:50 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../includes/fractol.h"
 
 void	ft_mlx_pixel_put(t_data *img, int x, int y, int color)
 {

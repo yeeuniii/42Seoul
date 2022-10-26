@@ -6,22 +6,35 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:35:35 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/24 19:21:37 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/26 22:18:31 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../includes/fractol.h"
 
 int	hook_allow_key(int keycode, t_fractol *frac)
 {
 	if (keycode == LEFT_KEY)
-		frac->moved_x -= 0.2;
+	{
+		frac->allow = 'x';
+		frac->moved_x = (frac->coordi).size_re / -2;
+	}
 	if (keycode == RIGHT_KEY)
-		frac->moved_x += 0.2;
+	{
+		frac->allow = 'x';
+		frac->moved_x = (frac->coordi).size_re / 2;
+	}	
 	if (keycode == DOWN_KEY)
-		frac->moved_y -= 0.2;
+	{
+		frac->allow = 'y';
+		frac->moved_y = (frac->coordi).size_im / -2;
+	}
 	if (keycode == UP_KEY)
-		frac->moved_y += 0.2;
+	{
+		frac->allow = 'y';
+		frac->moved_y = (frac->coordi).size_im / 2;
+	}
+	modify_limit_by_key(frac);
 	return (0);
 }
 
@@ -49,23 +62,30 @@ int	hook_key(int keycode, t_fractol *frac)
 		frac->moved_x = 0;
 		frac->moved_y = 0;
 		frac->zoom = 1;
+		initialize_coordinate(&(frac->coordi));
 	}
 	hook_number_key(keycode, frac);
 	hook_allow_key(keycode, frac);
-	frac->ismouse = 0;
 	draw_img(frac);
 	return (0);
 }
 
 int	hook_mouse(int button, int x, int y, t_fractol *frac)
 {
-	if (button == SCROLL_UP)
-		frac->zoom *= 1.2;
-	if (button == SCROLL_DOWN)
-		frac->zoom /= 1.2;
 	(frac->mouse)[0] = x;
 	(frac->mouse)[1] = y;
-	frac->ismouse = 1;
+	if (button == SCROLL_UP)
+	{
+		frac->zoom = 1.2;
+		frac->scroll = SCROLL_UP;
+		modify_limit_by_mouse(frac);
+	}
+	if (button == SCROLL_DOWN)
+	{
+		frac->zoom = 1 / 1.2;
+		frac->scroll = SCROLL_DOWN;
+		modify_limit_by_mouse(frac);
+	}
 	draw_img(frac);
 	return (0);
 }
