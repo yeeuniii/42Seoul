@@ -1,24 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   calculate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 14:57:50 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/26 22:19:26 by yeepark          ###   ########.fr       */
+/*   Created: 2022/10/27 16:42:55 by yeepark           #+#    #+#             */
+/*   Updated: 2022/10/27 16:43:05 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
-
-void	print_usage(void)
-{
-	perror("usage: ./fractol mandelbrot");
-	perror("usage: ./fractol julia [c_real] [c_imaginary]");
-	perror("usage: ./fractol burning_ship or \"burning ship\"");
-	exit(1);
-}
 
 double	ft_abs(double x)
 {

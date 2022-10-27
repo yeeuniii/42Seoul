@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 21:50:23 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/26 22:19:19 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/27 16:09:18 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,6 @@ int	is_burningship(t_fractol *frac, int x, int y)
 		i ++;
 	}
 	return (i);
-}
-
-unsigned int	set_color(t_fractol frac)
-{
-	if (frac.color == 0)
-		return (BLACK);
-	if (frac.color == 1)
-		return (PURPLE);
-	if (frac.color == 2)
-		return (GREEN);
-	return (BLACK);
 }
 
 void	draw_set(t_fractol *frac, t_data *img)

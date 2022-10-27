@@ -6,13 +6,13 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/13 11:49:10 by yeepark           #+#    #+#              #
-#    Updated: 2022/10/26 22:24:03 by yeepark          ###   ########.fr        #
+#    Updated: 2022/10/27 16:43:23 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Wall -Wextra -Werror -O3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -O3 
 CLIB = -Lmlx -lmlx -framework OpenGL -framework Appkit -Imlx
-SRC = main.c utils.c init.c image.c set.c hook.c color.c
+SRC = main.c calculate.c init.c image.c set.c hook.c color.c
 SRCS = $(addprefix srcs/,$(SRC))
 OBJS = $(SRCS:.c=.o)
 INCLUDE = includes

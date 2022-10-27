@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:09:42 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/26 19:50:28 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/27 16:29:42 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct s_fractol
 	double		moved_x;
 	double		moved_y;
 	double		zoom;
-	double		limit;
 	t_coordi	coordi;
 }	t_fractol;
 

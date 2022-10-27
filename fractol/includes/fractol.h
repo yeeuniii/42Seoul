@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:29:55 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/26 22:17:40 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/27 16:46:03 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@
 
 # define SIZE_X 600
 # define SIZE_Y 600
-# define ITERATION 1024
+# define ITERATION 512 
+
+# define SCROLL_UP 4
+# define SCROLL_DOWN 5
 
 # define LEFT_KEY 123
 # define RIGHT_KEY 124
@@ -33,14 +36,6 @@
 # define KEY_2 19
 # define KEY_3 20
 
-# define SCROLL_UP 4
-# define SCROLL_DOWN 5
-
-# define BLACK 0x000000
-# define GREEN 0x228B22
-# define PURPLE 0x663399
-
-void	print_usage(void);
 double	ft_abs(double x);
 void	convert_to_complex_coordi(t_fractol *frac, t_complex *c, int x, int y);
 void	modify_limit_by_key(t_fractol *frac);
@@ -48,7 +43,7 @@ void	modify_limit_by_mouse(t_fractol *frac);
 
 void	ft_mlx_init(t_fractol *frac);
 void	initialize_fractol(int argc, char *argv[], t_fractol *frac);
-void	initialize_coordinate(t_coordi *coordi);
+void	initialize_coordinate(t_coordi *coordi, char *set);
 
 void	ft_mlx_pixel_put(t_data *img, int re, int im, int color);
 void	draw_img(t_fractol *frac);

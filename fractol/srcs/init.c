@@ -6,18 +6,23 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:04:58 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/26 22:18:56 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/27 16:44:20 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-void	initialize_coordinate(t_coordi *coordi)
+void	initialize_coordinate(t_coordi *coordi, char *set)
 {	
 	coordi->re_max = 2;
 	coordi->re_min = -2;
 	coordi->im_max = 2;
 	coordi->im_min = -2;
+	if (!ft_strcmp(set, "mandelbrot"))
+	{
+		coordi->re_max = 1.5;
+		coordi->re_min = -2.5;
+	}
 	coordi->size_re = ft_abs(coordi->re_max - coordi->re_min);
 	coordi->size_im = ft_abs(coordi->im_max - coordi->im_min);
 }
@@ -45,7 +50,6 @@ void	initialize_fractol(int argc, char *argv[], t_fractol *frac)
 		(coordi->c).im = 0.15;
 	}
 	frac->color = 0;
-	frac->limit = 2;
 	frac->moved_x = 0;
 	frac->moved_y = 0;
 	frac->zoom = 1;

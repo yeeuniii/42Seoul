@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:35:35 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/26 22:18:31 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/27 16:42:03 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@ int	hook_allow_key(int keycode, t_fractol *frac)
 	if (keycode == LEFT_KEY)
 	{
 		frac->allow = 'x';
-		frac->moved_x = (frac->coordi).size_re / -2;
+		frac->moved_x = (frac->coordi).size_re / -3;
 	}
 	if (keycode == RIGHT_KEY)
 	{
 		frac->allow = 'x';
-		frac->moved_x = (frac->coordi).size_re / 2;
+		frac->moved_x = (frac->coordi).size_re / 3;
 	}	
 	if (keycode == DOWN_KEY)
 	{
 		frac->allow = 'y';
-		frac->moved_y = (frac->coordi).size_im / -2;
+		frac->moved_y = (frac->coordi).size_im / -3;
 	}
 	if (keycode == UP_KEY)
 	{
 		frac->allow = 'y';
-		frac->moved_y = (frac->coordi).size_im / 2;
+		frac->moved_y = (frac->coordi).size_im / 3;
 	}
 	modify_limit_by_key(frac);
 	return (0);
@@ -62,7 +62,7 @@ int	hook_key(int keycode, t_fractol *frac)
 		frac->moved_x = 0;
 		frac->moved_y = 0;
 		frac->zoom = 1;
-		initialize_coordinate(&(frac->coordi));
+		initialize_coordinate(&(frac->coordi), frac->set);
 	}
 	hook_number_key(keycode, frac);
 	hook_allow_key(keycode, frac);
