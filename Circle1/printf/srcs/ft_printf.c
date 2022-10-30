@@ -1,40 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type.c                                             :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/27 16:38:42 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/27 19:10:04 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/22 11:47:36 by yeepark           #+#    #+#             */
+/*   Updated: 2022/10/30 17:42:36 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
-void	handle_typec(va_list ap, int *cnt)
+int	ft_printf(const char *format, ...)
 {
-	char	c;
+	va_list	ap;
+	int		cnt;
 
-	c = va_arg(ap, int);
-	print_char(c, cnt);
-}
-
-void	handle_types(va_list ap, int *cnt)
-{
-	char	*s;
-
-	s = va_arg(ap, char *);
-	print_str(s, cnt);
-}
-
-void	handle_typep(va_list ap, int *cnt)
-{
-	uintptr_t	p;
-
-	p = va_arg(ap, uintptr_t);
-	print_str("0x", cnt);
-	if (!p)
-		print_char('0', cnt);
-	print_memory(p, "0123456789abcdef", cnt);
+	va_start(ap, format);
+	cnt = 0;
+	while (*format)
+	{
+		if (*format == '%')
+		{
+			format++;
+			handle_type(&format, ap, &cnt);
+		}
+		else
+		{
+			print_char(*format, &cnt);
+			format ++;
+		}
+	}
+	va_end(ap);
+	return (cnt);
 }

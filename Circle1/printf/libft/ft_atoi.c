@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:53:22 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/19 16:47:45 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/07/18 14:30:37 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ int	ft_atoi(const char *str)
 	{
 		res = res * 10 + str[idx] - '0';
 		idx ++;
+		if (res > 2147483647 && sign == 1)
+			return (-1);
+		if (res > 2147483648 && sign == -1)
+			return (0);
 	}
 	return ((int)res * sign);
 }

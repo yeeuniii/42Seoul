@@ -6,11 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:46:24 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/27 19:30:45 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/30 17:43:53 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 void	print_char(char c, int *cnt)
 {

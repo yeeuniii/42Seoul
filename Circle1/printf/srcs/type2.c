@@ -6,11 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:47:52 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/27 17:03:12 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/30 17:43:51 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 void	handle_typed(va_list ap, int *cnt)
 {

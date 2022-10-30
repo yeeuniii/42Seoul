@@ -6,14 +6,14 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:37:35 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/27 16:43:50 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/30 17:44:00 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <stdlib.h>
 # include <stdarg.h>
 # include <stdint.h>

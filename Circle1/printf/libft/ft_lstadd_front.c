@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 14:54:04 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/06 14:54:06 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/12 18:50:07 by yeepark           #+#    #+#             */
+/*   Updated: 2022/07/17 18:59:33 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	int	idx;
-
-	idx = 0;
-	while (s[idx])
-		idx ++;
-	return (idx);
+	new->next = *lst;
+	*lst = new;
 }

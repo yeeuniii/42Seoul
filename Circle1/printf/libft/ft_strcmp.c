@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/22 11:47:36 by yeepark           #+#    #+#             */
-/*   Updated: 2022/07/27 17:14:03 by yeepark          ###   ########.fr       */
+/*   Created: 2022/10/20 18:44:31 by yeepark           #+#    #+#             */
+/*   Updated: 2022/10/20 22:20:14 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	va_list	ap;
-	int		cnt;
+	size_t	idx;
 
-	va_start(ap, format);
-	cnt = 0;
-	while (*format)
+	idx = 0;
+	while (s1[idx] || s2[idx])
 	{
-		if (*format == '%')
-		{
-			format++;
-			handle_type(&format, ap, &cnt);
-		}
-		else
-		{
-			print_char(*format, &cnt);
-			format ++;
-		}
+		if (s1[idx] != s2[idx])
+			return ((unsigned char)s1[idx] - (unsigned char)s2[idx]);
+		idx ++;
 	}
-	va_end(ap);
-	return (cnt);
+	return (0);
 }
