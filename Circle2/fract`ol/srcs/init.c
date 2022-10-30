@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx.c                                              :+:      :+:    :+:   */
+/*   init.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:04:58 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/27 16:44:20 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/10/30 17:20:58 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,10 @@ void	initialize_fractol(int argc, char *argv[], t_fractol *frac)
 
 void	ft_mlx_init(t_fractol *frac)
 {
-	int	flag;
-
-	flag = 1;
 	frac->mlx = mlx_init();
 	if (!frac->mlx)
-		flag = 0;
+		exit(1);
 	frac->win = mlx_new_window(frac->mlx, SIZE_X, SIZE_Y, "fractol");
 	if (!frac->win)
-		flag = 0;
-	if (!flag)
-	{
-		perror("WINDOW ERROR");
 		exit(1);
-	}
 }
