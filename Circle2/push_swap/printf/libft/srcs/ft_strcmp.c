@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type.h                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 22:11:33 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/31 20:34:42 by yeepark          ###   ########.fr       */
+/*   Created: 2022/10/20 18:44:31 by yeepark           #+#    #+#             */
+/*   Updated: 2022/10/30 18:19:03 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPE_H
-# define TYPE_H
+#include "../includes/libft.h"
 
-typedef struct s_stack
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int				number;
-	struct s_stack	*front;
-	struct s_stack	*next;
-}	t_stack;
+	size_t	idx;
 
-#endif
+	idx = 0;
+	while (s1[idx] || s2[idx])
+	{
+		if (s1[idx] != s2[idx])
+			return ((unsigned char)s1[idx] - (unsigned char)s2[idx]);
+		idx ++;
+	}
+	return (0);
+}

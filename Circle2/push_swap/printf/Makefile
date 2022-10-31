@@ -5,40 +5,41 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/28 22:16:31 by yeepark           #+#    #+#              #
-#    Updated: 2022/10/31 19:32:55 by yeepark          ###   ########.fr        #
+#    Created: 2022/07/27 14:53:31 by yeepark           #+#    #+#              #
+#    Updated: 2022/10/30 17:42:01 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
-SRC = main.c init.c check.c utils.c stack.c stack_utils.c
+CP = cp
+CFLAGS = -Wall -Wextra -Werror
+AFLAGS = -rcs
+SRC = ft_printf.c handle.c print.c type.c type2.c 
 SRCS = $(addprefix srcs/,$(SRC))
 OBJS = $(SRCS:.c=.o)
+SUBDIR = libft
+SUBNAME = libft.a
 INCLUDES = includes
-SUBDIR = printf
-PRINTF = libftprintf.a
-NAME = push_swap
-
+NAME = libftprintf.a
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	make -C $(SUBDIR) all
-	cp $(SUBDIR)/$(PRINTF) .
-	$(CC) $(CFLAGS) $(SRCS) $(PRINTF) -o $(NAME)
+	$(MAKE) -C $(SUBDIR) all
+	$(CP) $(SUBDIR)/$(SUBNAME) $(NAME)
+	$(AR) $(AFLAGS) $@ $^
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c -o $@ $^ -I$(INCLUDES)
 
-clean : 
-	make -C $(SUBDIR) clean
-	rm -f $(OBJS)
-	rm -f $(PRINTF)
+clean :
+	$(MAKE) -C $(SUBDIR) clean
+	$(RM) $(OBJS)
 
 fclean : clean
-	make -C $(SUBDIR) fclean
-	rm -f $(NAME)
+	$(MAKE) -C $(SUBDIR) fclean
+	$(RM) $(NAME)
 
-re : fclean
-	make all
+re : 
+	$(MAKE) fclean
+	$(MAKE) all
 
 .PHONY : all clean fclean re

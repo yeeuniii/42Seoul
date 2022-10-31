@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type.h                                             :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 22:11:33 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/31 20:34:42 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/11 16:34:44 by yeepark           #+#    #+#             */
+/*   Updated: 2022/07/11 16:36:52 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPE_H
-# define TYPE_H
-
-typedef struct s_stack
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	int				number;
-	struct s_stack	*front;
-	struct s_stack	*next;
-}	t_stack;
+	unsigned int	idx;
 
-#endif
+	idx = 0;
+	while (s[idx])
+	{
+		f(idx, s + idx);
+		idx ++;
+	}
+}

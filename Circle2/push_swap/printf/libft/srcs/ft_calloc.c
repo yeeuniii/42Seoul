@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type.h                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 22:11:33 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/31 20:34:42 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/06 19:56:14 by yeepark           #+#    #+#             */
+/*   Updated: 2022/10/30 18:18:12 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPE_H
-# define TYPE_H
+#include "../includes/libft.h"
 
-typedef struct s_stack
+void	*ft_calloc(size_t count, size_t size)
 {
-	int				number;
-	struct s_stack	*front;
-	struct s_stack	*next;
-}	t_stack;
+	void	*arr;
 
-#endif
+	arr = malloc(size * count);
+	if (!arr)
+		return (0);
+	return (ft_memset(arr, 0, size * count));
+}

@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type.h                                             :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 22:11:33 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/31 20:34:42 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/11 16:44:58 by yeepark           #+#    #+#             */
+/*   Updated: 2022/10/30 18:18:48 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPE_H
-# define TYPE_H
+#include "../includes/libft.h"
 
-typedef struct s_stack
+void	ft_putendl_fd(char *s, int fd)
 {
-	int				number;
-	struct s_stack	*front;
-	struct s_stack	*next;
-}	t_stack;
-
-#endif
+	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
+}

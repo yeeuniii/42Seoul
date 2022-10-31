@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type.h                                             :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 22:11:33 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/31 20:34:42 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/06 14:53:26 by yeepark           #+#    #+#             */
+/*   Updated: 2022/10/30 18:18:15 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPE_H
-# define TYPE_H
+#include "../includes/libft.h"
 
-typedef struct s_stack
+int	ft_isalnum(int c)
 {
-	int				number;
-	struct s_stack	*front;
-	struct s_stack	*next;
-}	t_stack;
-
-#endif
+	return (ft_isalpha(c) || ft_isdigit(c));
+}

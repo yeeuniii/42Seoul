@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type.h                                             :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 22:11:33 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/31 20:34:42 by yeepark          ###   ########.fr       */
+/*   Created: 2022/07/11 16:46:47 by yeepark           #+#    #+#             */
+/*   Updated: 2022/10/30 18:18:50 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPE_H
-# define TYPE_H
+#include "../includes/libft.h"
 
-typedef struct s_stack
+void	ft_putnbr_fd(int n, int fd)
 {
-	int				number;
-	struct s_stack	*front;
-	struct s_stack	*next;
-}	t_stack;
+	int	sign;
 
-#endif
+	sign = ((n > 0) - (n < 0));
+	if (n < 0)
+		ft_putchar_fd('-', fd);
+	if (n > 9 || n < -9)
+		ft_putnbr_fd(n / 10 * sign, fd);
+	ft_putchar_fd(n % 10 * sign + '0', fd);
+}

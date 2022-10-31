@@ -1,44 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 22:08:07 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/28 22:36:08 by yeepark          ###   ########.fr       */
+/*   Created: 2022/10/30 17:05:21 by yeepark           #+#    #+#             */
+/*   Updated: 2022/10/31 20:48:43 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/push_swap.h"
+#include "../includes/push_swap.h"
 
-void	ft_error(void)
-{
-	ft_printf("%s\n", "Error\n");
-	exit(1);
-}
-
-void	check_arg(int argc, char *argv[])
+void	initialize_stack(t_stack **a, int argc, char *argv[])
 {
 	int	idx;
 
-	if (argc == 1)
-		exit(0);
 	idx = 1;
-	while (--argc)
+	while (idx < argc && ft_isinteger(argv[idx]))
 	{
-		if (!ft_isdigit(argv[idx]))
-			ft_error();
+		ft_stackadd_back(a, ft_stacknew(ft_atoi(argv[idx]), *a));
 		idx ++;
 	}
-}
-
-int	main(int argc, char *argv[])
-{
-	t_stack	a;
-	t_stack	b;
-
-	check_arg(argc, argv);
-	initialize_stack;
-	return (0);
+	if (idx != argc)
+	{
+		ft_stackclear(a);
+		ft_error();
+	}
 }
