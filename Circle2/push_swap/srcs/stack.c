@@ -1,51 +1,62 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   stack.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/31 16:18:28 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/31 20:37:00 by yeepark          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/push_swap.h"
 
-t_stack	*ft_stacknew(int number, t_stack *stack)
+t_stack	*make_new_stack(void)
 {
-	t_stack	*new;
+	t_stack	*stack;
 
-	new = malloc(sizeof(t_stack));
-	if (!new) //lstclear하고
-		ft_error();
-	new->number = number;
-	new->front = ft_stacklast(stack);
-	new->next = 0;
-	return (new);
+	stack = malloc(sizeof(t_stack));
+	if (!stack)
+		return (0);
+	stack->head = 0;
+	stack->tail = 0;
+	stack->size = 0;
+	return (stack);
 }
 
-int	ft_stacksize(t_stack *stack)
+void	set_empty_stack(t_stack **stack, t_node *node)
 {
-	int	size;
-
-	size = 0;
-	while (stack)
+	if (!((*stack)->size))
 	{
-		size ++;
-		stack = stack->next;
+		(*stack)->head = node;
+		(*stack)->tail = node;
 	}
-	return (size);
 }
 
-void	ft_stackclear(t_stack **stack)
+void	add_node_front(t_stack **stack, t_node **node)
 {
-	t_stack	*tmp;
-
-	while (*stack)
+	set_empty_stack(stack, *node);
+	if ((*stack)->size)
 	{
-		tmp = (*stack)->next;
-		free(*stack);
-		*stack = tmp;
+		connect(node, &((*stack)->head));
+		(*stack)->head = *node;
 	}
+	((*stack)->size) ++;
+}
+
+void	add_node_back(t_stack **stack, t_node **node)
+{
+	set_empty_stack(stack, *node);
+	if ((*stack)->size)
+	{
+		connect(&((*stack)->tail), node);
+		(*stack)->tail = *node;
+	}
+	((*stack)->size) ++;
+}
+
+void	clear_stack(t_stack **stack)
+{
+	t_node	*node;
+	t_node	*tmp;
+
+	node = 0;	
+	if (*stack)
+		node = (*stack)->head;
+	while (node)
+	{
+		tmp = node->next;
+		free(node);
+		node = tmp;
+	}
+	free(*stack);
 }

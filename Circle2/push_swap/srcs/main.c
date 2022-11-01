@@ -6,78 +6,34 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 22:08:07 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/31 21:07:51 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/02 01:16:37 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	print_all(t_stack *stack)
+void handle_error(int is_error, t_stack **a, t_stack **b)
 {
-	t_stack	*tmp;
-
-	tmp = ft_stacklast(stack);
-	while (tmp)
+	if (is_error)
 	{
-		printf("%d\n", tmp->number);
-		tmp = tmp->front;
+		clear_stack(a);
+		clear_stack(b);
+		ft_error();
 	}
-	printf("\n");
-}
-
-void	test(t_stack *a, t_stack *b)
-{
-	printf("---initialize---\n");
-	printf("a\n");
-	print_all(a);
-	printf("b\n");
-	print_all(b);
-
-	printf("---swap_a---\n");
-	swap(&a);
-	printf("a\n");
-	print_all(a);
-	printf("b\n");
-	print_all(b);
-
-	printf("---push_a---\n");
-	push(&a, &b);
-	printf("a\n");
-	print_all(a);
-	printf("b\n");
-	print_all(b);
-	
-	printf("---push_b---\n");
-	push(&b, &a);
-	printf("a\n");
-	print_all(a);
-	printf("b\n");
-	print_all(b);
-
-	printf("---rotate_a---\n");
-	rotate(&a);
-	printf("a\n");
-	print_all(a);
-	printf("b\n");
-	print_all(b);
-
-	printf("---rotate_reverse__a---\n");
-	rotate_reverse(&a);
-	printf("a\n");
-	print_all(a);
-	printf("b\n");
-	print_all(b);
 }
 
 int	main(int argc, char *argv[])
 {
 	t_stack	*a;
 	t_stack	*b;
+	int		is_error;
 
-	a = NULL;
-	b = NULL;
-	check_arg(argc, argv);
-	initialize_stack(&a, argc, argv);
+	a = make_new_stack();
+	b = make_new_stack();
+	is_error = !((a && b) && initialize(&a, argc, argv));
+	handle_error(is_error, &a, &b);
 	test(a, b);
+	clear_stack(&a);
+	clear_stack(&b);
 	return (0);
 }

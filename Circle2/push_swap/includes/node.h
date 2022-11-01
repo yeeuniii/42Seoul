@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type.h                                             :+:      :+:    :+:   */
+/*   node.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 22:11:33 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/31 20:34:42 by yeepark          ###   ########.fr       */
+/*   Created: 2022/10/28 22:13:59 by yeepark           #+#    #+#             */
+/*   Updated: 2022/11/02 00:36:26 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPE_H
-# define TYPE_H
+#ifndef NODE_H
+# define NODE_H
 
-typedef struct s_stack
+typedef struct s_node
 {
 	int				number;
-	struct s_stack	*front;
-	struct s_stack	*next;
-}	t_stack;
+	struct s_node	*prev;
+	struct s_node	*next;
+}	t_node;
+
+t_node	*make_new_node(int number);
+void	connect(t_node **front, t_node **back);
 
 #endif

@@ -5,63 +5,46 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/31 17:18:31 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/31 21:08:00 by yeepark          ###   ########.fr       */
+/*   Created: 2022/10/31 17:18:24 by yeepark           #+#    #+#             */
+/*   Updated: 2022/11/02 01:06:21 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	swap(t_stack **stack)
+void	ft_error(void)
 {
-	t_stack	*top;
-	int		size;
-	int		tmp;
-
-	top = *stack;
-	size = ft_stacksize(top);
-	if (size == 0 || size == 1)
-		return ;
-	tmp = top->next->number;
-	top->next->number = top->number;
-	top->number = tmp;	
+	ft_printf("Error\n");
+	exit(1);
 }
 
-void	push(t_stack **stack1, t_stack **stack2) // 2->1
+int	ft_isinteger(char *str)
 {
-	t_stack	*tmp;
+	long	res;
+	int		idx;
+	int		sign;
+	int		digit;
 
-	if (ft_stacksize(*stack2) == 0)
-		return ;
-	tmp = (*stack2)->next;
-	(*stack2)->next = 0;
-	ft_stackadd_front(stack1, *stack2);
-	(*stack2) = tmp;
+	res = 0;
+	idx = 0;
+	sign = 1;
+	digit = 0;
+	if (str[idx] == '+' || str[idx] == '-')
+	{
+		sign = (str[idx] == '+') - (str[idx] == '-');
+		idx ++;
+	}
+	while (ft_isdigit(str[idx]) && digit < 11)
+	{
+		res = res * 10 + str[idx] - '0';
+		idx ++;
+		digit ++;
+	}
+	if ((!ft_isdigit(str[idx]) && str[idx]) || digit == 11)
+		return (0);
+	if ((sign == 1 && res > 2147483647) || (sign == -1 && res > 2147483648))
+		return (0);
+	return (1);
 }
 
-void	rotate(t_stack **stack)
-{
-	t_stack *tmp;
-	int		size;
-
-	size = ft_stacksize(*stack);
-	if (size == 0 || size == 1)
-		return ;
-	tmp = (*stack)->next;
-	(*stack)->next = 0;
-	ft_stackadd_back(&tmp, *stack);
-	(*stack) = tmp;
-}
-
-void	rotate_reverse(t_stack **stack)
-{
-	t_stack	*tmp;
-	int		size;
-
-	size = ft_stacksize(*stack);
-	if (size == 0 || size == 1)
-		return ;
-	tmp = ft_stacklast(*stack);
-	printf("front : %d\n", tmp->front->number);
-	ft_stackadd_front(stack, tmp);
-}
+//int	check_duplicated(t_stack)
