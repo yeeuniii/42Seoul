@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:56:20 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/03 14:58:52 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/03 21:48:07 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,17 @@ int	ft_isinteger(char *str)
 	return (1);
 }
 
-//int	check_duplicated(t_stack)
+int	check_duplicated(t_stack *stack, int num)
+{
+	t_node	*node;
+
+	node = stack->head;
+	while (node && num != node->number)
+		node = node->next;
+	return (!node);
+}
+
+int	check_argument(t_stack *stack, char *str)
+{
+	return (ft_isinteger(str) && check_duplicated(stack, ft_atoi(str)));
+}

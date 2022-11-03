@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 22:13:59 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/03 16:30:06 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/03 21:08:20 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void test(t_stack **a, t_stack **b);
 
 void	print_error(void);
 void	handle_error(int is_error, t_stack **a, t_stack **b);
+
 int		ft_isinteger(char *str);
+int		check_argument(t_stack *stack, char *str);
 
 #endif
