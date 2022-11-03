@@ -5,46 +5,79 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/31 17:18:24 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/02 01:06:21 by yeeun            ###   ########.fr       */
+/*   Created: 2022/11/03 15:14:45 by yeepark           #+#    #+#             */
+/*   Updated: 2022/11/03 19:18:08 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	ft_error(void)
+void	swap(t_stack **stack)
 {
-	ft_printf("Error\n");
-	exit(1);
+	unsigned int	size;
+	t_node			*head;
+	int				tmp;
+
+	size = (*stack)->size;
+	if (size == 0 || size == 1)
+		return ;
+	head = (*stack)->head;
+	tmp = head->next->number;
+	head->next->number = head->number;
+	head->number = tmp;
 }
 
-int	ft_isinteger(char *str)
+void	set_stack_empty(t_stack **stack)
 {
-	long	res;
-	int		idx;
-	int		sign;
-	int		digit;
-
-	res = 0;
-	idx = 0;
-	sign = 1;
-	digit = 0;
-	if (str[idx] == '+' || str[idx] == '-')
-	{
-		sign = (str[idx] == '+') - (str[idx] == '-');
-		idx ++;
-	}
-	while (ft_isdigit(str[idx]) && digit < 11)
-	{
-		res = res * 10 + str[idx] - '0';
-		idx ++;
-		digit ++;
-	}
-	if ((!ft_isdigit(str[idx]) && str[idx]) || digit == 11)
-		return (0);
-	if ((sign == 1 && res > 2147483647) || (sign == -1 && res > 2147483648))
-		return (0);
-	return (1);
+	(*stack)->head = 0;
+	(*stack)->tail = 0;
 }
 
-//int	check_duplicated(t_stack)
+void	push(t_stack **push_stack, t_stack **pop_stack)
+{
+	t_node	*moving_node;
+
+	if ((*pop_stack)->size == 0)
+		return ;
+	moving_node = (*pop_stack)->head;
+	if ((*pop_stack)->size == 1)
+		set_stack_empty(pop_stack);
+	if ((*pop_stack)->size > 1)
+	{
+		(*pop_stack)->head = moving_node->next;
+		(*pop_stack)->head->prev = 0;
+		moving_node->next = 0;
+	}
+	add_node_front(push_stack, &moving_node);
+	((*pop_stack)->size)--;
+}
+
+void	rotate(t_stack **stack)
+{
+	unsigned int	size;
+	t_node			*head;
+
+	size = (*stack)->size;
+	if (size == 0 || size == 1)
+		return ;
+	head = (*stack)->head;
+	(*stack)->head = head->next;
+	(*stack)->head->prev = 0;
+	head->next = 0;
+	add_node_back(stack, &head);
+}
+
+void	rotate_reverse(t_stack **stack)
+{
+	unsigned int	size;
+	t_node			*tail;
+
+	size = (*stack)->size;
+	if (size == 0 || size == 1)
+		return ;
+	tail = (*stack)->tail;
+	(*stack)->tail = tail->prev;
+	(*stack)->tail->next = 0;
+	tail->prev = 0;
+	add_node_front(stack, &tail);
+}

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   node.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/03 14:44:52 by yeepark           #+#    #+#             */
+/*   Updated: 2022/11/03 19:17:23 by yeepark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
 t_node	*make_new_node(int number)
@@ -18,4 +30,3 @@ void	connect(t_node **front, t_node **back)
 	(*back)->prev = *front;
 	(*front)->next = *back;
 }
-

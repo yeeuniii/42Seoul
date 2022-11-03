@@ -6,21 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 22:08:07 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/02 01:16:37 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/03 16:27:27 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
-void handle_error(int is_error, t_stack **a, t_stack **b)
-{
-	if (is_error)
-	{
-		clear_stack(a);
-		clear_stack(b);
-		ft_error();
-	}
-}
 
 int	main(int argc, char *argv[])
 {
@@ -32,7 +22,7 @@ int	main(int argc, char *argv[])
 	b = make_new_stack();
 	is_error = !((a && b) && initialize(&a, argc, argv));
 	handle_error(is_error, &a, &b);
-	test(a, b);
+	test(&a, &b);
 	clear_stack(&a);
 	clear_stack(&b);
 	return (0);

@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 22:13:59 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/03 16:30:06 by yeepark          ###   ########.fr       */
+/*   Created: 2022/11/03 14:57:16 by yeepark           #+#    #+#             */
+/*   Updated: 2022/11/03 19:16:42 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "../includes/push_swap.h"
 
-#include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include "stack.h"
-# include "../printf/includes/ft_printf.h"
-# include "../printf/libft/includes/libft.h"
+void	print_error(void)
+{
+	ft_printf("Error\n");
+	exit(1);
+}
 
-void test(t_stack **a, t_stack **b);
-
-void	print_error(void);
-void	handle_error(int is_error, t_stack **a, t_stack **b);
-int		ft_isinteger(char *str);
-
-#endif
+void	handle_error(int is_error, t_stack **a, t_stack **b)
+{
+	if (is_error)
+	{
+		clear_stack(a);
+		clear_stack(b);
+		print_error();
+	}
+}
