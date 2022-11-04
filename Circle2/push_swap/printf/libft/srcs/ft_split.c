@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 13:26:04 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/30 18:18:57 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/04 15:30:09 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,18 @@ static char	**ft_free(char **str, int idx)
 	return (0);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c, int *size)
 {
 	int		idx;
-	int		size;
 	char	*from;
 	char	**str;
 
 	idx = 0;
-	size = count((char *)s, c);
-	str = malloc(sizeof(char *) * (size + 1));
+	*size = count((char *)s, c);
+	str = malloc(sizeof(char *) * (*size + 1));
 	if (!str)
 		return (0);
-	while (idx < size)
+	while (idx < *size)
 	{
 		while (*s == c)
 			s ++;
