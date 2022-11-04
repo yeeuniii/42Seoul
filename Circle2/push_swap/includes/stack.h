@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:47:19 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/03 16:28:04 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/04 16:55:23 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 
 typedef struct s_stack
 {
-	unsigned int	size;
-	t_node			*head;
-	t_node			*tail;
+	int		size;
+	t_node	*head;
+	t_node	*tail;
 }	t_stack;
 
 int		initialize(t_stack **a, int argc, char *argv[]);

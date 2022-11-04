@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 22:13:59 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/02 00:36:26 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/04 16:55:08 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 typedef struct s_node
 {
 	int				number;
+	int				ranking;
 	struct s_node	*prev;
 	struct s_node	*next;
 }	t_node;

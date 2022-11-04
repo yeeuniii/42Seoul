@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 22:13:59 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/03 21:08:20 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/04 22:01:13 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@
 # include "../printf/includes/ft_printf.h"
 # include "../printf/libft/includes/libft.h"
 
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
+
 void test(t_stack **a, t_stack **b);
 
 void	print_error(void);
 void	handle_error(int is_error, t_stack **a, t_stack **b);
 
-int		ft_isinteger(char *str);
 int		check_argument(t_stack *stack, char *str);
 
 #endif
