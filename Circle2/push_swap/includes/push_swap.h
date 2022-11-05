@@ -16,12 +16,10 @@
 #include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include "numbers.h"
 # include "stack.h"
 # include "../printf/includes/ft_printf.h"
 # include "../printf/libft/includes/libft.h"
-
-# define INT_MAX 2147483647
-# define INT_MIN -2147483648
 
 void test(t_stack **a, t_stack **b);
 

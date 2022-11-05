@@ -12,12 +12,31 @@
 
 #include "../includes/push_swap.h"
 
+char	**get_numbers(int argc, char *argv[], int *size)
+{
+	char	**numbers;
+
+	if (argc > 2)
+	{
+		numbers = argv + 1;
+		*size = argc - 1;
+	}
+	if (argc == 2)
+    	numbers = ft_split(argv[1], ' ', size);
+	if (!(numbers && check_numbers(numbers, *size)))
+		return (0);
+	return (numbers);
+}
+
 int	main(int argc, char *argv[])
 {
-	t_stack	*a;
-	t_stack	*b;
-	int		is_error;
+	t_numbers	*numbers;
+	t_stack		*a;
+	t_stack		*b;
+	int			is_error;
+	int			size;
 
+	numbers = make_numbers(get_numbers(argc, argv, &size), size);
 	a = make_new_stack();
 	b = make_new_stack();
 	is_error = !((a && b) && initialize(&a, argc, argv));

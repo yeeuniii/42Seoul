@@ -41,17 +41,30 @@ int	ft_isinteger(char *str)
 	return (1);
 }
 
-int	check_duplicated(t_stack *stack, int num)
+int	check_duplicated(char **numbers, int end_idx)
 {
-	t_node	*node;
+	int	start_idx;
 
-	node = stack->head;
-	while (node && num != node->number)
-		node = node->next;
-	return (!node);
+	start_idx = 0;
+	while (start_idx < end_idx)
+	{
+		if (ft_strcmp(numbers[start_idx], numbers[end_idx]))
+			return (0);
+		start_idx ++;
+	}
+	return (1);
 }
 
-int	check_argument(t_stack *stack, char *str)
+int	check_numbers(char **numbers, int size)
 {
-	return (ft_isinteger(str) && check_duplicated(stack, ft_atoi(str)));
+	int	idx;
+
+	idx = 0;
+	while (idx < size && ft_isinteger(numbers[idx]))
+	{
+		if (!check_duplicated(numbers, idx))
+			return (0);
+		idx ++;
+	}
+	return (idx == size);
 }
