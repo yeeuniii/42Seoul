@@ -18,12 +18,13 @@ void	print_error(void)
 	exit(1);
 }
 
-void	handle_error(int is_error, t_stack **a, t_stack **b)
+void	handle_error(int is_error, t_stack **a, t_stack **b, t_numbers *numbers)
 {
 	if (is_error)
 	{
 		clear_stack(a);
 		clear_stack(b);
+		free_numbers(numbers);
 		print_error();
 	}
 }

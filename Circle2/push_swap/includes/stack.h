@@ -22,9 +22,9 @@ typedef struct s_stack
 	t_node	*tail;
 }	t_stack;
 
-int		initialize(t_stack **a, int argc, char *argv[]);
-
 t_stack	*make_new_stack(void);
+int 	init_stack(t_stack **stack, t_numbers *numbers);
+
 void	add_node_front(t_stack **stack, t_node **node);
 void	add_node_back(t_stack **stack, t_node **node);
 void	clear_stack(t_stack **stack);

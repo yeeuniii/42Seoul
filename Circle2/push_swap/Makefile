@@ -11,8 +11,8 @@
 # **************************************************************************** #
 
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address
-SRC = main.c init.c check.c error.c node.c \
-	  stack.c utils.c  test.c 
+SRC = main.c numbers.c check.c error.c node.c \
+	  stack.c init_stack.c utils.c test.c 
 SRCS = $(addprefix srcs/,$(SRC))
 OBJS = $(SRCS:.c=.o)
 INCLUDES = includes

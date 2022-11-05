@@ -23,9 +23,8 @@
 
 void test(t_stack **a, t_stack **b);
 
+int	    check(char **numbers, int idx);
 void	print_error(void);
-void	handle_error(int is_error, t_stack **a, t_stack **b);
-
-int		check_argument(t_stack *stack, char *str);
+void	handle_error(int is_error, t_stack **a, t_stack **b, t_numbers *numbers);
 
 #endif

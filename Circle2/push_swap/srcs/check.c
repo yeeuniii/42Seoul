@@ -48,23 +48,15 @@ int	check_duplicated(char **numbers, int end_idx)
 	start_idx = 0;
 	while (start_idx < end_idx)
 	{
-		if (ft_strcmp(numbers[start_idx], numbers[end_idx]))
+		if (!ft_strcmp(numbers[start_idx], numbers[end_idx]))
 			return (0);
 		start_idx ++;
 	}
 	return (1);
 }
 
-int	check_numbers(char **numbers, int size)
-{
-	int	idx;
 
-	idx = 0;
-	while (idx < size && ft_isinteger(numbers[idx]))
-	{
-		if (!check_duplicated(numbers, idx))
-			return (0);
-		idx ++;
-	}
-	return (idx == size);
+int	check(char **numbers, int idx)
+{
+	return (ft_isinteger(numbers[idx]) && check_duplicated(numbers, idx));
 }
