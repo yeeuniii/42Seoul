@@ -2,13 +2,13 @@
 
 int	init_numbers(int argc, char *argv[], t_numbers *numbers)
 {
+	numbers->free = 0;
 	if (argc == 1)
 		return (0);
 	if (argc > 2)
 	{
 		numbers->numbers = argv + 1;
 		numbers->size = argc - 1;
-		numbers->free = 0;
 		return (1);
 	}
 	numbers->numbers = ft_split(argv[1], ' ', &(numbers->size));

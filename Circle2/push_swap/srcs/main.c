@@ -19,7 +19,7 @@ int	main(int argc, char *argv[])
 	t_stack		*b;
 	int			is_error;
 
-	is_error = init_numbers(argc, argv, &numbers) && check_numbers(&numbers);
+	is_error = !(init_numbers(argc, argv, &numbers) && check_numbers(&numbers));
 	a = make_new_stack();
 	b = make_new_stack();
 	is_error = is_error || !((a && b) && init_stack(&a, &numbers));
