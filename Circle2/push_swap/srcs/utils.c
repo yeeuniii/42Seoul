@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 15:14:45 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/03 19:18:08 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/07 00:40:20 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	swap(t_stack **stack)
 {
-	unsigned int	size;
-	t_node			*head;
-	int				tmp;
+	t_node	*head;
+	int		size;
+	int		tmp;
 
 	size = (*stack)->size;
 	if (size == 0 || size == 1)
@@ -54,8 +54,8 @@ void	push(t_stack **push_stack, t_stack **pop_stack)
 
 void	rotate(t_stack **stack)
 {
-	unsigned int	size;
-	t_node			*head;
+	int		size;
+	t_node	*head;
 
 	size = (*stack)->size;
 	if (size == 0 || size == 1)
@@ -69,8 +69,8 @@ void	rotate(t_stack **stack)
 
 void	rotate_reverse(t_stack **stack)
 {
-	unsigned int	size;
-	t_node			*tail;
+	int		size;
+	t_node	*tail;
 
 	size = (*stack)->size;
 	if (size == 0 || size == 1)

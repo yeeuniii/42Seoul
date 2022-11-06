@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:44:56 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/04 16:55:48 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/07 00:51:58 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print_all(t_stack *stack)
 	while (node)
 	{
 		printf("number : %d\t", node->number);
-//		printf("ranking : %d\t", node->ranking);
+		printf("ranking : %d\t", node->ranking);
 		if (node != stack->head)
 			printf("prev : %d, ", node->prev->number);
 		if (node != stack->tail)
@@ -51,6 +51,7 @@ void	print_stack(t_stack *a, t_stack *b)
 void	test(t_stack **a, t_stack **b)
 {
 	printf("origin\n");
+	rank(a);
 	print_stack(*a, *b);
 
 //	printf("swap a\n");
