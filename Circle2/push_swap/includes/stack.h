@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:47:19 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/04 16:55:23 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/06 23:00:07 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_stack
 }	t_stack;
 
 t_stack	*make_new_stack(void);
-int 	init_stack(t_stack **stack, t_numbers *numbers);
+int		init_stack(t_stack **stack, t_numbers *numbers);
 
 void	add_node_front(t_stack **stack, t_node **node);
 void	add_node_back(t_stack **stack, t_node **node);

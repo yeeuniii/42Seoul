@@ -13,20 +13,20 @@ t_stack	*make_new_stack(void)
 	return (stack);
 }
 
-int init_stack(t_stack **stack, t_numbers *numbers)
+int	init_stack(t_stack **stack, t_numbers *numbers)
 {
-    int     idx;
-    t_node  *new;
-    
-    idx = 0;
-    while (idx < numbers->size)
-    {
-        new = make_new_node(ft_atoi(numbers->numbers[idx]));
-        if (!new)
-            return (0);
-        add_node_back(stack, &new);
-        idx ++;
-    }
-    free_numbers(numbers);
-    return (1);
+	int		idx;
+	t_node	*new;
+
+	idx = 0;
+	while (idx < numbers->size)
+	{
+		new = make_new_node(ft_atoi(numbers->numbers[idx]));
+		if (!new)
+			return (0);
+		add_node_back(stack, &new);
+		idx ++;
+	}
+	free_numbers(numbers);
+	return (1);
 }

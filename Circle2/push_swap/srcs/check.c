@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:56:20 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/03 21:48:07 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/06 23:00:53 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	check_duplicated(char **numbers, int end_idx)
 	}
 	return (1);
 }
-
 
 int	check(char **numbers, int idx)
 {
