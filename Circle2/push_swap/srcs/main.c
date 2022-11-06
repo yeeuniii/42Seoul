@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 22:08:07 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/06 23:06:40 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/06 23:19:00 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char *argv[])
 	t_stack		*b;
 	int			is_error;
 
-	is_error = (init_numbers(argc, argv, &numbers) && check_numbers(&numbers));
+	is_error = !(init_numbers(argc, argv, &numbers) && check_numbers(&numbers));
 	a = make_new_stack();
 	b = make_new_stack();
 	is_error = (is_error || !((a && b) && init_stack(&a, &numbers)));
