@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:44:56 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/07 00:51:58 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/07 16:10:27 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,25 @@ void	test(t_stack **a, t_stack **b)
 	rank(a);
 	print_stack(*a, *b);
 
-//	printf("swap a\n");
-//	swap(a);
-//	print_stack(*a, *b);
-//
-//	printf("push b pop a\n");
-//	push(b, a);
-//	print_stack(*a, *b);
-//	printf("a size : %d, b size : %d\n", (*a)->size, (*b)->size);
-//
-//	printf("push a pop b\n");
-//	push(a, b);
-//	print_stack(*a, *b);
-//	printf("a size : %d, b size : %d\n", (*a)->size, (*b)->size);
-//	
-//	printf("rotate a\n");
-//	rotate(a);
-//	print_stack(*a, *b);
-//	
-//	printf("rotate reverse a\n");
-//	rotate_reverse(a);
-//	print_stack(*a, *b);
+	printf("swap a\n");
+	swap(a);
+	print_stack(*a, *b);
+
+	printf("push b pop a\n");
+	push(b, a);
+	print_stack(*a, *b);
+	printf("a size : %d, b size : %d\n", (*a)->size, (*b)->size);
+
+	printf("push a pop b\n");
+	push(a, b);
+	print_stack(*a, *b);
+	printf("a size : %d, b size : %d\n", (*a)->size, (*b)->size);
+	
+	printf("rotate a\n");
+	rotate(a);
+	print_stack(*a, *b);
+	
+	printf("rotate reverse a\n");
+	rotate_reverse(a);
+	print_stack(*a, *b);
 }

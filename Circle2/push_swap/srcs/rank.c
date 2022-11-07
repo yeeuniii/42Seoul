@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rank.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/07 15:59:40 by yeepark           #+#    #+#             */
+/*   Updated: 2022/11/07 15:59:58 by yeepark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
 int	get_ranking(t_stack *stack, t_node *node)
@@ -15,7 +27,6 @@ int	get_ranking(t_stack *stack, t_node *node)
 	}
 	return (ranking);
 }
-
 
 void	rank(t_stack **stack)
 {

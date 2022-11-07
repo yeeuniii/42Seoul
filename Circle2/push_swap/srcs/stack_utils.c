@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 15:14:45 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/07 00:40:20 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/07 16:12:07 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,34 @@ void	swap(t_stack **stack)
 	head->number = tmp;
 }
 
-void	set_stack_empty(t_stack **stack)
+void	pop(t_stack **stack)
 {
-	(*stack)->head = 0;
-	(*stack)->tail = 0;
+	t_node	*moving_node;
+	int		size;
+
+	moving_node = (*stack)->head;
+	size = (*stack)->size;
+	((*stack)->size)--;
+	if (size == 1)
+	{
+		(*stack)->head = 0;
+		(*stack)->tail = 0;
+		return ;
+	}
+	(*stack)->head = moving_node->next;
+	(*stack)->head->prev = 0;
+	moving_node->next = 0;
 }
 
 void	push(t_stack **push_stack, t_stack **pop_stack)
 {
 	t_node	*moving_node;
-
+	
 	if ((*pop_stack)->size == 0)
 		return ;
 	moving_node = (*pop_stack)->head;
-	if ((*pop_stack)->size == 1)
-		set_stack_empty(pop_stack);
-	if ((*pop_stack)->size > 1)
-	{
-		(*pop_stack)->head = moving_node->next;
-		(*pop_stack)->head->prev = 0;
-		moving_node->next = 0;
-	}
+	pop(pop_stack);
 	add_node_front(push_stack, &moving_node);
-	((*pop_stack)->size)--;
 }
 
 void	rotate(t_stack **stack)
