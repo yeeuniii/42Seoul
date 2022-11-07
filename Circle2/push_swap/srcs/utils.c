@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 15:14:45 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/07 16:24:00 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/07 19:09:21 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	pop(t_stack **stack)
 void	push(t_stack **push_stack, t_stack **pop_stack)
 {
 	t_node	*moving_node;
-	
+
 	if ((*pop_stack)->size == 0)
 		return ;
 	moving_node = (*pop_stack)->head;
@@ -69,6 +69,7 @@ void	rotate(t_stack **stack)
 	(*stack)->head = head->next;
 	(*stack)->head->prev = 0;
 	head->next = 0;
+	((*stack)->size)--;
 	add_node_back(stack, &head);
 }
 
@@ -84,5 +85,6 @@ void	rotate_reverse(t_stack **stack)
 	(*stack)->tail = tail->prev;
 	(*stack)->tail->next = 0;
 	tail->prev = 0;
+	((*stack)->size)--;
 	add_node_front(stack, &tail);
 }
