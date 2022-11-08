@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:56:20 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/06 23:00:53 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/09 01:15:42 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,20 @@ int	check_duplicated(char **numbers, int end_idx)
 int	check(char **numbers, int idx)
 {
 	return (ft_isinteger(numbers[idx]) && check_duplicated(numbers, idx));
+}
+
+int	check_well_sorted(t_stack *stack)
+{
+	t_node	*node;
+	int		prev_number;
+
+	node = stack->head;
+	while (node->next)
+	{
+		prev_number = node->number;
+		node = node->next;
+		if (prev_number > node->number)
+			return (0);
+	}
+	return (1);
 }

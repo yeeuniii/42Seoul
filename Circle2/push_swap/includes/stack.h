@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:47:19 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/07 16:37:08 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/09 01:27:17 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	add_node_front(t_stack **stack, t_node **node);
 void	add_node_back(t_stack **stack, t_node **node);
 void	clear_stack(t_stack **stack);
 void	rank(t_stack **stack);
+int		check_well_sorted(t_stack *stack);
 
 void	swap(t_stack **stack);
 void	push(t_stack **push_stack, t_stack **pop_stack);

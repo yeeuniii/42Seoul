@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:57:16 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/03 19:16:42 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/09 01:17:37 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_error(void)
 {
-	ft_printf("Error\n");
+	write(1, "Error\n", 6);
 	exit(1);
 }
 

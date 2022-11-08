@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 16:47:21 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/07 19:48:19 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/09 01:29:57 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ t_node	*find_highest_ranking_node(t_stack *stack, int ranking, int *reverse)
 	t_node	*top_node;
 	t_node	*bottom_node;
 
-	idx = 0;
+	idx = -1;
 	size = stack->size;
 	top_node = stack->head;
 	bottom_node = stack->tail;
-	while (idx <= size / 2)
+	while (++idx <= size / 2)
 	{
 		if (top_node->ranking == ranking)
 		{
@@ -66,7 +66,6 @@ t_node	*find_highest_ranking_node(t_stack *stack, int ranking, int *reverse)
 		}
 		top_node = top_node->next;
 		bottom_node = bottom_node->prev;
-		idx ++;
 	}
 	return (0);
 }
@@ -74,7 +73,7 @@ t_node	*find_highest_ranking_node(t_stack *stack, int ranking, int *reverse)
 void	move_to_head(t_stack **stack, t_node *node, int reverse)
 {
 	void	(*func[2])(t_stack **, char);
-	
+
 	func[0] = rotate_stack;
 	func[1] = rotate_reverse_stack;
 	while ((*stack)->head != node)
@@ -83,15 +82,17 @@ void	move_to_head(t_stack **stack, t_node *node, int reverse)
 
 void	b_to_a(t_stack **a, t_stack **b)
 {
-	int	size;
-	int	ranking;
-	int	reverse;
+	int		size;
+	int		ranking;
+	int		reverse;
+	t_node	*node;
 
 	size = (*b)->size;
 	ranking = size;
 	while (ranking--)
 	{
-		move_to_head(b, find_highest_ranking_node(*b, ranking, &reverse), reverse);
+		node = find_highest_ranking_node(*b, ranking, &reverse);
+		move_to_head(b, node, reverse);
 		push_stack(a, b, 'a');
 	}
 }
@@ -101,6 +102,8 @@ void	sort(t_stack **a, t_stack **b)
 	int	a_size;
 	int	chunk;
 
+	if (check_well_sorted(*a))
+		return ;
 	a_size = (*a)->size;
 	chunk = 0.000000053 * a_size * a_size + 0.3 * a_size + 14.5;
 //	chunk = 2;

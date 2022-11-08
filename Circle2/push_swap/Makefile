@@ -6,7 +6,7 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/28 22:16:31 by yeepark           #+#    #+#              #
-#    Updated: 2022/11/07 17:19:31 by yeepark          ###   ########.fr        #
+#    Updated: 2022/11/09 01:18:14 by yeeun            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,8 @@ SRC = main.c numbers.c check.c error.c node.c \
 SRCS = $(addprefix srcs/,$(SRC))
 OBJS = $(SRCS:.c=.o)
 INCLUDES = includes
-SUBDIR = printf
-PRINTF = libftprintf.a
+SUBDIR = libft
+PRINTF = libft.a
 NAME = push_swap
 
 all : $(NAME)
