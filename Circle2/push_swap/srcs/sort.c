@@ -6,18 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 16:47:21 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/10 20:56:40 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/10 22:10:02 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
-void	(*get_rotating_function(int reverse))(t_stack **, char)
-{
-	if (reverse)
-		return (rotate_reverse_stack);
-	return (rotate_stack);
-}
 
 void	make_sandglass(t_stack **a, t_stack **b, int chunk)
 {
@@ -80,7 +73,7 @@ t_node	*find_highest_ranking_node(t_stack *stack, int ranking, int *reverse)
 void	move_to_head(t_stack **stack, t_node *node, int reverse)
 {
 	while ((*stack)->head != node)
-		get_rotating_function(reverse)(stack, 'b');
+		(get_rotating_function(reverse))(stack, 'b');
 }
 
 void	b_to_a(t_stack **a, t_stack **b)

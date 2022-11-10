@@ -1,63 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/03 15:14:45 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/10 21:52:41 by yeepark          ###   ########.fr       */
+/*   Created: 2022/11/10 22:06:39 by yeepark           #+#    #+#             */
+/*   Updated: 2022/11/10 22:11:43 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
-void	swap(t_stack **stack)
-{
-	t_node	*head;
-	t_node	*tmp;
-	int		size;
-
-	size = (*stack)->size;
-	if (size == 0 || size == 1)
-		return ;
-	head = (*stack)->head;
-	tmp = head->next;
-	tmp->prev = 0;
-	(*stack)->head = tmp;
-	connect(&head, &(tmp->next));
-	connect(&tmp, &head);	
-}
-
-void	pop(t_stack **stack)
-{
-	t_node	*moving_node;
-	int		size;
-
-	moving_node = (*stack)->head;
-	size = (*stack)->size;
-	((*stack)->size)--;
-	if (size == 1)
-	{
-		(*stack)->head = 0;
-		(*stack)->tail = 0;
-		return ;
-	}
-	(*stack)->head = moving_node->next;
-	(*stack)->head->prev = 0;
-	moving_node->next = 0;
-}
-
-void	push(t_stack **push_stack, t_stack **pop_stack)
-{
-	t_node	*moving_node;
-
-	if ((*pop_stack)->size == 0)
-		return ;
-	moving_node = (*pop_stack)->head;
-	pop(pop_stack);
-	add_node_front(push_stack, &moving_node);
-}
 
 void	rotate(t_stack **stack)
 {
@@ -89,4 +42,11 @@ void	rotate_reverse(t_stack **stack)
 	tail->prev = 0;
 	((*stack)->size)--;
 	add_node_front(stack, &tail);
+}
+
+void	(*get_rotating_function(int reverse))(t_stack **stack, char c)
+{
+	if (reverse)
+		return (rotate_reverse_stack);
+	return (rotate_stack);
 }
