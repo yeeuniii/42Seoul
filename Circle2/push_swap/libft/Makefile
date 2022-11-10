@@ -6,7 +6,7 @@
 #    By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/15 12:09:39 by yeepark           #+#    #+#              #
-#    Updated: 2022/10/30 19:08:37 by yeepark          ###   ########.fr        #
+#    Updated: 2022/11/10 19:44:22 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ clean :
 	rm -f $(OBJS)
 
 fclean : clean
-	rm $(NAME) 
+	rm -f $(NAME) 
 
 re : fclean
 	$(MAKE) all

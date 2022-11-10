@@ -6,11 +6,18 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 16:47:21 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/09 01:29:57 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/10 20:56:40 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+void	(*get_rotating_function(int reverse))(t_stack **, char)
+{
+	if (reverse)
+		return (rotate_reverse_stack);
+	return (rotate_stack);
+}
 
 void	make_sandglass(t_stack **a, t_stack **b, int chunk)
 {
@@ -72,12 +79,8 @@ t_node	*find_highest_ranking_node(t_stack *stack, int ranking, int *reverse)
 
 void	move_to_head(t_stack **stack, t_node *node, int reverse)
 {
-	void	(*func[2])(t_stack **, char);
-
-	func[0] = rotate_stack;
-	func[1] = rotate_reverse_stack;
 	while ((*stack)->head != node)
-		func[reverse](stack, 'b');
+		get_rotating_function(reverse)(stack, 'b');
 }
 
 void	b_to_a(t_stack **a, t_stack **b)
@@ -99,13 +102,18 @@ void	b_to_a(t_stack **a, t_stack **b)
 
 void	sort(t_stack **a, t_stack **b)
 {
-	int	a_size;
-	int	chunk;
+	int		a_size;
+	int		chunk;
 
 	if (check_well_sorted(*a))
 		return ;
 	a_size = (*a)->size;
 	chunk = 0.000000053 * a_size * a_size + 0.3 * a_size + 14.5;
+	if (a_size <= 5)
+	{
+		sort_smallsize(a_size, a, b);
+		return ;
+	}
 //	chunk = 2;
 	make_sandglass(a, b, chunk);
 	b_to_a(a, b);
