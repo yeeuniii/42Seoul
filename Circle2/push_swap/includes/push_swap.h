@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 22:13:59 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/11 14:53:24 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/11 22:44:44 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "numbers.h"
 # include "stack.h"
 # include "../libft/includes/libft.h"
+# include "get_next_line.h"
 
 void test(t_stack **a, t_stack **b);
 void print_stack(t_stack *a, t_stack *b);
