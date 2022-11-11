@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:47:19 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/11 22:04:42 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/11 22:19:11 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ t_node	*get_lowest_ranking_node(t_stack *stack);
 t_node	*get_highest_ranking_node(t_stack *stack);
 void	find_min_and_max_idx(t_stack *stack, int *min_idx, int *max_idx);
 
+void	swap(t_stack **stack);
+void	push(t_stack **push_stack, t_stack **pop_stack);
+void	rotate(t_stack **stack);
+void	rotate_reverse(t_stack **stack);
 void	swap_stack(t_stack **stack, char name);
 void	push_stack(t_stack **push_stack, t_stack **pop_stack, char name);
 void	rotate_stack(t_stack **stack, char name);

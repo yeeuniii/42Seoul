@@ -6,7 +6,7 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/28 22:16:31 by yeepark           #+#    #+#              #
-#    Updated: 2022/11/11 22:10:03 by yeepark          ###   ########.fr        #
+#    Updated: 2022/11/11 22:31:44 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,11 @@ SRC = main.c numbers.c check.c error.c \
 SRCS = $(addprefix srcs/,$(SRC))
 OBJS = $(SRCS:.c=.o)
 BONUS_SRC = main.c numbers.c check.c error.c \
-	  node.c stack.c init_stack.c rank.c \
-	  utils.c operation.c operation2.c\
-	  sort.c sort_smallsize.c find.c  
-BONUS_SRCS = $(addprefix bonus/,$(SRCS))
+			node.c stack.c init_stack.c rank.c \
+			swap.c push.c rotate.c print.c operation_both.c \
+			sort.c sort_smallsize.c find.c \
+			get_next_line.c get_next_line_utils.c
+BONUS_SRCS = $(addprefix bonus/,$(BONUS_SRC))
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 INCLUDES = includes
 SUBDIR = libft
@@ -31,7 +32,14 @@ NAME = push_swap
 
 all : $(NAME)
 
-#bonus :
+bonus : $(BONUS_OBJS) 	
+	make -C $(SUBDIR) all
+	cp $(SUBDIR)/$(LIBFT) .
+	$(CC) $(CFLAGS) $(BONUS_SRCS) $(LIBFT) -o $(BONUS)
+
+both :
+	make all
+	make bonus
 
 $(NAME) : $(OBJS)
 	make -C $(SUBDIR) all
@@ -44,11 +52,13 @@ $(NAME) : $(OBJS)
 clean : 
 	make -C $(SUBDIR) clean
 	rm -f $(OBJS)
+	rm -f $(BONUS_OBJS)
 	rm -f $(LIBFT)
 
 fclean : clean
 	make -C $(SUBDIR) fclean
 	rm -f $(NAME)
+	rm -f $(BONUS)
 
 re : fclean
 	make all
