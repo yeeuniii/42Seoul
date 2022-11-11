@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 16:47:21 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/11 14:53:49 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/11 17:27:19 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	make_sandglass(t_stack **a, t_stack **b, int chunk)
 	}
 }
 
-t_node	*find_highest_ranking_node(t_stack *stack, int ranking, int *reverse)
+t_node	*find_node_matching_ranking(t_stack *stack, int ranking, int *reverse)
 {
 	int		idx;
 	int		size;
@@ -87,7 +87,7 @@ void	b_to_a(t_stack **a, t_stack **b)
 	ranking = size;
 	while (ranking--)
 	{
-		node = find_highest_ranking_node(*b, ranking, &reverse);
+		node = find_node_matching_ranking(*b, ranking, &reverse);
 		move_to_head(b, node, reverse);
 		push(a, b, 'a');
 	}

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:56:20 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/09 01:15:42 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/11 18:27:44 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,3 +75,28 @@ int	check_well_sorted(t_stack *stack)
 	}
 	return (1);
 }
+
+int	is_ascenging_ranking(t_stack *stack)
+{
+	int		idx;
+	int		size;
+	int		prev_ranking;
+	t_node	*node;
+
+	idx = 0;
+	size = stack->size;
+	node = get_lowest_ranking_node(stack);
+	prev_ranking = node->ranking;
+	while (idx < size)
+	{
+		if (prev_ranking > node->ranking)
+			return (0);
+		prev_ranking = node->ranking;
+		node = node->next;
+		if (!node)
+			node = stack->head;
+		idx ++;
+	}
+	return (1);
+}
+
