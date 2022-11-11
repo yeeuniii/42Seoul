@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 16:47:21 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/11 20:15:59 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/11 22:05:29 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@ void	move_from_a_to_b(t_stack **a, t_stack **b, int chunk)
 		ranking = head->ranking;
 		if (ranking < idx)
 		{
-			push(b, a, 'b');
+			push_stack(b, a, 'b');
 			idx ++;
 		}
 		if (idx <= ranking && ranking < idx + chunk)
 		{
-			push(b, a, 'b');
-			rotate(b, 'b');
+			push_stack(b, a, 'b');
+			rotate_stack(b, 'b');
 			idx ++;
 		}
 		if (ranking >= idx + chunk)
-			rotate(a, 'a');
+			rotate_stack(a, 'a');
 	}
 }
 
@@ -89,7 +89,7 @@ void	move_from_b_to_a(t_stack **a, t_stack **b)
 	{
 		node = get_node_matching_ranking(*b, ranking, &reverse);
 		move_to_head(b, node, reverse);
-		push(a, b, 'a');
+		push_stack(a, b, 'a');
 	}
 }
 

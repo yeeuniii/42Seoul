@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   operation_both.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 22:16:05 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/11 22:16:07 by yeepark          ###   ########.fr       */
+/*   Created: 2022/11/11 22:15:36 by yeepark           #+#    #+#             */
+/*   Updated: 2022/11/11 22:15:39 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	swap(t_stack **stack)
+void	swap_both(t_stack **a, t_stack **b)
 {
-	t_node	*head;
-	t_node	*tmp;
-	int		size;
-
-	size = (*stack)->size;
-	if (size == 0 || size == 1)
-		return ;
-	head = (*stack)->head;
-	tmp = head->next;
-	tmp->prev = 0;
-	(*stack)->head = tmp;
-	if (!tmp->next)
-		head->next = 0;
-	if (tmp->next)
-		connect(&head, &(tmp->next));
-	connect(&tmp, &head);
+	swap(a);
+	swap(b);
+	write(1, "ss", 2);
 }
 
-void	swap_stack(t_stack **stack, char name)
+void	rotate_both(t_stack **a, t_stack **b)
 {
-	swap(stack);
-	print_operation("s", name);
+	rotate(a);
+	rotate(b);
+	write(1, "rr", 2);
+}
+
+void	rotate_reverse_both(t_stack **a, t_stack **b)
+{
+	rotate_reverse(a);
+	rotate_reverse(b);
+	write(1, "rrr", 2);
 }

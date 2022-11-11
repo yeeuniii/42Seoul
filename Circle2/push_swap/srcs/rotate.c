@@ -6,13 +6,13 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:06:39 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/11 17:23:37 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/11 22:08:30 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	rotate(t_stack **stack, char name)
+void	rotate(t_stack **stack)
 {
 	int		size;
 	t_node	*head;
@@ -26,10 +26,9 @@ void	rotate(t_stack **stack, char name)
 	head->next = 0;
 	((*stack)->size)--;
 	add_node_back(stack, &head);
-	print_operation("r", name);
 }
 
-void	rotate_reverse(t_stack **stack, char name)
+void	rotate_reverse(t_stack **stack)
 {
 	int		size;
 	t_node	*tail;
@@ -43,12 +42,23 @@ void	rotate_reverse(t_stack **stack, char name)
 	tail->prev = 0;
 	((*stack)->size)--;
 	add_node_front(stack, &tail);
+}
+
+void	rotate_stack(t_stack **stack, char name)
+{
+	rotate(stack);
+	print_operation("r", name);
+}
+
+void	rotate_reverse_stack(t_stack **stack, char name)
+{
+	rotate_reverse(stack);
 	print_operation("rr", name);
 }
 
 void	(*get_rotating_function(int reverse))(t_stack **stack, char c)
 {
 	if (reverse)
-		return (rotate_reverse);
-	return (rotate);
+		return (rotate_reverse_stack);
+	return (rotate_stack);
 }
