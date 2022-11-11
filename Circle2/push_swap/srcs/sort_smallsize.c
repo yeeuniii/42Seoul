@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 16:22:35 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/11 18:28:32 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/11 18:35:36 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	sort_size4(t_stack **a, t_stack **b)
 	int		max_idx;
 
 	tail = (*a)->tail;
-	max_ranking = (*a)->size;
+	max_ranking = (*a)->size - 1;
 	min_idx = 0;
 	max_idx = 0;
 	process_head_ranking(a, b, &min_idx, &max_idx);
@@ -68,7 +68,9 @@ void	sort_size4(t_stack **a, t_stack **b)
 	else
 		swap(a, 'a');
 	if (check_well_sorted(*a))
+	{
 		return ;
+	}
 	process_head_ranking(a, b, &min_idx, &max_idx);
 }
 
