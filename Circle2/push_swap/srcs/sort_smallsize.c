@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 16:22:35 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/10 22:09:47 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/11 14:48:39 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	sort_size3(t_stack **a, t_stack **b)
 
 	head = (*a)->head;
 	if (!is_ascenging_ranking(*a, &max_idx))
-		swap_stack(a, 'a');
+		swap(a, 'a');
 	if (check_well_sorted(*a))
 		return ;
 	is_ascenging_ranking(*a, &max_idx);
@@ -62,7 +62,7 @@ void	sort_smallsize(int size, t_stack **a, t_stack **b)
 
 	if (size == 2)
 	{
-		swap_stack(a, 'a');
+		swap(a, 'a');
 		return ;
 	}
 	sorting_func[0] = sort_size3;

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:44:56 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/07 19:05:20 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/11 14:54:08 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	test_push(t_stack **a, t_stack **b)
 
 	while (idx < size)
 	{
-		push(b, a);
+		push(b, a, 'b');
 		print_stack(*a, *b);
 		idx ++;
 	}

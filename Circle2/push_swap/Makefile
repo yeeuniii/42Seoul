@@ -6,15 +6,15 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/28 22:16:31 by yeepark           #+#    #+#              #
-#    Updated: 2022/11/10 22:07:59 by yeepark          ###   ########.fr        #
+#    Updated: 2022/11/11 14:53:18 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address
-SRC = main.c numbers.c check.c error.c node.c \
-	  stack.c init_stack.c rank.c \
-	  swap.c push.c rotate.c \
-	  operation.c sort.c sort_smallsize.c test.c 
+SRC = main.c numbers.c check.c error.c \
+	  node.c stack.c init_stack.c rank.c \
+	  swap.c push.c rotate.c print.c \
+	  sort.c sort_smallsize.c test.c 
 SRCS = $(addprefix srcs/,$(SRC))
 OBJS = $(SRCS:.c=.o)
 INCLUDES = includes
