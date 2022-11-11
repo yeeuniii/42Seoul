@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 16:22:35 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/11 21:37:11 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/11 21:23:00 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,78 +26,39 @@ void	sort_size3(t_stack **a, t_stack **b)
 	b = 0;
 }
 
-int	process_head_ranking(t_stack **a, t_stack **b, int *min_idx, int *max_idx)
+void	move_to_correct_pos(t_stack **a)
 {
-	find_min_and_max_idx(*a, min_idx, max_idx);
-	if (!*min_idx)
+	t_node	*head;
+	
+	head = (*a)->head;
+	if (head->ranking == 1)
 	{
-		push(b, a, 'b');
-		sort_size3(a, b);
-		push(a, b, 'a');
-		return (1);
+		swap(a, 'a');
+		return ;
 	}
-	if (!*max_idx)
+	if (head->ranking == 2)
 	{
-		push(b, a, 'b');
-		sort_size3(a, b);
-		push(a, b, 'a');
+		rotate_reverse(a, 'a');
+		swap(a, 'a');
 		rotate(a, 'a');
-		return (1);
+		rotate(a, 'a');
+		return ;
 	}
-	return (0);
+	if (head->ranking == 3)
+	{
+		rotate(a, 'a');
+		return ;
+	}
 }
 
 void	sort_size4(t_stack **a, t_stack **b)
 {
-	int	min_idx;
-	int	max_idx;
-	int	max_ranking;
-
-	min_idx = 0;
-	max_idx = 0;
-	max_ranking = (*a)->size - 1;
-	if (process_head_ranking(a, b, &min_idx, &max_idx))
-		return ;
-	if (min_idx == max_ranking || max_idx == max_ranking)
-		rotate_reverse(a, 'a');
-	else
-		swap(a, 'a');
-	if (check_well_sorted(*a))
-		return ;
-	process_head_ranking(a, b, &min_idx, &max_idx);
-}
-
-void	move_from_head(t_stack **a)
-{
-	t_node	*head;
-
-	head = (*a)->head;
-	if (head->ranking == 1)
-		swap(a, 'a');
-	else if (head->ranking == 2)
-	{
-		swap(a, 'a');
-		rotate(a, 'a');
-		swap(a, 'a');
-		rotate_reverse(a, 'a');
-	}
-	else if (head->ranking == 3)
-	{
-		rotate_reverse(a, 'a');
-		swap(a, 'a');
-		rotate(a, 'a');
-		rotate(a, 'a');
-	}
-	else if (head->ranking == 4)
-		rotate(a, 'a');
-}
-
-void	sort_size5(t_stack **a, t_stack **b)
-{
 	push(b, a, 'b');
-	sort_size4(a, b);
+	rank(a);
+	sort_size3(a, b);
 	push(a, b, 'a');
-	move_from_head(a);
+	move_to_correct_pos(a);
+	
 }
 
 void	sort_smallsize(int size, t_stack **a, t_stack **b)
@@ -111,6 +72,7 @@ void	sort_smallsize(int size, t_stack **a, t_stack **b)
 	}
 	sorting_func[0] = sort_size3;
 	sorting_func[1] = sort_size4;
-	sorting_func[2] = sort_size5;
+//	sorting_func[2] = sort_size5;
 	sorting_func[size - 3](a, b);
+//	print_stack(*a, *b);
 }

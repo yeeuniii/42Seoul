@@ -6,13 +6,13 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 16:47:21 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/11 17:27:19 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/11 20:15:59 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	make_sandglass(t_stack **a, t_stack **b, int chunk)
+void	move_from_a_to_b(t_stack **a, t_stack **b, int chunk)
 {
 	int		idx;
 	int		size;
@@ -41,7 +41,7 @@ void	make_sandglass(t_stack **a, t_stack **b, int chunk)
 	}
 }
 
-t_node	*find_node_matching_ranking(t_stack *stack, int ranking, int *reverse)
+t_node	*get_node_matching_ranking(t_stack *stack, int ranking, int *reverse)
 {
 	int		idx;
 	int		size;
@@ -76,7 +76,7 @@ void	move_to_head(t_stack **stack, t_node *node, int reverse)
 		(get_rotating_function(reverse))(stack, 'b');
 }
 
-void	b_to_a(t_stack **a, t_stack **b)
+void	move_from_b_to_a(t_stack **a, t_stack **b)
 {
 	int		size;
 	int		ranking;
@@ -87,7 +87,7 @@ void	b_to_a(t_stack **a, t_stack **b)
 	ranking = size;
 	while (ranking--)
 	{
-		node = find_node_matching_ranking(*b, ranking, &reverse);
+		node = get_node_matching_ranking(*b, ranking, &reverse);
 		move_to_head(b, node, reverse);
 		push(a, b, 'a');
 	}
@@ -108,6 +108,6 @@ void	sort(t_stack **a, t_stack **b)
 		return ;
 	}
 //	chunk = 2;
-	make_sandglass(a, b, chunk);
-	b_to_a(a, b);
+	move_from_a_to_b(a, b, chunk);
+	move_from_b_to_a(a, b);
 }

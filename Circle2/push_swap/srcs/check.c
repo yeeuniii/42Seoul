@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:56:20 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/11 18:27:44 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/11 18:38:21 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,3 @@ int	is_ascenging_ranking(t_stack *stack)
 	}
 	return (1);
 }
-

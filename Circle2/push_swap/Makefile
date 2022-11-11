@@ -6,7 +6,7 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/28 22:16:31 by yeepark           #+#    #+#              #
-#    Updated: 2022/11/11 17:33:47 by yeepark          ###   ########.fr        #
+#    Updated: 2022/11/11 21:02:02 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,18 @@ SRC = main.c numbers.c check.c error.c \
 	  sort.c sort_smallsize.c find.c test.c 
 SRCS = $(addprefix srcs/,$(SRC))
 OBJS = $(SRCS:.c=.o)
+#BONUS_SRC = 
+#BONUS_SRCS = $(addprefix bonus/,$(SRCS))
+#BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 INCLUDES = includes
 SUBDIR = libft
 LIBFT = libft.a
+BONUS = checker
 NAME = push_swap
 
 all : $(NAME)
+
+#bonus :
 
 $(NAME) : $(OBJS)
 	make -C $(SUBDIR) all
