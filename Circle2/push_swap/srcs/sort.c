@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 16:47:21 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/11 22:05:29 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/13 01:11:43 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ void	move_from_a_to_b(t_stack **a, t_stack **b, int chunk)
 	{
 		head = (*a)->head;
 		ranking = head->ranking;
-		if (ranking < idx)
+		if (ranking <= idx)
 		{
 			push_stack(b, a, 'b');
 			idx ++;
 		}
-		if (idx <= ranking && ranking < idx + chunk)
+		if (idx < ranking && ranking <= idx + chunk)
 		{
 			push_stack(b, a, 'b');
 			rotate_stack(b, 'b');
 			idx ++;
 		}
-		if (ranking >= idx + chunk)
+		if (ranking > idx + chunk)
 			rotate_stack(a, 'a');
 	}
 }
@@ -86,7 +86,7 @@ void	move_from_b_to_a(t_stack **a, t_stack **b)
 	size = (*b)->size;
 	ranking = size;
 	while (ranking--)
-	{
+	{	
 		node = get_node_matching_ranking(*b, ranking, &reverse);
 		move_to_head(b, node, reverse);
 		push_stack(a, b, 'a');
@@ -101,7 +101,7 @@ void	sort(t_stack **a, t_stack **b)
 	if (check_well_sorted(*a))
 		return ;
 	a_size = (*a)->size;
-	chunk = 0.000000053 * a_size * a_size + 0.3 * a_size + 14.5;
+	chunk = 0.000000053 * a_size * a_size + 0.03 * a_size + 14.5;
 	if (a_size <= 5)
 	{
 		sort_smallsize(a_size, a, b);

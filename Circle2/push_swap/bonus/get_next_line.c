@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:38:07 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/11 22:26:36 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/13 00:04:12 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	find_newline(int fd, char **backup)
 			return (ft_free(buf));
 		if (readsize == 0)
 			break ;
-		*backup = ft_strjoin(*backup, buf, readsize);
+		*backup = ft_strjoin_size(*backup, buf, readsize);
 		if (!*backup)
 			return (ft_free(buf));
 	}

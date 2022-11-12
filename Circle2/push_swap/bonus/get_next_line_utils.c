@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:47:14 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/11 22:26:48 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/13 00:04:03 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *s)
 	return (idx);
 }
 
-char	*ft_strjoin(char *s1, char *s2, size_t readsize)
+char	*ft_strjoin_size(char *s1, char *s2, size_t readsize)
 {
 	size_t	idx;
 	size_t	len1;

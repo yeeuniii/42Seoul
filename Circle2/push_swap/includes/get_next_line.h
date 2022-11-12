@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:47:23 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/11 22:28:08 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/13 00:09:43 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-#ifndef BUFFER_SIZE
 # define BUFFER_SIZE 10
-#endif
 
 char	*get_next_line(int fd);
 
 size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char *s1, char *s2, size_t readsize);
+char	*ft_strjoin_size(char *s1, char *s2, size_t readsize);
 int		ft_free(char *str);
 
 #endif
