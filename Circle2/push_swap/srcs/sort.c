@@ -6,13 +6,13 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 16:47:21 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/13 01:11:43 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/13 03:44:11 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	move_from_a_to_b(t_stack **a, t_stack **b, int chunk)
+void	move_from_a_to_b(t_stack *a, t_stack *b, int chunk)
 {
 	int		idx;
 	int		size;
@@ -20,10 +20,10 @@ void	move_from_a_to_b(t_stack **a, t_stack **b, int chunk)
 	t_node	*head;
 
 	idx = 0;
-	size = (*a)->size;
+	size = a->size;
 	while (idx < size)
 	{
-		head = (*a)->head;
+		head = (a)->head;
 		ranking = head->ranking;
 		if (ranking <= idx)
 		{
@@ -70,44 +70,43 @@ t_node	*get_node_matching_ranking(t_stack *stack, int ranking, int *reverse)
 	return (0);
 }
 
-void	move_to_head(t_stack **stack, t_node *node, int reverse)
+void	move_to_head(t_stack *stack, t_node *node, int reverse)
 {
-	while ((*stack)->head != node)
+	while (stack->head != node)
 		(get_rotating_function(reverse))(stack, 'b');
 }
 
-void	move_from_b_to_a(t_stack **a, t_stack **b)
+void	move_from_b_to_a(t_stack *a, t_stack *b)
 {
 	int		size;
 	int		ranking;
 	int		reverse;
 	t_node	*node;
 
-	size = (*b)->size;
+	size = b->size;
 	ranking = size;
 	while (ranking--)
 	{	
-		node = get_node_matching_ranking(*b, ranking, &reverse);
+		node = get_node_matching_ranking(b, ranking, &reverse);
 		move_to_head(b, node, reverse);
 		push_stack(a, b, 'a');
 	}
 }
 
-void	sort(t_stack **a, t_stack **b)
+void	sort(t_stack *a, t_stack *b)
 {
 	int		a_size;
 	int		chunk;
 
 	if (check_well_sorted(*a))
 		return ;
-	a_size = (*a)->size;
+	a_size = a->size;
 	chunk = 0.000000053 * a_size * a_size + 0.03 * a_size + 14.5;
 	if (a_size <= 5)
 	{
 		sort_smallsize(a_size, a, b);
 		return ;
 	}
-//	chunk = 2;
 	move_from_a_to_b(a, b, chunk);
 	move_from_b_to_a(a, b);
 }

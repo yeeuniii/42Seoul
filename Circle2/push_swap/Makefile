@@ -6,7 +6,7 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/28 22:16:31 by yeepark           #+#    #+#              #
-#    Updated: 2022/11/13 02:43:11 by yeeun            ###   ########.fr        #
+#    Updated: 2022/11/13 03:08:34 by yeeun            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 SRC = main.c numbers.c check.c error.c \
 	  node.c stack.c init_stack.c rank.c \
 	  swap.c push.c rotate.c print.c \
-	  sort.c sort_smallsize.c sort_utils.c find.c  
+	  sort.c sort_smallsize.c sort_utils.c  
 SRCS = $(addprefix srcs/,$(SRC))
 OBJS = $(SRCS:.c=.o)
 BONUS_SRC = main.c numbers.c check.c error.c \

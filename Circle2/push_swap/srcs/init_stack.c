@@ -6,26 +6,20 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:59:33 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/07 15:59:34 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/13 03:23:47 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-t_stack	*make_new_stack(void)
+void	init_stack(t_stack *stack)
 {
-	t_stack	*stack;
-
-	stack = malloc(sizeof(t_stack));
-	if (!stack)
-		return (0);
 	stack->head = 0;
 	stack->tail = 0;
 	stack->size = 0;
-	return (stack);
 }
 
-int	init_stack(t_stack **stack, t_numbers *numbers)
+int	init_a_stack(t_stack *a, t_numbers *numbers)
 {
 	int		idx;
 	t_node	*new;
@@ -36,7 +30,7 @@ int	init_stack(t_stack **stack, t_numbers *numbers)
 		new = make_new_node(ft_atoi(numbers->numbers[idx]));
 		if (!new)
 			return (0);
-		add_node_back(stack, &new);
+		add_node_back(a, &new);
 		idx ++;
 	}
 	free_numbers(numbers);
