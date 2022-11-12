@@ -6,56 +6,55 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:44:54 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/03 19:17:49 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/13 03:24:31 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	set_empty_stack(t_stack **stack, t_node *node)
+void	set_empty_stack(t_stack *stack, t_node *node)
 {
-	if (!((*stack)->size))
+	if (!(stack->size))
 	{
-		(*stack)->head = node;
-		(*stack)->tail = node;
+		stack->head = node;
+		stack->tail = node;
 	}
 }
 
-void	add_node_front(t_stack **stack, t_node **node)
-{
-	set_empty_stack(stack, *node);
-	if ((*stack)->size)
-	{
-		connect(node, &((*stack)->head));
-		(*stack)->head = *node;
-	}
-	((*stack)->size)++;
-}
-
-void	add_node_back(t_stack **stack, t_node **node)
+void	add_node_front(t_stack *stack, t_node **node)
 {
 	set_empty_stack(stack, *node);
-	if ((*stack)->size)
+	if (stack->size)
 	{
-		connect(&((*stack)->tail), node);
-		(*stack)->tail = *node;
+		connect(node, &(stack->head));
+		stack->head = *node;
 	}
-	((*stack)->size)++;
+	(stack->size)++;
 }
 
-void	clear_stack(t_stack **stack)
+void	add_node_back(t_stack *stack, t_node **node)
+{
+	set_empty_stack(stack, *node);
+	if (stack->size)
+	{
+		connect(&(stack->tail), node);
+		stack->tail = *node;
+	}
+	(stack->size)++;
+}
+
+void	clear_stack(t_stack *stack)
 {
 	t_node	*node;
 	t_node	*tmp;
 
-	node = 0;
-	if (*stack)
-		node = (*stack)->head;
+	if (!stack->head)
+		return ;
+	node = stack->head;
 	while (node)
 	{
 		tmp = node->next;
 		free(node);
 		node = tmp;
 	}
-	free(*stack);
 }

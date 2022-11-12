@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 22:43:49 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/13 02:41:21 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/13 03:58:57 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_correct_operation_name(char *name)
 			&& ft_strcmp(name, "rrr\n")));
 }
 
-void	(*get_single_operation_function(char *input))(t_stack **stack, char name)
+void	(*get_single_operation_function(char *input))(t_stack *stack, char name)
 {
 	if (*input == 's')
 		return (swap_stack);
@@ -31,11 +31,27 @@ void	(*get_single_operation_function(char *input))(t_stack **stack, char name)
 	return (rotate_reverse_stack);
 }
 
-void	(*get_both_operation_function(char *input))(t_stack **, t_stack **)
+void	(*get_both_operation_function(char *input))(t_stack *, t_stack *)
 {
 	if (*input == 's')
 		return (swap_both);
 	if (input[0] != input[1])
 		return (rotate_both);
 	return (rotate_reverse_both);
+}
+
+int	check_well_sorted(t_stack stack)
+{
+	t_node	*node;
+	int		prev_number;
+
+	node = stack.head;
+	while (node->next)
+	{
+		prev_number = node->number;
+		node = node->next;
+		if (prev_number > node->number)
+			return (0);
+	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:57:16 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/09 01:17:37 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/13 03:15:29 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_error(void)
 	exit(1);
 }
 
-void	handle_error(int is_error, t_stack **a, t_stack **b, t_numbers *numbers)
+void	handle_error(int is_error, t_stack *a, t_stack *b, t_numbers *numbers)
 {
 	if (is_error)
 	{

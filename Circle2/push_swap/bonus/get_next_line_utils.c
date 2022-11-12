@@ -6,11 +6,23 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:47:14 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/13 02:36:45 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/13 04:07:38 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
+
+size_t	ft_strlen(const char *s)
+{
+	int	idx;
+
+	if (!s)
+		return (0);
+	idx = 0;
+	while (s[idx])
+		idx ++;
+	return (idx);
+}
 
 char	*ft_strjoin_size(char *s1, char *s2, size_t readsize)
 {

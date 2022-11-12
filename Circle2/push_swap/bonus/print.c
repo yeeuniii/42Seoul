@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 14:51:36 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/13 02:47:53 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/13 04:01:14 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	print_operation(char *operation_name, char stack_name)
 	write(1, "\n", 1);
 }
 
-void	print_well_sorted(t_stack *a, t_stack *b)
+void	print_well_sorted(t_stack a, t_stack b)
 {
-	if (check_well_sorted(a) && !(b->size))
+	if (check_well_sorted(a) && !(b.size))
 	{
 		write(1, "OK\n", 3);
 		return ;

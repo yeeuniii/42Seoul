@@ -6,13 +6,13 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 22:43:49 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/13 02:45:07 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/13 03:58:32 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int	process_input(t_stack **a, t_stack **b, char *input)
+int	process_input(t_stack *a, t_stack *b, char *input)
 {
 	char	name;
 
@@ -34,7 +34,7 @@ int	process_input(t_stack **a, t_stack **b, char *input)
 	return (1);
 }
 
-void	sort_by_standard_input(t_stack **a, t_stack **b)
+void	sort_by_standard_input(t_stack *a, t_stack *b)
 {
 	int		is_operation;
 	char	*input;
