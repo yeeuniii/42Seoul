@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:47:19 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/11 22:19:11 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/13 02:42:19 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,13 @@ void	swap_stack(t_stack **stack, char name);
 void	push_stack(t_stack **push_stack, t_stack **pop_stack, char name);
 void	rotate_stack(t_stack **stack, char name);
 void	rotate_reverse_stack(t_stack **stack, char name);
+void	swap_both(t_stack **a, t_stack **b);
+void	rotate_both(t_stack **a, t_stack **b);
+void	rotate_reverse_both(t_stack **a, t_stack **b);
+
 void	(*get_rotating_function(int reverse))(t_stack **, char);
+void	(*get_single_operation_function(char *input))(t_stack **, char);
+void	(*get_both_operation_function(char *input))(t_stack **, t_stack **);
 
 void	rank(t_stack **stack);
 
@@ -48,5 +54,7 @@ int		check_well_sorted(t_stack *stack);
 int		is_ascenging_ranking(t_stack *stack);
 void	sort(t_stack **a, t_stack **b);
 void	sort_smallsize(int size, t_stack **a, t_stack **b);
+void	sort_by_standard_input(t_stack **a, t_stack **b);
+void	print_well_sorted(t_stack *a, t_stack *b);
 
 #endif

@@ -6,28 +6,54 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 22:43:49 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/11 22:59:48 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/13 02:45:07 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int	is_correct_operation_name(char *name)
-{	
-	return (!(ft_strcmp(name, "sa") && ft_strcmp(name, "sb") && ft_strcmp(name, "ss")
-			&& ft_strcmp(name, "pa") && ft_strcmp(name, "pb") 
-			&& ft_strcmp(name, "ra") && ft_strcmp(name, "rb") && ft_strcmp(name, "rr")
-			&& ft_strcmp(name, "rra") && ft_strcmp(name, "rrb") && ft_strcmp(name, "rrr")));
+int	process_input(t_stack **a, t_stack **b, char *input)
+{
+	char	name;
+
+	if (*input == '\n')
+		return (-1);
+	if (!is_correct_operation_name(input))
+		return (0);
+	name = input[ft_strlen(input) - 2];
+	if (!ft_strcmp(input, "pa\n"))
+		push_stack(a, b, 'a');
+	if (!ft_strcmp(input, "pb\n"))
+		push_stack(b, a, 'b');
+	if (*input != name && name == 'a')
+		(get_single_operation_function(input))(a, 'a');
+	if (*input != name && name == 'b')
+		(get_single_operation_function(input))(b, 'b');
+	if (*input == name)
+		(get_both_operation_function(input))(a, b);
+	return (1);
 }
 
-void	sort_by_standard_inpust(t_stack **a, t_stack **b)
+void	sort_by_standard_input(t_stack **a, t_stack **b)
 {
+	int		is_operation;
 	char	*input;
-
-	while (*input != '\n')
+	
+	is_operation = 1;
+	input = ft_strdup("");
+	if (!input)
+		is_operation = 0;
+	while (is_operation && *input != '\n')
 	{
+		free(input);
 		input = get_next_line(0);
-
+		is_operation = process_input(a, b, input);
 	}
-
+	if (!is_operation)
+	{
+		clear_stack(a);
+		clear_stack(b);
+		print_error();
+	}
+	free(input);
 }

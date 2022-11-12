@@ -6,7 +6,7 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/28 22:16:31 by yeepark           #+#    #+#              #
-#    Updated: 2022/11/13 00:11:56 by yeeun            ###   ########.fr        #
+#    Updated: 2022/11/13 02:43:11 by yeeun            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,9 @@ SRC = main.c numbers.c check.c error.c \
 SRCS = $(addprefix srcs/,$(SRC))
 OBJS = $(SRCS:.c=.o)
 BONUS_SRC = main.c numbers.c check.c error.c \
-			node.c stack.c init_stack.c rank.c \
+			node.c stack.c init_stack.c  \
 			swap.c push.c rotate.c print.c operation_both.c \
-			sort.c sort_smallsize.c find.c \
-			get_next_line.c get_next_line_utils.c
+			sort.c sort_utils.c get_next_line.c get_next_line_utils.c
 BONUS_SRCS = $(addprefix bonus/,$(BONUS_SRC))
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 INCLUDES = includes

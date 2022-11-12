@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 16:22:35 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/13 00:12:19 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/13 01:44:32 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,12 @@ void	sort_size5(t_stack **a, t_stack **b)
 
 void	sort_smallsize(int size, t_stack **a, t_stack **b)
 {
-	void	(*sorting_func[2])(t_stack **, t_stack **);
-
 	if (size == 2)
-	{
 		swap_stack(a, 'a');
-		return ;
-	}
-	if (size == 3)
-	{
+	else if (size == 3)
 		sort_size3(a);
-		return ;
-	}
-	sorting_func[0] = sort_size4;
-	sorting_func[1] = sort_size5;
-	sorting_func[size - 4](a, b);
+	else if (size == 4)
+		sort_size4(a, b);
+	else if (size == 5)
+		sort_size5(a, b);
 }

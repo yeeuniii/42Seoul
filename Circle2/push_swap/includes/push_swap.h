@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 22:13:59 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/13 00:13:26 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/13 02:39:49 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	handle_error(int is_error, t_stack **a, t_stack **b, t_numbers *nbrs);
 void	print_operation(char *operation_name, char stack_name);
 
 int		process_head_ranking(
-		t_stack **a, t_stack **b,
-		int *min_idx, int *max_idx);
+		t_stack **a, t_stack **b, int *min_idx, int *max_idx);
 void	move_from_head(t_stack **a);
 void	sort_size3(t_stack **a);
+int		is_correct_operation_name(char *name);
 
 #endif

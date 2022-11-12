@@ -1,0 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/11 22:43:49 by yeepark           #+#    #+#             */
+/*   Updated: 2022/11/13 02:41:21 by yeeun            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/push_swap.h"
+
+int	is_correct_operation_name(char *name)
+{	
+	return (!(ft_strcmp(name, "sa\n") && ft_strcmp(name, "sb\n")
+			&& ft_strcmp(name, "ss\n") && ft_strcmp(name, "pa\n")
+			&& ft_strcmp(name, "pb\n") && ft_strcmp(name, "ra\n")
+			&& ft_strcmp(name, "rb\n") && ft_strcmp(name, "rr\n")
+			&& ft_strcmp(name, "rra\n") && ft_strcmp(name, "rrb\n")
+			&& ft_strcmp(name, "rrr\n")));
+}
+
+void	(*get_single_operation_function(char *input))(t_stack **stack, char name)
+{
+	if (*input == 's')
+		return (swap_stack);
+	if (input[0] != input[1])
+		return (rotate_stack);
+	return (rotate_reverse_stack);
+}
+
+void	(*get_both_operation_function(char *input))(t_stack **, t_stack **)
+{
+	if (*input == 's')
+		return (swap_both);
+	if (input[0] != input[1])
+		return (rotate_both);
+	return (rotate_reverse_both);
+}
