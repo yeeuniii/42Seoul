@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 22:43:49 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/16 01:46:47 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/16 02:21:29 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	sort_by_standard_input(t_stack *a, t_stack *b)
 {
 	int		is_operation;
 	char	*input;
-	
+
 	is_operation = 1;
 	input = 0;
 	while (is_operation > 0)

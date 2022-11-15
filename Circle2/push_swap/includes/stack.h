@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:47:19 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/13 03:43:30 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/16 02:20:46 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,13 @@ void	(*get_both_operation_function(char *input))(t_stack *, t_stack *);
 
 void	rank(t_stack *stack);
 
+void	sort(t_stack *a, t_stack *b);
 int		check_well_sorted(t_stack stack);
 int		is_ascending_ranking(t_stack stack);
-void	sort(t_stack *a, t_stack *b);
+void	optimize(t_stack *a, int std);
+
 void	sort_smallsize(int size, t_stack *a, t_stack *b);
-int		process_head_ranking(
-		t_stack *a, t_stack *b, int *min_idx, int *max_idx);
+int		process_head_ranking(t_stack *a, t_stack *b, int *min, int *max);
 void	move_from_head(t_stack *a);
 void	sort_size3(t_stack *a);
 void	sort_by_standard_input(t_stack *a, t_stack *b);
