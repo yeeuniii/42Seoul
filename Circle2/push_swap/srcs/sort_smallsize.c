@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 16:22:35 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/13 03:43:46 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/16 01:12:35 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	sort_size4(t_stack *a, t_stack *b)
 
 	min_idx = 0;
 	max_idx = 0;
-	max_ranking = (a)->size - 1;
+	max_ranking = a->size - 1;
 	if (process_head_ranking(a, b, &min_idx, &max_idx))
 		return ;
 	if (min_idx == max_ranking || max_idx == max_ranking)

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 22:43:49 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/13 04:15:46 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/16 01:46:47 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,11 @@ int	process_input(t_stack *a, t_stack *b, char *input)
 		return (0);
 	name = input[ft_strlen(input) - 2];
 	if (!ft_strcmp(input, "pa\n"))
-	{
 		push_stack(a, b, 'a');
-		return (1);
-	}
 	if (!ft_strcmp(input, "pb\n"))
-	{
 		push_stack(b, a, 'b');
+	if (*input == 'p')
 		return (1);
-	}
 	if (*input != name && name == 'a')
 		(get_single_operation_function(input))(a, 'a');
 	if (*input != name && name == 'b')
@@ -46,10 +42,8 @@ void	sort_by_standard_input(t_stack *a, t_stack *b)
 	char	*input;
 	
 	is_operation = 1;
-	input = ft_strdup("");
-	if (!input)
-		is_operation = 0;
-	while (is_operation && *input != '\n')
+	input = 0;
+	while (is_operation > 0)
 	{
 		free(input);
 		input = get_next_line(0);

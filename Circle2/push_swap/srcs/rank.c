@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:59:40 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/13 03:10:09 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/16 01:22:34 by yeeun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,19 @@ t_node	*get_highest_ranking_node(t_stack stack)
 void	find_min_and_max_idx(t_stack stack, int *min_idx, int *max_idx)
 {
 	t_node	*node;
+	t_node	*max_node;
+	t_node	*min_node;
 	int		idx;
 
 	node = stack.head;
+	max_node = get_highest_ranking_node(stack);
+	min_node = get_lowest_ranking_node(stack);
 	idx = 0;
 	while (node)
 	{
-		if (node->ranking == get_lowest_ranking_node(stack)->ranking)
+		if (node->ranking == max_node->ranking)
 			*min_idx = idx;
-		if (node->ranking == get_highest_ranking_node(stack)->ranking)
+		if (node->ranking == min_node->ranking)
 			*max_idx = idx;
 		node = node->next;
 		idx ++;
