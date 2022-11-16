@@ -6,7 +6,7 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/28 22:16:31 by yeepark           #+#    #+#              #
-#    Updated: 2022/11/13 03:08:34 by yeeun            ###   ########.fr        #
+#    Updated: 2022/11/16 15:16:14 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,4 +62,4 @@ fclean : clean
 re : fclean
 	make all
 
-.PHONY : all clean fclean re
+.PHONY : all bonus both clean fclean re
