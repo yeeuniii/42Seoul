@@ -6,7 +6,7 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/28 22:16:31 by yeepark           #+#    #+#              #
-#    Updated: 2022/11/16 15:16:14 by yeepark          ###   ########.fr        #
+#    Updated: 2022/11/16 15:39:53 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,10 +31,7 @@ NAME = push_swap
 
 all : $(NAME)
 
-bonus : $(BONUS_OBJS) 	
-	make -C $(SUBDIR) all
-	cp $(SUBDIR)/$(LIBFT) .
-	$(CC) $(CFLAGS) $(BONUS_SRCS) $(LIBFT) -o $(BONUS)
+bonus : $(BONUS)
 
 both :
 	make all
@@ -44,6 +41,11 @@ $(NAME) : $(OBJS)
 	make -C $(SUBDIR) all
 	cp $(SUBDIR)/$(LIBFT) .
 	$(CC) $(CFLAGS) $(SRCS) $(LIBFT) -o $(NAME)
+
+$(BONUS) : $(BONUS_OBJS) 	
+	make -C $(SUBDIR) all
+	cp $(SUBDIR)/$(LIBFT) .
+	$(CC) $(CFLAGS) $(BONUS_SRCS) $(LIBFT) -o $(BONUS)
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c -o $@ $^ -I$(INCLUDES)
