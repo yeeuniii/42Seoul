@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 16:22:35 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/16 02:17:45 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/16 19:49:52 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	check_well_sorted(t_stack stack)
 	t_node	*node;
 	int		prev_number;
 
+	if (stack.size == 0 || stack.size == 1)
+		return (1);
 	node = stack.head;
 	while (node->next)
 	{
