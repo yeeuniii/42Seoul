@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 22:43:49 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/16 02:21:15 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/16 14:25:18 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	is_correct_operation_name(char *name)
 			&& ft_strcmp(name, "rrr\n")));
 }
 
-void	(*get_single_operation_function(char *input))(t_stack *stack, char name)
+void	(*get_single_operation_function(char *input))(t_stack *stack)
 {
 	if (*input == 's')
-		return (swap_stack);
+		return (swap);
 	if (ft_strlen(input) == 3)
-		return (rotate_stack);
-	return (rotate_reverse_stack);
+		return (rotate);
+	return (rotate_reverse);
 }
 
 void	(*get_both_operation_function(char *input))(t_stack *a, t_stack *b)

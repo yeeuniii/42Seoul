@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 22:16:05 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/16 01:26:23 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/16 14:58:18 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ void	swap(t_stack *stack)
 	new_head = head->next;
 	new_head->prev = 0;
 	stack->head = new_head;
+	head->next = 0;
 	if (!new_head->next)
-		head->next = 0;
+		stack->tail = head;
 	if (new_head->next)
 		connect(&head, &(new_head->next));
 	connect(&new_head, &head);

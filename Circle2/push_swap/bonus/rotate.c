@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:06:39 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/13 03:29:31 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/16 14:25:50 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,4 @@ void	rotate_reverse(t_stack *stack)
 	tail->prev = 0;
 	(stack->size)--;
 	add_node_front(stack, &tail);
-}
-
-void	rotate_stack(t_stack *stack, char name)
-{
-	rotate(stack);
-	print_operation("r", name);
-}
-
-void	rotate_reverse_stack(t_stack *stack, char name)
-{
-	rotate_reverse(stack);
-	print_operation("rr", name);
-}
-
-void	(*get_rotating_function(int reverse))(t_stack *stack, char c)
-{
-	if (reverse)
-		return (rotate_reverse_stack);
-	return (rotate_stack);
 }

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:06:55 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/13 03:30:05 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/16 14:20:24 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,4 @@ void	push(t_stack *push_stack, t_stack *pop_stack)
 	moving_node = pop_stack->head;
 	pop(pop_stack);
 	add_node_front(push_stack, &moving_node);
-}
-
-void	push_stack(t_stack *push_stack, t_stack *pop_stack, char name)
-{
-	push(push_stack, pop_stack);
-	print_operation("p", name);
 }
