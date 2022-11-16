@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:56:20 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/16 21:45:21 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/16 22:13:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	ft_isinteger(char *str)
 	res = 0;
 	idx = 0;
 	sign = 1;
-	if (str[idx] == '+' || str[idx] == '-')
+	if (ft_issign(str[0]) && ft_strlen(str) == 1)
+		return (0);
+	if (ft_issign(str[idx]))
 	{
 		sign = (str[idx] == '+') - (str[idx] == '-');
 		idx ++;
 	}
-	if (ft_issign(str[0]) && ft_strlen(str) == 1)
-		return (0);
 	while (ft_isdigit(str[idx]))
 	{
 		res = res * 10 + str[idx] - '0';
