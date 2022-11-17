@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:56:20 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/16 22:13:06 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/18 08:56:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	check_duplicated(char **numbers, int end_idx)
 	int	start_idx;
 
 	start_idx = 0;
+	if (!**(numbers + end_idx))
+		return (0);
 	while (start_idx < end_idx)
 	{
 		if (ft_atoi(numbers[start_idx]) == ft_atoi(numbers[end_idx]))

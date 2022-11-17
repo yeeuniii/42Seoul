@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:59:38 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/13 03:17:35 by yeeun            ###   ########.fr       */
+/*   Updated: 2022/11/18 08:52:23 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	init_numbers(int argc, char *argv[], t_numbers *numbers)
 {
 	numbers->can_free = 0;
 	if (argc == 1)
-		exit(0);
+		exit(1);
 	if (argc > 2)
 	{
 		numbers->numbers = argv + 1;
@@ -26,6 +26,8 @@ int	init_numbers(int argc, char *argv[], t_numbers *numbers)
 	numbers->numbers = ft_split(argv[1], ' ', &(numbers->size));
 	numbers->can_free = 1;
 	if (!numbers->numbers)
+		return (0);
+	if (!numbers->size)
 		return (0);
 	return (1);
 }

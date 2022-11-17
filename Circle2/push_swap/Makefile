@@ -6,11 +6,11 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/28 22:16:31 by yeepark           #+#    #+#              #
-#    Updated: 2022/11/16 15:39:53 by yeepark          ###   ########.fr        #
+#    Updated: 2022/11/18 08:35:53 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror 
 SRC = main.c numbers.c check.c error.c \
 	  node.c stack.c init_stack.c rank.c \
 	  swap.c push.c rotate.c print.c \
