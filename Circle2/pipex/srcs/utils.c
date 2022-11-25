@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 20:17:18 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/25 21:01:34 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/25 22:18:43 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_error(char *file_name)
 	if (!*file_name)
 		return ;
 	write(2, file_name, ft_strlen(file_name));
-	perror(": zsh");
+	perror(" ");
 	exit(1);
 }
 

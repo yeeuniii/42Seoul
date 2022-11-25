@@ -6,11 +6,11 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/18 14:32:26 by yeepark           #+#    #+#              #
-#    Updated: 2022/11/25 21:07:28 by yeepark          ###   ########.fr        #
+#    Updated: 2022/11/25 22:59:24 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#-Wall -Wextra -Werror
+#CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 CFLAGS =  -fsanitize=address
 SRC = main.c data.c process.c utils.c 
 SRCS = $(addprefix srcs/,$(SRC))

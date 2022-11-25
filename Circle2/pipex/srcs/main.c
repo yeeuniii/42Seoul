@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:43:46 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/25 21:07:40 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/25 22:31:52 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,13 @@
 //	system("leaks pipex");
 //}
 
-int	main(int argc, char *argv[], char **envp)
+int	main(int argc, char *argv[], char *envp[])
 {
 	t_data	data;
-	int		fd[2];
 
 //	atexit(leaks);
 	process_data(argc, argv, envp, &data);
-	if (pipe(fd) == -1)
-		exit(1);
-	execute_command(data, fd);
-	free_two_dim(data.path);
+	process_command(data);
+	free_two_dim(data.envp);
 	return (0);
 }

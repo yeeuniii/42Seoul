@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 17:15:30 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/25 20:17:37 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/25 22:19:19 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void	check_file_authority(char *file_path, char *auth)
 		print_error(file_path);
 }
 
-char	**find_path(char **envp)
+char	**find_env_path(char *envp[])
 {
 	while (*envp && ft_strncmp(*envp, "PATH=", 5))
 		envp++;
 	return (ft_split(*envp + 5, ':'));
 }
 
-void	process_data(int argc, char *argv[], char **envp, t_data *data)
+void	process_data(int argc, char *argv[], char *envp[], t_data *data)
 {
 	if (argc != 5)
 	{
@@ -45,7 +45,7 @@ void	process_data(int argc, char *argv[], char **envp, t_data *data)
 	data->cmd1 = argv[2];
 	data->cmd2 = argv[3];
 	data->file2 = argv[4];
-	data->path = find_path(envp);
-	if (!data->path)
+	data->envp = find_env_path(envp);
+	if (!data->envp)
 		exit(1);
 }
