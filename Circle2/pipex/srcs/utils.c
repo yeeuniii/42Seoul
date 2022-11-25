@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/25 15:43:46 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/25 21:07:40 by yeepark          ###   ########.fr       */
+/*   Created: 2022/11/25 20:17:18 by yeepark           #+#    #+#             */
+/*   Updated: 2022/11/25 21:01:34 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-//void	leaks(void)
-//{
-//	system("leaks pipex");
-//}
-
-int	main(int argc, char *argv[], char **envp)
+void	print_error(char *file_name)
 {
-	t_data	data;
-	int		fd[2];
+	if (!*file_name)
+		return ;
+	write(2, file_name, ft_strlen(file_name));
+	perror(": zsh");
+	exit(1);
+}
 
-//	atexit(leaks);
-	process_data(argc, argv, envp, &data);
-	if (pipe(fd) == -1)
-		exit(1);
-	execute_command(data, fd);
-	free_two_dim(data.path);
-	return (0);
+void	free_two_dim(char **str)
+{
+	int	idx;
+
+	if (!str)
+		return ;
+	idx = 0;
+	while (str[idx])
+	{
+		free(str[idx]);
+		idx ++;
+	}
+	free(str[idx]);
+	free(str);
 }

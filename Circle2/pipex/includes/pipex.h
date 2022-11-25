@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:46:40 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/25 19:53:57 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/25 20:58:27 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <string.h>
 # include <sys/wait.h>
+# include <errno.h>
 # include "../libft/includes/libft.h"
 
 typedef struct s_data
@@ -29,7 +31,11 @@ typedef struct s_data
 	char	**path;
 }	t_data;
 
-char	**find_path(char **envp);
 void	process_data(int argc, char *argv[], char **envp, t_data *data);
+
+void	execute_command(t_data data, int fd[2]);
+
+void	print_error(char *file_name);
+void	free_two_dim(char **str);
 
 #endif

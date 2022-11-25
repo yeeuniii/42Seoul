@@ -6,29 +6,24 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 17:15:30 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/25 19:53:45 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/25 20:17:37 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	print_error(char *file_name)
+void	check_file_authority(char *file_path, char *auth)
 {
-	write(2, file_name, ft_strlen(file_name));
-	perror(": zsh");
-	exit(1);
-}
-
-void	check_file_authority(char *file_name, char *auth)
-{
-	if (*auth == 'f' && access(file_name, F_OK) == -1)
-		print_error(file_name);
+	if (*auth == 'f' && access(file_path, F_OK) == -1)
+		print_error(file_path);
 	if (*auth == 'f')
 		auth++;
-	if (*auth == 'r' && access(file_name, R_OK) == -1)
-		print_error(file_name);
-	if (*auth == 'w' && access(file_name, W_OK) == -1)
-		print_error(file_name);
+	if (*auth == 'r' && access(file_path, R_OK) == -1)
+		print_error(file_path);
+	if (*auth == 'r')
+		auth++;
+	if (*auth == 'w' && access(file_path, W_OK) == -1)
+		print_error(file_path);
 }
 
 char	**find_path(char **envp)
