@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:22:22 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/25 23:08:28 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/27 21:32:51 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,16 @@ char	*find_command_path(char **cmds, char **envp)
 	return (0);
 }
 
-void	execute_command(t_data data, char *cmd_path, char **commands)
+void	execute_command(t_data data, char *cmd_path, char **commands, int pipe_fd[][2])
 {
 	pid_t	pid;
-	int		fd[2];
-	int		f;
-	char	buf[1000];
+	int		open_fileno;
+	int		status;
+	int		*fd;
 
-	if (pipe(fd) == -1)
+	fd = *pipe_fd;
+	open_fileno = open(data.file1, O_RDWR);
+	if (open_fileno == -1)
 		exit(1);
 	pid = fork();
 	if (pid == -1)
@@ -85,30 +87,84 @@ void	execute_command(t_data data, char *cmd_path, char **commands)
 	}
 	if (pid == 0)
 	{
-		fd[0] = open(data.file1, O_RDWR);
-		dup2(fd[0], 0);
-		close(fd[1]);
-		execve(cmd_path, commands, data.envp);
+		close(fd[READ]);
+		dup2(open_fileno, STDIN_FILENO);
+		dup2(fd[WRITE], STDOUT_FILENO);
+		close(fd[WRITE]);
+		if (execve(cmd_path, commands, data.envp) == -1)
+			exit(1);
 	}
 	if (pid > 0)
 	{
-		wait(&pid);
 		free(cmd_path);
 		free_two_dim(commands);
-		write(1, "parant\n", 7);
-		read(fd[0], buf, 30);
-		printf("%s\n", buf);
+		if (waitpid(pid, &status, WNOHANG) == -1)
+			exit(1);
+		close(fd[WRITE]);
+	//	dup2(fd[READ], STDIN_FILENO);
+//		char *argv[3];
+//		argv[0] = "wc";
+//		argv[1] = "-l";
+//		argv[2] = 0;
+//		execve("/usr/bin/wc", argv, data.envp);
 	}
 }
 
-void	process_command(t_data data)
+void	make_output_file(t_data data, char *cmd_path, char **commands, int pipe_fd[][2])
 {
-	char	*cmd_path;
+	pid_t	pid;
+	int		output_fileno;
+	int		status;
+	int		*fd;
+
+	fd = *pipe_fd;
+	output_fileno = open(data.file2, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	if (output_fileno == -1)
+		exit(1);
+//	if (access(data.file2, R_OK) == -1)
+//		print_error(data.file2);
+	pid = fork();
+	if (pid == -1)
+		exit(1);
+	if (pid == 0)
+	{
+//		printf("cmd_path %s\n", cmd_path);
+//		printf("cmds[0] : %s\n", commands[0]);
+		dup2(fd[READ], 0);
+		dup2(output_fileno, 1);
+		if (execve(cmd_path, commands, data.envp) == -1)
+			exit(1);
+	}
+	if (pid > 0)
+	{
+		free(cmd_path);
+		free_two_dim(commands);
+		if (waitpid(pid, &status, WNOHANG) == -1)
+			exit(1);
+		close(fd[WRITE]);
+	}
+}
+
+void	process_command(t_data data, int pipe_fd[][2])
+{
 	char	**commands;
+	char	*cmd_path;
 
 	commands = ft_split(data.cmd1, ' ');
 	if (!commands)
 		exit(1);
 	cmd_path = find_command_path(commands, data.envp);
-	execute_command(data, cmd_path, commands);
+	execute_command(data, cmd_path, commands, pipe_fd);
+}
+
+void	process_last_cmd(t_data data, int pipe_fd[][2])
+{
+	char	**commands;
+	char	*cmd_path;
+
+	commands = ft_split(data.cmd2, ' ');
+	if (!commands)
+		exit(1);
+	cmd_path = find_command_path(commands, data.envp);
+	make_output_file(data, cmd_path, commands, pipe_fd);
 }

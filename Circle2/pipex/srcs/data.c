@@ -6,23 +6,15 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 17:15:30 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/25 22:19:19 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/27 15:51:35 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	check_file_authority(char *file_path, char *auth)
+void	check_file_authority(char *file_path, int mode)
 {
-	if (*auth == 'f' && access(file_path, F_OK) == -1)
-		print_error(file_path);
-	if (*auth == 'f')
-		auth++;
-	if (*auth == 'r' && access(file_path, R_OK) == -1)
-		print_error(file_path);
-	if (*auth == 'r')
-		auth++;
-	if (*auth == 'w' && access(file_path, W_OK) == -1)
+	if (access(file_path, mode) == -1)
 		print_error(file_path);
 }
 
@@ -41,7 +33,7 @@ void	process_data(int argc, char *argv[], char *envp[], t_data *data)
 		exit(1);
 	}
 	data->file1 = argv[1];
-	check_file_authority(data->file1, "fr");
+	check_file_authority(data->file1, F_OK | R_OK);
 	data->cmd1 = argv[2];
 	data->cmd2 = argv[3];
 	data->file2 = argv[4];

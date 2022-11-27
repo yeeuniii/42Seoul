@@ -1,2 +1,4 @@
-aa
-bbb
+write
+fd2 1
+str : write
+þ
