@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:46:40 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/28 18:04:41 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/28 19:42:32 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ typedef struct s_data
 }	t_data;
 
 void	process_data(int argc, char *argv[], char *envp[], t_data *data);
-
 void	process_command(t_data data);
+
+void	open_pipe(int piep_fd[2]);
+void	close_pipe(int pipe_fd[2]);
 
 void	print_error(char *file_name);
 void	free_two_dim(char **str);

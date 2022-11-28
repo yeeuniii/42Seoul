@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:21:41 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/28 18:11:20 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/28 19:30:33 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**find_env_path(char *envp[])
 
 void	process_data(int argc, char *argv[], char *envp[], t_data *data)
 {
-	if (argc < 5)
+	if (argc != 5)
 	{
 		write(2, "usage : ./pipex file1 cmd1 cmd2 file2\n", 38);
 		exit(1);
