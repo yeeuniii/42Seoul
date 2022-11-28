@@ -6,13 +6,13 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/18 14:32:26 by yeepark           #+#    #+#              #
-#    Updated: 2022/11/25 22:59:24 by yeepark          ###   ########.fr        #
+#    Updated: 2022/11/28 17:01:09 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 CFLAGS =  -fsanitize=address
-SRC = main.c data.c process.c utils.c 
+SRC = main.c data.c set_execute.c execute.c utils.c 
 SRCS = $(addprefix srcs/,$(SRC))
 OBJS = $(SRCS:.c=.o)
 INCLUDES = includes
