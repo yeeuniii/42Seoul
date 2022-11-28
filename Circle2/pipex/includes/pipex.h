@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:46:40 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/28 19:42:32 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/11/28 21:21:08 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include "execute.h"
 # include "../libft/includes/libft.h"
 
+# define OLD 0
+# define NEW 1
 # define READ 0
 # define WRITE 1
 
