@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:33:08 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/28 19:42:25 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/01 16:30:54 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ void	execute_command(t_data data, t_execute execute, int pipe_fd[2], int idx)
 			free_execute(execute, 1);
 		status = execve(execute.cmd_path, execute.cmd_vector, execute.env_path);
 		if (status == -1)
-			exit(1);
+			print_error_by_errno();
 	}
 	if (pid > 0)
 	{
 		free_execute(execute, 0);
 		if (waitpid(pid, &status, WNOHANG) == -1)
-			exit(1);
+			print_error_by_errno();
 		if (idx == data.cmd_num)
 			close_pipe(pipe_fd);
 	}
@@ -75,8 +75,6 @@ void	process_command(t_data data)
 	while (idx++ < data.cmd_num)
 	{	
 		execute = set_execute(data.envp, *data.cmds);
-//		printf("cmd_path : %s\n", execute.cmd_path);
-//		printf("cmd_vector : %s\n", execute.cmd_vector[0]);
 		execute_command(data, execute, pipe_fd, idx);
 		data.cmds++;
 	}

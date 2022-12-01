@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:33:21 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/28 19:33:53 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/01 16:31:50 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_execute(t_execute execute, int is_error)
 	if (is_error)
 	{
 		free_two_dim(execute.env_path);
-		exit(1);
+		print_error_by_errno();
 	}
 }
 
@@ -62,16 +62,21 @@ char	*find_command_path(t_execute execute)
 	cmd_path = 0;
 	while (idx >= 0 && execute.env_path[idx])
 	{
-		free(cmd_path);
 		cmd_path = join_path_and_cmd(execute.env_path[idx], cmd);
 		if (!cmd_path)
 			idx = -2;
 		if (!access(cmd_path, F_OK))
 			return (cmd_path);
+		free(cmd_path);
 		idx++;
 	}
-	print_error(cmd);
-	free_execute(execute, 1);
+//	if (idx > 0)
+//		cmd = ft_strdup(execute.cmd_vector[0]);
+//	free_two_dim(execute.cmd_vector);
+//	free_two_dim(execute.env_path);
+	if (idx == -1)
+		print_error_by_errno();
+	print_error(cmd, NOT_COMMAND);
 	return (0);
 }
 
@@ -85,7 +90,7 @@ t_execute	set_execute(char **envp, char *cmd)
 	{
 		execute.cmd_path = 0;
 		free_execute(execute, 1);
-		exit(1);
+		print_error_by_errno();
 	}
 	execute.cmd_path = find_command_path(execute);
 	return (execute);

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 21:39:35 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/28 21:46:04 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/01 14:59:21 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	execute_command(t_data data, t_execute execute, int pipe_fd[2][2], int idx)
 	close_pipe(pipe_fd[OLD]);
 	pipe_fd[OLD][0] = pipe_fd[NEW][0];
 	pipe_fd[OLD][1] = pipe_fd[NEW][1];
-	printf("old : %d %d\n", pipe_fd[OLD][0], pipe_fd[OLD][1]);
+//	printf("old : %d %d\n", pipe_fd[OLD][0], pipe_fd[OLD][1]);
 }
 
 void	process_command(t_data data)
@@ -85,9 +85,9 @@ void	process_command(t_data data)
 		execute = set_execute(data.envp, *data.cmds);
 		open_pipe(pipe_fd[NEW]);
 		execute_command(data, execute, pipe_fd, idx);
-	printf("old : %d %d\n", pipe_fd[OLD][0], pipe_fd[OLD][1]);
+	//printf("old : %d %d\n", pipe_fd[OLD][0], pipe_fd[OLD][1]);
 		data.cmds++;
 	}
 	close_pipe(pipe_fd[NEW]);
-//	free_two_dim(execute.env_path);
+	free_two_dim(execute.env_path);
 }

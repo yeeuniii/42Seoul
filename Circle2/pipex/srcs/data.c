@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:21:41 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/28 19:30:33 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/01 16:33:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	check_file_authority(char *file_path, int mode)
 {
 	if (access(file_path, mode) == -1)
-		print_error(file_path);
+		print_error(file_path, NO_AUTH);
 }
 
 char	**find_env_path(char *envp[])
@@ -26,7 +26,7 @@ char	**find_env_path(char *envp[])
 		envp++;
 	env_path = ft_split(*envp + 5, ':');
 	if (!env_path)
-		exit(1);
+		print_error_by_errno();
 	return (env_path);
 }
 

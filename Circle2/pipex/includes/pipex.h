@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:46:40 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/28 21:21:08 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/01 16:23:25 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include <errno.h>
 # include "execute.h"
 # include "../libft/includes/libft.h"
+
+# define NO_AUTH 0
+# define NOT_COMMAND 1
 
 # define OLD 0
 # define NEW 1
@@ -43,7 +46,8 @@ void	process_command(t_data data);
 void	open_pipe(int piep_fd[2]);
 void	close_pipe(int pipe_fd[2]);
 
-void	print_error(char *file_name);
+void	print_error(char *file_name, int mode);
+void	print_error_by_errno(void);
 void	free_two_dim(char **str);
 
 #endif

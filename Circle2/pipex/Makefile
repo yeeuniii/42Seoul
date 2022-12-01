@@ -6,7 +6,7 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/18 14:32:26 by yeepark           #+#    #+#              #
-#    Updated: 2022/11/28 21:29:50 by yeepark          ###   ########.fr        #
+#    Updated: 2022/12/01 16:32:27 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ CFLAGS = -Wall -Wextra -Werror
 SRC = main.c data.c set_execute.c execute.c utils.c pipe.c
 SRCS = $(addprefix srcs/,$(SRC))
 MANDATORY_OBJS = $(SRCS:.c=.o)
-BONUS_SRC = main_bonus.c data_bonus.c set_execute_bonus.c execute_bonus.c \
-			utils_bonus.c pipe_bonus.c
+BONUS_SRC = main_bonus.c data_bonus.c set_execute_bonus.c\
+			execute_bonus.c utils_bonus.c pipe_bonus.c
 BONUS_SRCS = $(addprefix bonus/,$(BONUS_SRC))
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 INCLUDES = includes
