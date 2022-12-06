@@ -6,11 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 21:39:29 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/28 21:39:31 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/01 16:42:40 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "../includes/pipex_bonus.h"
 
 void	check_file_authority(char *file_path, int mode)
 {
@@ -34,7 +34,7 @@ void	process_data(int argc, char *argv[], char *envp[], t_data *data)
 {
 	if (argc < 5)
 	{
-		write(2, "usage : ./pipex file1 cmd1 cmd2 file2\n", 38);
+		write(2, "usage : ./pipex file1 cmd1 cmd2 ... cmdn file2\n", 47);
 		exit(1);
 	}
 	check_file_authority(argv[1], F_OK | R_OK);

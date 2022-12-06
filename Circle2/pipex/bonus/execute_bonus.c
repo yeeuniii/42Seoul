@@ -6,11 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 21:39:35 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/01 14:59:21 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/01 16:42:48 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "../includes/pipex_bonus.h"
 
 void	duplicate_stdandard_fd(int in_fd, int out_fd, int pipe_fd[][2])
 {

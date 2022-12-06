@@ -1,4 +1,1 @@
-write
-fd2 1
-str : write
-ş
+asdfasdfasdasdhi

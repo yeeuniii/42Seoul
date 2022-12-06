@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:33:21 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/01 16:31:50 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/06 17:16:23 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,7 @@ char	*find_command_path(t_execute execute)
 		free(cmd_path);
 		idx++;
 	}
-//	if (idx > 0)
-//		cmd = ft_strdup(execute.cmd_vector[0]);
-//	free_two_dim(execute.cmd_vector);
-//	free_two_dim(execute.env_path);
+	execute.is_command = 0;
 	if (idx == -1)
 		print_error_by_errno();
 	print_error(cmd, NOT_COMMAND);
@@ -84,6 +81,7 @@ t_execute	set_execute(char **envp, char *cmd)
 {
 	t_execute	execute;
 
+	execute.is_command = 1;
 	execute.env_path = envp;
 	execute.cmd_vector = ft_split(cmd, ' ');
 	if (!execute.cmd_vector)
