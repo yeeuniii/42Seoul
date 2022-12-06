@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 20:17:18 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/06 17:09:48 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/06 21:30:55 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	print_error(char *file_name, int mode)
 	{
 		write(2, file_name, ft_strlen(file_name));
 		write(2, " : command not found\n", 21);
+		exit(1);
 	}
 	if (mode == NO_AUTH)
 	{

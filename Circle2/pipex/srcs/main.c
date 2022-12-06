@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:43:46 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/28 19:23:27 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/06 23:18:43 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ int	main(int argc, char *argv[], char *envp[])
 //	atexit(leaks);
 	process_data(argc, argv, envp, &data);
 	process_command(data);
+	free_two_dim(data.envp);
 	return (0);
 }

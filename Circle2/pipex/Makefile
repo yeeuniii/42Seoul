@@ -6,7 +6,7 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/18 14:32:26 by yeepark           #+#    #+#              #
-#    Updated: 2022/12/01 16:50:38 by yeepark          ###   ########.fr        #
+#    Updated: 2022/12/06 17:50:51 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,8 @@ endif
 
 all : $(NAME)
 
-bonus :
-	@make BONUS=1
+#bonus :
+#	@make BONUS=1
 
 $(NAME) : $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) -o $@ $^
