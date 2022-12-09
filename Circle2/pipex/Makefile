@@ -6,7 +6,7 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/18 14:32:26 by yeepark           #+#    #+#              #
-#    Updated: 2022/12/09 15:25:25 by yeepark          ###   ########.fr        #
+#    Updated: 2022/12/09 17:07:45 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,8 @@ SRC = main.c data.c set_execute.c execute.c \
 	  command.c fildes.c utils.c 
 SRCS = $(addprefix srcs/,$(SRC))
 MANDATORY_OBJS = $(SRCS:.c=.o)
-BONUS_SRC = main_bonus.c data_bonus.c set_execute_bonus.c\
-			execute_bonus.c utils_bonus.c pipe_bonus.c
+BONUS_SRC = main_bonus.c data_bonus.c set_execute_bonus.c \
+			execute_bonus.c utils_bonus.c fildes_bonus.c command_bonus.c
 BONUS_SRCS = $(addprefix bonus/,$(BONUS_SRC))
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 INCLUDES = includes
@@ -33,8 +33,8 @@ endif
 
 all : $(NAME)
 
-#bonus :
-#	@make BONUS=1
+bonus :
+	@make BONUS=1
 
 $(NAME) : $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) -o $@ $^

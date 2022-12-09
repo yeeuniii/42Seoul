@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_bonus.c                                       :+:      :+:    :+:   */
+/*   execute_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/09 16:50:27 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/09 16:50:29 by yeepark          ###   ########.fr       */
+/*   Created: 2022/12/09 16:05:28 by yeepark           #+#    #+#             */
+/*   Updated: 2022/12/09 16:05:59 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex_bonus.h"
+#ifndef EXECUTE_BONUS_H
+# define EXECUTE_BONUS_H
 
-//void	leaks(void)
-//{
-//	system("leaks pipex");
-//}
-
-int	main(int argc, char *argv[], char *envp[])
+typedef struct s_execute
 {
-	t_data	data;
+	char	*cmd_path;
+	char	**cmd_vector;
+	char	**env_path;
+	int		is_command;
+}	t_execute;
 
-//	atexit(leaks);
-	process_data(argc, argv, envp, &data);
-	process_command(data);
-	free_two_dim(data.envp);
-	return (0);
-}
+void		free_execute(t_execute execute, int is_error);
+t_execute	set_execute(char **envp, char *cmd);
+
+#endif

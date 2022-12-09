@@ -5,89 +5,77 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 21:39:35 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/01 16:42:48 by yeepark          ###   ########.fr       */
+/*   Created: 2022/12/09 16:50:21 by yeepark           #+#    #+#             */
+/*   Updated: 2022/12/09 17:30:56 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
-void	duplicate_stdandard_fd(int in_fd, int out_fd, int pipe_fd[][2])
+void	free_execute(t_execute execute, int is_error)
 {
-	if (dup2(in_fd, STDIN_FILENO) == -1)
-		exit(1);
-	if (dup2(out_fd, STDOUT_FILENO) == -1)
-		exit(1);
-	close(pipe_fd[OLD][READ]);
+	free(execute.cmd_path);
+	free_two_dim(execute.cmd_vector);
+	if (is_error)
+	{
+		free_two_dim(execute.env_path);
+		print_error_by_errno();
+	}
 }
 
-int	set_child_process_fd(int pipe_fd[][2], int idx, t_data data)
+int	set_child_process(int pipe[2][2], int idx, t_data data)
 {
-	int		open_fileno;
-	
-	close(pipe_fd[OLD][WRITE]);
 	if (idx == 1)
-	{
-		open_fileno = open(data.file1, O_RDWR);
-		if (open_fileno == -1)
-			return (0);
-		duplicate_stdandard_fd(open_fileno, pipe_fd[NEW][WRITE], pipe_fd);
-		return (1);
-	}
+		return (process_first_command(pipe, data.file1));
 	if (idx == data.cmd_num)
-	{
-		open_fileno = open(data.file2, O_RDWR | O_CREAT | O_TRUNC, 0644);
-		if (open_fileno == -1)
-			return (0);
-		duplicate_stdandard_fd(pipe_fd[OLD][READ], open_fileno, pipe_fd);
-		return (1);
-	}
-	duplicate_stdandard_fd(pipe_fd[OLD][READ], pipe_fd[NEW][WRITE], pipe_fd);
-	close(pipe_fd[NEW][WRITE]);
-	return (1);
+		return (process_last_command(pipe, data.file2));
+	return (process_other_command(pipe));
 }
 
-void	execute_command(t_data data, t_execute execute, int pipe_fd[2][2], int idx)
+void	execute_command(t_data data, t_execute execute, int pipe[2][2], int idx)
 {
 	pid_t	pid;
-	int		status;
+	int		error;
 
+	open_pipe(pipe[NEW]);
 	pid = fork();
 	if (pid == -1)
 		free_execute(execute, 1);
-	if (pid == 0)
+	if (pid > 0)
 	{
-		if (!set_child_process_fd(pipe_fd, idx, data))
-			free_execute(execute, 1);
-		status = execve(execute.cmd_path, execute.cmd_vector, execute.env_path);
-		if (status == -1)
-			exit(1);
+		close_pipe(pipe[OLD]);
+		pipe[OLD][READ] = pipe[NEW][READ];
+		pipe[OLD][WRITE] = pipe[NEW][WRITE];
+		return ;
 	}
-	free_execute(execute, 0);
-	if (waitpid(pid, &status, WNOHANG) == -1)
-		exit(1);
-	close_pipe(pipe_fd[OLD]);
-	pipe_fd[OLD][0] = pipe_fd[NEW][0];
-	pipe_fd[OLD][1] = pipe_fd[NEW][1];
-//	printf("old : %d %d\n", pipe_fd[OLD][0], pipe_fd[OLD][1]);
+	if (!set_child_process(pipe, idx, data))
+		free_execute(execute, 1);
+	if (!execute.is_command)
+		print_error(execute.cmd_vector[0], NOT_COMMAND);
+	error = execve(execute.cmd_path, execute.cmd_vector, execute.env_path);
+	if (error == -1)
+		print_error_by_errno();
 }
 
 void	process_command(t_data data)
 {
 	t_execute	execute;
 	int			idx;
-	int			pipe_fd[2][2];
+	int			pipe[2][2];
 
 	idx = 0;
-	open_pipe(pipe_fd[OLD]);
+	open_pipe(pipe[OLD]);
 	while (idx++ < data.cmd_num)
-	{
+	{	
 		execute = set_execute(data.envp, *data.cmds);
-		open_pipe(pipe_fd[NEW]);
-		execute_command(data, execute, pipe_fd, idx);
-	//printf("old : %d %d\n", pipe_fd[OLD][0], pipe_fd[OLD][1]);
+		execute_command(data, execute, pipe, idx);
+		free_execute(execute, 0);
 		data.cmds++;
 	}
-	close_pipe(pipe_fd[NEW]);
-	free_two_dim(execute.env_path);
+	close_pipe(pipe[NEW]);
+	while (--idx)
+	{
+		if (wait(0) == -1)
+			print_error_by_errno();
+	}
 }

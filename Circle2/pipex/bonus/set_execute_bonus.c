@@ -5,23 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 21:39:11 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/01 16:43:20 by yeepark          ###   ########.fr       */
+/*   Created: 2022/12/09 16:50:35 by yeepark           #+#    #+#             */
+/*   Updated: 2022/12/09 16:50:37 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
-
-void	free_execute(t_execute execute, int is_error)
-{
-	free(execute.cmd_path);
-	free_two_dim(execute.cmd_vector);
-	if (is_error)
-	{
-		free_two_dim(execute.env_path);
-		exit(1);
-	}
-}
 
 char	*join_path_and_cmd(char *envp, char *cmd)
 {
@@ -51,27 +40,26 @@ char	*join_path_and_cmd(char *envp, char *cmd)
 	return (cmd_path);
 }
 
-char	*find_command_path(t_execute execute)
+char	*find_command_path(t_execute *execute)
 {
 	int		idx;
 	char	*cmd;
 	char	*cmd_path;
 
 	idx = 0;
-	cmd = execute.cmd_vector[0];
+	cmd = execute->cmd_vector[0];
 	cmd_path = 0;
-	while (idx >= 0 && execute.env_path[idx])
+	while (execute->env_path[idx])
 	{
-		free(cmd_path);
-		cmd_path = join_path_and_cmd(execute.env_path[idx], cmd);
+		cmd_path = join_path_and_cmd(execute->env_path[idx], cmd);
 		if (!cmd_path)
-			idx = -2;
+			print_error_by_errno();
 		if (!access(cmd_path, F_OK))
 			return (cmd_path);
+		free(cmd_path);
 		idx++;
 	}
-	print_error(cmd);
-	free_execute(execute, 1);
+	execute->is_command = 0;
 	return (0);
 }
 
@@ -79,14 +67,12 @@ t_execute	set_execute(char **envp, char *cmd)
 {
 	t_execute	execute;
 
+	execute.is_command = 1;
+	execute.cmd_path = 0;
 	execute.env_path = envp;
 	execute.cmd_vector = ft_split(cmd, ' ');
 	if (!execute.cmd_vector)
-	{
-		execute.cmd_path = 0;
 		free_execute(execute, 1);
-		exit(1);
-	}
-	execute.cmd_path = find_command_path(execute);
+	execute.cmd_path = find_command_path(&execute);
 	return (execute);
 }
