@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:33:08 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/09 15:24:40 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/09 15:46:56 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	execute_command(t_data data, t_execute execute, int pipe[2], int idx)
 		free_execute(execute, 1);
 	if (pid > 0)
 		return ;
-	if (!execute.is_command)
-		print_error(execute.cmd_vector[0], NOT_COMMAND);
 	if (!set_child_process(pipe, idx, data))
 		free_execute(execute, 1);
+	if (!execute.is_command)
+		print_error(execute.cmd_vector[0], NOT_COMMAND);
 	error = execve(execute.cmd_path, execute.cmd_vector, execute.env_path);
 	if (error == -1)
 		print_error_by_errno();
