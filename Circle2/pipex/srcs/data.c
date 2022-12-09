@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:21:41 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/06 18:02:13 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/09 14:38:59 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	**find_env_path(char *envp[])
 {
 	char	**env_path;
 
-	while (envp && *envp && ft_strncmp(*envp, "PATH=", 5))
+	while (*envp && ft_strncmp(*envp, "PATH=", 5))
 		envp++;
 	env_path = ft_split(*envp + 5, ':');
 	if (!env_path)

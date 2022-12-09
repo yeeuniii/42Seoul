@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:46:40 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/01 16:37:47 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/09 15:24:25 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,13 @@ typedef struct s_data
 void	process_data(int argc, char *argv[], char *envp[], t_data *data);
 void	process_command(t_data data);
 
-void	open_pipe(int piep_fd[2]);
-void	close_pipe(int pipe_fd[2]);
+int		process_first_command(int pipe[2], char *file_name);
+int		process_last_command(int pipe[2], char *file_name);
+
+void	duplicate_standard_file_descriptor(int in_fd, int out_fd);
+void	close_file_descriptor(int fd);
+void	open_pipe(int fildes[2]);
+void	close_pipe(int fildes[2]);
 
 void	print_error(char *file_name, int mode);
 void	print_error_by_errno(void);

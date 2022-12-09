@@ -6,22 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:33:21 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/06 17:55:49 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/09 14:51:51 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-
-void	free_execute(t_execute execute, int is_error)
-{
-	free(execute.cmd_path);
-	free_two_dim(execute.cmd_vector);
-	if (is_error)
-	{
-		free_two_dim(execute.env_path);
-		print_error_by_errno();
-	}
-}
 
 char	*join_path_and_cmd(char *envp, char *cmd)
 {
@@ -60,19 +49,17 @@ char	*find_command_path(t_execute execute)
 	idx = 0;
 	cmd = execute.cmd_vector[0];
 	cmd_path = 0;
-	while (idx >= 0 && execute.env_path[idx])
+	while (execute.env_path[idx])
 	{
 		cmd_path = join_path_and_cmd(execute.env_path[idx], cmd);
 		if (!cmd_path)
-			idx = -2;
+			print_error_by_errno();
 		if (!access(cmd_path, F_OK))
 			return (cmd_path);
 		free(cmd_path);
 		idx++;
 	}
 	execute.is_command = 0;
-	if (idx == -1)
-		print_error_by_errno();
 	print_error(cmd, NOT_COMMAND);
 	return (0);
 }
@@ -82,14 +69,11 @@ t_execute	set_execute(char **envp, char *cmd)
 	t_execute	execute;
 
 	execute.is_command = 1;
+	execute.cmd_path = 0;
 	execute.env_path = envp;
 	execute.cmd_vector = ft_split(cmd, ' ');
 	if (!execute.cmd_vector)
-	{
-		execute.cmd_path = 0;
 		free_execute(execute, 1);
-		print_error_by_errno();
-	}
 	execute.cmd_path = find_command_path(execute);
 	return (execute);
 }

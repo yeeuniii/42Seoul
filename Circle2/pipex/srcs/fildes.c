@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.c                                             :+:      :+:    :+:   */
+/*   fildes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 19:32:58 by yeepark           #+#    #+#             */
-/*   Updated: 2022/11/28 19:33:01 by yeepark          ###   ########.fr       */
+/*   Created: 2022/12/09 15:18:02 by yeepark           #+#    #+#             */
+/*   Updated: 2022/12/09 15:27:57 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	close_pipe(int pipe_fd[2])
+void	duplicate_standard_file_descriptor(int in_fd, int out_fd)
 {
-	close(pipe_fd[READ]);
-	close(pipe_fd[WRITE]);
+	if (dup2(in_fd, STDIN_FILENO) == -1 || dup2(out_fd, STDOUT_FILENO) == -1)
+		print_error_by_errno();
 }
 
-void	open_pipe(int pipe_fd[2])
+void	close_file_descriptor(int fd)
 {
-	if (pipe(pipe_fd) == -1)
-		exit(1);
+	if (close(fd) == -1)
+		print_error_by_errno();
+}
+
+void	close_pipe(int fildes[2])
+{
+	close_file_descriptor(fildes[READ]);
+	close_file_descriptor(fildes[WRITE]);
+}
+
+void	open_pipe(int fildes[2])
+{
+	if (pipe(fildes) == -1)
+		print_error_by_errno();
 }

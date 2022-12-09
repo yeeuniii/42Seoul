@@ -6,13 +6,15 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/18 14:32:26 by yeepark           #+#    #+#              #
-#    Updated: 2022/12/06 17:50:51 by yeepark          ###   ########.fr        #
+#    Updated: 2022/12/09 15:25:25 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Wall -Wextra -Werror
+#CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 #CFLAGS =  -fsanitize=address
-SRC = main.c data.c set_execute.c execute.c utils.c pipe.c
+SRC = main.c data.c set_execute.c execute.c \
+	  command.c fildes.c utils.c 
 SRCS = $(addprefix srcs/,$(SRC))
 MANDATORY_OBJS = $(SRCS:.c=.o)
 BONUS_SRC = main_bonus.c data_bonus.c set_execute_bonus.c\
