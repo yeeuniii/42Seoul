@@ -6,23 +6,47 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:50:14 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/09 17:28:15 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/09 22:03:47 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
-int	process_first_command(int pipe[2][2], char *file_name)
+void	process_here_doc(t_data data)
+{
+	char	*str;
+	int		open_fileno;
+
+	str = 0;
+	open_fileno = open(data.infile, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	while (ft_strcmp(data.limiter, str))
+	{
+		ft_putstr_fd(str, open_fileno);
+		free(str);
+		ft_putstr_fd("> ", 0);
+		str = get_next_line(0);
+		if (!str)
+			print_error_by_errno();
+	}
+	free(str);
+}
+
+int	process_first_command(int pipe[2][2], t_data data)
 {
 	int	open_fileno;
 
 	close_pipe(pipe[OLD]);
 	close_file_descriptor(pipe[NEW][READ]);
-	open_fileno = open(file_name, O_RDWR);
+	open_fileno = open(data.infile, O_RDWR);
+	if (data.here_doc)
+	{
+		if (unlink(data.infile) == -1)
+			print_error_by_errno();
+	}
 	if (open_fileno == -1)
 	{
-		if (access(file_name, F_OK | R_OK) == -1)
-			print_error(file_name, NO_AUTH);
+		if (access(data.infile, F_OK | R_OK) == -1)
+			print_error(data.infile, NO_AUTH);
 		return (0);
 	}
 	duplicate_standard_file_descriptor(open_fileno, pipe[NEW][WRITE]);
@@ -30,13 +54,17 @@ int	process_first_command(int pipe[2][2], char *file_name)
 	return (1);
 }
 
-int	process_last_command(int pipe[2][2], char *file_name)
+int	process_last_command(int pipe[2][2], t_data data)
 {
+	int	mode;
 	int	open_fileno;
 
 	close_pipe(pipe[NEW]);
 	close_file_descriptor(pipe[OLD][WRITE]);
-	open_fileno = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	mode = O_RDWR | O_CREAT | O_TRUNC;
+	if (data.here_doc)
+		mode = O_RDWR | O_CREAT | O_APPEND;
+	open_fileno = open(data.outfile, mode, 0644);
 	if (open_fileno == -1)
 		return (0);
 	duplicate_standard_file_descriptor(pipe[OLD][READ], open_fileno);

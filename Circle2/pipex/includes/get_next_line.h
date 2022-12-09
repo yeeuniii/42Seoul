@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_bonus.c                                       :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/09 16:50:27 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/09 22:05:31 by yeepark          ###   ########.fr       */
+/*   Created: 2022/08/05 15:47:23 by yeepark           #+#    #+#             */
+/*   Updated: 2022/12/09 20:23:14 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex_bonus.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-//void	leaks(void)
-//{
-//	system("leaks pipex");
-//}
+# include <unistd.h>
+# include <stdlib.h>
+# include "../libft/includes/libft.h"
 
-int	main(int argc, char *argv[], char *envp[])
-{
-	t_data	data;
+# define BUFFER_SIZE 10
 
-//	atexit(leaks);
-	process_data(argc, argv, envp, &data);
-	if (data.here_doc)
-		process_here_doc(data);
-	process_command(data);
-	free_two_dim(data.envp);
-	return (0);
-}
+char	*get_next_line(int fd);
+
+char	*ft_strjoin_size(char *s1, char *s2, size_t readsize);
+int		ft_free(char *str);
+
+#endif

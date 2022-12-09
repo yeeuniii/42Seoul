@@ -1,31 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 18:44:31 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/09 20:29:10 by yeepark          ###   ########.fr       */
+/*   Created: 2022/08/05 15:47:14 by yeepark           #+#    #+#             */
+/*   Updated: 2022/12/09 20:23:29 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "get_next_line.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+char	*ft_strjoin_size(char *s1, char *s2, size_t readsize)
 {
 	size_t	idx;
+	size_t	len1;
+	char	*str;
 
+	len1 = ft_strlen(s1);
+	str = malloc(sizeof(char) * (len1 + readsize + 1));
+	if (!str)
+		return (NULL);
 	idx = 0;
-	if (!s1)
-		return (-1);
-	if (!s2)
-		return (1);
-	while (s1[idx] || s2[idx])
+	while (s1 && s1[idx])
 	{
-		if (s1[idx] != s2[idx])
-			return ((unsigned char)s1[idx] - (unsigned char)s2[idx]);
+		str[idx] = s1[idx];
 		idx ++;
 	}
+	while (s2 && idx - len1 < readsize)
+	{
+		str[idx] = s2[idx - len1];
+		idx ++;
+	}
+	str[idx] = 0;
+	free(s1);
+	s1 = 0;
+	return (str);
+}
+
+int	ft_free(char *str)
+{
+	free(str);
+	str = 0;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:50:17 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/09 17:30:05 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/09 21:23:00 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,25 @@ char	**find_env_path(char *envp[])
 
 void	process_data(int argc, char *argv[], char *envp[], t_data *data)
 {
-	if (argc < 5)
+	print_usage(argc, argv);
+	if (ft_strcmp(argv[1], "here_doc"))
 	{
-		write(2, "usage : ./pipex file1 cmd1 cmd2 file2\n", 38);
-		exit(1);
+		data->here_doc = 0;
+		data->limiter = 0;
+		data->infile = argv[1];
+		data->outfile = argv[argc - 1];
+		data->cmds = argv + 2;
+		data->cmd_num = argc - 3;
+		data->envp = find_env_path(envp);
+		return ;
 	}
-	data->file1 = argv[1];
-	data->file2 = argv[argc - 1];
-	data->cmds = argv + 2;
-	data->cmd_num = argc - 3;
+	data->here_doc = 1;
+	data->limiter = ft_strjoin(argv[2], "\n");
+	if (!data->limiter)
+		print_error_by_errno();
+	data->cmds = argv + 3;
+	data->cmd_num = 2;
+	data->infile = ".tmp";
+	data->outfile = argv[5];
 	data->envp = find_env_path(envp);
 }

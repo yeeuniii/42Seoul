@@ -22,11 +22,7 @@ int	main(void)
 
 	pipe(fd);
 	int	a = open("a.txt", O_RDWR);
-	dup2(a, 0);
-	char buf[10];
-	read(0, buf, 10);
-	write(1, buf, 10);
-
-//	printf("%d %d\n", fd[0], fd[1]);
+	write(a, "hello\n", 6);
+	unlink(".tmp");
 
 }

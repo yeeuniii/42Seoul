@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:46:40 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/09 15:24:25 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/09 19:55:11 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 
 typedef struct s_data
 {
-	char	*file1;
-	char	*file2;
+	char	*infile;
+	char	*outfile;
 	char	**cmds;
 	int		cmd_num;
 	char	**envp;

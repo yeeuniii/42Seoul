@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:33:08 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/09 15:46:56 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/09 19:55:52 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	free_execute(t_execute execute, int is_error)
 int	set_child_process(int pipe[2], int idx, t_data data)
 {
 	if (idx == 1)
-		return (process_first_command(pipe, data.file1));
-	return (process_last_command(pipe, data.file2));
+		return (process_first_command(pipe, data.infile));
+	return (process_last_command(pipe, data.outfile));
 }
 
 void	execute_command(t_data data, t_execute execute, int pipe[2], int idx)
