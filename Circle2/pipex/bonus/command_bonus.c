@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:50:14 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/12 15:50:40 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/13 14:49:57 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,14 @@ void	process_here_doc(t_data data)
 	char	*str;
 	int		open_fileno;
 
-	str = 0;
+	str = ft_strdup("");
 	open_fileno = open(data.infile, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	while (ft_strcmp(data.limiter, str))
+	while (str && ft_strcmp(data.limiter, str))
 	{
 		ft_putstr_fd(str, open_fileno);
 		free(str);
 		ft_putstr_fd("> ", 0);
 		str = get_next_line(0);
-		if (!str)
-			print_error_by_errno();
 	}
 	free(str);
 }
