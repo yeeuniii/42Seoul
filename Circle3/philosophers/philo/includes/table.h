@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   table.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 16:24:10 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/20 15:27:57 by yeepark          ###   ########.fr       */
+/*   Created: 2022/12/19 16:44:15 by yeepark           #+#    #+#             */
+/*   Updated: 2022/12/19 21:29:38 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
+#ifndef TABLE_H
+# define TABLE_H
 
-int	print_error_message(void)
+# include "philosophers.h"
+
+typedef struct s_table
 {
-	printf("fail allocate\n");
-	return (1);
-}
+	struct s_data			data;
+	struct s_philosopher	*philos;
+	pthread_t				monitor;
+	struct timeval			start_time;
+	pthread_mutex_t			*forks_mutex;
+	int						*forks;
+}	t_table;
 
-int	get_time(struct timeval start_time)
-{
-	struct timeval	current_time;
-	int				difftime;
+int	init_table(t_table *table);
 
-	gettimeofday(&current_time, NULL);
-	difftime = (current_time.tv_sec - start_time.tv_sec) * 1000 + (current_time.tv_usec - start_time.tv_usec) / 1000;
-	return (difftime);
-}
+#endif

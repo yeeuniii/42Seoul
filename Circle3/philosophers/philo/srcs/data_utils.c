@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeepark <yeepark@student.42seoul.k>        +#+  +:+       +#+        */
+/*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 14:53:22 by yeepark           #+#    #+#             */
-/*   Updated: 2022/10/30 18:18:07 by yeepark          ###   ########.fr       */
+/*   Created: 2022/12/14 22:25:02 by yeepark           #+#    #+#             */
+/*   Updated: 2022/12/16 15:36:10 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../includes/philosophers.h"
 
-static int	ft_isspace(char c)
+static int	ft_isdigit(char c)
 {
-	return ((c >= 9 && c <= 13) || c == 32);
+	return ((c >= '0' && c <= '9'));
 }
 
 int	ft_atoi(const char *str)
@@ -26,17 +26,16 @@ int	ft_atoi(const char *str)
 	res = 0;
 	idx = 0;
 	sign = 1;
-	while (ft_isspace(str[idx]))
-		idx ++;
-	if (str[idx] == '+' || str[idx] == '-')
-	{
-		sign = (str[idx] == '+') - (str[idx] == '-');
-		idx ++;
-	}
+	if (str[idx] == '+')
+		idx++;
+	if (!ft_isdigit(str[idx]))
+		return (-1);
 	while (ft_isdigit(str[idx]))
 	{
 		res = res * 10 + str[idx] - '0';
 		idx ++;
 	}
-	return ((int)res * sign);
+	if (str[idx] && !ft_isdigit(str[idx]))
+		return (-1);
+	return ((int)res);
 }

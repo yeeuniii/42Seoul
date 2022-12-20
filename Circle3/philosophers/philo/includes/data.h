@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 22:07:22 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/16 18:50:04 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/19 16:28:45 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ typedef struct s_data
 
 int		process_data(int argc, char *argv[], t_data *data);
 int		ft_atoi(const char *str);
-void	print_usage(void);
+int		print_usage(void);
 
 #endif

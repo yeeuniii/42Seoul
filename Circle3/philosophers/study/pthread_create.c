@@ -6,6 +6,7 @@ void	*sleep_thread(void *arg)
 {
 	int	i = -1;
 
+	printf("%c\n", &arg);
 	while (i++ < 10)
 	{
 		sleep(1);
@@ -16,8 +17,10 @@ void	*sleep_thread(void *arg)
 int	main(void)
 {
 	pthread_t	thread;
+	char		*str = "hello world!";
+	char		c = 'a';
 
-	pthread_create(&thread, 0, sleep_thread, NULL);
+	pthread_create(&thread, 0, sleep_thread, (void *)&c);
 	printf("thread id : %lx\n", thread);
 	sleep(3);
 	printf("finish process\n");
