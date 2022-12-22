@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 16:10:38 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/22 16:44:03 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/22 17:07:45 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_philosopher
 
 int		init(t_table *table, t_data data);
 void	set_fork(t_philosopher *philo);
+int		destroy_mutex(t_table *table, int idx);
 
 int		create_thread(t_table *table);
 void	*run(void *philo);

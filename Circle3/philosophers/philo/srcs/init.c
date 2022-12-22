@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:05:50 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/22 16:42:55 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/22 17:10:23 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,23 @@ int	init_table(t_table *table, int number_of_philos)
 	if (gettimeofday(&(table->start_time), 0))
 		return (1);
 	return (allocate_table(table, number_of_philos));
+}
+
+int	init_mutex(t_table *table, int number_of_philos)
+{
+	int				idx;
+	pthread_mutex_t	mutex;
+
+	idx = 0;
+	memset(table->mutex_forks, 0, sizeof(pthread_mutex_t) * number_of_philos);
+	while (idx < number_of_philos)
+	{
+		mutex = table->mutex_forks[idx];
+		if (pthread_mutex_init(&mutex, 0))
+			return (destroy_mutex(table, idx));
+		idx++;
+	}
+	return (0);
 }
 
 void	init_philosophers(t_table *table, t_data data)
@@ -43,6 +60,7 @@ int	init(t_table *table, t_data data)
 {
 	if (init_table(table, data.number_of_philos))
 		return (1);
+	init_mutex(table, data.number_of_philos);
 	init_philosophers(table, data);
 	return (0);
 }

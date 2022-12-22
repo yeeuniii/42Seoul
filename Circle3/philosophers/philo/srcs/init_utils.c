@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:52:46 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/22 16:42:45 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/22 17:10:30 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,18 @@ int	allocate_table(t_table *table, int number_of_philos)
 	if (fail_allocation)
 		free_table(*table);
 	return (fail_allocation);
+}
+
+int	destroy_mutex(t_table *table, int idx)
+{
+	pthread_mutex_t	mutex;
+
+	while (idx--)
+	{
+		mutex = table->mutex_forks[idx];
+		pthread_mutex_destroy(&mutex);
+	}
+	return (1);
 }
 
 void	set_fork(t_philosopher *philo)
