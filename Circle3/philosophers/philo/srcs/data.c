@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 22:12:02 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/20 14:53:31 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/22 16:44:30 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,22 @@ int	print_usage(void)
 
 int	check_data(t_data data)
 {
-	return (!(data.number_of_philos == -1
-			|| data.time_to_die == -1
-			|| data.time_to_eat == -1
-			|| data.time_to_sleep == -1
-			|| data.number_of_must_eat == -1));
+	return (data.number_of_philos == -1
+		|| data.time_to_die == -1
+		|| data.time_to_eat == -1
+		|| data.time_to_sleep == -1
+		|| data.number_of_must_eat == -1);
 }
 
 int	process_data(int argc, char *argv[], t_data *data)
 {
 	if (argc != 5 && argc != 6)
-		return (0);
+		return (1);
 	data->number_of_must_eat = -2;
 	data->number_of_philos = ft_atoi(argv[1]);
-	data->time_to_die = ft_atoi(argv[2]) * 1000;
-	data->time_to_eat = ft_atoi(argv[3]) * 1000;
-	data->time_to_sleep = ft_atoi(argv[4]) * 1000;
+	data->time_to_die = ft_atoi(argv[2]);
+	data->time_to_eat = ft_atoi(argv[3]);
+	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		data->number_of_must_eat = ft_atoi(argv[5]);
 	return (check_data(*data));

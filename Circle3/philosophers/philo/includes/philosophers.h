@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 16:10:38 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/20 15:30:41 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/22 16:44:03 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,17 @@
 # include "data.h"
 # include "table.h"
 
-# define TAKEN_FORK_MSG "%dms %d has taken a fork\n"
-# define EATING_MSG "%dms %d is eating\n"
-# define SLEEPING_MSG "%dms %d is sleeping\n"
-# define THINKING_MSG "%dms %d is thinking\n"
-# define DIED_MSG "%dms %d is died\n"
+# define TAKEN_FORK_MSG "%d %d has taken a fork\n"
+# define EATING_MSG "%d %d is eating\n"
+# define SLEEPING_MSG "%d %d is sleeping\n"
+# define THINKING_MSG "%d %d is thinking\n"
+# define DIED_MSG "%d %d is died\n"
+
+struct	s_table;
 
 typedef struct s_philosopher
 {
+	struct s_data	data;
 	struct s_table	table;
 	pthread_t		thread;
 	int				number;
@@ -39,6 +42,10 @@ typedef struct s_philosopher
 	int				is_died;
 }	t_philosopher;
 
+int		init(t_table *table, t_data data);
+void	set_fork(t_philosopher *philo);
+
+int		create_thread(t_table *table);
 void	*run(void *philo);
 
 int		print_error_message(void);

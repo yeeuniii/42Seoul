@@ -6,50 +6,61 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 16:40:27 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/20 15:40:10 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/22 14:46:41 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void	sleep_philosopher(t_table table, t_philosopher philo)
+void	ft_usleep(int delay_time, int current_time, struct timeval start_time)
 {
-	printf(SLEEPING_MSG, get_time(table.start_time), philo.number);
-	usleep(table.data.time_to_sleep);
+	while (current_time + delay_time / 1000 > get_time(start_time))
+		usleep(1);
 }
 
-void	eat_philosopher(t_table table, t_philosopher philo)
+void	sleep_philosopher(t_table table, t_philosopher *philo)
 {
-	pthread_mutex_lock(&(table.forks_mutex[philo.left_fork]));
-	pthread_mutex_lock(&(table.forks_mutex[philo.right_fork]));
-	printf(TAKEN_FORK_MSG, get_time(table.start_time), philo.number);
-	printf(TAKEN_FORK_MSG, get_time(table.start_time), philo.number);
-	printf(EATING_MSG, get_time(table.start_time), philo.number);
-	usleep(table.data.time_to_eat);
-	pthread_mutex_unlock(&(table.forks_mutex[philo.left_fork]));
-	pthread_mutex_unlock(&(table.forks_mutex[philo.right_fork]));
+	printf("%d %d is sleeping\n", get_time(table.start_time), philo->number);
+	(philo->target_time) += table.data.time_to_sleep;
+	ft_usleep(table.data.time_to_sleep, get_time(table.start_time), table.start_time);
 }
 
-void	think_philosopher(t_table table, t_philosopher philo)
+void	eat_philosopher(t_table table, t_philosopher *philo)
 {
-	printf(THINKING_MSG, get_time(table.start_time), philo.number);
+	int	time_eating;
+
+	pthread_mutex_lock(&(table.forks_mutex[philo->left_fork]));
+	printf("%d %d has taken a fork\n", get_time(table.start_time), philo->number);
+	pthread_mutex_lock(&(table.forks_mutex[philo->right_fork]));
+	printf("%d %d has taken a fork\n", get_time(table.start_time), philo->number);
+	time_eating = get_time(table.start_time);
+	printf("%d %d is eating\n", time_eating, philo->number);
+	(philo->target_time) += table.data.time_to_eat;
+	ft_usleep(table.data.time_to_eat, get_time(table.start_time), table.start_time);
+	philo->last_time_to_eat = time_eating;
+	(philo->eating_time)++;
+	pthread_mutex_unlock(&(table.forks_mutex[philo->left_fork]));
+	pthread_mutex_unlock(&(table.forks_mutex[philo->right_fork]));
+}
+
+void	think_philosopher(t_table table, t_philosopher *philo)
+{
+	printf("%d %d is thinking\n", get_time(table.start_time), philo->number);
 }
 
 void	run_even_number(t_philosopher *philo)
 {
 	int	idx = 0;
 
+	if (philo->number % 2)
+		usleep(50);
 	while (!philo->is_died) //check_die
 	{
-		if ((idx + philo->number) % 2)
-			sleep_philosopher(philo->table, *philo);
-		if (!((idx + philo->number) % 2))
-		{
-			think_philosopher(philo->table, *philo);
-			eat_philosopher(philo->table, *philo);
-		}
-		idx ++;
-		if (idx == 5)
+		usleep(10);
+		eat_philosopher(philo->table, philo);
+		sleep_philosopher(philo->table, philo);
+		think_philosopher(philo->table, philo);
+		if (++idx == 5)
 			break;
 	}
 }
@@ -59,11 +70,6 @@ void	*run(void *arg)
 	t_philosopher	*philo;
 	
 	philo = arg;
-	if ((philo->table).data.number_of_philos % 2)
-	{
-	//	run_odd_number();
-		return (0);
-	}
 	run_even_number(philo);
 	return (0);
 }

@@ -6,11 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 22:25:02 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/16 15:36:10 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/22 16:44:45 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
+#include "../includes/data.h"
 
 static int	ft_isdigit(char c)
 {
