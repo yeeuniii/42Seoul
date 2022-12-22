@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:05:50 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/22 17:10:23 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/22 21:02:48 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,19 @@ int	init_table(t_table *table, int number_of_philos)
 	table->is_end = 0;
 	if (gettimeofday(&(table->start_time), 0))
 		return (1);
+	get_runtime(table->start_time);
 	return (allocate_table(table, number_of_philos));
 }
 
 int	init_mutex(t_table *table, int number_of_philos)
 {
 	int				idx;
-	pthread_mutex_t	mutex;
 
 	idx = 0;
 	memset(table->mutex_forks, 0, sizeof(pthread_mutex_t) * number_of_philos);
 	while (idx < number_of_philos)
 	{
-		mutex = table->mutex_forks[idx];
-		if (pthread_mutex_init(&mutex, 0))
+		if (pthread_mutex_init(table->mutex_forks + idx, 0))
 			return (destroy_mutex(table, idx));
 		idx++;
 	}

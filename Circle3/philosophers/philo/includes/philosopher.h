@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   table.h                                            :+:      :+:    :+:   */
+/*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 16:44:15 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/22 20:21:38 by yeepark          ###   ########.fr       */
+/*   Created: 2022/12/22 20:20:15 by yeepark           #+#    #+#             */
+/*   Updated: 2022/12/22 20:21:07 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TABLE_H
-# define TABLE_H
+#ifndef PHILOSOPHER_H
+# define PHILOSOPHER_H
 
-struct	s_philosopher;
+struct					s_table;
 
-typedef struct s_table
+typedef struct s_philosopher
 {
-	struct s_philosopher	*philos;
-	pthread_t				monitor;
-	struct timeval			start_time;
-	pthread_mutex_t			*mutex_forks;
-	char					*forks;
-	int						is_end;
-}	t_table;
+	struct s_data	data;
+	struct s_table	table;
+	pthread_t		thread;
+	int				number;
+	int				left_fork;
+	int				right_fork;
+	int				last_time_to_eat;
+	int				eating_time;
+	int				is_died;
+}	t_philosopher;
 
-int		init_table(t_table *table, int number_of_philos);
-int		allocate_table(t_table *table, int number_of_philos);
-void	free_table(t_table table);
+void	*run_philosopher(void *arg);
 
 #endif
