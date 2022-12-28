@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 16:44:15 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/22 20:21:38 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/28 16:23:28 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_table
 	struct s_philosopher	*philos;
 	pthread_t				monitor;
 	struct timeval			start_time;
+	pthread_mutex_t			mutex_message;
 	pthread_mutex_t			*mutex_forks;
 	char					*forks;
 	int						is_end;

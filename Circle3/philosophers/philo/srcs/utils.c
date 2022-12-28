@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 16:24:10 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/22 20:29:53 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/28 17:13:52 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ int	get_runtime(struct timeval start_time)
 void	ft_usleep(t_timeval start_time, int function_call_time, int time_to_do)
 {
 	while (get_runtime(start_time) < function_call_time + time_to_do)
-		usleep(1);
+		usleep(100);
 }
