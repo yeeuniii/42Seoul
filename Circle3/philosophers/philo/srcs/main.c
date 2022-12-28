@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:19:04 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/22 20:43:02 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/28 17:48:53 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	create_thread(t_table *table, t_data data)
 		pthread_create(&philo->thread, 0, (void *)run_philosopher, (void *)philo);
 		idx ++;
 	}
-//	pthread_create(&table->monitor, 0, (void *)run_monitor, (void *)monitor);
+	pthread_create(&table->monitor, 0, (void *)run_monitor, (void *)table->philos);
 	return (1);
 }
 

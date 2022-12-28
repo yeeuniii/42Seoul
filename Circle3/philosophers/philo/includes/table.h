@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 16:44:15 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/28 16:23:28 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/28 19:25:54 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@ typedef struct s_table
 	struct s_philosopher	*philos;
 	pthread_t				monitor;
 	struct timeval			start_time;
-	pthread_mutex_t			mutex_message;
-	pthread_mutex_t			*mutex_forks;
 	char					*forks;
+	pthread_mutex_t			*mutex_forks;
+	pthread_mutex_t			mutex_message;
 	int						is_end;
 }	t_table;
 
 int		init_table(t_table *table, int number_of_philos);
+int		init_mutex_of_table(t_table *table, int number_of_philos);
 int		allocate_table(t_table *table, int number_of_philos);
+int		destroy_mutex_of_table(t_table *table, int idx);
 void	free_table(t_table table);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:05:50 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/28 16:29:57 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/28 19:35:23 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	init_table(t_table *table, int number_of_philos)
 	return (allocate_table(table, number_of_philos));
 }
 
-int	init_mutex(t_table *table, int number_of_philos)
+int	init_mutex_of_table(t_table *table, int number_of_philos)
 {
 	int	idx;
 	int	fail_init;
@@ -38,11 +38,11 @@ int	init_mutex(t_table *table, int number_of_philos)
 		idx++;
 	}
 	if (fail_init)
-		return (destroy_mutex(table, idx));
+		return (destroy_mutex_of_table(table, idx));
 	return (0);
 }
 
-void	init_philosophers(t_table *table, t_data data)
+int	init_philosophers(t_table *table, t_data data)
 {
 	int				idx;
 	t_philosopher	*philo;
@@ -57,15 +57,20 @@ void	init_philosophers(t_table *table, t_data data)
 		set_fork(philo);
 		philo->last_time_to_eat = 0;
 		philo->eating_time = 0;
-		philo->is_died = 0;
+		philo->is_end = 0;
+		if (pthread_mutex_init(&philo->mutex_is_end, 0))
+			return (destroy_mutex_of_philosopher(table->philos, idx));
 	}
+	return (0);
 }
 
 int	init(t_table *table, t_data data)
 {
 	if (init_table(table, data.number_of_philos))
 		return (1);
-	init_mutex(table, data.number_of_philos);
-	init_philosophers(table, data);
+	if (init_mutex_of_table(table, data.number_of_philos))
+		return (1);
+	if (init_philosophers(table, data))
+		return (1);
 	return (0);
 }
