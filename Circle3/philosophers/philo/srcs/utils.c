@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 16:24:10 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/28 17:13:52 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/30 13:11:02 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@ int	get_runtime(struct timeval start_time)
 	gettimeofday(&current_time, 0);
 	runtime = (current_time.tv_sec - start_time.tv_sec) * 1000;
 	runtime += (current_time.tv_usec - start_time.tv_usec) / 1000;
+	return (runtime);
+}
+
+long	get_uruntime(struct timeval start_time)
+{
+	long			runtime;
+	struct timeval	current_time;
+
+	gettimeofday(&current_time, 0);
+	runtime = (current_time.tv_sec - start_time.tv_sec) * 1000000;
+	runtime += (current_time.tv_usec - start_time.tv_usec);
 	return (runtime);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 20:20:15 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/30 13:11:23 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/30 11:13:33 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_philosopher
 	int				number;
 	int				left_fork;
 	int				right_fork;
-	long			last_time_to_eat;
+	int				last_time_to_eat;
 	pthread_mutex_t	mutex_last_time;
 	int				eating_time;
 	pthread_mutex_t	mutex_eating_time;

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:05:50 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/28 19:35:23 by yeepark          ###   ########.fr       */
+/*   Updated: 2022/12/30 14:27:03 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	init_table(t_table *table, int number_of_philos)
 	table->is_end = 0;
 	if (gettimeofday(&(table->start_time), 0))
 		return (1);
-	get_runtime(table->start_time);
 	return (allocate_table(table, number_of_philos));
 }
 
@@ -29,6 +28,8 @@ int	init_mutex_of_table(t_table *table, int number_of_philos)
 	idx = 0;
 	fail_init = 0;
 	if (pthread_mutex_init(&table->mutex_message, 0))
+		fail_init = 1;
+	if (pthread_mutex_init(&table->mutex_end, 0))
 		fail_init = 1;
 	memset(table->mutex_forks, 0, sizeof(pthread_mutex_t) * number_of_philos);
 	while (idx < number_of_philos)
@@ -45,22 +46,27 @@ int	init_mutex_of_table(t_table *table, int number_of_philos)
 int	init_philosophers(t_table *table, t_data data)
 {
 	int				idx;
+	int				fail_init;
 	t_philosopher	*philo;
 
 	idx = 0;
-	while (idx < data.number_of_philos)
+	fail_init = 0;
+	while (!fail_init && idx < data.number_of_philos)
 	{
 		philo = table->philos + idx;
 		philo->data = data;
-		philo->table = *table;
+		philo->table = table;
 		philo->number = ++idx;
 		set_fork(philo);
 		philo->last_time_to_eat = 0;
 		philo->eating_time = 0;
-		philo->is_end = 0;
-		if (pthread_mutex_init(&philo->mutex_is_end, 0))
-			return (destroy_mutex_of_philosopher(table->philos, idx));
+		if (pthread_mutex_init(&philo->mutex_last_time, 0))
+			fail_init = 1;
+		if (pthread_mutex_init(&philo->mutex_eating_time, 0))
+			fail_init = 1;
 	}
+	if (fail_init)
+		return (destroy_mutex_of_philosopher(table->philos, idx));
 	return (0);
 }
 
