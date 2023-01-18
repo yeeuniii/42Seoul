@@ -5,15 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 22:07:22 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/19 16:28:45 by yeepark          ###   ########.fr       */
+/*   Created: 2023/01/17 09:06:37 by yeepark           #+#    #+#             */
+/*   Updated: 2023/01/17 09:55:48 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATA_H
 # define DATA_H
-
-# include <stdio.h>
 
 typedef struct s_data
 {
@@ -23,9 +21,5 @@ typedef struct s_data
 	int	time_to_sleep;
 	int	number_of_must_eat;
 }	t_data;
-
-int		process_data(int argc, char *argv[], t_data *data);
-int		ft_atoi(const char *str);
-int		print_usage(void);
 
 #endif

@@ -5,43 +5,63 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 16:24:10 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/30 13:11:02 by yeepark          ###   ########.fr       */
+/*   Created: 2023/01/17 13:23:43 by yeepark           #+#    #+#             */
+/*   Updated: 2023/01/18 18:11:31 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-int	print_error_message(void)
+int	get_runtime(struct timeval start_time)
 {
-	printf("fail allocate\n");
+	struct timeval	current_time;
+	int				time;
+
+	gettimeofday(&current_time, 0);
+	time = (current_time.tv_sec - start_time.tv_sec) * 1000;
+	time += (current_time.tv_usec - start_time.tv_usec) / 1000;
+	return (time);
+}
+
+void	ft_usleep(t_table *table, int goal_time)
+{
+	int	funtion_calltime;
+
+	funtion_calltime = get_runtime(table->start_time);
+//	while (get_runtime(table->start_time) - funtion_calltime < + goal_time)
+//	{
+//		usleep(100);
+//	}
+	while (is_ongoing(table))
+	{
+		if (get_runtime(table->start_time) - funtion_calltime >= goal_time)
+			break ;
+		usleep(100);
+	}
+}
+
+int	is_ongoing(t_table *table)
+{
+	pthread_mutex_lock(&table->mutex_end);
+	if (table->is_end)
+	{
+		pthread_mutex_unlock(&table->mutex_end);
+		return (0);
+	}
+	pthread_mutex_unlock(&table->mutex_end);
 	return (1);
 }
 
-int	get_runtime(struct timeval start_time)
+void	finish(t_table *table)
 {
-	int				runtime;
-	struct timeval	current_time;
-
-	gettimeofday(&current_time, 0);
-	runtime = (current_time.tv_sec - start_time.tv_sec) * 1000;
-	runtime += (current_time.tv_usec - start_time.tv_usec) / 1000;
-	return (runtime);
+	pthread_mutex_lock(&table->mutex_end);
+	table->is_end = 1;
+	pthread_mutex_unlock(&table->mutex_end);
 }
 
-long	get_uruntime(struct timeval start_time)
+void	free_all(t_table *table, int number_of_philos)
 {
-	long			runtime;
-	struct timeval	current_time;
-
-	gettimeofday(&current_time, 0);
-	runtime = (current_time.tv_sec - start_time.tv_sec) * 1000000;
-	runtime += (current_time.tv_usec - start_time.tv_usec);
-	return (runtime);
-}
-
-void	ft_usleep(t_timeval start_time, int function_call_time, int time_to_do)
-{
-	while (get_runtime(start_time) < function_call_time + time_to_do)
-		usleep(100);
+	free_table(*table);
+	destroy_mutex_of_table(table, number_of_philos);
+	destroy_mutex_of_philosopher(table, number_of_philos);
 }

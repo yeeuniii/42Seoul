@@ -5,76 +5,65 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 20:19:04 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/30 14:24:42 by yeepark          ###   ########.fr       */
+/*   Created: 2023/01/17 09:14:58 by yeepark           #+#    #+#             */
+/*   Updated: 2023/01/18 18:12:14 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-//void	leaks(void)
-//{
-//	system("leaks philo");
-//}
-
-void	ft_join(t_table *table, t_data data)
+int	create_thread(t_table *table, t_data data)
 {
 	int				idx;
+	int				is_error;
 	t_philosopher	*philo;
 
 	idx = 0;
-	while (idx < data.number_of_philos)
+	gettimeofday(&table->start_time, 0);
+	pthread_mutex_lock(&table->mutex_start);
+	is_error = pthread_create(&table->monitor, 0, run_monitor, (void *)table);
+	while (!is_error && idx < data.number_of_philos)
 	{
 		philo = table->philos + idx;
-		pthread_join(philo->thread, 0);
-		idx ++;
+		is_error = pthread_create(&philo->thread, 0, run_philo, (void *)philo);
+		idx++;
 	}
+	pthread_mutex_unlock(&table->mutex_start);
+	if (is_error)
+		finish(table);
+	return (is_error);
 }
 
-void	create_thread(t_table *table, t_data data)
+int	wait_thread(t_table *table, t_data data)
 {
 	int				idx;
+	int				is_error;
 	t_philosopher	*philo;
 
 	idx = 0;
-	pthread_create(&table->monitor, 0, (void *)run_monitor, (void *)table->philos);
-	pthread_detach(table->monitor);
-	while (idx < data.number_of_philos)
+	is_error = pthread_join(table->monitor, 0);
+	while (!is_error && idx < data.number_of_philos)
 	{
 		philo = table->philos + idx;
-		pthread_create(&philo->thread, 0, (void *)run_philosopher, (void *)philo);
-//		pthread_detach(philo->thread);
-		idx ++;
+		is_error = pthread_join(philo->thread, 0);
+		idx++;
 	}
-	pthread_join(table->monitor, 0);
-	ft_join(table, data);
-}
-
-void	wait_thread(t_table *table)
-{
-	while (1)
-	{
-		pthread_mutex_lock(&table->mutex_end);
-		if (table->is_end)
-		{
-			pthread_mutex_unlock(&table->mutex_end);
-			break ;
-		}
-		pthread_mutex_unlock(&table->mutex_end);
-	}
+	if (is_error)
+		finish(table);
+	return (is_error);
 }
 
 int	main(int argc, char *argv[])
 {
-	t_table	table;
 	t_data	data;
+	t_table	table;
 
-//	atexit(leaks);
-	if (process_data(argc, argv, &data))
+	if (init_data(&data, argc, argv))
 		return (print_usage());
-	if (init(&table, data))
-		return (print_error_message());
-	create_thread(&table, data);
-//	wait_thread(&table);
+	if (init_table(&table, data) || init_philosopher(&table, data))
+		return (printf("error\n"));
+	if (create_thread(&table, data) || wait_thread(&table, data))
+		return (printf("error\n"));
+	free_all(&table, data.number_of_philos);
 	return (0);
 }

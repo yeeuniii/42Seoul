@@ -5,41 +5,64 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/16 16:10:38 by yeepark           #+#    #+#             */
-/*   Updated: 2022/12/30 13:11:14 by yeepark          ###   ########.fr       */
+/*   Created: 2023/01/17 09:10:20 by yeepark           #+#    #+#             */
+/*   Updated: 2023/01/18 14:34:09 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h> //memset
-# include <sys/time.h>
-# include <pthread.h>
-# include "data.h"
 # include "table.h"
-# include "philosopher.h"
+# include "data.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
+# include <pthread.h>
+# include <sys/time.h>
 
 # define TAKEN_FORK_MSG "%d %d has taken a fork\n"
 # define EATING_MSG "%d %d is eating\n"
 # define SLEEPING_MSG "%d %d is sleeping\n"
 # define THINKING_MSG "%d %d is thinking\n"
-# define DIED_MSG "%d %d is died\n"
+# define DIED_MSG "%d %d died\n"
+# define EATING_ENOUGH_MSG "All philosophers have eaten enough\n"
 
-typedef struct timeval	t_timeval;
+struct	s_table;
 
-int		init(t_table *table, t_data data);
-void	set_fork(t_philosopher *philo);
+typedef struct s_philosopher
+{
+	int				id;
+	pthread_t		thread;
+	int				right_fork;
+	int				left_fork;
+	int				number_of_eating;
+	pthread_mutex_t	mutex_eating;
+	int				last_time_to_eat;
+	pthread_mutex_t	mutex_last_time;
+	struct s_data	data;
+	struct s_table	*table;
+}	t_philosopher;
 
-void	create_thread(t_table *table, t_data data);
-void	*run(void *philo);
+int		init_data(t_data *data, int argc, char *argv[]);
+int		init_philosopher(t_table *table, t_data data);
+void	*run_philo(void *arg);
 void	*run_monitor(void *arg);
-void	print_state_message(t_table *table, t_philosopher *philo, char *format);
-int		print_error_message(void);
-int		get_runtime(t_timeval start_time);
-long	get_uruntime(struct timeval start_time);
-void	ft_usleep(t_timeval start_time, int function_call_time, int time_to_do);
+
+int		destroy_mutex_of_philosopher(t_table *table, int idx);
+int		print_usage(void);
+
+void	ft_eat(t_philosopher *philo, t_table *table, int time_to_eat);
+void	ft_sleep(t_philosopher *philo, t_table *table, int time_to_sleep);
+void	ft_think(t_philosopher *philo, t_table *table);
+void	print_message(t_philosopher *philo, t_table *table, char *format);
+
+int		is_ongoing(t_table *table);
+void	finish(t_table *table);
+
+int		get_runtime(struct timeval start_time);
+void	ft_usleep(t_table *table, int goal_time);
+void	free_all(t_table *table, int number_of_philos);
 
 #endif
