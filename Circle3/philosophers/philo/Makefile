@@ -6,16 +6,15 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 20:08:17 by yeepark           #+#    #+#              #
-#    Updated: 2023/01/20 16:08:30 by yeepark          ###   ########.fr        #
+#    Updated: 2023/01/20 19:53:52 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -Wall -Wextra -Werror
-#CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 #CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
 LDFLAGS = -lpthread
-SRC = main.c utils.c data.c table.c philosopher.c \
-	  philo_thread.c state.c monitor_thread.c
+SRC = main.c utils.c data.c table.c monitor_thread.c \
+	  philo_thread.c philo_state.c philo_init.c
 SRCS = $(addprefix srcs/,$(SRC))
 OBJS = $(SRCS:.c=.o)
 INCLUDES = includes

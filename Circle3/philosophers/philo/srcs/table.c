@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:17:16 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/18 18:11:27 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/20 19:49:43 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	destroy_mutex_of_table(t_table *table, int idx)
 	return (1);
 }
 
-static int	init_mutex(t_table *table, t_data data)
+int	init_mutex(t_table *table, t_data data)
 {
 	int	is_error;
 	int	idx;

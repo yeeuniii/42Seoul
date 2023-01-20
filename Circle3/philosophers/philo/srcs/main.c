@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:14:58 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/20 16:10:06 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/20 19:44:31 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ int	create_thread(t_table *table, t_data data)
 	t_philosopher	*philo;
 
 	idx = 0;
-	gettimeofday(&table->start_time, 0);
+	is_error = 1;
+	if (gettimeofday(&table->start_time, 0))
+		return (is_error);
 	pthread_mutex_lock(&table->mutex_start);
 	is_error = pthread_create(&table->monitor, 0, run_monitor, (void *)table);
 	while (!is_error && idx < data.number_of_philos)

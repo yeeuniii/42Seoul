@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 20:40:24 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/20 13:37:19 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/20 20:13:13 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	check_died(t_table *table, t_data data)
 			<= get_runtime(table->start_time))
 		{
 			pthread_mutex_unlock(&philo->mutex_last_time);
-			finish(table);
 			pthread_mutex_lock(&table->mutex_message);
+			finish(table);
 			printf(DIED_MSG, get_runtime(table->start_time), idx + 1);
 			pthread_mutex_unlock(&table->mutex_message);
 			return ;
@@ -57,8 +57,8 @@ void	check_eating(t_table *table, t_data data)
 		pthread_mutex_unlock(&philo->mutex_eating);
 		idx++;
 	}
-	finish(table);
 	pthread_mutex_lock(&table->mutex_message);
+	finish(table);
 	printf(EATING_ENOUGH_MSG);
 	pthread_mutex_unlock(&table->mutex_message);
 }
@@ -74,7 +74,7 @@ void	*run_monitor(void *arg)
 	pthread_mutex_unlock(&table->mutex_start);
 	while (is_ongoing(table))
 	{
-//		usleep(100);
+		usleep(100);
 		check_died(table, data);
 		check_eating(table, data);
 	}

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:07:45 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/20 13:32:09 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/20 19:49:42 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_table
 }	t_table;
 
 int	init_table(t_table *table, t_data data);
+int	init_mutex(t_table *table, t_data data);
 int	destroy_mutex_of_table(t_table *table, int idx);
 int	free_table(t_table table);
 

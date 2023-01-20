@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   state.c                                            :+:      :+:    :+:   */
+/*   philo_state.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 20:16:05 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/20 16:03:21 by yeepark          ###   ########.fr       */
+/*   Created: 2023/01/20 19:48:45 by yeepark           #+#    #+#             */
+/*   Updated: 2023/01/20 19:49:05 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,16 @@
 
 void	take_fork(t_philosopher *philo, t_table *table)
 {
-	if (philo->id % 2)
-	{
-		pthread_mutex_lock(&table->mutex_fork[philo->right_fork]);
-		print_message(philo, table, TAKEN_FORK_MSG);
-		pthread_mutex_lock(&table->mutex_fork[philo->left_fork]);
-		print_message(philo, table, TAKEN_FORK_MSG);
-		return ;
-	}
-	pthread_mutex_lock(&table->mutex_fork[philo->left_fork]);
-	print_message(philo, table, TAKEN_FORK_MSG);
 	pthread_mutex_lock(&table->mutex_fork[philo->right_fork]);
-	print_message(philo, table, TAKEN_FORK_MSG);
+	print_message(philo, table, TAKEN_RIGHT_FORK_MSG);
+	pthread_mutex_lock(&table->mutex_fork[philo->left_fork]);
+	print_message(philo, table, TAKEN_LEFT_FORK_MSG);
 }
 
 void	put_fork(t_philosopher *philo, t_table *table)
 {
-	if (philo->id % 2)
-	{
-		pthread_mutex_unlock(&(table->mutex_fork[philo->right_fork]));
-		pthread_mutex_unlock(&(table->mutex_fork[philo->left_fork]));
-		return ;
-	}
-	pthread_mutex_unlock(&(table->mutex_fork[philo->left_fork]));
 	pthread_mutex_unlock(&(table->mutex_fork[philo->right_fork]));
+	pthread_mutex_unlock(&(table->mutex_fork[philo->left_fork]));
 }
 
 void	ft_eat(t_philosopher *philo, t_table *table, int time_to_eat)
