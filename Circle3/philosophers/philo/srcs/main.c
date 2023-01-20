@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:14:58 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/18 18:12:14 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/20 16:10:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,17 @@ int	wait_thread(t_table *table, t_data data)
 	return (is_error);
 }
 
+//void	leaks(void)
+//{
+//	system("leaks philo");
+//}
+
 int	main(int argc, char *argv[])
 {
 	t_data	data;
 	t_table	table;
 
+//	atexit(leaks);
 	if (init_data(&data, argc, argv))
 		return (print_usage());
 	if (init_table(&table, data) || init_philosopher(&table, data))
