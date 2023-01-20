@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:07:45 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/18 18:00:26 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:32:09 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct s_table
 	pthread_mutex_t			mutex_start;
 	pthread_mutex_t			mutex_message;
 	pthread_t				monitor;
-	int						died_id;
 }	t_table;
 
 int	init_table(t_table *table, t_data data);

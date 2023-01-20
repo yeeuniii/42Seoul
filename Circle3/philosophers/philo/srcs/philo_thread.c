@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:34:49 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/18 18:07:46 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:42:43 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	*run_philo(void *arg)
 		ft_eat(philo, table, data.time_to_eat);
 		ft_sleep(philo, table, data.time_to_sleep);
 		ft_think(philo, table);
-//		if (++idx == 5)
-//			finish(table);
+		if (data.number_of_philos % 2)
+			usleep(50);
 	}
 	return (0);
 }

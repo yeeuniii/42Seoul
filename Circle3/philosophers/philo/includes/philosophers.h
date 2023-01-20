@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:10:20 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/18 14:34:09 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:40:30 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+# define TAKEN_LEFT_FORK_MSG "%d %d has taken a left fork\n"
+# define TAKEN_RIGHT_FORK_MSG "%d %d has taken a right fork\n"
 # define TAKEN_FORK_MSG "%d %d has taken a fork\n"
 # define EATING_MSG "%d %d is eating\n"
 # define SLEEPING_MSG "%d %d is sleeping\n"

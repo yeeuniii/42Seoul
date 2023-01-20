@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:23:43 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/18 18:11:31 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:42:09 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ void	ft_usleep(t_table *table, int goal_time)
 	int	funtion_calltime;
 
 	funtion_calltime = get_runtime(table->start_time);
-//	while (get_runtime(table->start_time) - funtion_calltime < + goal_time)
-//	{
-//		usleep(100);
-//	}
 	while (is_ongoing(table))
 	{
 		if (get_runtime(table->start_time) - funtion_calltime >= goal_time)

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 20:40:24 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/18 18:06:09 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:37:19 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	check_died(t_table *table, t_data data)
 		{
 			pthread_mutex_unlock(&philo->mutex_last_time);
 			finish(table);
-			table->died_id = idx + 1;
 			pthread_mutex_lock(&table->mutex_message);
 			printf(DIED_MSG, get_runtime(table->start_time), idx + 1);
 			pthread_mutex_unlock(&table->mutex_message);
@@ -41,25 +40,27 @@ void	check_died(t_table *table, t_data data)
 void	check_eating(t_table *table, t_data data)
 {
 	int				idx;
-	int				is_short;
 	t_philosopher	*philo;
 
-	idx = 0;
-	is_short = 0;
 	if (!data.number_of_must_eat)
 		return ;
-	while (!is_short && idx < data.number_of_philos)
+	idx = 0;
+	while (idx < data.number_of_philos)
 	{
 		philo = table->philos + idx;
 		pthread_mutex_lock(&philo->mutex_eating);
 		if (philo->number_of_eating < data.number_of_must_eat)
-			is_short = 1;
+		{
+			pthread_mutex_unlock(&philo->mutex_eating);
+			return ;
+		}
+		pthread_mutex_unlock(&philo->mutex_eating);
+		idx++;
 	}
-	if (!is_short)
-	{
-		finish(table);
-		printf(EATING_ENOUGH_MSG);
-	}
+	finish(table);
+	pthread_mutex_lock(&table->mutex_message);
+	printf(EATING_ENOUGH_MSG);
+	pthread_mutex_unlock(&table->mutex_message);
 }
 
 void	*run_monitor(void *arg)
@@ -73,9 +74,9 @@ void	*run_monitor(void *arg)
 	pthread_mutex_unlock(&table->mutex_start);
 	while (is_ongoing(table))
 	{
-		check_died(table, data);
-//		check_eating(table, data);
 //		usleep(100);
+		check_died(table, data);
+		check_eating(table, data);
 	}
 	return (0);
 }
