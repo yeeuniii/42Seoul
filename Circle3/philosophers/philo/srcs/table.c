@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:17:16 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/20 19:49:43 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/21 14:29:18 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	init_mutex(t_table *table, t_data data)
 	is_error = 0;
 	while (!is_error && ++idx < data.number_of_philos)
 		is_error = pthread_mutex_init(table->mutex_fork + idx, 0);
-	is_error = (is_error || pthread_mutex_init(&table->mutex_end, 0)
+	is_error = (is_error
+			|| pthread_mutex_init(&table->mutex_end, 0)
 			|| pthread_mutex_init(&table->mutex_start, 0)
 			|| pthread_mutex_init(&table->mutex_message, 0));
 	if (is_error)

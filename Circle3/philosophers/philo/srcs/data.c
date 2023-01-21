@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:44:24 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/17 11:06:29 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/21 14:30:55 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	print_usage(void)
 	return (1);
 }
 
-static int	is_valid(t_data data)
+int	is_valid_data(t_data data)
 {
 	return (data.number_of_philos != -1
 		&& data.time_to_die != -1
@@ -68,5 +68,5 @@ int	init_data(t_data *data, int argc, char *argv[])
 	data->number_of_must_eat = 0;
 	if (argc == 6)
 		data->number_of_must_eat = convert_str_to_int(argv[5]);
-	return (!is_valid(*data));
+	return (!is_valid_data(*data));
 }

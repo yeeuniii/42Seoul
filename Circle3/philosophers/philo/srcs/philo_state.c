@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 19:48:45 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/20 19:49:05 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/21 14:16:46 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,13 @@ void	ft_eat(t_philosopher *philo, t_table *table, int time_to_eat)
 {
 	take_fork(philo, table);
 	print_message(philo, table, EATING_MSG);
-	ft_usleep(table, time_to_eat);
-	if (!is_ongoing(table))
-	{
-		put_fork(philo, table);
-		return ;
-	}
 	pthread_mutex_lock(&philo->mutex_last_time);
 	philo->last_time_to_eat = get_runtime(table->start_time);
 	pthread_mutex_unlock(&philo->mutex_last_time);
 	pthread_mutex_lock(&philo->mutex_eating);
 	(philo->number_of_eating)++;
 	pthread_mutex_unlock(&philo->mutex_eating);
+	ft_usleep(table, time_to_eat);
 	put_fork(philo, table);
 }
 
