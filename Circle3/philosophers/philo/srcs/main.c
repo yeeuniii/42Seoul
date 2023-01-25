@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:14:58 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/21 14:19:42 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/25 10:44:49 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ int	wait_thread(t_table *table, t_data data)
 	if (is_error)
 		finish(table);
 	return (is_error);
+}
+
+void	free_all(t_table *table, int number_of_philos)
+{
+	free_table(*table);
+	destroy_mutex_of_table(table, number_of_philos);
+	destroy_mutex_of_philosopher(table, number_of_philos);
 }
 
 //void	leaks(void)

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:17:16 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/21 14:29:18 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/21 15:37:00 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	init_table(t_table *table, t_data data)
 		is_error = 1;
 	if (is_error)
 		return (free_table(*table));
-	memset(table->forks, 0, sizeof(char) * data.number_of_philos);
+	memset(table->forks, 1, sizeof(char) * data.number_of_philos);
 	table->is_end = 0;
 	return (init_mutex(table, data));
 }

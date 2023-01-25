@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 19:48:39 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/20 19:48:40 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/25 09:44:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ int	init_philosopher(t_table *table, t_data data)
 		philo->id = ++idx;
 		philo->number_of_eating = 0;
 		philo->last_time_to_eat = 0;
+		philo->delay = 0;
 		philo->data = data;
 		philo->table = table;
 		set_fork_idx(philo, data.number_of_philos);
 		is_error = (pthread_mutex_init(&philo->mutex_eating, 0)
-				|| pthread_mutex_init(&philo->mutex_last_time, 0));
+				|| pthread_mutex_init(&philo->mutex_last_time, 0)
+				|| pthread_mutex_init(&philo->mutex_delay, 0));
 	}
 	if (is_error)
 		return (destroy_mutex_of_philosopher(table, idx));
