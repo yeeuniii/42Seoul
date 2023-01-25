@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 20:40:24 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/25 10:44:52 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/25 11:04:40 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_death(t_philosopher *philo, t_table *table, t_data data)
 	if (philo->last_time_to_eat + data.time_to_die
 		< get_runtime(table->start_time) - philo->delay)
 	{
-		printf("delay : %d, last :%d\n", philo->delay, philo->last_time_to_eat);
+//		printf("delay : %d, last :%d\n", philo->delay, philo->last_time_to_eat);
 		res = 1;
 	}
 	pthread_mutex_unlock(&philo->mutex_last_time);

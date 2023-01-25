@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:34:49 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/25 10:29:59 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/25 11:05:46 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	run_one_philo(t_philosopher *philo, t_table *table, t_data data)
 	if (data.number_of_philos == 1)
 	{
 		print_message(philo, table, TAKEN_FORK_MSG);
-		ft_usleep(table, data.time_to_die);
-		finish(table);
+		ft_usleep(table, data.time_to_die + 10);
 	}
 }
 
