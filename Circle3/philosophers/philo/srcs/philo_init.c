@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 19:48:39 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/25 09:44:06 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/27 10:20:56 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,17 @@ int	destroy_mutex_of_philosopher(t_table *table, int idx)
 	return (1);
 }
 
-int	init_philosopher(t_table *table, t_data data)
+static int	handle_error(int is_error, int *errno, t_table *table, int idx)
+{
+	if (is_error)
+	{
+		*errno = FAIL_MUTEX_INIT;
+		return (destroy_mutex_of_philosopher(table, idx));
+	}
+	return (0);
+}
+
+int	init_philosopher(t_table *table, t_data data, int *errno)
 {
 	int				idx;
 	int				is_error;
@@ -55,7 +65,5 @@ int	init_philosopher(t_table *table, t_data data)
 				|| pthread_mutex_init(&philo->mutex_last_time, 0)
 				|| pthread_mutex_init(&philo->mutex_delay, 0));
 	}
-	if (is_error)
-		return (destroy_mutex_of_philosopher(table, idx));
-	return (0);
+	return (handle_error(is_error, errno, table, idx));
 }

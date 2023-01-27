@@ -6,13 +6,13 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 20:40:24 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/25 11:04:40 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/27 10:23:13 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-int	is_death(t_philosopher *philo, t_table *table, t_data data)
+int	handle_death(t_philosopher *philo, t_table *table, t_data data, int idx)
 {
 	int	res;
 
@@ -22,7 +22,10 @@ int	is_death(t_philosopher *philo, t_table *table, t_data data)
 	if (philo->last_time_to_eat + data.time_to_die
 		< get_runtime(table->start_time) - philo->delay)
 	{
-//		printf("delay : %d, last :%d\n", philo->delay, philo->last_time_to_eat);
+		pthread_mutex_lock(&table->mutex_message);
+		finish(table);
+		printf(DIED_MSG, get_runtime(table->start_time), idx + 1);
+		pthread_mutex_unlock(&table->mutex_message);
 		res = 1;
 	}
 	pthread_mutex_unlock(&philo->mutex_last_time);
@@ -30,47 +33,42 @@ int	is_death(t_philosopher *philo, t_table *table, t_data data)
 	return (res);
 }
 
-void	monitor_death(t_table *table, t_data data)
+void	check_death(t_table *table, t_data data)
 {
 	int				idx;
+	int				is_death;
 	t_philosopher	*philo;
 
 	idx = 0;
-	while (idx < data.number_of_philos)
+	is_death = 0;
+	while (!is_death && idx < data.number_of_philos)
 	{
 		philo = table->philos + idx;
-		if (is_death(philo, table, data))
-		{
-			pthread_mutex_lock(&table->mutex_message);
-			finish(table);
-			printf(DIED_MSG, get_runtime(table->start_time), idx + 1);
-			pthread_mutex_unlock(&table->mutex_message);
-			return ;
-		}
+		is_death = handle_death(philo, table, data, idx);
 		idx++;
 	}
 }
 
-void	monitor_eating(t_table *table, t_data data)
+void	check_eating(t_table *table, t_data data)
 {
 	int				idx;
+	int				is_enough;
 	t_philosopher	*philo;
 
 	if (!data.number_of_must_eat || !is_running(table))
 		return ;
 	idx = 0;
-	while (idx < data.number_of_philos)
+	is_enough = 1;
+	while (is_enough && idx < data.number_of_philos)
 	{
 		philo = table->philos + idx;
 		pthread_mutex_lock(&philo->mutex_eating);
-		if (philo->number_of_eating < data.number_of_must_eat)
-		{
-			pthread_mutex_unlock(&philo->mutex_eating);
-			return ;
-		}
+		is_enough = (philo->number_of_eating >= data.number_of_must_eat);
 		pthread_mutex_unlock(&philo->mutex_eating);
 		idx++;
 	}
+	if (!is_enough)
+		return ;
 	pthread_mutex_lock(&table->mutex_message);
 	finish(table);
 	printf(EATING_ENOUGH_MSG);
@@ -89,8 +87,8 @@ void	*run_monitor(void *arg)
 	while (is_running(table))
 	{
 		usleep(100);
-		monitor_death(table, data);
-		monitor_eating(table, data);
+		check_death(table, data);
+		check_eating(table, data);
 	}
 	return (0);
 }

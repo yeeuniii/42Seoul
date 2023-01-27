@@ -6,29 +6,30 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:23:43 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/25 10:46:31 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/27 09:44:26 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-int	is_running(t_table *table)
+int	print_error(int errno)
 {
-	pthread_mutex_lock(&table->mutex_end);
-	if (table->is_end)
-	{
-		pthread_mutex_unlock(&table->mutex_end);
-		return (0);
-	}
-	pthread_mutex_unlock(&table->mutex_end);
+	if (errno == FAIL_ALLOCATION)
+		printf("fail allocation\n");
+	if (errno == FAIL_MUTEX_INIT)
+		printf("fail mutex init\n");
+	if (errno == FAIL_THREAD_CREATE)
+		printf("fail thread create\n");
+	if (errno == FAIL_THREAD_JOIN)
+		printf("fail thread join\n");
 	return (1);
 }
 
-void	finish(t_table *table)
+void	free_all(t_table *table, int number_of_philos)
 {
-	pthread_mutex_lock(&table->mutex_end);
-	table->is_end = 1;
-	pthread_mutex_unlock(&table->mutex_end);
+	free_table(*table);
+	destroy_mutex_of_table(table, number_of_philos);
+	destroy_mutex_of_philosopher(table, number_of_philos);
 }
 
 void	ft_usleep(t_table *table, int goal_time)
@@ -39,7 +40,7 @@ void	ft_usleep(t_table *table, int goal_time)
 	while (is_running(table))
 	{
 		if (get_runtime(table->start_time) - funtion_calltime >= goal_time)
-			break ;
+			return ;
 		usleep(100);
 	}
 }

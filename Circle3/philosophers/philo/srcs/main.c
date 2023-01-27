@@ -6,77 +6,33 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:14:58 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/25 10:44:49 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/27 10:00:09 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-int	create_thread(t_table *table, t_data data)
+void	leaks(void)
 {
-	int				idx;
-	int				is_error;
-	t_philosopher	*philo;
-
-	idx = 0;
-	gettimeofday(&table->start_time, 0);
-	pthread_mutex_lock(&table->mutex_start);
-	is_error = pthread_create(&table->monitor, 0, run_monitor, (void *)table);
-	while (!is_error && idx < data.number_of_philos)
-	{
-		philo = table->philos + idx;
-		is_error = pthread_create(&philo->thread, 0, run_philo, (void *)philo);
-		idx++;
-	}
-	pthread_mutex_unlock(&table->mutex_start);
-	if (is_error)
-		finish(table);
-	return (is_error);
+	system("leaks philo");
 }
-
-int	wait_thread(t_table *table, t_data data)
-{
-	int				idx;
-	int				is_error;
-	t_philosopher	*philo;
-
-	idx = 0;
-	is_error = pthread_join(table->monitor, 0);
-	while (!is_error && idx < data.number_of_philos)
-	{
-		philo = table->philos + idx;
-		is_error = pthread_join(philo->thread, 0);
-		idx++;
-	}
-	if (is_error)
-		finish(table);
-	return (is_error);
-}
-
-void	free_all(t_table *table, int number_of_philos)
-{
-	free_table(*table);
-	destroy_mutex_of_table(table, number_of_philos);
-	destroy_mutex_of_philosopher(table, number_of_philos);
-}
-
-//void	leaks(void)
-//{
-//	system("leaks philo");
-//}
 
 int	main(int argc, char *argv[])
 {
 	t_data	data;
 	t_table	table;
+	int		errno;
 
 //	atexit(leaks);
+	errno = 0;
 	if (init_data(&data, argc, argv))
 		return (print_usage());
-	if (init_table(&table, data) || init_philosopher(&table, data))
-		return (printf("error\n"));
-	if (create_thread(&table, data) || wait_thread(&table, data))
-		return (printf("error\n"));
+	if (init_table(&table, data, &errno)
+		|| init_philosopher(&table, data, &errno))
+		return (print_error(errno));
+	if (create_thread(&table, data, &errno)
+		|| wait_thread(&table, data, &errno))
+		return (print_error(errno));
 	free_all(&table, data.number_of_philos);
 	return (0);
 }

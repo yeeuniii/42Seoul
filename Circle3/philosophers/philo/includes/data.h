@@ -22,6 +22,8 @@ typedef struct s_data
 	int	number_of_must_eat;
 }	t_data;
 
-int		print_usage(void);
+int	init_data(t_data *data, int argc, char *argv[]);
+int	is_valid_data(t_data data);
+int	print_usage(void);
 
 #endif
