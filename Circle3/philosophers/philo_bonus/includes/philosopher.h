@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:13:11 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/26 14:23:33 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/27 14:51:05 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@
 # define DIED_MSG "%d %d died\n"
 # define EATING_ENOUGH_MSG "All philosophers have eaten enough\n"
 
+# define FAIL_ALLOCATION 1
+# define FAIL_THREAD_CREATE 3
+# define FAIL_THREAD_JOIN 4
+# define FAIL_SEMAPHORE_OPEN 5
+# define FAIL_SEMAPHORE_CLOSE 6
+# define FAIL_SEMAPHORE_UNLINK 7
+
 struct s_semaphore;
 
 typedef struct s_philosopher
@@ -40,22 +47,22 @@ typedef struct s_philosopher
 	t_semaphore	sem_last_time;
 	int			number_of_eating;
 	t_semaphore	sem_eating;
-	int			delay;
-	t_semaphore	sem_delay;
+	pthread_t	monitor;
 } t_philosopher;
 
-int		init_philosopher(t_table *table, t_data data);
+int		init_philosopher(t_table *table, t_data data, int *errno);
 
 int		create_process(t_table *table, t_data data);
 void	run_philo(t_philosopher *philo, t_table *table, t_data data);
-
 void	ft_eat(t_philosopher *philo, t_table *table, int time_to_eat);
 void	ft_sleep(t_philosopher *philo, t_table *table, int time_to_sleep);
 void	ft_think(t_philosopher *philo, t_table *table);
 
-int		get_runtime(struct timeval start_time);
 int		is_running(t_table *table);
 void	finish(t_table *table);
+
+int		get_runtime(struct timeval start_time);
 void	ft_usleep(t_table *table, int goal_time);
+void	print_error(int errno);
 
 #endif

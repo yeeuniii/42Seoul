@@ -6,11 +6,28 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:21:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/26 13:52:41 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/27 15:22:07 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosopher.h"
+
+void	print_error(int errno)
+{
+	if (errno == FAIL_ALLOCATION)
+		printf("fail allocation\n");
+	if (errno == FAIL_THREAD_CREATE)
+		printf("fail thread create\n");
+	if (errno == FAIL_THREAD_JOIN)
+		printf("fail thread join\n");
+	if (errno == FAIL_SEMAPHORE_OPEN)
+		printf("fail semaphore open\n");
+	if (errno == FAIL_SEMAPHORE_CLOSE)
+		printf("fail semaphore close\n");
+	if (errno == FAIL_SEMAPHORE_UNLINK)
+		printf("fail semaphore unlink\n");
+	exit(1);
+}
 
 int	is_running(t_table *table)
 {
@@ -45,12 +62,13 @@ int	get_runtime(struct timeval start_time)
 void	ft_usleep(t_table *table, int goal_time)
 {
 	int	funtion_calltime;
-
+	
 	funtion_calltime = get_runtime(table->start_time);
 	while (is_running(table))
 	{
 		if (get_runtime(table->start_time) - funtion_calltime >= goal_time)
-			break ;
-		usleep(100);
+			return ;
+		usleep(1000);
 	}
+	//printf("%d\n",(get_runtime(table->start_time) - funtion_calltime < goal_time));
 }

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 16:43:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/26 13:54:48 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/27 15:20:12 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,12 @@ typedef struct s_table
 	t_semaphore				forks;
 	int						is_end;
 	t_semaphore				sem_end;
-	pthread_t				monitor;
+	t_semaphore				sem_message;
 	t_data					data;
 } t_table;
 
-int		init_table(t_table *table, t_data data);
+int		init_table(t_table *table, t_data data, int *errno);
 int		init_fork(t_semaphore *fork, t_data data);
-int		free_table(t_table *table);
 
 void	*run_monitor(void *arg);
 

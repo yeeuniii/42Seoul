@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 20:40:24 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/26 14:27:45 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/27 15:58:31 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,13 @@ void	monitor_death(t_table *table, t_data data)
 			< get_runtime(table->start_time))
 		{
 			sem_post(philo->sem_last_time.sem);
+			sem_wait(table->sem_message.sem);
 			finish(table);
 			printf(DIED_MSG, get_runtime(table->start_time), idx + 1);
+//			printf("last : %d\n", philo->last_time_to_eat);
+//			printf("is_end : %d\n", table->is_end);
 			kill(0, SIGKILL);
+			sem_post(table->sem_message.sem);
 			return ;
 		}
 		sem_post(philo->sem_last_time.sem);
