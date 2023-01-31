@@ -6,12 +6,11 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 20:08:17 by yeepark           #+#    #+#              #
-#    Updated: 2023/01/27 10:11:32 by yeepark          ###   ########.fr        #
+#    Updated: 2023/01/31 16:20:52 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -Wall -Wextra -Werror
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
 LDFLAGS = -lpthread
 SRC = main.c utils.c data.c table.c monitor_thread.c \
 	  philo_thread.c philo_state.c philo_init.c thread.c

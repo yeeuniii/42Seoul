@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 19:48:45 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/27 09:34:06 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/31 16:19:51 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@ void	take_fork(t_philosopher *philo, t_table *table)
 {
 	pthread_mutex_lock(&table->mutex_fork[philo->right_fork]);
 	print_message(philo, table, TAKEN_FORK_MSG);
+	table->forks[philo->right_fork] = 0;
 	pthread_mutex_lock(&table->mutex_fork[philo->left_fork]);
 	print_message(philo, table, TAKEN_FORK_MSG);
+	table->forks[philo->left_fork] = 0;
 }
 
 void	put_fork(t_philosopher *philo, t_table *table)
 {
+	table->forks[philo->right_fork] = 1;
 	pthread_mutex_unlock(&(table->mutex_fork[philo->right_fork]));
+	table->forks[philo->left_fork] = 1;
 	pthread_mutex_unlock(&(table->mutex_fork[philo->left_fork]));
 }
 

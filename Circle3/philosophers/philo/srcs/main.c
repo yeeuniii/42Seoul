@@ -6,16 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:14:58 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/27 10:00:09 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/31 16:20:41 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
-
-void	leaks(void)
-{
-	system("leaks philo");
-}
 
 int	main(int argc, char *argv[])
 {
@@ -23,7 +18,6 @@ int	main(int argc, char *argv[])
 	t_table	table;
 	int		errno;
 
-//	atexit(leaks);
 	errno = 0;
 	if (init_data(&data, argc, argv))
 		return (print_usage());
