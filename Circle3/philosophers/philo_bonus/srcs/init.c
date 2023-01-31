@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 16:45:43 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/31 15:39:30 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/31 16:03:23 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	init_semaphore(t_semaphore *sem, char *name, int value, int *errno)
 			*errno = FAIL_SEMAPHORE_UNLINK;
 			return (1);
 		}
+		sem->sem = sem_open(sem->name, O_CREAT, 0644, value);
 	}
-	sem->sem = sem_open(sem->name, O_CREAT, 0644, value);
 	if (sem->sem == SEM_FAILED)
 	{
 		*errno = FAIL_SEMAPHORE_OPEN;

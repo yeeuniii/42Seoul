@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:09:32 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/31 15:54:35 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/31 16:52:21 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,6 @@ void	free_all(t_table *table, int number_of_philos)
 		idx++;
 	}
 	free(table->philos);
-}
-
-void	leak(void)
-{
-	system("leaks philo_bonus");
 }
 
 int	main(int argc, char *argv[])

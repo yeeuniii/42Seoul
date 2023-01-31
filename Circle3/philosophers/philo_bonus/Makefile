@@ -6,13 +6,12 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 20:08:17 by yeepark           #+#    #+#              #
-#    Updated: 2023/01/31 15:49:03 by yeepark          ###   ########.fr        #
+#    Updated: 2023/01/31 16:50:51 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -Wall -Wextra -Werror
 #CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
-#CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 LDFLAGS = -lpthread
 SRC = main.c data.c init.c utils.c\
 	  process.c philo.c monitor.c 
@@ -22,7 +21,6 @@ INCLUDES = includes
 NAME = philo_bonus
 
 all : $(NAME)
-	make clean
 
 $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^

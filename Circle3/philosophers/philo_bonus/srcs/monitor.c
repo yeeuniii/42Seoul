@@ -6,13 +6,18 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:53:28 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/31 15:39:00 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/31 16:53:58 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosopher.h"
 
-void	check_death(t_philosopher *philo, t_table *table, int time_to_die, int *status)
+void	check_death(
+		t_philosopher *philo,
+		t_table *table,
+		int time_to_die,
+		int *status
+)
 {
 	sem_wait(philo->sem_last_time.sem);
 	if (philo->last_time_to_eat + time_to_die < get_runtime(table->start_time))
@@ -25,7 +30,11 @@ void	check_death(t_philosopher *philo, t_table *table, int time_to_die, int *sta
 	sem_post(philo->sem_last_time.sem);
 }
 
-void	check_eating_enough(t_philosopher *philo, int number_of_must_eat, int *status)
+void	check_eating_enough(
+		t_philosopher *philo,
+		int number_of_must_eat,
+		int *status
+)
 {
 	if (!number_of_must_eat)
 		return ;
