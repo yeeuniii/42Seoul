@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 16:43:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/27 15:20:12 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/01/31 15:35:18 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ typedef struct s_table
 	struct s_philosopher	*philos;
 	struct timeval			start_time;
 	t_semaphore				forks;
-	int						is_end;
-	t_semaphore				sem_end;
 	t_semaphore				sem_message;
 	t_data					data;
-} t_table;
+}	t_table;
+
+int		init_semaphore(t_semaphore *sem, char *name, int value, int *errno);
+int		clear_semaphore(t_table *table, int number_of_philos, int *errno);
 
 int		init_table(t_table *table, t_data data, int *errno);
 int		init_fork(t_semaphore *fork, t_data data);
