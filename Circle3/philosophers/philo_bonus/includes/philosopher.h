@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:13:11 by yeepark           #+#    #+#             */
-/*   Updated: 2023/01/31 15:35:11 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/03 13:13:59 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ void	finish(t_table *table);
 int		get_runtime(struct timeval start_time);
 void	ft_usleep(t_table *table, int goal_time);
 int		print_error(int errno);
+void	free_all(t_table *table, int number_of_philos);
 
 #endif

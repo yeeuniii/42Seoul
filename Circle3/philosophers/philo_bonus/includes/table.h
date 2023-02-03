@@ -36,7 +36,8 @@ typedef struct s_table
 }	t_table;
 
 int		init_semaphore(t_semaphore *sem, char *name, int value, int *errno);
-int		clear_semaphore(t_table *table, int number_of_philos, int *errno);
+int		clear_all_semaphore(t_table *table, int number_of_philos, int *errno);
+int		clear_semaphore(t_semaphore sem, int *errno);
 
 int		init_table(t_table *table, t_data data, int *errno);
 int		init_fork(t_semaphore *fork, t_data data);

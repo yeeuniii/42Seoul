@@ -50,3 +50,19 @@ void	ft_usleep(t_table *table, int goal_time)
 	while (get_runtime(table->start_time) - funtion_calltime < goal_time)
 		usleep(1000);
 }
+
+void	free_all(t_table *table, int number_of_philos)
+{
+	int				idx;
+	t_philosopher	*philo;
+
+	idx = 0;
+	while (idx < number_of_philos)
+	{
+		philo = table->philos + idx;
+		free(philo->sem_last_time.name);
+		free(philo->sem_eating.name);
+		idx++;
+	}
+	free(table->philos);
+}

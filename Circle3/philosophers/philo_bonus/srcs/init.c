@@ -12,27 +12,6 @@
 
 #include "../includes/philosopher.h"
 
-int	init_semaphore(t_semaphore *sem, char *name, int value, int *errno)
-{
-	sem->name = name;
-	sem->sem = sem_open(sem->name, O_CREAT | O_EXCL, 0644, value);
-	if (sem->sem == SEM_FAILED)
-	{
-		if (sem_unlink(sem->name) == -1)
-		{
-			*errno = FAIL_SEMAPHORE_UNLINK;
-			return (1);
-		}
-		sem->sem = sem_open(sem->name, O_CREAT, 0644, value);
-	}
-	if (sem->sem == SEM_FAILED)
-	{
-		*errno = FAIL_SEMAPHORE_OPEN;
-		return (1);
-	}
-	return (0);
-}
-
 int	init_table(t_table *table, t_data data, int *errno)
 {
 	init_semaphore(&table->forks, "sem_fork", data.number_of_philos, errno);

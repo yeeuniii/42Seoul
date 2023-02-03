@@ -6,15 +6,14 @@
 #    By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 20:08:17 by yeepark           #+#    #+#              #
-#    Updated: 2023/01/31 16:50:51 by yeepark          ###   ########.fr        #
+#    Updated: 2023/02/03 13:11:44 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -Wall -Wextra -Werror
-#CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
 LDFLAGS = -lpthread
-SRC = main.c data.c init.c utils.c\
-	  process.c philo.c monitor.c 
+SRC = main.c data.c init.c utils.c \
+	  process.c philo.c monitor.c semaphore.c
 SRCS = $(addprefix srcs/,$(SRC))
 OBJS = $(SRCS:.c=.o)
 INCLUDES = includes

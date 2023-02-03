@@ -39,7 +39,7 @@ int	create_process(t_table *table, t_data data, int *errno)
 	{
 		philo = table->philos + idx;
 		philo->pid = fork();
-		if (philo->pid < -1)
+		if (philo->pid == -1)
 			*errno = FAIL_PROCESS_CREATE;
 		if (philo->pid == 0)
 			*errno = run_philo(philo, table, data);
@@ -47,11 +47,13 @@ int	create_process(t_table *table, t_data data, int *errno)
 	return (*errno);
 }
 
-void	kill_process(t_table *table, int number_of_philos)
+void	kill_process(t_table *table, int number_of_philos, int status)
 {
 	int				idx;
 	t_philosopher	*philo;
 
+	if (status == 0)
+		return ;
 	idx = 0;
 	while (idx < number_of_philos)
 	{
@@ -67,17 +69,17 @@ int	finish_process(t_table *table, t_data data)
 	int	status;
 
 	idx = 0;
-	while (idx < data.number_of_philos)
+	status = 1;
+	while (status && idx < data.number_of_philos)
 	{
 		waitpid(-1, &status, 0);
-		if (status != 0)
-		{
-			kill_process(table, data.number_of_philos);
-			return (0);
-		}
+		kill_process(table, data.number_of_philos, status);
 		idx++;
 	}
-	kill_process(table, data.number_of_philos);
-	printf(EATING_ENOUGH_MSG);
+	if (status == 0)
+	{
+		kill_process(table, data.number_of_philos, 1);
+		printf(EATING_ENOUGH_MSG);
+	}
 	return (0);
 }
