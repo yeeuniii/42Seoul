@@ -33,8 +33,8 @@ int	main(void)
 	void	*mlx_ptr;
 	void	*window_ptr;
 	t_data	image;
-	int		width = 300;
-	int		height = 400;
+	int		width = 800;
+	int		height = 600;
 
 	mlx_ptr = mlx_init();
 	window_ptr = mlx_new_window(mlx_ptr, width, height, "");
@@ -44,13 +44,17 @@ int	main(void)
 	t_point		origin = init_vector(0, 0, 0);
 	t_screen	screen = init_screen(width, height);
 	t_camera	camera = init_camera(screen, origin);
-	t_sphere	sphere = init_sphere(init_vector(0, 0, -5), 2);
+	t_sphere	sphere1 = init_sphere(init_vector(-2, 0, -5), 2);
+	t_sphere	sphere2 = init_sphere(init_vector(2, 0, -5), 2);
+	t_sphere	sphere[3];
 	t_ray		ray;
 	t_color		color;
 	int	i = 0;
 	int	j = screen.height - 1;
 	double	u, v;
-	
+
+	sphere[0] = sphere1;
+	sphere[1] = sphere2;
 //	printf("x : %f y : %f z : %f\n", camera.left_bottom.x, camera.left_bottom.y, camera.left_bottom.z);
 	while (j >= 0)
 	{

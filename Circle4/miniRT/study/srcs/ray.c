@@ -28,6 +28,26 @@ t_vector	get_direct(t_camera camera, double u, double v)
 	return (ft_unit(vector));
 }
 
+int	hit_object(t_sphere sphere[], t_ray ray, t_hitted *hitted)
+{
+	int			idx = 0;
+	int			is_hitted = 0;
+	t_hitted	object_hitted;
+
+	object_hitted = *hitted;
+	while (idx < 2)
+	{
+		if (hit_sphere(sphere[idx], ray, &object_hitted))
+		{
+			is_hitted = 1;
+			object_hitted.t_max = object_hitted.t;
+			*hitted = object_hitted;
+		}
+		idx++;
+	}
+	return (is_hitted);
+}
+
 int	hit_sphere(t_sphere sphere, t_ray ray, t_hitted *hitted)
 {
 	double	a;
@@ -53,20 +73,20 @@ int	hit_sphere(t_sphere sphere, t_ray ray, t_hitted *hitted)
 	hitted->p = point_ray(ray, root);
 	hitted->normal = ft_unit(ft_minus(hitted->p, sphere.center));
 //	hitted->normal = ft_multiple(ft_minus(hitted->p, sphere.center), 1 / sphere.radius);
+	if (ft_inner_product(ray.origin, hitted->normal) > 0)
+		hitted->normal = ft_multiple(hitted->normal, -1);
 	return (1);
 }
 
-t_color	get_color(t_sphere sphere, t_ray ray)
+t_color	get_color(t_sphere sphere[], t_ray ray)
 {
-	t_hitted	hitted;
 	t_color		color;
+	t_hitted	hitted;
 	
 	hitted.t_min = 0;
 	hitted.t_max = INFINITY;
-	if (!hit_sphere(sphere, ray, &hitted))
+	if (!hit_object(sphere, ray, &hitted))
 		return (init_vector(255, 255, 255));
-	if (ft_inner_product(ray.origin, hitted.normal) > 0)
-		hitted.normal = ft_multiple(hitted.normal, -1);
 	color = ft_multiple(ft_plus(hitted.normal, init_vector(1, 1, 1)), 0.5);
 	return (ft_multiple(color, 255.999));	
 }
