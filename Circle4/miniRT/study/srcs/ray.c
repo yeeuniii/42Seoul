@@ -12,7 +12,7 @@ t_ray	init_ray(t_vector origin, t_vector direct)
 	return (ray);
 }
 
-t_point	set_ray_by_t(t_ray ray, double t)
+t_point	point_ray(t_ray ray, double t)
 {
 	return (ft_plus(ray.origin, ft_multiple(ray.direct, t)));
 }
@@ -28,33 +28,45 @@ t_vector	get_direct(t_camera camera, double u, double v)
 	return (ft_unit(vector));
 }
 
-int	hit_sphere(t_sphere sphere, t_ray ray, double *t)
+int	hit_sphere(t_sphere sphere, t_ray ray, t_hitted *hitted)
 {
 	double	a;
 	double	b;
 	double	c;
 	double	discriminant;
+	double	root;
 
 	a = ft_inner_product(ray.direct, ray.direct);
 	b = 2 * ft_inner_product(ray.direct, ft_minus(ray.origin, sphere.center));
 	c = ft_inner_product(ft_minus(ray.origin, sphere.center), ft_minus(ray.origin, sphere.center)) - sphere.radius * sphere.radius;
 	discriminant = b * b - 4 * a * c;
-	if (discriminant >= 0)
-		*t = (-b - sqrt(discriminant)) / (2 * a);
-	return (discriminant >= 0);
+	if (discriminant < 0)
+		return (0);	
+	root = (-b - sqrt(discriminant)) / (2 * a);
+	if (root < hitted->t_min || root > hitted->t_max)
+	{
+		root = (-b + sqrt(discriminant)) / (2 * a);
+		if (root < hitted->t_min || root > hitted->t_max)
+			return (0);
+	}
+	hitted->t = root;	
+	hitted->p = point_ray(ray, root);
+	hitted->normal = ft_unit(ft_minus(hitted->p, sphere.center));
+//	hitted->normal = ft_multiple(ft_minus(hitted->p, sphere.center), 1 / sphere.radius);
+	return (1);
 }
 
 t_color	get_color(t_sphere sphere, t_ray ray)
 {
-	double	t;
-	t_color	color;
-
-	if (!hit_sphere(sphere, ray, &t))
+	t_hitted	hitted;
+	t_color		color;
+	
+	hitted.t_min = 0;
+	hitted.t_max = INFINITY;
+	if (!hit_sphere(sphere, ray, &hitted))
 		return (init_vector(255, 255, 255));
-//	printf("t : %f\n", t);
-	color = set_ray_by_t(ray, t);
-	color = ft_unit(ft_minus(color, sphere.center));
-	color = ft_multiple(ft_plus(color, init_vector(1, 1, 1)), 0.5);
-	color = ft_multiple(color, 255.999);
-	return (color);	
+	if (ft_inner_product(ray.origin, hitted.normal) > 0)
+		hitted.normal = ft_multiple(hitted.normal, -1);
+	color = ft_multiple(ft_plus(hitted.normal, init_vector(1, 1, 1)), 0.5);
+	return (ft_multiple(color, 255.999));	
 }

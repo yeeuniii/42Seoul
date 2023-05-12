@@ -41,7 +41,7 @@ int	main(void)
 	image.img = mlx_new_image(mlx_ptr, width, height);
 	image.addr = mlx_get_data_addr(image.img, &image.bpp, &image.size_line, &image.endian);
 	
-	t_vector	origin = init_vector(0, 0, 0);
+	t_point		origin = init_vector(0, 0, 0);
 	t_screen	screen = init_screen(width, height);
 	t_camera	camera = init_camera(screen, origin);
 	t_sphere	sphere = init_sphere(init_vector(0, 0, -5), 2);
@@ -51,8 +51,7 @@ int	main(void)
 	int	j = screen.height - 1;
 	double	u, v;
 	
-	printf("x : %f y : %f z : %f\n", camera.left_bottom.x, camera.left_bottom.y, camera.left_bottom.z);
-	
+//	printf("x : %f y : %f z : %f\n", camera.left_bottom.x, camera.left_bottom.y, camera.left_bottom.z);
 	while (j >= 0)
 	{
 		i = 0;
@@ -62,10 +61,6 @@ int	main(void)
 			v = (double)j / (screen.height - 1);
 			ray = init_ray(origin, get_direct(camera, u, v));
 			color = get_color(sphere, ray);
-//			int	c = get_rgb(color);
-//			if (c != 16777215)
-//				printf("x : %f y : %f z : %f\n", color.x, color.y, color.z);
-//				printf("color : %d\n", c);	
 			my_mlx_pixel_put(&image, i, j, get_rgb(color));
 			i++;
 		}

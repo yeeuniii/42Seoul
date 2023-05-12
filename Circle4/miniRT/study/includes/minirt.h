@@ -34,11 +34,21 @@ struct s_screen
 	double	ratio; // 종횡비 - aspect_ratio 
 };
 
+typedef struct s_hitted
+{
+	t_point		p;
+	t_vector	normal;
+	double		t_min;
+	double		t_max;
+	double		t;
+}	t_hitted;
+
 struct s_sphere
 {
 	t_vector	center;
 	double		radius;
 };
+
 
 t_ray		init_ray(t_vector origin, t_vector direct);
 t_screen	init_screen(int width, int height);
@@ -46,7 +56,7 @@ t_camera	init_camera(t_screen screen, t_point origin);
 t_sphere	init_sphere(t_vector center, double radius);
 
 t_vector	get_direct(t_camera camera, double u, double v);
-int			hit_sphere(t_sphere sphere, t_ray ray, double *t);
+int			hit_sphere(t_sphere sphere, t_ray ray, t_hitted *hitted);
 t_color		get_color(t_sphere sphere, t_ray ray);
 
 #endif
