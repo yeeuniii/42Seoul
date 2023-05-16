@@ -25,11 +25,24 @@ t_camera	init_camera(t_screen screen, t_point origin)
 	return (camera);
 }
 
-t_sphere	init_sphere(t_vector center, double radius)
+t_light		init_light(t_point origin, t_color color, double bright_ratio)
+{
+	t_light	light;
+
+	light.origin = origin;
+	light.color = color;
+	light.bright_ratio = bright_ratio;
+	return (light);
+}
+
+t_sphere	init_sphere(t_vector center, double radius, t_color color)
 {
 	t_sphere	sphere;
 
 	sphere.center = center;
 	sphere.radius = radius;
+	sphere.color = ft_multiple(color, 1 / 255.999);
+//	printf("%f %f %f\n", sphere.color.x, sphere.color.y, sphere.color.z);
+//	printf("%f %f %f\n", color.x, color.y, color.z);
 	return (sphere);
 }

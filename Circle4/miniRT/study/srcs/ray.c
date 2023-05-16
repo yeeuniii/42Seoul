@@ -72,13 +72,14 @@ int	hit_sphere(t_sphere sphere, t_ray ray, t_hitted *hitted)
 	hitted->t = root;	
 	hitted->p = point_ray(ray, root);
 	hitted->normal = ft_unit(ft_minus(hitted->p, sphere.center));
+	hitted->albedo = sphere.color;
 //	hitted->normal = ft_multiple(ft_minus(hitted->p, sphere.center), 1 / sphere.radius);
 	if (ft_inner_product(ray.origin, hitted->normal) > 0)
 		hitted->normal = ft_multiple(hitted->normal, -1);
 	return (1);
 }
 
-t_color	get_color(t_sphere sphere[], t_ray ray)
+t_color	get_color(t_sphere sphere[], t_ray ray, t_light light)
 {
 	t_color		color;
 	t_hitted	hitted;
@@ -87,6 +88,6 @@ t_color	get_color(t_sphere sphere[], t_ray ray)
 	hitted.t_max = INFINITY;
 	if (!hit_object(sphere, ray, &hitted))
 		return (init_vector(255, 255, 255));
-	color = ft_multiple(ft_plus(hitted.normal, init_vector(1, 1, 1)), 0.5);
-	return (ft_multiple(color, 255.999));	
+	color = phong_light(light, hitted);
+	return (color);	
 }

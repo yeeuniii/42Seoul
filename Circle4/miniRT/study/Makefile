@@ -1,6 +1,6 @@
 CFLAGS = -Wall -Wextra -Werror
 CLIB = -Lmlx -lmlx -framework OpenGL -framework Appkit -Imlx
-SRC = main.c vector_utils.c init.c ray.c
+SRC = main.c vector_utils.c init.c ray.c phong.c
 SRCS = $(addprefix srcs/,$(SRC))
 OBJS = $(SRCS:.c=.o)
 DIRMLX = mlx

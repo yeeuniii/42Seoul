@@ -44,17 +44,19 @@ int	main(void)
 	t_point		origin = init_vector(0, 0, 0);
 	t_screen	screen = init_screen(width, height);
 	t_camera	camera = init_camera(screen, origin);
-	t_sphere	sphere1 = init_sphere(init_vector(-2, 0, -5), 2);
-	t_sphere	sphere2 = init_sphere(init_vector(2, 0, -5), 2);
+	t_light		light = init_light(init_vector(10, 0, -5), init_vector(1, 1, 1), 0.5);
+	t_sphere	sphere1 = init_sphere(init_vector(-2, 0, -5), 1.5, init_vector(150, 0, 0));
+	t_sphere	sphere2 = init_sphere(init_vector(2, 0, -5), 1.5, init_vector(0, 150, 0));
 	t_sphere	sphere[3];
 	t_ray		ray;
 	t_color		color;
 	int	i = 0;
 	int	j = screen.height - 1;
 	double	u, v;
-
+	
 	sphere[0] = sphere1;
 	sphere[1] = sphere2;
+
 //	printf("x : %f y : %f z : %f\n", camera.left_bottom.x, camera.left_bottom.y, camera.left_bottom.z);
 	while (j >= 0)
 	{
@@ -63,9 +65,10 @@ int	main(void)
 		{
 			u = (double)i / (screen.width - 1);
 			v = (double)j / (screen.height - 1);
+	//		printf("%f %f\n", u, v);
 			ray = init_ray(origin, get_direct(camera, u, v));
-			color = get_color(sphere, ray);
-			my_mlx_pixel_put(&image, i, j, get_rgb(color));
+			color = get_color(sphere, ray, light);
+			my_mlx_pixel_put(&image, i, screen.height - j, get_rgb(color));
 			i++;
 		}
 		j--;

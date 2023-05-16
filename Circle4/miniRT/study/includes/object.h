@@ -22,10 +22,11 @@ struct s_sphere
 {
 	t_vector	center;
 	double		radius;
+	t_vector	color;
 };
 
 t_object	init_object();
-t_sphere	init_sphere(t_vector center, double radius);
+t_sphere	init_sphere(t_vector center, double radius, t_vector color);
 
 
 #endif
