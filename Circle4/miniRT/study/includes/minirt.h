@@ -69,10 +69,11 @@ t_screen	init_screen(int width, int height);
 t_camera	init_camera(t_screen screen, t_point origin);
 t_light		init_light(t_point origin, t_color color, double bright_ratio);
 
-t_color		phong_light(t_light light, t_hitted hitted);
+t_color		phong_light(t_light light, t_hitted hitted, t_sphere sphere[]);
 t_vector	get_direct(t_camera camera, double u, double v);
 t_color		get_color(t_sphere sphere[], t_ray ray, t_light light);
 
 int			hit_sphere(t_sphere sphere, t_ray ray, t_hitted *hitted);
+int	hit_object(t_sphere sphere[], t_ray ray, t_hitted *hitted);
 
 #endif

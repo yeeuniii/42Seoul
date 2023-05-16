@@ -44,10 +44,11 @@ int	main(void)
 	t_point		origin = init_vector(0, 0, 0);
 	t_screen	screen = init_screen(width, height);
 	t_camera	camera = init_camera(screen, origin);
-	t_light		light = init_light(init_vector(10, 0, -5), init_vector(1, 1, 1), 0.5);
+	t_light		light = init_light(init_vector(0, 10, 0), init_vector(1, 1, 1), 0.5);
 	t_sphere	sphere1 = init_sphere(init_vector(-2, 0, -5), 1.5, init_vector(150, 0, 0));
-	t_sphere	sphere2 = init_sphere(init_vector(2, 0, -5), 1.5, init_vector(0, 150, 0));
-	t_sphere	sphere[3];
+	t_sphere	sphere2 = init_sphere(init_vector(0, -1000, 0), 995, init_vector(255, 255, 255));
+	t_sphere	sphere3 = init_sphere(init_vector(2, 0, -5), 1, init_vector(0, 150, 0));
+	t_sphere	sphere[4];
 	t_ray		ray;
 	t_color		color;
 	int	i = 0;
@@ -56,6 +57,7 @@ int	main(void)
 	
 	sphere[0] = sphere1;
 	sphere[1] = sphere2;
+	sphere[2] = sphere3;
 
 //	printf("x : %f y : %f z : %f\n", camera.left_bottom.x, camera.left_bottom.y, camera.left_bottom.z);
 	while (j >= 0)

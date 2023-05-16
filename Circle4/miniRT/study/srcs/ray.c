@@ -35,7 +35,7 @@ int	hit_object(t_sphere sphere[], t_ray ray, t_hitted *hitted)
 	t_hitted	object_hitted;
 
 	object_hitted = *hitted;
-	while (idx < 2)
+	while (idx < 3)
 	{
 		if (hit_sphere(sphere[idx], ray, &object_hitted))
 		{
@@ -87,7 +87,7 @@ t_color	get_color(t_sphere sphere[], t_ray ray, t_light light)
 	hitted.t_min = 0;
 	hitted.t_max = INFINITY;
 	if (!hit_object(sphere, ray, &hitted))
-		return (init_vector(255, 255, 255));
-	color = phong_light(light, hitted);
+		return (init_vector(144, 213, 235));
+	color = phong_light(light, hitted, sphere);
 	return (color);	
 }
