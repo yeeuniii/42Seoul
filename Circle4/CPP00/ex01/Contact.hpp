@@ -1,7 +1,7 @@
 #ifndef CONTACT_H
 # define CONTACT_H
 
-# include <iostream>
+# include <string>
 
 class Contact 
 {
@@ -14,6 +14,7 @@ class Contact
 		int		is_valid() const;
 		void	set_fields();
 		void	display_fields() const;
+		void	print_to_format(int idx) const;
 };
 
 #endif

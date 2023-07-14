@@ -1,7 +1,11 @@
 CC = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 NAME = phonebook 
-SRCS = PhoneBook.cpp Contact.cpp main.cpp
+SRCS = \
+	main.cpp \
+	PhoneBook.cpp \
+	Contact.cpp \
+	utils.cpp 
 OBJS = $(SRCS:.cpp=.o)
 
 all : $(NAME)

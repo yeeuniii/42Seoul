@@ -2,7 +2,7 @@
 # define PHONEBOOK_H
 
 # include "Contact.hpp"
-# include <iostream>
+# include <string>
 
 typedef	enum e_type
 {
@@ -24,10 +24,10 @@ class PhoneBook
 
 		void	run_program();
 		void	run_add();
-		void	run_search();
 		void	add_contact(Contact contact);
-	//	void	search_contact();
-	//	void	display_contacts() const;
+		void	run_search() const;
+		void	display_contacts() const;
+		void	search_contact() const;
 		void	set_input(std::string input);
 		type	get_input() const;
 		void	ask_input();

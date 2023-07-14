@@ -1,5 +1,5 @@
 #include "Contact.hpp"
-#include <string>
+#include <iostream>
 
 Contact::Contact()
 {
@@ -17,11 +17,11 @@ int		Contact::is_valid() const
 
 void	Contact::set_fields()
 {
-	std::string	field_string[5] = {"first name", "last name", "nickname", "phone number", "darkest secret"};
+	std::string	field_string[5] = {"First name", "Last name", "Nickname", "Phone number", "Darkest secret"};
 
 	for (int idx = 0; idx < 5; idx++)
 	{
-		std::cout << "Input " << field_string[idx] << " : ";
+		std::cout << field_string[idx] << " : ";
 		std::cin >> this->fields[idx];
 	}
 }
@@ -30,4 +30,16 @@ void	Contact::display_fields() const
 {
 	for (int idx = 0; idx < 5; idx++)
 		std::cout << this->fields[idx] << std::endl;
+}
+
+void	Contact::print_to_format(int idx) const
+{
+	std::string	field = this->fields[idx];
+
+	if (field.size() > 10)
+	{
+		std::cout << field.substr(0, 9) << ".";
+		return ;
+	}
+	std::cout << std::string(10 - field.size(), ' ') << field;
 }

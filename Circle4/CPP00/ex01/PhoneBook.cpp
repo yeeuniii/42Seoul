@@ -1,13 +1,12 @@
 #include "PhoneBook.hpp"
-#include <string>
-#define WHITE "\e[0m"
-#define RED "\e[0;31m"
+#include "utils.hpp"
+#include <iostream>
 
 PhoneBook::PhoneBook()
 {
 	memset(this->contacts, 0, sizeof(Contact) * 8);
-	size = 0;
-	input = None;
+	this->size = 0;
+	this->input = None;
 }
 
 void	PhoneBook::set_input(std::string input)
@@ -15,6 +14,7 @@ void	PhoneBook::set_input(std::string input)
 	std::string	command_numbers[3] = {"1", "2", "3"};
 	int	idx = 0;
 
+	this->input = None;
 	while (idx < 3 && input != command_numbers[idx])
 		idx++;
 	if (idx == 3)
@@ -38,6 +38,14 @@ void	PhoneBook::ask_input()
 	set_input(input);
 }
 
+void	PhoneBook::run_add()
+{
+	Contact	contact;
+
+	contact.set_fields();
+	add_contact(contact);
+}
+
 void	PhoneBook::add_contact(Contact contact)
 {
 	if (this->size < 8)
@@ -51,19 +59,54 @@ void	PhoneBook::add_contact(Contact contact)
 	this->contacts[7] = contact;
 }
 
-void	PhoneBook::run_add()
+void	PhoneBook::run_search() const
 {
-	Contact	contact;
-
-	contact.set_fields();
-	add_contact(contact);
+	display_contacts();
+	search_contact();
 }
 
-//void	PhoneBook::run_search()
-//{
-//	display_contacts();
-//	search_constact();
-//}
+void	PhoneBook::display_contacts() const
+{
+	std::string		format_fields[3];
+	Contact			contact;
+
+	std::cout << std::string(45, '-') << std::endl;
+	std::cout << "|" << std::string(5, ' ') << "index";
+	std::cout << "|" << "first name";
+	std::cout << "|" << std::string(1, ' ') << "last name";
+	std::cout << "|" << std::string(2, ' ') << "nickname";
+	std::cout << "|" << std::endl;
+	std::cout << std::string(45, '-') << std::endl;
+	for (int idx = 0; idx < 8; idx++)
+	{
+		contact = this->contacts[idx];
+		std::cout << "|" << std::string(9, ' ') << idx;
+		std::cout << "|";
+		contact.print_to_format(0);
+		std::cout << "|";
+		contact.print_to_format(1);
+		std::cout << "|";
+		contact.print_to_format(2);
+		std::cout << "|"  << std::endl;
+	}
+	std::cout << std::string(45, '-') << std::endl;
+}
+
+void	PhoneBook::search_contact() const
+{
+	std::string	input;
+	int			index;
+
+	std::cout << "Enter index of contacts to display : ";
+	std::cin >> input;
+	index = convert_str_to_int(input);
+	if ((index < 0 || index > 8) || (index == 0 && input != "0"))
+	{
+		std::cout << RED "The index of contacts range from 0 to 7." << std::endl;
+		return ;
+	}
+	this->contacts[index].display_fields();
+}
 
 void	PhoneBook::handle_input()
 {
@@ -72,13 +115,15 @@ void	PhoneBook::handle_input()
 		run_add();
 		return ;
 	}
-//	if (this->input == SEARCH)
-//	{
-//		run_search();
-//		return ;
-//	}
-	std::cout << RED " *** Note that the phonebook program only accepts"
-		<< std::endl << "(1)ADD, (2)SEARCH and (3)EXIT. Try again. ***" << std::endl;
+	if (this->input == SEARCH)
+	{
+		run_search();
+		return ;
+	}
+	std::cout \
+		<< RED " *** Note that the phonebook program only accepts"
+		<< std::endl 
+		<< "(1)ADD, (2)SEARCH and (3)EXIT. Try again. ***" << std::endl;
 }
 
 void	PhoneBook::run_program()
