@@ -11,15 +11,11 @@ PhoneBook::PhoneBook()
 
 void	PhoneBook::set_input(std::string input)
 {
-	std::string	command_numbers[3] = {"1", "2", "3"};
-	int	idx = 0;
+	int	number = convert_str_to_int(input);
 
 	this->input = None;
-	while (idx < 3 && input != command_numbers[idx])
-		idx++;
-	if (idx == 3)
-		return ;
-	this->input = type(idx + 1);
+	if (number >= 1 && number <= 3)
+		this->input = type(number);
 }
 
 type	PhoneBook::get_input() const
