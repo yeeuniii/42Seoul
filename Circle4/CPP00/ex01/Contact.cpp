@@ -17,11 +17,9 @@ int		Contact::is_valid() const
 
 void	Contact::set_fields()
 {
-	std::string	field_string[5] = {"First name", "Last name", "Nickname", "Phone number", "Darkest secret"};
-
 	for (int idx = 0; idx < 5; idx++)
 	{
-		std::cout << field_string[idx] << " : ";
+		std::cout << get_fields_name(idx) << " : ";
 		std::cin >> this->fields[idx];
 	}
 }
@@ -29,7 +27,17 @@ void	Contact::set_fields()
 void	Contact::display_fields() const
 {
 	for (int idx = 0; idx < 5; idx++)
+	{
+		std::cout << get_fields_name(idx) << " : ";
 		std::cout << this->fields[idx] << std::endl;
+	}
+}
+
+std::string	Contact::get_fields_name(int idx)
+{
+	std::string	field_string[5] = {"First name", "Last name", "Nickname", "Phone number", "Darkest secret"};
+
+	return field_string[idx];
 }
 
 void	Contact::print_to_format(int idx) const
