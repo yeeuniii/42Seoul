@@ -1,4 +1,5 @@
 #include "Contact.hpp"
+#include "utils.hpp"
 #include <iostream>
 
 Contact::Contact()
@@ -10,7 +11,7 @@ int		Contact::is_valid() const
 {
 	int	idx = 0;
 
-	while (idx < 5 && this->fields[idx].size())
+	while (idx < 5 && !is_empty(this->fields[idx]))
 		idx++;
 	return (idx == 5);
 }
@@ -19,8 +20,8 @@ void	Contact::set_fields()
 {
 	for (int idx = 0; idx < 5; idx++)
 	{
-		std::cout << get_fields_name(idx) << " : ";
-		std::cin >> this->fields[idx];
+		std::cout << get_field_name(idx) << " : ";
+		getline(std::cin, this->fields[idx]);
 	}
 }
 
@@ -28,12 +29,12 @@ void	Contact::display_fields() const
 {
 	for (int idx = 0; idx < 5; idx++)
 	{
-		std::cout << get_fields_name(idx) << " : ";
+		std::cout << get_field_name(idx) << " : ";
 		std::cout << this->fields[idx] << std::endl;
 	}
 }
 
-std::string	Contact::get_fields_name(int idx)
+std::string	Contact::get_field_name(int idx)
 {
 	std::string	field_string[5] = {"First name", "Last name", "Nickname", "Phone number", "Darkest secret"};
 

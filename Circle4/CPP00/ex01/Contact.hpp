@@ -16,7 +16,7 @@ class Contact
 		void	display_fields() const;
 		void	print_to_format(int idx) const;
 
-		static std::string	get_fields_name(int idx);
+		static std::string	get_field_name(int idx);
 };
 
 #endif

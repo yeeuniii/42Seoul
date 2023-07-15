@@ -23,27 +23,22 @@ type	PhoneBook::get_input() const
 	return (this->input);
 }
 
-void	PhoneBook::ask_input()
-{
-	std::string	input;
-
-	std::cout << WHITE "Enter one number of below commands." << std::endl;
-	std::cout << "(1)ADD, (2)SEARCH and (3)EXIT." << std::endl;
-	std::cout << "Input : ";
-	std::cin >> input;
-	set_input(input);
-}
-
 void	PhoneBook::run_add()
 {
 	Contact	contact;
 
+	std::cout << BLUE "All fields of contact CANNOT be empty." << std::endl;
 	contact.set_fields();
 	add_contact(contact);
 }
 
 void	PhoneBook::add_contact(Contact contact)
 {
+	if (!contact.is_valid())
+	{
+		std::cout << RED "Contact entered has empty fields" << std::endl;
+		return ;
+	}
 	if (this->size < 8)
 	{
 		this->contacts[this->size] = contact;
@@ -93,8 +88,8 @@ void	PhoneBook::search_contact() const
 	std::string	input;
 	int			index;
 
-	std::cout << "Enter index of contacts to display : ";
-	std::cin >> input;
+	std::cout << BLUE "Enter index of contacts to display : ";
+	getline(std::cin, input);
 	index = convert_str_to_int(input);
 	if ((index < 0 || index > 8) || (index == 0 && input != "0"))
 	{
@@ -116,10 +111,19 @@ void	PhoneBook::handle_input()
 		run_search();
 		return ;
 	}
-	std::cout \
-		<< RED " *** Note that the phonebook program only accepts"
-		<< std::endl 
+	std::cout << RED " *** Note that the phonebook program only accepts" << std::endl 
 		<< "(1)ADD, (2)SEARCH and (3)EXIT. Try again. ***" << std::endl;
+}
+
+void	PhoneBook::ask_input()
+{
+	std::string	input;
+
+	std::cout << WHITE "Enter one number of below commands." << std::endl;
+	std::cout << "(1)ADD, (2)SEARCH and (3)EXIT." << std::endl;
+	std::cout << "Input : ";
+	getline(std::cin, input);
+	set_input(input);
 }
 
 void	PhoneBook::run_program()
