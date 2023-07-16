@@ -23,6 +23,7 @@ class PhoneBook
 		PhoneBook();
 
 		void	run_program();
+		int		is_end();
 		void	run_add();
 		void	add_contact(Contact contact);
 		void	run_search() const;

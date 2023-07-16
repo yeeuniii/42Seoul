@@ -126,16 +126,23 @@ void	PhoneBook::ask_input()
 	set_input(input);
 }
 
+int		PhoneBook::is_end()
+{
+	return (this->input == EXIT || std::cin.eof());
+}
+
 void	PhoneBook::run_program()
 {
 	std::cout << "---------START PHONEBOOK PROGRAM---------" << std::endl;
 	ask_input();
-	while (this->input != EXIT)
+	while (!is_end())
 	{
 		handle_input();
 		std::cout << std::endl;
 		ask_input();
 	}
+	if (std::cin.eof())
+		std::cout << std::endl;
 	std::cout << "---------END  PHONEBOOK  PROGRAM---------" << std::endl;
 }	
 
