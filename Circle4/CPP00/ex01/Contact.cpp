@@ -11,7 +11,7 @@ int		Contact::is_valid() const
 {
 	int	idx = 0;
 
-	while (idx < 5 && !is_empty(this->fields[idx]))
+	while (idx < 5 && !this->fields[idx].empty())
 		idx++;
 	return (idx == 5);
 }

@@ -1,6 +1,7 @@
 #include "PhoneBook.hpp"
 #include "utils.hpp"
 #include <iostream>
+#include <cstring>
 
 PhoneBook::PhoneBook()
 {
@@ -68,7 +69,7 @@ void	PhoneBook::display_contacts() const
 	std::cout << "|" << std::string(2, ' ') << "nickname";
 	std::cout << "|" << std::endl;
 	std::cout << std::string(45, '-') << std::endl;
-	for (int idx = 0; idx < 8; idx++)
+	for (int idx = 0; idx < this->size; idx++)
 	{
 		contact = this->contacts[idx];
 		std::cout << "|" << std::string(9, ' ') << idx;
@@ -91,7 +92,7 @@ void	PhoneBook::search_contact() const
 	std::cout << BLUE "Enter index of contacts to display : ";
 	getline(std::cin, input);
 	index = convert_str_to_int(input);
-	if ((index < 0 || index > 8) || (index == 0 && input != "0"))
+	if (is_digit(input) && (index < 0 || index >= this->size))
 	{
 		std::cout << RED "The index of contacts range from 0 to 7." << std::endl;
 		return ;
