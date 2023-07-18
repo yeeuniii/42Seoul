@@ -2,6 +2,7 @@
 #include "utils.hpp"
 #include <iostream>
 #include <cstring>
+#include <iomanip> 
 
 PhoneBook::PhoneBook()
 {
@@ -61,18 +62,17 @@ void	PhoneBook::display_contacts() const
 {
 	std::string		format_fields[3];
 	Contact			contact;
-
+	
 	std::cout << std::string(45, '-') << std::endl;
-	std::cout << "|" << std::string(5, ' ') << "index";
-	std::cout << "|" << "first name";
-	std::cout << "|" << std::string(1, ' ') << "last name";
-	std::cout << "|" << std::string(2, ' ') << "nickname";
+	std::cout << "|" << std::setw(10) << "index";
+	for (int idx = 0; idx < 3; idx ++)
+		std::cout << "|" << std::setw(10) << Contact::get_field_name(idx);
 	std::cout << "|" << std::endl;
 	std::cout << std::string(45, '-') << std::endl;
 	for (int idx = 0; idx < this->size; idx++)
 	{
 		contact = this->contacts[idx];
-		std::cout << "|" << std::string(9, ' ') << idx;
+		std::cout << "|" << std::setw(10) << idx;
 		std::cout << "|" << contact.get_format_field(0);
 		std::cout << "|" << contact.get_format_field(1);
 		std::cout << "|" << contact.get_format_field(2);
@@ -89,7 +89,7 @@ void	PhoneBook::search_contact() const
 	std::cout << BLUE "Enter index of contacts to display : ";
 	std::getline(std::cin, input);
 	index = convert_str_to_int(input);
-	if (is_digit_string(input) && (index < 0 || index >= this->size))
+	if (!is_digit_string(input) || (index < 0 || index >= this->size))
 	{
 		std::cout << RED "The index of contacts range from 0 to 7." << std::endl;
 		return ;
