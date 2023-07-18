@@ -31,7 +31,6 @@ class PhoneBook
 		void	display_contacts() const;
 		void	search_contact() const;
 		void	set_input(std::string input);
-		type	get_input() const;
 		void	ask_input();
 		void	handle_input();
 };

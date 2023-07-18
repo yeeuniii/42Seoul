@@ -19,10 +19,10 @@ void	PhoneBook::set_input(std::string input)
 		this->input = type(number);
 }
 
-type	PhoneBook::get_input() const
-{
-	return (this->input);
-}
+// type	PhoneBook::get_input() const
+// {
+// 	return (this->input);
+// }
 
 void	PhoneBook::run_add()
 {
@@ -73,12 +73,9 @@ void	PhoneBook::display_contacts() const
 	{
 		contact = this->contacts[idx];
 		std::cout << "|" << std::string(9, ' ') << idx;
-		std::cout << "|";
-		contact.print_to_format(0);
-		std::cout << "|";
-		contact.print_to_format(1);
-		std::cout << "|";
-		contact.print_to_format(2);
+		std::cout << "|" << contact.get_format_field(0);
+		std::cout << "|" << contact.get_format_field(1);
+		std::cout << "|" << contact.get_format_field(2);
 		std::cout << "|"  << std::endl;
 	}
 	std::cout << std::string(45, '-') << std::endl;
@@ -90,7 +87,7 @@ void	PhoneBook::search_contact() const
 	int			index;
 
 	std::cout << BLUE "Enter index of contacts to display : ";
-	getline(std::cin, input);
+	std::getline(std::cin, input);
 	index = convert_str_to_int(input);
 	if (is_digit_string(input) && (index < 0 || index >= this->size))
 	{

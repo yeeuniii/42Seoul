@@ -19,8 +19,6 @@ int		Contact::is_valid() const
 
 void	Contact::set_fields()
 {
-	std::string	tmp;
-
 	for (int idx = 0; idx < 5; idx++)
 	{
 		std::cout << get_field_name(idx) << " : ";
@@ -44,14 +42,13 @@ std::string	Contact::get_field_name(int idx)
 	return field_string[idx];
 }
 
-void	Contact::print_to_format(int idx) const
+std::string	Contact::get_format_field(int idx) const
 {
 	std::string	field = this->fields[idx];
+	std::string	format_field;
 
 	if (field.size() > 10)
-	{
-		std::cout << field.substr(0, 9) << ".";
-		return ;
-	}
-	std::cout << std::string(10 - field.size(), ' ') << field;
+		format_field = field.substr(0, 9) + ".";
+	format_field = std::string(10 - field.size(), ' ') + field;
+	return format_field;
 }
