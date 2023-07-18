@@ -7,7 +7,7 @@
 #define BLUE "\e[0;34m"
 
 int	convert_str_to_int(std::string str);
-int	is_digit(std::string str);
-int	is_empty(std::string str);
+int	is_digit_string(std::string str);
+int	is_whitespace_string(std::string str);
 
 #endif

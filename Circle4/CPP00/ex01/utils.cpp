@@ -11,7 +11,7 @@ int	convert_str_to_int(std::string str)
 	return num;
 }
 
-int	is_digit(std::string str)
+int	is_digit_string(std::string str)
 {
 	int idx = 0;
 
@@ -20,11 +20,11 @@ int	is_digit(std::string str)
 	return (idx == (int)str.size());
 }
 
-#include <iostream>
-
-int	is_empty(std::string str)
+int	is_whitespace_string(std::string str)
 {
-	return (str.size() == 0 || (isspace(str.front()) && isspace(str.back())));
+	int idx = 0;
+
+	while (idx < (int)str.size() && isspace(str[idx]))
+		idx++;
+	return (idx == (int)str.size());
 }
-
-

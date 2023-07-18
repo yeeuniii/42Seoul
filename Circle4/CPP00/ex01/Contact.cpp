@@ -1,6 +1,7 @@
 #include "Contact.hpp"
 #include "utils.hpp"
 #include <iostream>
+#include <cstring>
 
 Contact::Contact()
 {
@@ -11,13 +12,15 @@ int		Contact::is_valid() const
 {
 	int	idx = 0;
 
-	while (idx < 5 && !this->fields[idx].empty())
+	while (idx < 5 && !is_whitespace_string(this->fields[idx]))
 		idx++;
 	return (idx == 5);
 }
 
 void	Contact::set_fields()
 {
+	std::string	tmp;
+
 	for (int idx = 0; idx < 5; idx++)
 	{
 		std::cout << get_field_name(idx) << " : ";

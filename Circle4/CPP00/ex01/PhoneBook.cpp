@@ -92,7 +92,7 @@ void	PhoneBook::search_contact() const
 	std::cout << BLUE "Enter index of contacts to display : ";
 	getline(std::cin, input);
 	index = convert_str_to_int(input);
-	if (is_digit(input) && (index < 0 || index >= this->size))
+	if (is_digit_string(input) && (index < 0 || index >= this->size))
 	{
 		std::cout << RED "The index of contacts range from 0 to 7." << std::endl;
 		return ;
