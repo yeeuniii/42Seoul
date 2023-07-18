@@ -2,7 +2,8 @@
 
 int	main(void)
 {
-	PhoneBook	phonebook;
+	PhoneBook phonebook;
 
-	phonebook.run_program();
+	phonebook.start_program();
+	return 0;
 }

@@ -23,16 +23,27 @@ class PhoneBook
 	public:
 		PhoneBook();
 
-		void	run_program();
+		void	start_program();
 		int		is_end();
-		void	run_add();
-		void	add_contact(Contact contact);
-		void	run_search() const;
-		void	display_contacts() const;
-		void	search_contact() const;
+		
 		void	set_input(std::string input);
 		void	ask_input();
-		void	handle_input();
+
+		void	run_command();
+
+		void	run_add_command();
+		void	add_contact(Contact contact);
+
+		void	run_search_command() const;
+		void	display_contacts() const;
+
+		int		get_index() const;
+		void	search_contact(int index) const;
+		int		is_valid_index(int index) const;
+
+
+		static std::string	conform_to_format(std::string str);
+
 };
 
 #endif

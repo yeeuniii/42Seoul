@@ -1,60 +1,85 @@
 #include "Contact.hpp"
 #include "utils.hpp"
 #include <iostream>
-#include <cstring>
 
 Contact::Contact()
 {
-	memset(this->fields, 0, sizeof(std::string) * 5);
+	this->first_name = "";
+	this->last_name = "";
+	this->nickname = "";
+	this->phone_number = "";
+	this->darkest_secret = "";
 }
 
-int		Contact::is_valid() const
+Contact::Contact(
+		std::string first_name,
+		std::string last_name,
+		std::string nickname,
+		std::string phone_number,
+		std::string darkest_secret)
 {
-	int	idx = 0;
-
-	while (idx < 5 && !is_whitespace_string(this->fields[idx]))
-		idx++;
-	return (idx == 5);
+	this->first_name = first_name;
+	this->last_name = last_name;
+	this->nickname = nickname;
+	this->phone_number = phone_number;
+	this->darkest_secret = darkest_secret;
 }
 
-void	Contact::set_fields()
+void	Contact::set_first_name(std::string first_name)
 {
-	int	idx = 0;
-
-	while (idx < 5 && !std::cin.eof())
-	{
-		std::cout << WHITE << get_field_name(idx) << " : ";
-		getline(std::cin, this->fields[idx]);
-		idx++;
-	}
+	this->first_name = first_name;
 }
 
-void	Contact::display_fields() const
+void	Contact::set_last_name(std::string last_name)
 {
-	for (int idx = 0; idx < 5; idx++)
-	{
-		std::cout <<  WHITE << get_field_name(idx) << " : ";
-		std::cout << this->fields[idx] << std::endl;
-	}
+	this->last_name = last_name;
 }
 
-std::string	Contact::get_field_name(int idx)
+void	Contact::set_nickname(std::string nickname)
 {
-	std::string	field_string[5] = {"First name", "Last name", "Nickname", "Phone number", "Darkest secret"};
-
-	return field_string[idx];
+	this->nickname = nickname;
 }
 
-std::string	Contact::get_format_field(int idx) const
+void	Contact::set_phone_number(std::string phone_number)
 {
-	std::string	field = this->fields[idx];
-	std::string	format_field;
+	this->phone_number = phone_number;
+}
 
-	if (field.size() > 10)
-	{
-		format_field = field.substr(0, 9) + ".";
-		return format_field;
-	}
-	format_field = std::string(10 - field.size(), ' ') + field;
-	return format_field;
+void	Contact::set_darkest_secret(std::string darkest_secret)
+{
+	this->darkest_secret = darkest_secret;
+}
+
+std::string	Contact::get_first_name() const
+{
+	return this->first_name;
+}
+
+std::string	Contact::get_last_name() const
+{
+	return this->last_name;
+}
+
+std::string	Contact::get_nickname() const
+{
+	return this->nickname;
+}
+
+std::string	Contact::get_phone_number() const
+{
+	return this->phone_number;
+}
+
+std::string	Contact::get_darkest_secret() const
+{
+	return this->darkest_secret;
+}
+
+void	Contact::display() const
+{
+	std::cout << WHITE "First name : " << this->first_name << std::endl;
+	std::cout << "Last name : " << this->last_name << std::endl;
+	std::cout << "Nickname : " << this->nickname << std::endl;
+	std::cout << "Phone number : " << this->phone_number << std::endl;
+	std::cout << "Darkest secret : " << this->darkest_secret << std::endl;
 }
