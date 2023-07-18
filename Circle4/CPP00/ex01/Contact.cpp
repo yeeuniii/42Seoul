@@ -48,7 +48,10 @@ std::string	Contact::get_format_field(int idx) const
 	std::string	format_field;
 
 	if (field.size() > 10)
+	{
 		format_field = field.substr(0, 9) + ".";
+		return format_field;
+	}
 	format_field = std::string(10 - field.size(), ' ') + field;
 	return format_field;
 }
