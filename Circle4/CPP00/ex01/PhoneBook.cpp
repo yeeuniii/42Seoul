@@ -31,6 +31,8 @@ void	PhoneBook::run_add()
 
 	std::cout << BLUE "All fields of contact CANNOT be empty." << std::endl;
 	contact.set_fields();
+	if (std::cin.eof())
+		return ;
 	add_contact(contact);
 }
 
@@ -88,6 +90,8 @@ void	PhoneBook::search_contact() const
 
 	std::cout << BLUE "Enter index of contacts to display : ";
 	std::getline(std::cin, input);
+	if (std::cin.eof())
+		return ;
 	index = convert_str_to_int(input);
 	if (!is_digit_string(input) || (index < 0 || index >= this->size))
 	{
@@ -99,6 +103,8 @@ void	PhoneBook::search_contact() const
 
 void	PhoneBook::handle_input()
 {
+	if (is_end())
+		return ;
 	if (this->input == ADD)
 	{
 		run_add();
@@ -132,15 +138,14 @@ int		PhoneBook::is_end()
 void	PhoneBook::run_program()
 {
 	std::cout << "---------START PHONEBOOK PROGRAM---------" << std::endl;
-	ask_input();
 	while (!is_end())
 	{
+		ask_input();
 		handle_input();
 		std::cout << std::endl;
-		ask_input();
 	}
 	if (std::cin.eof())
 		std::cout << std::endl;
-	std::cout << "---------END  PHONEBOOK  PROGRAM---------" << std::endl;
+	std::cout << WHITE "---------END  PHONEBOOK  PROGRAM---------" << std::endl;
 }	
 

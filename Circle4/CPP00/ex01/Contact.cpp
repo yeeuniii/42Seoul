@@ -19,10 +19,13 @@ int		Contact::is_valid() const
 
 void	Contact::set_fields()
 {
-	for (int idx = 0; idx < 5; idx++)
+	int	idx = 0;
+
+	while (idx < 5 && !std::cin.eof())
 	{
-		std::cout << get_field_name(idx) << " : ";
+		std::cout << WHITE << get_field_name(idx) << " : ";
 		getline(std::cin, this->fields[idx]);
+		idx++;
 	}
 }
 
@@ -30,7 +33,7 @@ void	Contact::display_fields() const
 {
 	for (int idx = 0; idx < 5; idx++)
 	{
-		std::cout << get_field_name(idx) << " : ";
+		std::cout <<  WHITE << get_field_name(idx) << " : ";
 		std::cout << this->fields[idx] << std::endl;
 	}
 }
