@@ -32,6 +32,7 @@ class PhoneBook
 		void	run_command();
 
 		void	run_add_command();
+		Contact	ask_contact();
 		void	add_contact(Contact contact);
 
 		void	run_search_command() const;

@@ -10,22 +10,56 @@ PhoneBook::PhoneBook()
 	this->input = None;
 }
 
-// void	PhoneBook::run_add_command()
-// {
+void	PhoneBook::run_add_command()
+{
+	Contact	contact = ask_contact();
 
+	if (std::cin.eof())
+		return ;
+	if (!contact.is_filled())
+	{
+		std::cout << RED "The contact entered has an empty field." << std::endl;
+		return ;
+	}
+	add_contact(contact);
+}
 
+Contact	PhoneBook::ask_contact()
+{
+	Contact	contact;
+	std::string	tmp;
 
-// }
+	std::cout << BLUE "All fields of contact CANNOT be empty." << std::endl;
+	std::cout << "First name : ";
+	getline(std::cin, tmp);
+	contact.set_first_name(tmp);
+	std::cout << "Last name : ";
+	getline(std::cin, tmp);
+	contact.set_last_name(tmp);
+	std::cout << "Nickname : ";
+	getline(std::cin, tmp);
+	contact.set_nickname(tmp);
+	std::cout << "Phone number : ";
+	getline(std::cin, tmp);
+	contact.set_phone_number(tmp);
+	std::cout << "Darkest secret : ";
+	getline(std::cin, tmp);
+	contact.set_darkest_secret(tmp);
+	return contact;
+}
 
-// void	PhoneBook::ask_contact()
-// {
-// 	Contact	contact;
-// 	std::string	tmp;
-
-// 	std::cout << "First name : ";
-// 	getline(std::cin, tmp);
-
-// }
+void	PhoneBook::add_contact(Contact contact)
+{
+	if (this->size < 8)
+	{
+		this->contacts[this->size] = contact;
+		this->size++;
+		return ;
+	}
+	for (int idx = 0; idx < 7; idx++)
+		this->contacts[idx] = this->contacts[idx + 1];
+	this->contacts[7] = contact;
+}
 
 void	PhoneBook::run_search_command() const
 {
@@ -72,16 +106,6 @@ std::string	PhoneBook::conform_to_format(std::string str)
 	return new_;
 }
 
-void	PhoneBook::search_contact(int index) const
-{
-	if (is_valid_index(index))
-	{
-		std::cout << RED "The index of contacts range from 0 to 7." << std::endl;
-		return ;
-	}
-	this->contacts[index].display();
-}
-
 int	PhoneBook::get_index() const
 {
 	std::string	index;
@@ -91,6 +115,16 @@ int	PhoneBook::get_index() const
 	if (std::cin.eof() || !is_digit_string(index))
 		return -1;
 	return convert_str_to_int(index);
+}
+
+void	PhoneBook::search_contact(int index) const
+{
+	if (is_valid_index(index))
+	{
+		std::cout << RED "The index of contacts range from 0 to 7." << std::endl;
+		return ;
+	}
+	this->contacts[index].display();
 }
 
 int		PhoneBook::is_valid_index(int index) const
@@ -124,7 +158,7 @@ void	PhoneBook::run_command()
 		return ;
 	if (this->input == ADD)
 	{
-	//	run_add_command();
+		run_add_command();
 		return ;
 	}
 	if (this->input == SEARCH)

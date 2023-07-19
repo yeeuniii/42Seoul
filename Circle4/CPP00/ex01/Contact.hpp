@@ -28,6 +28,7 @@ class Contact
 		std::string	get_phone_number() const;	
 		std::string	get_darkest_secret() const;
 
+		int		is_filled() const;
 		void	display() const;
 };
 

@@ -28,3 +28,4 @@ int	is_whitespace_string(std::string str)
 		idx++;
 	return (idx == (int)str.size());
 }
+

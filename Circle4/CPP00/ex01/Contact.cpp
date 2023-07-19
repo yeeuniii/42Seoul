@@ -83,3 +83,13 @@ void	Contact::display() const
 	std::cout << "Phone number : " << this->phone_number << std::endl;
 	std::cout << "Darkest secret : " << this->darkest_secret << std::endl;
 }
+
+int	Contact::is_filled() const
+{
+	return (true 
+		&& (this->first_name.size() && !is_whitespace_string(this->first_name))
+		&& (this->last_name.size() && !is_whitespace_string(this->last_name))
+		&& (this->nickname.size() && !is_whitespace_string(this->nickname))
+		&& (this->phone_number.size() && !is_whitespace_string(this->phone_number))
+		&& (this->darkest_secret.size() && !is_whitespace_string(this->darkest_secret)));
+}
