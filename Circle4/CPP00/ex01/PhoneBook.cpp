@@ -100,7 +100,7 @@ std::string	PhoneBook::conform_to_format(std::string str)
 {
 	std::string	new_;
 
-	if (str.size() > 10)
+	if (str.size() <= 10)
 		return str;
 	new_ = str.substr(0, 9) + ".";
 	return new_;
@@ -119,7 +119,7 @@ int	PhoneBook::get_index() const
 
 void	PhoneBook::search_contact(int index) const
 {
-	if (is_valid_index(index))
+	if (!is_valid_index(index))
 	{
 		std::cout << RED "The index of contacts range from 0 to 7." << std::endl;
 		return ;
