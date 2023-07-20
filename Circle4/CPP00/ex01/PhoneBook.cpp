@@ -1,6 +1,7 @@
 #include "PhoneBook.hpp"
 #include "utils.hpp"
 #include <iostream>
+#include <cstring>
 #include <iomanip>
 
 PhoneBook::PhoneBook()
@@ -89,8 +90,8 @@ void	PhoneBook::display_contacts() const
 		contact = this->contacts[idx];
 		std::cout << "|" << std::setw(10) << idx;
 		std::cout << "|" << std::setw(10) << conform_to_format(contact.get_first_name());
-		std::cout << "|" << std::setw(10) << conform_to_format(contact.get_first_name());
-		std::cout << "|" << std::setw(10) << conform_to_format(contact.get_first_name());
+		std::cout << "|" << std::setw(10) << conform_to_format(contact.get_last_name());
+		std::cout << "|" << std::setw(10) << conform_to_format(contact.get_nickname());
 		std::cout << "|"  << std::endl;
 	}
 	std::cout << std::string(45, '-') << std::endl;
