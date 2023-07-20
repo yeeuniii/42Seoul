@@ -1,6 +1,7 @@
 #include "Account.hpp"
 #include <iostream>
 #include <ctime>
+#include <iomanip>
 
 int	Account::_nbAccounts;
 int	Account::_totalAmount;
@@ -48,11 +49,11 @@ void	Account::_displayTimestamp()
 	struct tm	*t = localtime(&timer);
 
 	std::cout << "[" << t->tm_year + 1900
-			<< t->tm_mon + 1
-			<< t->tm_mday
-			<< "_" << t->tm_hour
-			<< t->tm_min
-			<< t->tm_sec << "]"; 
+			<< std::setw(2) << std::setfill('0') << t->tm_mon + 1
+			<< std::setw(2) << std::setfill('0')<< t->tm_mday
+			<< "_" << std::setw(2) << std::setfill('0') << t->tm_hour
+			<< std::setw(2) << std::setfill('0') << t->tm_min
+			<< std::setw(2) << std::setfill('0') << t->tm_sec << "]"; 
 }
 
 int		Account::getNbAccounts()
@@ -98,7 +99,7 @@ void	Account::makeDeposit(int deposit)
 	_displayTimestamp();
 	std::cout << " index:" << this->_accountIndex
 			<< ";p_amount:" << this->_amount
-			<< ";deposits:" << deposit;
+			<< ";deposit:" << deposit;
 	_totalAmount += deposit;
 	_totalNbDeposits++;
 	this->_amount += deposit;

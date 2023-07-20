@@ -26,7 +26,7 @@ class Account {
 
 	void	makeDeposit( int deposit ); /* 입금 추가 */
 	bool	makeWithdrawal( int withdrawal ); /* 출금 추가 */
-	int		checkAmount( void ) const; /*  */
+	int		checkAmount( void ) const; /* 총액이 유효한지 확인 */
 	void	displayStatus( void ) const; /* 한 개의 계좌 정보 표시 함수 */
 
 
