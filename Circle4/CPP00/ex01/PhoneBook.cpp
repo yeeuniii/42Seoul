@@ -31,7 +31,7 @@ Contact	PhoneBook::ask_contact()
 	std::string	tmp;
 
 	std::cout << BLUE "All fields of contact CANNOT be empty." << std::endl;
-	std::cout << "First name : ";
+	std::cout << WHITE "First name : ";
 	getline(std::cin, tmp);
 	contact.set_first_name(tmp);
 	std::cout << "Last name : ";
@@ -183,7 +183,7 @@ void	PhoneBook::start_program()
 	{
 		ask_input();
 		run_command();
-		std::cout << std::endl;
+		std::cout << WHITE << std::endl;
 	}
 	std::cout << "----------END PHONEBOOK PROGRAM----------" << std::endl;
 }
