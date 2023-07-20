@@ -13,7 +13,7 @@ class Account {
 
 	public:
 
-// 	typedef Account		t;
+	typedef Account		t;
 
 	static int	getNbAccounts( void ); /* */
 	static int	getTotalAmount( void );
@@ -24,10 +24,10 @@ class Account {
  	Account( int initial_deposit ); /* 생성자 - 초기 입금값 설정 */
 	~Account( void ); /* 소멸자 */
 
-// 	void	makeDeposit( int deposit ); /* */
-// 	bool	makeWithdrawal( int withdrawal ); /* */
-// 	int		checkAmount( void ) const; /* */
-	void	displayStatus( void ) const; /* 한개 계좌 정보 표시 함수 */
+	void	makeDeposit( int deposit ); /* 입금 추가 */
+	bool	makeWithdrawal( int withdrawal ); /* 출금 추가 */
+	int		checkAmount( void ) const; /*  */
+	void	displayStatus( void ) const; /* 한 개의 계좌 정보 표시 함수 */
 
 
 private:
