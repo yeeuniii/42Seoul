@@ -4,13 +4,11 @@
 Zombie::Zombie()
 {
 	this->name = "anonymous";
-	std::cout << "Zombie " << this->name << " construct." << std::endl;
 }
 
 Zombie::Zombie(std::string name)
 {
 	this->name = name;
-	std::cout << "Zombie " << this->name << " construct." << std::endl;
 }
 
 Zombie::~Zombie()
