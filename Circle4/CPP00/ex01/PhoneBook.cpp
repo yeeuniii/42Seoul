@@ -127,7 +127,7 @@ void	PhoneBook::searchContact(int index) const
 	this->contacts[index].display();
 }
 
-int		PhoneBook::isValidIndex(int index) const
+bool	PhoneBook::isValidIndex(int index) const
 {
 	return (index >= 0 && index < this->size);
 }
@@ -170,7 +170,7 @@ void	PhoneBook::runCommand()
 		<< "(1)ADD, (2)SEARCH and (3)EXIT. Try again. ***" << std::endl;
 }
 
-int		PhoneBook::isEnd()
+bool	PhoneBook::isEnd()
 {
 	return (this->input == EXIT || std::cin.eof());
 }

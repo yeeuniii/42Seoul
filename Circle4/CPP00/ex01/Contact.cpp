@@ -84,7 +84,7 @@ void	Contact::display() const
 	std::cout << "Darkest secret : " << this->darkestSecret << std::endl;
 }
 
-int	Contact::isFilled() const
+bool	Contact::isFilled() const
 {
 	return (true 
 		&& (this->firstName.size() && !isWhitespaceString(this->firstName))

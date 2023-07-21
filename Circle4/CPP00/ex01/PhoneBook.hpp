@@ -24,7 +24,7 @@ class PhoneBook
 		PhoneBook();
 
 		void	startProgram();
-		int		isEnd();
+		bool	isEnd();
 		
 		void	setInput(std::string input);
 		void	askInput();
@@ -40,8 +40,7 @@ class PhoneBook
 
 		int		getIndex() const;
 		void	searchContact(int index) const;
-		int		isValidIndex(int index) const;
-
+		bool	isValidIndex(int index) const;
 
 		static std::string	conformToFormat(std::string string);
 
