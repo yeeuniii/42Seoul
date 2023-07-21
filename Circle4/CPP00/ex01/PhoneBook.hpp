@@ -1,6 +1,6 @@
 #pragma once
-#ifndef __PHONEBOOK_H__
-#define __PHONEBOOK_H__
+#ifndef _PHONEBOOK_H__
+#define _PHONEBOOK_H__
 
 #include "Contact.hpp"
 #include <string>
@@ -11,39 +11,39 @@ typedef	enum e_type
 	ADD,
 	SEARCH,
 	EXIT
-}	type;
+}	Type;
 
 class PhoneBook
 {
 	private:
 		Contact	contacts[8];
 		int		size;
-		type	input;
+		Type	input;
 	
 	public:
 		PhoneBook();
 
-		void	start_program();
-		int		is_end();
+		void	startProgram();
+		int		isEnd();
 		
-		void	set_input(std::string input);
-		void	ask_input();
+		void	setInput(std::string input);
+		void	askInput();
 
-		void	run_command();
+		void	runCommand();
 
-		void	run_add_command();
-		Contact	ask_contact();
-		void	add_contact(Contact contact);
+		void	runAddCommand();
+		Contact	askContact();
+		void	addContact(Contact contact);
 
-		void	run_search_command() const;
-		void	display_contacts() const;
+		void	runSearchCommand() const;
+		void	displayContacts() const;
 
-		int		get_index() const;
-		void	search_contact(int index) const;
-		int		is_valid_index(int index) const;
+		int		getIndex() const;
+		void	searchContact(int index) const;
+		int		isValidIndex(int index) const;
 
 
-		static std::string	conform_to_format(std::string str);
+		static std::string	conformToFormat(std::string string);
 
 };
 

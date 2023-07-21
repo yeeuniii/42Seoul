@@ -7,28 +7,28 @@
 class Contact 
 {
 	private:
-		std::string	first_name;
-		std::string	last_name;
+		std::string	firstName;
+		std::string	lastName;
 		std::string	nickname;
-		std::string	phone_number;
-		std::string	darkest_secret;
+		std::string	phoneNumber;
+		std::string	darkestSecret;
 
 	public:
 		Contact();
 		Contact(std::string first_name, std::string last_name, std::string nickname, std::string phone_number, std::string darkest_secret);
 
-		void	set_first_name(std::string first_name);
-		void	set_last_name(std::string last_name);
-		void	set_nickname(std::string nickname);
-		void	set_phone_number(std::string phone_number);
-		void	set_darkest_secret(std::string darkest_secret);
-		std::string	get_first_name() const;
-		std::string	get_last_name() const;
-		std::string	get_nickname() const;
-		std::string	get_phone_number() const;	
-		std::string	get_darkest_secret() const;
+		void	setFirstName(std::string first_name);
+		void	setLastName(std::string last_name);
+		void	setNickname(std::string nickname);
+		void	setPhoneNumber(std::string phone_number);
+		void	setDarkestSecret(std::string darkest_secret);
+		std::string	getFirstName() const;
+		std::string	getLastName() const;
+		std::string	getNickname() const;
+		std::string	getPhoneNumber() const;	
+		std::string	getDarkestSecret() const;
 
-		int		is_filled() const;
+		int		isFilled() const;
 		void	display() const;
 };
 

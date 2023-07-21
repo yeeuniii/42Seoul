@@ -11,21 +11,21 @@ PhoneBook::PhoneBook()
 	this->input = None;
 }
 
-void	PhoneBook::run_add_command()
+void	PhoneBook::runAddCommand()
 {
-	Contact	contact = ask_contact();
+	Contact	contact = askContact();
 
 	if (std::cin.eof())
 		return ;
-	if (!contact.is_filled())
+	if (!contact.isFilled())
 	{
 		std::cout << RED "The contact entered has an empty field." << std::endl;
 		return ;
 	}
-	add_contact(contact);
+	addContact(contact);
 }
 
-Contact	PhoneBook::ask_contact()
+Contact	PhoneBook::askContact()
 {
 	Contact	contact;
 	std::string	tmp;
@@ -33,23 +33,23 @@ Contact	PhoneBook::ask_contact()
 	std::cout << BLUE "All fields of contact CANNOT be empty." << std::endl;
 	std::cout << WHITE "First name : ";
 	getline(std::cin, tmp);
-	contact.set_first_name(tmp);
+	contact.setFirstName(tmp);
 	std::cout << "Last name : ";
 	getline(std::cin, tmp);
-	contact.set_last_name(tmp);
+	contact.setLastName(tmp);
 	std::cout << "Nickname : ";
 	getline(std::cin, tmp);
-	contact.set_nickname(tmp);
+	contact.setNickname(tmp);
 	std::cout << "Phone number : ";
 	getline(std::cin, tmp);
-	contact.set_phone_number(tmp);
+	contact.setPhoneNumber(tmp);
 	std::cout << "Darkest secret : ";
 	getline(std::cin, tmp);
-	contact.set_darkest_secret(tmp);
+	contact.setDarkestSecret(tmp);
 	return contact;
 }
 
-void	PhoneBook::add_contact(Contact contact)
+void	PhoneBook::addContact(Contact contact)
 {
 	if (this->size < 8)
 	{
@@ -62,20 +62,19 @@ void	PhoneBook::add_contact(Contact contact)
 	this->contacts[7] = contact;
 }
 
-void	PhoneBook::run_search_command() const
+void	PhoneBook::runSearchCommand() const
 {
 	int	index;
 
-	display_contacts();
-	index = get_index();
+	displayContacts();
+	index = getIndex();
 	if (std::cin.eof())
 		return ;
-	search_contact(index);
+	searchContact(index);
 }
 
-void	PhoneBook::display_contacts() const
+void	PhoneBook::displayContacts() const
 {
-	std::string		format_fields[3];
 	Contact			contact;
 	
 	std::cout << std::string(45, '-') << std::endl;
@@ -89,38 +88,38 @@ void	PhoneBook::display_contacts() const
 	{
 		contact = this->contacts[idx];
 		std::cout << "|" << std::setw(10) << idx;
-		std::cout << "|" << std::setw(10) << conform_to_format(contact.get_first_name());
-		std::cout << "|" << std::setw(10) << conform_to_format(contact.get_last_name());
-		std::cout << "|" << std::setw(10) << conform_to_format(contact.get_nickname());
+		std::cout << "|" << std::setw(10) << conformToFormat(contact.getFirstName());
+		std::cout << "|" << std::setw(10) << conformToFormat(contact.getLastName());
+		std::cout << "|" << std::setw(10) << conformToFormat(contact.getNickname());
 		std::cout << "|"  << std::endl;
 	}
 	std::cout << std::string(45, '-') << std::endl;
 }
 
-std::string	PhoneBook::conform_to_format(std::string str) 
+std::string	PhoneBook::conformToFormat(std::string string)
 {
-	std::string	new_;
+	std::string	new_string;
 
-	if (str.size() <= 10)
-		return str;
-	new_ = str.substr(0, 9) + ".";
-	return new_;
+	if (string.size() <= 10)
+		return string;
+	new_string = string.substr(0, 9) + ".";
+	return new_string;
 }
 
-int	PhoneBook::get_index() const
+int	PhoneBook::getIndex() const
 {
 	std::string	index;
 
 	std::cout << BLUE "Enter index of contacts to display : ";
 	std::getline(std::cin, index);
-	if (std::cin.eof() || !is_digit_string(index))
+	if (std::cin.eof() || !isDigitString(index))
 		return -1;
-	return convert_str_to_int(index);
+	return convertStrToInt(index);
 }
 
-void	PhoneBook::search_contact(int index) const
+void	PhoneBook::searchContact(int index) const
 {
-	if (!is_valid_index(index))
+	if (!isValidIndex(index))
 	{
 		std::cout << RED "The index of contacts range from 0 to 7." << std::endl;
 		return ;
@@ -128,12 +127,12 @@ void	PhoneBook::search_contact(int index) const
 	this->contacts[index].display();
 }
 
-int		PhoneBook::is_valid_index(int index) const
+int		PhoneBook::isValidIndex(int index) const
 {
 	return (index >= 0 && index < this->size);
 }
 
-void	PhoneBook::ask_input()
+void	PhoneBook::askInput()
 {
 	std::string	input_value;
 
@@ -141,48 +140,48 @@ void	PhoneBook::ask_input()
 	std::cout << "(1)ADD, (2)SEARCH and (3)EXIT." << std::endl;
 	std::cout << "Input : ";
 	getline(std::cin, input_value);
-	set_input(input_value);
+	setInput(input_value);
 }
 
-void	PhoneBook::set_input(std::string input)
+void	PhoneBook::setInput(std::string input)
 {
-	int	number = convert_str_to_int(input);
+	int	number = convertStrToInt(input);
 
 	this->input = None;
 	if (number >= 1 && number <= 3)
-		this->input = type(number);
+		this->input = Type(number);
 }
 
-void	PhoneBook::run_command()
+void	PhoneBook::runCommand()
 {
-	if (is_end())
+	if (isEnd())
 		return ;
 	if (this->input == ADD)
 	{
-		run_add_command();
+		runAddCommand();
 		return ;
 	}
 	if (this->input == SEARCH)
 	{
-		run_search_command();
+		runSearchCommand();
 		return ;
 	}
 	std::cout << RED " *** Note that the phonebook program only accepts" << std::endl 
 		<< "(1)ADD, (2)SEARCH and (3)EXIT. Try again. ***" << std::endl;
 }
 
-int		PhoneBook::is_end()
+int		PhoneBook::isEnd()
 {
 	return (this->input == EXIT || std::cin.eof());
 }
 
-void	PhoneBook::start_program()
+void	PhoneBook::startProgram()
 {
 	std::cout << "----------START PHONEBOOK PROGRAM----------" << std::endl;
-	while (!is_end())
+	while (!isEnd())
 	{
-		ask_input();
-		run_command();
+		askInput();
+		runCommand();
 		std::cout << WHITE << std::endl;
 	}
 	std::cout << "----------END PHONEBOOK PROGRAM----------" << std::endl;

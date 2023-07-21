@@ -4,11 +4,11 @@
 
 Contact::Contact()
 {
-	this->first_name = "";
-	this->last_name = "";
+	this->firstName = "";
+	this->lastName = "";
 	this->nickname = "";
-	this->phone_number = "";
-	this->darkest_secret = "";
+	this->phoneNumber = "";
+	this->darkestSecret = "";
 }
 
 Contact::Contact(
@@ -18,78 +18,78 @@ Contact::Contact(
 		std::string phone_number,
 		std::string darkest_secret)
 {
-	this->first_name = first_name;
-	this->last_name = last_name;
+	this->firstName = first_name;
+	this->lastName = last_name;
 	this->nickname = nickname;
-	this->phone_number = phone_number;
-	this->darkest_secret = darkest_secret;
+	this->phoneNumber = phone_number;
+	this->darkestSecret = darkest_secret;
 }
 
-void	Contact::set_first_name(std::string first_name)
+void	Contact::setFirstName(std::string first_name)
 {
-	this->first_name = first_name;
+	this->firstName = first_name;
 }
 
-void	Contact::set_last_name(std::string last_name)
+void	Contact::setLastName(std::string last_name)
 {
-	this->last_name = last_name;
+	this->lastName = last_name;
 }
 
-void	Contact::set_nickname(std::string nickname)
+void	Contact::setNickname(std::string nickname)
 {
 	this->nickname = nickname;
 }
 
-void	Contact::set_phone_number(std::string phone_number)
+void	Contact::setPhoneNumber(std::string phone_number)
 {
-	this->phone_number = phone_number;
+	this->phoneNumber = phone_number;
 }
 
-void	Contact::set_darkest_secret(std::string darkest_secret)
+void	Contact::setDarkestSecret(std::string darkest_secret)
 {
-	this->darkest_secret = darkest_secret;
+	this->darkestSecret = darkest_secret;
 }
 
-std::string	Contact::get_first_name() const
+std::string	Contact::getFirstName() const
 {
-	return this->first_name;
+	return this->firstName;
 }
 
-std::string	Contact::get_last_name() const
+std::string	Contact::getLastName() const
 {
-	return this->last_name;
+	return this->lastName;
 }
 
-std::string	Contact::get_nickname() const
+std::string	Contact::getNickname() const
 {
 	return this->nickname;
 }
 
-std::string	Contact::get_phone_number() const
+std::string	Contact::getPhoneNumber() const
 {
-	return this->phone_number;
+	return this->phoneNumber;
 }
 
-std::string	Contact::get_darkest_secret() const
+std::string	Contact::getDarkestSecret() const
 {
-	return this->darkest_secret;
+	return this->darkestSecret;
 }
 
 void	Contact::display() const
 {
-	std::cout << WHITE "First name : " << this->first_name << std::endl;
-	std::cout << "Last name : " << this->last_name << std::endl;
+	std::cout << WHITE "First name : " << this->firstName << std::endl;
+	std::cout << "Last name : " << this->lastName << std::endl;
 	std::cout << "Nickname : " << this->nickname << std::endl;
-	std::cout << "Phone number : " << this->phone_number << std::endl;
-	std::cout << "Darkest secret : " << this->darkest_secret << std::endl;
+	std::cout << "Phone number : " << this->phoneNumber << std::endl;
+	std::cout << "Darkest secret : " << this->darkestSecret << std::endl;
 }
 
-int	Contact::is_filled() const
+int	Contact::isFilled() const
 {
 	return (true 
-		&& (this->first_name.size() && !is_whitespace_string(this->first_name))
-		&& (this->last_name.size() && !is_whitespace_string(this->last_name))
-		&& (this->nickname.size() && !is_whitespace_string(this->nickname))
-		&& (this->phone_number.size() && !is_whitespace_string(this->phone_number))
-		&& (this->darkest_secret.size() && !is_whitespace_string(this->darkest_secret)));
+		&& (this->firstName.size() && !isWhitespaceString(this->firstName))
+		&& (this->lastName.size() && !isWhitespaceString(this->lastName))
+		&& (this->nickname.size() && !isWhitespaceString(this->nickname))
+		&& (this->phoneNumber.size() && !isWhitespaceString(this->phoneNumber))
+		&& (this->darkestSecret.size() && !isWhitespaceString(this->darkestSecret)));
 }

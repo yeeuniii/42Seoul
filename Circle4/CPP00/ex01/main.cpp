@@ -4,6 +4,6 @@ int	main(void)
 {
 	PhoneBook phonebook;
 
-	phonebook.start_program();
+	phonebook.startProgram();
 	return 0;
 }

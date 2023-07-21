@@ -1,14 +1,17 @@
 #include <iostream>
+#include <cctype>
 
-void	print_toupper(char *str)
+std::string	getUpperCaseString(char *str)
 {
-	int	idx = 0;
+	int			idx = 0;
+	std::string	new_str;
 
 	while (str[idx])
 	{
-		std::cout << char (toupper(str[idx]));
+		new_str += toupper(str[idx]); 
 		idx++;
 	}
+	return new_str;
 }
 
 int	main(int argc, char *argv[])
@@ -19,7 +22,7 @@ int	main(int argc, char *argv[])
 		return (0);
 	}
 	for (int idx = 1; idx < argc; idx++)
-		print_toupper(argv[idx]);
+		std::cout << getUpperCaseString(argv[idx]);
 	std::cout << std::endl;
 	return (0);
 }

@@ -2,12 +2,14 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
+#include <string>
+
 #define WHITE "\e[0m"
 #define RED "\e[0;31m"
 #define BLUE "\e[0;34m"
 
-int	convert_str_to_int(std::string str);
-int	is_digit_string(std::string str);
-int	is_whitespace_string(std::string str);
+int	convertStrToInt(std::string string);
+int	isDigitString(std::string string);
+int	isWhitespaceString(std::string string);
 
 #endif
