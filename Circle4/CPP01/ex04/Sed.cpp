@@ -44,11 +44,28 @@ std::string	Sed::readFile()
 	return file_content;
 }
 
+std::string	Sed::replace(std::string file_content)
+{
+	std::string	replace_content;
+	int			index;
 
-void	Sed::replace()
+	index = file_content.find(this->oldValue);
+	while (index != -1)
+	{
+		replace_content += file_content.substr(0, index);
+		replace_content += this->newValue;
+		file_content = file_content.substr(index + this->oldValue.size());
+		index = file_content.find(this->oldValue);
+	}
+	replace_content += file_content.substr(0, index);
+	return replace_content;
+}
+
+void	Sed::execute()
 {
 	std::string	file_content;
 
 	file_content = readFile();
-	//std::cout << file_content << std::endl;
+	file_content = replace(file_content);
+	// std::cout << file_content << std::endl;
 }
