@@ -1,4 +1,5 @@
 #include "Sed.hpp"
+#include <ios>
 #include <iostream>
 #include <fstream>
 
@@ -20,6 +21,16 @@ void	Sed::display_manual()
 void	Sed::openFile(std::ifstream &file_stream)
 {
 	file_stream.open(this->fileName);
+	if (!file_stream.is_open())
+	{
+		std::cout << this->fileName << "is not open." << std::endl;
+		exit(0);
+	}
+}
+
+void	Sed::openFile(std::ofstream &file_stream)
+{
+	file_stream.open(this->fileName + ".replace", std::ios::trunc);
 	if (!file_stream.is_open())
 	{
 		std::cout << this->fileName << "is not open." << std::endl;
@@ -61,6 +72,14 @@ std::string	Sed::replace(std::string file_content)
 	return replace_content;
 }
 
+void	Sed::writeFile(std::string write_content)
+{
+	std::ofstream	output_stream;
+
+	openFile(output_stream);
+	output_stream.write(write_content.c_str(), write_content.size());
+}
+
 void	Sed::execute()
 {
 	std::string	file_content;
@@ -68,4 +87,5 @@ void	Sed::execute()
 	file_content = readFile();
 	file_content = replace(file_content);
 	// std::cout << file_content << std::endl;
+	writeFile(file_content);
 }
