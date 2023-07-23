@@ -1,3 +1,4 @@
+#pragma once
 #ifndef Weapon_HPP
 #define Weapon_HPP
 
@@ -9,7 +10,6 @@ class Weapon
 		std::string	type;
 
 	public:
-		Weapon();
 		Weapon(std::string type);
 		
 		std::string	getType() const;

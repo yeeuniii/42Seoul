@@ -3,7 +3,9 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 NAME = weapon 
 SRCS = \
 	main.cpp \
-	Weapon.cpp
+	Weapon.cpp \
+	HumanA.cpp \
+	HumanB.cpp 
 OBJS = $(SRCS:.cpp=.o)
 
 all : $(NAME)
