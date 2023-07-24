@@ -7,7 +7,7 @@
 Sed::Sed(std::string file_name, std::string old_value, std::string new_value): 
 	fileName(file_name), oldValue(old_value), newValue(new_value) {}
 
-void	Sed::display_manual()
+void	Sed::displayManual()
 {
 	std::cout << "Enter the following, if you execute replace of sed command." << std::endl;
 	std::cout << std::string(44, '-') << std::endl;

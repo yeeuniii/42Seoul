@@ -20,7 +20,7 @@ class Sed
 		Sed(std::string file_name, std::string old_value, std::string new_value);
 
 		void	execute() const;
-		static void	display_manual();
+		static void	displayManual();
 };
 
 #endif
