@@ -37,15 +37,12 @@ void	Harl::displayInvalid(void)
 
 int		Harl::getIndex(std::string level)
 {
-	if (level == "DEBUG")
-		return 0;
-	if (level == "INFO")
-		return 1;
-	if (level == "WARNING")	
-		return 2;
-	if (level == "ERROR")
-		return 3;
-	return -1;
+	std::string	levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+	int			idx = 0;
+
+	while (idx < 4 && levels[idx] != level)
+		idx++;
+	return idx == 4 ? -1 : idx;
 }
 
 void	Harl::complain(std::string level)
