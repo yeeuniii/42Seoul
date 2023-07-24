@@ -3,22 +3,18 @@
 #include <iostream>
 #include <fstream>
 
-Sed::Sed(std::string file_name, std::string old_value, std::string new_value)
-{
-	this->fileName = file_name;
-	this->oldValue = old_value;
-	this->newValue = new_value;
-}
+Sed::Sed(std::string file_name, std::string old_value, std::string new_value): 
+	fileName(file_name), oldValue(old_value), newValue(new_value) {}
 
-void	Sed::display_manual() 
+void	Sed::display_manual()
 {
-	std::cout << "If you want to use the replace command in sed, enter it as follows." << std::endl;
+	std::cout << "Enter the following, if you execute replace of sed command." << std::endl;
 	std::cout << std::string(44, '-') << std::endl;
 	std::cout << "| ./sed <filename> <old_value> <new_value> |" << std::endl; 
 	std::cout << std::string(44, '-') << std::endl;
 }
 
-void	Sed::openFile(std::ifstream &file_stream)
+void	Sed::openFile(std::ifstream &file_stream) const
 {
 	file_stream.open(this->fileName);
 	if (!file_stream.is_open())
@@ -28,7 +24,7 @@ void	Sed::openFile(std::ifstream &file_stream)
 	}
 }
 
-void	Sed::openFile(std::ofstream &file_stream)
+void	Sed::openFile(std::ofstream &file_stream) const
 {
 	file_stream.open(this->fileName + ".replace", std::ios::trunc);
 	if (!file_stream.is_open())
@@ -38,7 +34,7 @@ void	Sed::openFile(std::ofstream &file_stream)
 	}
 }
 
-std::string	Sed::readFile()
+std::string	Sed::readFile() const
 {
 	std::ifstream	input_stream;
 	std::string		read_value;
@@ -55,7 +51,7 @@ std::string	Sed::readFile()
 	return file_content;
 }
 
-std::string	Sed::replace(std::string file_content)
+std::string	Sed::replace(std::string file_content) const
 {
 	std::string	replace_content;
 	int			index;
@@ -72,7 +68,7 @@ std::string	Sed::replace(std::string file_content)
 	return replace_content;
 }
 
-void	Sed::writeFile(std::string write_content)
+void	Sed::writeFile(std::string write_content) const 
 {
 	std::ofstream	output_stream;
 
@@ -80,12 +76,10 @@ void	Sed::writeFile(std::string write_content)
 	output_stream.write(write_content.c_str(), write_content.size());
 }
 
-void	Sed::execute()
+void	Sed::execute() const
 {
 	std::string	file_content;
 
 	file_content = readFile();
-	file_content = replace(file_content);
-	// std::cout << file_content << std::endl;
-	writeFile(file_content);
+	writeFile(replace(file_content));
 }
