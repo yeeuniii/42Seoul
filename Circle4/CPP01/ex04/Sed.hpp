@@ -10,16 +10,16 @@ class Sed
 		const std::string	oldValue;
 		const std::string	newValue;
 		
-		void		openFile(std::ifstream &file_stream);
-		void		openFile(std::ofstream &file_stream);
-		std::string	readFile();
-		void		writeFile(std::string write_content);
-		std::string	replace(std::string file_content);
+		void		openFile(std::ifstream &file_stream) const;
+		void		openFile(std::ofstream &file_stream) const;
+		std::string	readFile() const;
+		void		writeFile(std::string write_content) const;
+		std::string	replace(std::string file_content) const;
 
 	public:
 		Sed(std::string file_name, std::string old_value, std::string new_value);
 
-		void	execute();
+		void	execute() const;
 		static void	display_manual();
 		
 };
