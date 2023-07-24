@@ -5,30 +5,14 @@
 #include "Contact.hpp"
 #include <string>
 
-typedef	enum e_type
-{
-	None,
-	ADD,
-	SEARCH,
-	EXIT
-}	Type;
-
 class PhoneBook
 {
 	private:
-		Contact	contacts[8];
-		int		size;
-		Type	input;
-	
-	public:
-		PhoneBook();
-
-		void	startProgram();
-		bool	isEnd();
-		
-		void	setInput(std::string input);
+		Contact		contacts[8];
+		int			size;
+		std::string	input;
+			
 		void	askInput();
-
 		void	runCommand();
 
 		void	runAddCommand();
@@ -38,12 +22,16 @@ class PhoneBook
 		void	runSearchCommand() const;
 		void	displayContacts() const;
 
+		bool	isEnd();
 		int		getIndex() const;
 		void	searchContact(int index) const;
 		bool	isValidIndex(int index) const;
 
-		static std::string	conformToFormat(std::string string);
+	public:
+		PhoneBook();
 
+		void	startProgram();
+		static std::string	conformToFormat(std::string string);
 };
 
 #endif

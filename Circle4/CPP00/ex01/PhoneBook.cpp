@@ -8,7 +8,7 @@ PhoneBook::PhoneBook()
 {
 	memset(this->contacts, 0, sizeof(Contact) * 8);
 	this->size = 0;
-	this->input = None;
+	this->input = "";
 }
 
 void	PhoneBook::runAddCommand()
@@ -136,43 +136,33 @@ void	PhoneBook::askInput()
 {
 	std::string	input_value;
 
-	std::cout << WHITE "Enter one number of below commands." << std::endl;
-	std::cout << "(1)ADD, (2)SEARCH and (3)EXIT." << std::endl;
+	std::cout << WHITE "Enter one of ADD, SEARCH and EXIT." << std::endl;
 	std::cout << "Input : ";
 	getline(std::cin, input_value);
-	setInput(input_value);
-}
-
-void	PhoneBook::setInput(std::string input)
-{
-	int	number = convertStrToInt(input);
-
-	this->input = None;
-	if (number >= 1 && number <= 3)
-		this->input = Type(number);
+	this->input = input_value;
 }
 
 void	PhoneBook::runCommand()
 {
 	if (isEnd())
 		return ;
-	if (this->input == ADD)
+	if (this->input == "ADD")
 	{
 		runAddCommand();
 		return ;
 	}
-	if (this->input == SEARCH)
+	if (this->input == "SEARCH")
 	{
 		runSearchCommand();
 		return ;
 	}
 	std::cout << RED " *** Note that the phonebook program only accepts" << std::endl 
-		<< "(1)ADD, (2)SEARCH and (3)EXIT. Try again. ***" << std::endl;
+		<< "ADD, SEARCH and EXIT. Try again. ***" << std::endl;
 }
 
 bool	PhoneBook::isEnd()
 {
-	return (this->input == EXIT || std::cin.eof());
+	return (this->input == "EXIT" || std::cin.eof());
 }
 
 void	PhoneBook::startProgram()
@@ -180,6 +170,7 @@ void	PhoneBook::startProgram()
 	std::cout << "----------START PHONEBOOK PROGRAM----------" << std::endl;
 	while (!isEnd())
 	{
+		this->input = "";
 		askInput();
 		runCommand();
 		std::cout << WHITE << std::endl;
