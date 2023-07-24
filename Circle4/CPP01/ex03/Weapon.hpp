@@ -1,6 +1,6 @@
 #pragma once
-#ifndef Weapon_HPP
-#define Weapon_HPP
+#ifndef __WEAPON_H__
+#define __WEAPON_H__
 
 #include <string>
 

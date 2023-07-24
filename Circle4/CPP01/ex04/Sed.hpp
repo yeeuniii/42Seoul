@@ -21,7 +21,6 @@ class Sed
 
 		void	execute() const;
 		static void	display_manual();
-		
 };
 
 #endif
