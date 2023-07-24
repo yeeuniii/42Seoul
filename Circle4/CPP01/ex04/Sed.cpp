@@ -14,9 +14,9 @@ void	Sed::display_manual()
 	std::cout << std::string(44, '-') << std::endl;
 }
 
-void	Sed::openFile(std::ifstream &file_stream) const
+void	Sed::openFile(std::ifstream &file_stream) 
 {
-	file_stream.open(this->fileName);
+	file_stream.open(this->fileName.c_str());
 	if (!file_stream.is_open())
 	{
 		std::cout << this->fileName << "is not open." << std::endl;
@@ -24,9 +24,9 @@ void	Sed::openFile(std::ifstream &file_stream) const
 	}
 }
 
-void	Sed::openFile(std::ofstream &file_stream) const
+void	Sed::openFile(std::ofstream &file_stream) 
 {
-	file_stream.open(this->fileName + ".replace", std::ios::trunc);
+	file_stream.open((this->fileName + ".replace").c_str(), std::ios::trunc);
 	if (!file_stream.is_open())
 	{
 		std::cout << this->fileName << "is not open." << std::endl;
@@ -34,7 +34,7 @@ void	Sed::openFile(std::ofstream &file_stream) const
 	}
 }
 
-std::string	Sed::readFile() const
+std::string	Sed::readFile() 
 {
 	std::ifstream	input_stream;
 	std::string		read_value;
@@ -51,7 +51,7 @@ std::string	Sed::readFile() const
 	return file_content;
 }
 
-std::string	Sed::replace(std::string file_content) const
+std::string	Sed::replace(std::string file_content) 
 {
 	std::string	replace_content;
 	int			index;
@@ -68,7 +68,7 @@ std::string	Sed::replace(std::string file_content) const
 	return replace_content;
 }
 
-void	Sed::writeFile(std::string write_content) const 
+void	Sed::writeFile(std::string write_content) 
 {
 	std::ofstream	output_stream;
 
@@ -76,7 +76,7 @@ void	Sed::writeFile(std::string write_content) const
 	output_stream.write(write_content.c_str(), write_content.size());
 }
 
-void	Sed::execute() const
+void	Sed::execute() 
 {
 	std::string	file_content;
 
