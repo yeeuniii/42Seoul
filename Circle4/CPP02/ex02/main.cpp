@@ -42,6 +42,17 @@ int main(void)
 		std::cout << "a = " << a << std::endl;
 	}
 	std::cout << std::endl;
+	std::cout << "-----min / max methods-----" << std::endl;
+	{
+		Fixed a(5);
+		Fixed b(5.05f);
+
+		std::cout << "a = " << a << std::endl;
+		std::cout << "b = " << b << std::endl;
+		std::cout << "min : " << Fixed::min(a, b) << std::endl;
+		std::cout << "max : " << Fixed::max(a, b) << std::endl;
+	}
+	std::cout << std::endl;
 	std::cout << "-----Subject`s test-----" << std::endl;
 	{
 		Fixed a;
@@ -55,7 +66,7 @@ int main(void)
 
 		std::cout << b << std::endl;
 
-		// std::cout << Fixed::max(a, b) << std::endl;
+		std::cout << Fixed::max(a, b) << std::endl;
 	}
 	return 0;
 }

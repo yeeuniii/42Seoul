@@ -159,3 +159,25 @@ Fixed	Fixed::operator--(int)
 	--this->number;
 	return tmp;
 }
+
+/*		min / max method		*/
+
+Fixed	&Fixed::min(Fixed &fixed1, Fixed &fixed2)
+{
+	return fixed1 < fixed2 ? fixed1 : fixed2;
+}
+
+const Fixed	&Fixed::min(const Fixed &fixed1, const Fixed &fixed2)
+{
+	return fixed1 < fixed2 ? fixed1 : fixed2;
+}
+
+Fixed	&Fixed::max(Fixed &fixed1, Fixed &fixed2)
+{
+	return fixed1 > fixed2 ? fixed1 : fixed2;
+}
+
+const Fixed	&Fixed::max(const Fixed &fixed1, const Fixed &fixed2)
+{
+	return fixed1 > fixed2 ? fixed1 : fixed2;
+}
