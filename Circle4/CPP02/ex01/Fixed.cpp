@@ -52,11 +52,12 @@ void	Fixed::setRawBits(int const raw)
 	this->number = raw;
 }
 
-// float	Fixed::toFloat(void) const
-// {
-	
-// }
+float	Fixed::toFloat(void) const
+{
+	return (float)this->number / 256;
+}
 
-// int		Fixed::toInt(void) const
-// {
-// }
+int		Fixed::toInt(void) const
+{
+	return this->number >> this->fractionBit;
+}
