@@ -36,6 +36,12 @@ class Fixed
 		Fixed	&operator-(const Fixed &fixed);
 		Fixed	&operator*(const Fixed &fixed);
 		Fixed	&operator/(const Fixed &fixed);
+		
+		Fixed	&operator++(void);
+		Fixed	operator++(int);
+		Fixed	&operator--(void);
+		Fixed	operator--(int);
+
 };
 
 std::ostream& operator<<(std::ostream& out, const Fixed &fixed);

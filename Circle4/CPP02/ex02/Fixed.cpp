@@ -129,3 +129,33 @@ Fixed	&Fixed::operator/(const Fixed &fixed)
 	this->number /= fixed.getRawBits();
 	return *this;
 }
+
+/*		increment / decrement operators		*/
+
+Fixed	&Fixed::operator++(void) 
+{
+	this->number++;
+	return *this;
+}
+
+Fixed	Fixed::operator++(int)  
+{
+	Fixed	tmp = *this;
+
+	++this->number;
+	return tmp;
+}
+
+Fixed	&Fixed::operator--(void) 
+{
+	this->number--;
+	return *this;
+}
+
+Fixed	Fixed::operator--(int)  
+{
+	Fixed	tmp = *this;
+
+	--this->number;
+	return tmp;
+}
