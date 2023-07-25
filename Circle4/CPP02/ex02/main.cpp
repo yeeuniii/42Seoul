@@ -14,17 +14,11 @@ int main(void)
 	std::cout << std::endl;
 	std::cout << "-----arithmetic operators-----" << std::endl;
 	{
-		Fixed const add(Fixed(5.05f) + Fixed(2));
-		Fixed const minus(Fixed(5.05f) - Fixed(2));
-		Fixed const multi(Fixed(7.625f) * Fixed(2));
-		Fixed const division(Fixed(7.625f) / Fixed(2));
-		Fixed const division0(Fixed(5.05f) / Fixed());
-
-		std::cout << add << std::endl;
-		std::cout << minus << std::endl;
-		std::cout << multi << std::endl;
-		std::cout << division << std::endl;
-		std::cout << division0 << std::endl;
+		std::cout << "5.05f + 2 = " << Fixed(5.05f) + Fixed(2) << std::endl;
+		std::cout << "5.05f - 2 = " << Fixed(5.05f) - Fixed(2) << std::endl;
+		std::cout << "7.625f * 2 = " << Fixed(7.625f) * Fixed(2) << std::endl;
+		std::cout << "7.625f / 2 = " << Fixed(7.625f) / Fixed(2) << std::endl;
+		std::cout << "5.05f / 0 = " << Fixed(5.05f) / Fixed() << std::endl;
 	}
 	std::cout << std::endl;
 	std::cout << "-----increment/decrement operators-----" << std::endl;
