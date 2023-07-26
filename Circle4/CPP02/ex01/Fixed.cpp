@@ -10,7 +10,7 @@ Fixed::Fixed(void)
 Fixed::Fixed(const int number)
 {
 	std::cout << "Int constructor called" << std::endl;
-	this->number = number << this->fractionBit;
+	this->number = number * (1 << this->fractionBit);
 }
 
 Fixed::Fixed(const float number)
@@ -67,6 +67,6 @@ int		Fixed::toInt(void) const
 
 std::ostream& operator<<(std::ostream& out, const Fixed &fixed)
 {
-	out << (float)fixed.getRawBits() / (1 << fixed.getFractionBits());
+	out << fixed.toFloat();
 	return out;
 }
