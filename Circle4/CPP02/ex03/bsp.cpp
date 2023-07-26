@@ -3,8 +3,9 @@
 
 float	getLength(Point const p1, Point const p2)
 {
-	Fixed	length = (p1.getCoordinateX() - p2.getCoordinateX()) * (p1.getCoordinateX() - p2.getCoordinateX())
-					+ (p1.getCoordinateY() - p2.getCoordinateY()) * (p1.getCoordinateY() - p2.getCoordinateY());
+	Point	tmp = p1 - p2;
+	Fixed	length = tmp.getX() * tmp.getX() + tmp.getY() * tmp.getY();
+	
 	return sqrt(length.toFloat());
 }
 
@@ -15,9 +16,9 @@ bool	isTriangle(Point const a, Point const b, Point const c)
 	float	length_c = getLength(a, b);
 	bool	return_value;
 
-	std::cout << length_a << std::endl;	
-	std::cout << length_b << std::endl;	
-	std::cout << length_c << std::endl;	
+	// std::cout << length_a << std::endl;	
+	// std::cout << length_b << std::endl;	
+	// std::cout << length_c << std::endl;	
 	if (length_a == 0 || length_b == 0 || length_c == 0)
 		return false;
 	return_value = length_a < length_b + length_c ? true : false;
@@ -26,6 +27,20 @@ bool	isTriangle(Point const a, Point const b, Point const c)
 	return return_value;
 }
 
+// bool	isIn()
+// {
+
+// }
+
+// bool	solveEquations()
+// {
+
+// }
+
+// bool	calculate(Point const a, Point const b, Point const c, Point const point)
+// {
+// 	Vector	d1(b.getX() - )
+// }
 
 bool	bsp(Point const a, Point const b, Point const c, Point const point)
 {

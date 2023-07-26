@@ -4,6 +4,8 @@
 
 #include "Fixed.hpp"
 
+typedef class Point	Vector;
+
 class Point
 {
 	private:
@@ -17,8 +19,11 @@ class Point
 		~Point(void);
 		Point& operator=(Point const& point);
 		
-		Fixed	getCoordinateX() const;
-		Fixed	getCoordinateY() const;
+		Fixed	getX() const;
+		Fixed	getY() const;
+
 };
+
+Point	operator-(const Point &point1, const Point &point2);
 
 #endif
