@@ -10,6 +10,10 @@ int main(void)
 
 		std::cout << "5 > 5.05f = " << (a > b) << std::endl;
 		std::cout << "5 < 5.05f = " << (a < b) << std::endl;
+		std::cout << "5 >= 5.05f = " << (a >= b) << std::endl;
+		std::cout << "5 <= 5.05f = " << (a <= b) << std::endl;
+		std::cout << "5 == 5.05f = " << (a == b) << std::endl;
+		std::cout << "5 != 5.05f = " << (a != b) << std::endl;
 	}
 	std::cout << std::endl;
 	std::cout << "-----arithmetic operators-----" << std::endl;
@@ -18,6 +22,8 @@ int main(void)
 		std::cout << "5.05f - 2 = " << Fixed(5.05f) - Fixed(2) << std::endl;
 		std::cout << "7.625f * 2 = " << Fixed(7.625f) * Fixed(2) << std::endl;
 		std::cout << "7.625f / 2 = " << Fixed(7.625f) / Fixed(2) << std::endl;
+		std::cout << "4 * 2 = " << Fixed(4) * Fixed(2) << std::endl;
+		std::cout << "4 / 2 = " << Fixed(4) / Fixed(2) << std::endl;
 		// std::cout << "5.05f / 0 = " << Fixed(5.05f) / Fixed() << std::endl;
 	}
 	std::cout << std::endl;
