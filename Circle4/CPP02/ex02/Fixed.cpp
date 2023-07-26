@@ -114,13 +114,15 @@ Fixed	&Fixed::operator-(const Fixed &fixed)
 
 Fixed	&Fixed::operator*(const Fixed &fixed) 
 {
-	this->number *= fixed.getRawBits();
+	Fixed	tmp(toFloat() * fixed.toFloat());
+	*this = tmp;
 	return *this;
 }
 
 Fixed	&Fixed::operator/(const Fixed &fixed) 
 {
-	this->number /= fixed.getRawBits();
+	Fixed	tmp(toFloat() / fixed.toFloat());
+	*this = tmp;
 	return *this;
 }
 
