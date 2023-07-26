@@ -8,8 +8,10 @@ int	main(int argc, char *argv[])
 		Sed::displayManual();
 		return 1;
 	}
-	std::string	stringValue[3] = {argv[1], argv[2], argv[3]};
-	Sed	sed(stringValue[0], stringValue[1], stringValue[2]);
+	std::string	file_name = argv[1];
+	std::string	old_value = argv[2];
+	std::string	new_value = argv[3];
+	Sed	sed(file_name, old_value, new_value);
 	sed.execute();
 	return 0;
 }
