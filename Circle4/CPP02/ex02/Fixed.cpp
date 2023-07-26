@@ -14,7 +14,7 @@ Fixed::Fixed(const int number)
 
 Fixed::Fixed(const float number)
 {
-	this->number = roundf(number * pow(2, this->fractionBit));
+	this->number = roundf(number * (1 << this->fractionBit));
 }
 
 Fixed::Fixed(const Fixed& fixed)
@@ -53,7 +53,7 @@ int		Fixed::getFractionBits(void) const
 
 float	Fixed::toFloat(void) const
 {
-	return (float)this->number / pow(2, this->fractionBit);
+	return (float)this->number / (1 << this->fractionBit);
 }
 
 int		Fixed::toInt(void) const
@@ -63,7 +63,7 @@ int		Fixed::toInt(void) const
 
 std::ostream& operator<<(std::ostream& out, const Fixed &fixed)
 {
-	out << (float)fixed.getRawBits() / pow(2, fixed.getFractionBits());
+	out << (float)fixed.getRawBits() / (1 << fixed.getFractionBits());
 	return out;
 }
 
@@ -123,7 +123,7 @@ Fixed	&Fixed::operator/(const Fixed &fixed)
 {
 	if (fixed.getRawBits() == 0)
 	{
-		std::cout << "CANNOT DO DIVISION BY 0." << std::endl;
+		// std::cout << "CANNOT DO DIVISION BY 0." << std::endl;
 		return *this;
 	}
 	this->number /= fixed.getRawBits();
