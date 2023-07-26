@@ -27,20 +27,26 @@ bool	isTriangle(Point const a, Point const b, Point const c)
 	return return_value;
 }
 
-// bool	isIn()
-// {
+bool	isIn(Vector const d1, Vector const d2, Vector const p)
+{
+	Fixed	denominator = d1.getX() * d2.getY() - d2.getX() * d1.getY();
+	std::cout << denominator << std::endl;
+	Fixed	t1 = (p.getX() * d2.getY() - p.getY() * d2.getX()) / denominator;
+	Fixed	t2 = (p.getX() * d1.getY() - p.getY() * d1.getX()) / denominator * -1;
 
-// }
+	std::cout << "t1 = " << t1 << std::endl;	
+	std::cout << "t2 = " << t2 << std::endl;	
+	return (t1 >= 0 && t1 <= 1) && (t2 >= 0 && t2 <= 1) && (t1 + t2 <= 1);
+}   
 
-// bool	solveEquations()
-// {
+bool	calculate(Point const a, Point const b, Point const c, Point const point)
+{
+	Vector	d1 = b - a;
+	Vector	d2 = c - a;
+	Vector	p = point - a;
 
-// }
-
-// bool	calculate(Point const a, Point const b, Point const c, Point const point)
-// {
-// 	Vector	d1(b.getX() - )
-// }
+	return isIn(d1, d2, p);
+}
 
 bool	bsp(Point const a, Point const b, Point const c, Point const point)
 {
@@ -49,6 +55,5 @@ bool	bsp(Point const a, Point const b, Point const c, Point const point)
 		std::cout << "These three points are not triangular." << std::endl;
 		return false;
 	}
-	(void)point;
-	return true;
+	return calculate(a, b, c, point);
 }
