@@ -77,6 +77,8 @@ void	ClapTrap::attack(const std::string &target)
 
 void	ClapTrap::takeDamage(unsigned int amount)
 {
+	if (!checkAlive())
+		return ;
 	if (this->hitPoint < amount)
 	{
 		this->hitPoint = 0;
