@@ -18,6 +18,7 @@ ClapTrap::ClapTrap(const ClapTrap& clapTrap)
 	this->hitPoint = clapTrap.hitPoint;
 	this->energyPoint = clapTrap.energyPoint;
 	this->attackDamage = clapTrap.attackDamage;
+	std::cout << "ClapTrap " << this->name << " construct." << std::endl;
 }
 
 ClapTrap::~ClapTrap(void)
