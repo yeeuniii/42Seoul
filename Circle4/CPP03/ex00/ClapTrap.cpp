@@ -44,7 +44,7 @@ bool	ClapTrap::checkAlive()
 	return this->hitPoint;
 }
 
-bool	ClapTrap::CheckEnergy()
+bool	ClapTrap::checkEnergy()
 {
 	if (this->energyPoint == 0)
 		std::cout << "ClapTrap " << this->name << " has no energy." << std::endl;
@@ -68,7 +68,7 @@ void	ClapTrap::setAttackDamage(unsigned int amount)
 
 void	ClapTrap::attack(const std::string &target)
 {
-	if (!(checkAlive() && CheckEnergy()))
+	if (!(checkAlive() && checkEnergy()))
 		return ;
 	this->energyPoint--;
 	std::cout << "ClapTrap " << this->name << " attacks " << target 
@@ -95,7 +95,7 @@ void	ClapTrap::takeDamage(unsigned int amount)
 
 void	ClapTrap::beRepaired(unsigned int amount)
 {
-	if (!(checkAlive() && CheckEnergy()))
+	if (!(checkAlive() && checkEnergy()))
 		return ;
 	this->hitPoint += amount;
 	this->energyPoint--;

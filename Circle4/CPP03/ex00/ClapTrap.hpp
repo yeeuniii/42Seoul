@@ -13,7 +13,7 @@ class ClapTrap
 		unsigned int	attackDamage;
 		
 		bool	checkAlive();
-		bool	CheckEnergy();
+		bool	checkEnergy();
 	
 	public:
 		ClapTrap(void);

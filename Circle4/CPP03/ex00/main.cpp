@@ -32,6 +32,7 @@ int main(void)
 		}
 		claptrap1.beRepaired(10);
 		claptrap2.attack(claptrap1.getName());
+		claptrap1.takeDamage(claptrap2.getAttackDamage());
 		claptrap1.displayStatus();
 		claptrap2.displayStatus();
 	}
