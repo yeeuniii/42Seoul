@@ -4,8 +4,9 @@
 int main(void)
 {
 	ScavTrap	scavtrap1("one");
-	ScavTrap	scavtrap2;
-	ScavTrap	scavtrap3(scavtrap1);
+	ScavTrap	scavtrap2("two");
 
+	scavtrap1.guardGate();
+	scavtrap1.guardGate();
 	return 0;
 }

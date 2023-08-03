@@ -10,6 +10,8 @@ class ScavTrap: public ClapTrap
 	private:
 		bool	gateKeeperMode;
 
+		bool	isGateKeeper() const;
+
 	public:
 		ScavTrap();
 		ScavTrap(const std::string name);
@@ -17,7 +19,7 @@ class ScavTrap: public ClapTrap
 		~ScavTrap();
 		ScavTrap& operator=(const ScavTrap &scavTrap);
 
-		void	guardGate() const;
+		void	guardGate();
 };
 
 #endif

@@ -41,3 +41,18 @@ ScavTrap&	ScavTrap::operator=(const ScavTrap &scavTrap)
 	return *this;
 }
 
+bool	ScavTrap::isGateKeeper() const
+{
+	if (gateKeeperMode)
+		std::cout << this->name << " is already gatekeeper." << std::endl;
+	return gateKeeperMode;
+}
+
+
+void	ScavTrap::guardGate()
+{
+	if (isGateKeeper())
+		return ;
+	this->gateKeeperMode = true;
+	std::cout << this->name << " is now in gatekeeper mode." << std::endl;
+}
