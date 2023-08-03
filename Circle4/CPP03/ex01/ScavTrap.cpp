@@ -41,13 +41,21 @@ ScavTrap&	ScavTrap::operator=(const ScavTrap &scavTrap)
 	return *this;
 }
 
+void	ScavTrap::attack(const std::string &target)
+{
+	if (!(checkAlive() && checkEnergy()))
+		return ;
+	this->energyPoint--;
+	std::cout << "ScavTrap " << this->name << " attacks " << target 
+			<< ", causing " << this->attackDamage << " points of damage!" << std::endl;
+}
+
 bool	ScavTrap::isGateKeeper() const
 {
 	if (gateKeeperMode)
 		std::cout << this->name << " is already gatekeeper." << std::endl;
 	return gateKeeperMode;
 }
-
 
 void	ScavTrap::guardGate()
 {

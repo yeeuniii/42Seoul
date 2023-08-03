@@ -19,14 +19,14 @@ class ClapTrap
 		ClapTrap(void);
 		ClapTrap(const std::string name);
 		ClapTrap(const ClapTrap& clapTrap);
-		~ClapTrap(void);
+		virtual	~ClapTrap(void);
 		ClapTrap& operator=(ClapTrap const& clapTrap);
 
 		std::string		getName() const;
 		unsigned int	getAttackDamage() const;
 		void			setAttackDamage(unsigned int amount);
 
-		void	attack(const std::string &target);
+		virtual void	attack(const std::string &target);
 		void	takeDamage(unsigned int amount);
 		void	beRepaired(unsigned int amount);
 
