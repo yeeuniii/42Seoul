@@ -5,12 +5,10 @@ int main(void)
 {
 	std::cout << "----------TEST1----------" << std::endl;
 	{
-		FragTrap	fragtrap1;
+		FragTrap	fragtrap;
 
-	}
-	std::cout << std::endl;
-	std::cout << "----------TEST2----------" << std::endl;
-	{
+		fragtrap.displayStatus();
+		fragtrap.highFivesGuys();
 	}
 	return 0;
 }

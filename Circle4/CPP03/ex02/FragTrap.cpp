@@ -43,3 +43,8 @@ FragTrap &FragTrap::operator=(FragTrap const &fragTrap)
 	}
 	return *this;
 }
+
+void	FragTrap::highFivesGuys() const
+{
+	std::cout << "High Five!! 🙌" << std::endl;
+}
