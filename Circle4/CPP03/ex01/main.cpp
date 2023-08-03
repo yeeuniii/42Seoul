@@ -9,9 +9,10 @@ int main(void)
 		ScavTrap	scavtrap2("two");
 
 		scavtrap1.attack(scavtrap2.getName());
-
+		scavtrap2.takeDamage(scavtrap1.getAttackDamage());
 		scavtrap1.guardGate();
 		scavtrap1.guardGate();
+		scavtrap2.guardGate();
 	}
 	std::cout << std::endl;
 	std::cout << "----------TEST2----------" << std::endl;

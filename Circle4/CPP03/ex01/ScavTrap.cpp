@@ -59,7 +59,7 @@ bool	ScavTrap::isGateKeeper() const
 
 void	ScavTrap::guardGate()
 {
-	if (isGateKeeper())
+	if (!(checkAlive() && checkEnergy()) || isGateKeeper())
 		return ;
 	this->gateKeeperMode = true;
 	std::cout << this->name << " is now in gatekeeper mode." << std::endl;
