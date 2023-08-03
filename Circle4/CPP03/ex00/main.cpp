@@ -4,6 +4,7 @@
 int main(void)
 {
 	std::cout << "----------TEST1----------" << std::endl;
+	// claptrap 메서드 실행 (attack, takeDamage, beRepaired)
 	{
 		ClapTrap claptrap1("one");
 		ClapTrap claptrap2("two");
@@ -20,6 +21,7 @@ int main(void)
 	}
 	std::cout << std::endl;
 	std::cout << "----------TEST2----------" << std::endl;
+	// claptrap 죽었을때, 메서드 실행
 	{
 		ClapTrap claptrap1("one");
 		ClapTrap claptrap2("two");
