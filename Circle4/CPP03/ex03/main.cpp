@@ -9,7 +9,8 @@ int main(void)
 		FragTrap	fragtrap("FFF");
 
 		diamondtrap.displayStatus();
-		diamondtrap.attack(fragtrap.getName());		
+		diamondtrap.attack(fragtrap.getName());
+		diamondtrap.whoAmI();	
 	}
 	return 0;
 }
