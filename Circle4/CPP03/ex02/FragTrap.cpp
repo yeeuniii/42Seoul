@@ -20,7 +20,7 @@ FragTrap::FragTrap(std::string name) : ClapTrap(name)
 	std::cout << WHITE << this->name << " construct." << std::endl;
 }
 
-FragTrap::FragTrap(const FragTrap &fragTrap)
+FragTrap::FragTrap(const FragTrap &fragTrap) : ClapTrap(fragTrap)
 {
 	*this = fragTrap;
 	std::cout << F_COLOR << "FragTrap ";

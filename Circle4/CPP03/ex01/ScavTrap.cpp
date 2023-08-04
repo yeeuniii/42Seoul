@@ -20,7 +20,7 @@ ScavTrap::ScavTrap(std::string name): ClapTrap(name)
 	std::cout << WHITE << this->name << " construct." << std::endl;
 }
 
-ScavTrap::ScavTrap(const ScavTrap &scavTrap): ClapTrap()
+ScavTrap::ScavTrap(const ScavTrap &scavTrap): ClapTrap(scavTrap)
 {
 	*this = scavTrap;
 	std::cout << S_COLOR << "ScavTrap ";
