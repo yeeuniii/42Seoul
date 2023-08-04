@@ -9,15 +9,14 @@
 
 class ClapTrap
 {
-	private:
-		bool	checkAlive() const;
-		bool	checkEnergy() const;
-
 	protected:
 		std::string	name;
 		unsigned int	hitPoint;
 		unsigned int	energyPoint;
 		unsigned int	attackDamage;
+		
+		bool	checkAlive() const;
+		bool	checkEnergy() const;
 			
 	public:
 		ClapTrap(void);

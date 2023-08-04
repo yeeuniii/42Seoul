@@ -42,26 +42,6 @@ ScavTrap&	ScavTrap::operator=(const ScavTrap &scavTrap)
 	return *this;
 }
 
-bool	ScavTrap::checkAlive() const
-{
-	if (this->hitPoint == 0)
-	{
-		std::cout << S_COLOR << "ScavTrap ";
-		std::cout << WHITE << this->name << " is died." << std::endl; 	
-	}
-	return this->hitPoint;
-}
-
-bool	ScavTrap::checkEnergy() const
-{
-	if (this->energyPoint == 0)
-	{
-		std::cout << S_COLOR << "ScavTrap ";
-		std::cout << WHITE << this->name << " has no energy." << std::endl; 	
-	}
-	return this->energyPoint;
-}
-
 void	ScavTrap::attack(const std::string &target)
 {
 	if (!(checkAlive() && checkEnergy()))

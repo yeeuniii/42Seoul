@@ -12,8 +12,6 @@ class ScavTrap: public ClapTrap
 	private:
 		bool	gateKeeperMode;
 
-		bool	checkAlive() const;
-		bool	checkEnergy() const;
 		bool	isGateKeeper() const;
 
 	public:

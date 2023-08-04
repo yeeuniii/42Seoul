@@ -42,20 +42,14 @@ ClapTrap& ClapTrap::operator=(ClapTrap const& clapTrap)
 bool	ClapTrap::checkAlive() const
 {
 	if (this->hitPoint == 0)
-	{
-		std::cout << C_COLOR << "ClapTrap ";
 		std::cout << WHITE << this->name << " is died." << std::endl; 	
-	}
 	return this->hitPoint;
 }
 
 bool	ClapTrap::checkEnergy() const
 {
 	if (this->energyPoint == 0)
-	{
-		std::cout << C_COLOR << "ClapTrap ";
 		std::cout << WHITE << this->name << " has no energy." << std::endl; 	
-	}
 	return this->energyPoint;
 }
 
@@ -109,7 +103,6 @@ void	ClapTrap::beRepaired(unsigned int amount)
 
 void	ClapTrap::displayStatus() const
 {
-	std::cout << C_COLOR << "ClapTrap ";
 	std::cout << WHITE << this->name << " has " 
 			<< this->hitPoint << " hit point, "
 			<< this->energyPoint << " energy point, and "

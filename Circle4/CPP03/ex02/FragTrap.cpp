@@ -47,6 +47,8 @@ FragTrap &FragTrap::operator=(FragTrap const &fragTrap)
 
 void	FragTrap::highFivesGuys() const
 {
+	if (!checkAlive())
+		return ;
 	std::cout << F_COLOR << "FragTrap ";
 	std::cout << WHITE << this->name << " slaps High Five!! 🙌" << std::endl;
 }
