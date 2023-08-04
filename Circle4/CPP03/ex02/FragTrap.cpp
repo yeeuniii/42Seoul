@@ -7,7 +7,8 @@ FragTrap::FragTrap() : ClapTrap()
 	this->hitPoint = 100;
 	this->energyPoint = 100;
 	this->attackDamage = 30;
-	std::cout << "FlagTrap " << this->name << " construct by default." << std::endl;
+	std::cout << F_COLOR << "FragTrap ";
+	std::cout << WHITE << this->name << " construct by default." << std::endl;
 }
 
 FragTrap::FragTrap(std::string name) : ClapTrap(name)
@@ -15,21 +16,21 @@ FragTrap::FragTrap(std::string name) : ClapTrap(name)
 	this->hitPoint = 100;
 	this->energyPoint = 100;
 	this->attackDamage = 30;
-	std::cout << "FlagTrap " << this->name << " construct." << std::endl;
+	std::cout << F_COLOR << "FragTrap ";
+	std::cout << WHITE << this->name << " construct." << std::endl;
 }
 
 FragTrap::FragTrap(const FragTrap &fragTrap)
 {
-	this->name = fragTrap.name;
-	this->hitPoint = fragTrap.hitPoint;
-	this->energyPoint = fragTrap.energyPoint;
-	this->attackDamage = fragTrap.attackDamage;
-	std::cout << "FlagTrap " << this->name << " construct." << std::endl;
+	*this = fragTrap;
+	std::cout << F_COLOR << "FragTrap ";
+	std::cout << WHITE << this->name << " construct." << std::endl;
 }
 
 FragTrap::~FragTrap(void)
 {
-	std::cout << "FragTrap " << this->name << " destruct." << std::endl;
+	std::cout << F_COLOR << "FragTrap ";
+	std::cout << WHITE << this->name << " destruct." << std::endl;
 }
 
 FragTrap &FragTrap::operator=(FragTrap const &fragTrap)
@@ -46,5 +47,6 @@ FragTrap &FragTrap::operator=(FragTrap const &fragTrap)
 
 void	FragTrap::highFivesGuys() const
 {
-	std::cout << "High Five!! 🙌" << std::endl;
+	std::cout << F_COLOR << "FragTrap ";
+	std::cout << WHITE << this->name << " slaps High Five!! 🙌" << std::endl;
 }

@@ -4,17 +4,21 @@
 
 #include <string>
 
+#define WHITE "\e[0;37m"
+#define C_COLOR "\e[0;32m"
+
 class ClapTrap
 {
+	private:
+		bool	checkAlive() const;
+		bool	checkEnergy() const;
+
 	protected:
 		std::string	name;
 		unsigned int	hitPoint;
 		unsigned int	energyPoint;
 		unsigned int	attackDamage;
-		
-		bool	checkAlive();
-		bool	checkEnergy();
-	
+			
 	public:
 		ClapTrap(void);
 		ClapTrap(const std::string name);

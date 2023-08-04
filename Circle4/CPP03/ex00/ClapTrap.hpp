@@ -4,6 +4,9 @@
 
 #include <string>
 
+#define WHITE "\e[0;37m"
+#define C_COLOR "\e[0;32m"
+
 class ClapTrap
 {
 	private:
@@ -12,8 +15,8 @@ class ClapTrap
 		unsigned int	energyPoint;
 		unsigned int	attackDamage;
 		
-		bool	checkAlive();
-		bool	checkEnergy();
+		bool	checkAlive() const;
+		bool	checkEnergy() const;
 	
 	public:
 		ClapTrap(void);

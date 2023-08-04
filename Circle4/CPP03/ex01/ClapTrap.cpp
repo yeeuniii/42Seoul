@@ -3,27 +3,28 @@
 
 ClapTrap::ClapTrap(void): name("anonymous"), hitPoint(10), energyPoint(10), attackDamage(0)
 {
-	std::cout << "ClapTrap " << this->name << " construct by default." << std::endl;
+	std::cout << C_COLOR << "ClapTrap ";
+	std::cout << WHITE << this->name << " construct by default." << std::endl;
 }
 
-ClapTrap::ClapTrap(const std::string name): name(name), hitPoint(10), energyPoint(10), attackDamage(0)
+ClapTrap::ClapTrap(const std::string name): hitPoint(10), energyPoint(10), attackDamage(0)
 {
 	this->name = name;
-	std::cout << "ClapTrap " << this->name << " construct." << std::endl;
+	std::cout << C_COLOR << "ClapTrap ";
+	std::cout << WHITE << this->name << " construct." << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap& clapTrap)
 {
-	this->name = clapTrap.name;
-	this->hitPoint = clapTrap.hitPoint;
-	this->energyPoint = clapTrap.energyPoint;
-	this->attackDamage = clapTrap.attackDamage;
-	std::cout << "ClapTrap " << this->name << " construct." << std::endl;
+	*this = clapTrap;
+	std::cout << C_COLOR << "ClapTrap ";
+	std::cout << WHITE << this->name << " construct." << std::endl;
 }
 
 ClapTrap::~ClapTrap(void)
 {
-	std::cout << "ClapTrap " << this->name << " destruct." << std::endl;
+	std::cout << C_COLOR << "ClapTrap ";
+	std::cout << WHITE << this->name << " destruct." << std::endl;
 }
 
 ClapTrap& ClapTrap::operator=(ClapTrap const& clapTrap)
@@ -38,17 +39,23 @@ ClapTrap& ClapTrap::operator=(ClapTrap const& clapTrap)
 	return *this;
 }
 
-bool	ClapTrap::checkAlive()
+bool	ClapTrap::checkAlive() const
 {
 	if (this->hitPoint == 0)
-		std::cout << "ClapTrap " << this->name << " is died." << std::endl; 	
+	{
+		std::cout << C_COLOR << "ClapTrap ";
+		std::cout << WHITE << this->name << " is died." << std::endl; 	
+	}
 	return this->hitPoint;
 }
 
-bool	ClapTrap::checkEnergy()
+bool	ClapTrap::checkEnergy() const
 {
 	if (this->energyPoint == 0)
-		std::cout << "ClapTrap " << this->name << " has no energy." << std::endl;
+	{
+		std::cout << C_COLOR << "ClapTrap ";
+		std::cout << WHITE << this->name << " has no energy." << std::endl; 	
+	}
 	return this->energyPoint;
 }
 
@@ -72,7 +79,8 @@ void	ClapTrap::attack(const std::string &target)
 	if (!(checkAlive() && checkEnergy()))
 		return ;
 	this->energyPoint--;
-	std::cout << "ClapTrap " << this->name << " attacks " << target 
+	std::cout << C_COLOR << "ClapTrap ";
+	std::cout << WHITE << this->name << " attacks " << target 
 			<< ", causing " << this->attackDamage << " points of damage!" << std::endl;
 }
 
@@ -80,16 +88,9 @@ void	ClapTrap::takeDamage(unsigned int amount)
 {
 	if (!checkAlive())
 		return ;
-	if (this->hitPoint < amount)
-	{
-		this->hitPoint = 0;
-		std::cout << "ClapTrap " << this->name 
-				<< " takes damage " << amount << " points, then "
-				<< this->hitPoint << " hit points left." << std::endl; 
-		return ;
-	}
-	this->hitPoint -= amount;
-	std::cout << "ClapTrap " << this->name 
+	this->hitPoint -= this->hitPoint < amount ? this->hitPoint : amount;
+	std::cout << C_COLOR << "ClapTrap ";
+	std::cout << WHITE << this->name 
 			<< " takes damage " << amount << " points, then "
 			<< this->hitPoint << " hit points left." << std::endl; 
 }
@@ -100,14 +101,16 @@ void	ClapTrap::beRepaired(unsigned int amount)
 		return ;
 	this->hitPoint += amount;
 	this->energyPoint--;
-	std::cout << "ClapTrap " << this->name << " be repaired " 
+	std::cout << C_COLOR << "ClapTrap ";
+	std::cout << WHITE << this->name << " be repaired " 
 			<< amount << " points, then " 
 			<< this->hitPoint << " hit points left." << std::endl; 
 }
 
 void	ClapTrap::displayStatus() const
 {
-	std::cout << "ClapTrap " << this->name << " has " 
+	std::cout << C_COLOR << "ClapTrap ";
+	std::cout << WHITE << this->name << " has " 
 			<< this->hitPoint << " hit point, "
 			<< this->energyPoint << " energy point, and "
 			<< this->attackDamage << " attack damage." << std::endl;

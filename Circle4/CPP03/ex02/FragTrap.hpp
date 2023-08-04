@@ -5,6 +5,8 @@
 #include "ClapTrap.hpp"
 #include <string>
 
+#define	F_COLOR	"\e[0;35m"
+
 class FragTrap : public ClapTrap
 {
 	private:

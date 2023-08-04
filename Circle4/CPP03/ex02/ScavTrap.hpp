@@ -5,11 +5,15 @@
 #include "ClapTrap.hpp"
 #include <string>
 
+#define S_COLOR "\e[0;33m"
+
 class ScavTrap: public ClapTrap
 {
 	private:
 		bool	gateKeeperMode;
 
+		bool	checkAlive() const;
+		bool	checkEnergy() const;
 		bool	isGateKeeper() const;
 
 	public:

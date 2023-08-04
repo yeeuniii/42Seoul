@@ -7,7 +7,8 @@ ScavTrap::ScavTrap(): ClapTrap()
 	this->hitPoint = 100;
 	this->energyPoint = 50;
 	this->attackDamage = 20;
-	std::cout << "ScavTrap " << this->name << " construct by default." << std::endl;
+	std::cout << S_COLOR << "ScavTrap ";
+	std::cout << WHITE << this->name << " construct by default." << std::endl;
 }
 
 ScavTrap::ScavTrap(std::string name): ClapTrap(name)
@@ -15,21 +16,21 @@ ScavTrap::ScavTrap(std::string name): ClapTrap(name)
 	this->hitPoint = 100;
 	this->energyPoint = 50;
 	this->attackDamage = 20;
-	std::cout << "ScavTrap " << this->name << " construct." << std::endl;
+	std::cout << S_COLOR << "ScavTrap ";
+	std::cout << WHITE << this->name << " construct." << std::endl;
 }
 
 ScavTrap::ScavTrap(const ScavTrap &scavTrap): ClapTrap()
 {
-	this->name = scavTrap.name;
-	this->hitPoint = scavTrap.hitPoint;
-	this->energyPoint = scavTrap.energyPoint;
-	this->attackDamage = scavTrap.attackDamage;
-	std::cout << "ScavTrap " << this->name << " construct." << std::endl;
+	*this = scavTrap;
+	std::cout << S_COLOR << "ScavTrap ";
+	std::cout << WHITE << this->name << " construct." << std::endl;
 }
 
 ScavTrap::~ScavTrap()
 {
-	std::cout << "ScavTrap " << this->name << " destruct." << std::endl;
+	std::cout << S_COLOR << "ScavTrap ";
+	std::cout << WHITE << this->name << " destruct." << std::endl;
 }
 
 ScavTrap&	ScavTrap::operator=(const ScavTrap &scavTrap)
@@ -41,19 +42,43 @@ ScavTrap&	ScavTrap::operator=(const ScavTrap &scavTrap)
 	return *this;
 }
 
+bool	ScavTrap::checkAlive() const
+{
+	if (this->hitPoint == 0)
+	{
+		std::cout << S_COLOR << "ScavTrap ";
+		std::cout << WHITE << this->name << " is died." << std::endl; 	
+	}
+	return this->hitPoint;
+}
+
+bool	ScavTrap::checkEnergy() const
+{
+	if (this->energyPoint == 0)
+	{
+		std::cout << S_COLOR << "ScavTrap ";
+		std::cout << WHITE << this->name << " has no energy." << std::endl; 	
+	}
+	return this->energyPoint;
+}
+
 void	ScavTrap::attack(const std::string &target)
 {
 	if (!(checkAlive() && checkEnergy()))
 		return ;
 	this->energyPoint--;
-	std::cout << "ScavTrap " << this->name << " attacks " << target 
+	std::cout << S_COLOR << "ScavTrap ";
+	std::cout << WHITE << this->name << " attacks " << target 
 			<< ", causing " << this->attackDamage << " points of damage!" << std::endl;
 }
 
 bool	ScavTrap::isGateKeeper() const
 {
 	if (gateKeeperMode)
-		std::cout << this->name << " is already gatekeeper." << std::endl;
+	{
+		std::cout << S_COLOR << "ScavTrap ";
+		std::cout << WHITE << this->name << " is already gatekeeper." << std::endl;
+	}
 	return gateKeeperMode;
 }
 
@@ -62,5 +87,7 @@ void	ScavTrap::guardGate()
 	if (!(checkAlive() && checkEnergy()) || isGateKeeper())
 		return ;
 	this->gateKeeperMode = true;
-	std::cout << this->name << " is now in gatekeeper mode." << std::endl;
+	this->energyPoint--;
+	std::cout << S_COLOR << "ScavTrap ";
+	std::cout << WHITE << this->name << " is now in gatekeeper mode." << std::endl;
 }
