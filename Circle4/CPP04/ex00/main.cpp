@@ -19,9 +19,5 @@ int main()
 		delete	cat;
 	}
 	std::cout << std::endl;
-	{
-		Cat cat("nabi");
-		Dog dog("bori");
-	}
 	return 0;
 }

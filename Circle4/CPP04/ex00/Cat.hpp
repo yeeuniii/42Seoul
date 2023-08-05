@@ -10,11 +10,9 @@
 class Cat : public Animal
 {
 	private:
-		std::string	name;
 
 	public:
 		Cat();
-		Cat(const std::string name);
 		Cat(const Cat& cat);
 		virtual ~Cat();
 		Cat& operator=(Cat const& cat);
