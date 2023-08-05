@@ -30,7 +30,7 @@ DiamondTrap::~DiamondTrap()
 	std::cout << WHITE << this->name << " destruct." << std::endl;
 }
 
-DiamondTrap& DiamondTrap::operator=(DiamondTrap const& diamondTrap)
+DiamondTrap& DiamondTrap::operator=(const DiamondTrap& diamondTrap)
 {
 	if (this != &diamondTrap)
 	{

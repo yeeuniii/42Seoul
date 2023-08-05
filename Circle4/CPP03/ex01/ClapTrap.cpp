@@ -27,7 +27,7 @@ ClapTrap::~ClapTrap(void)
 	std::cout << WHITE << this->name << " destruct." << std::endl;
 }
 
-ClapTrap& ClapTrap::operator=(ClapTrap const& clapTrap)
+ClapTrap& ClapTrap::operator=(const ClapTrap& clapTrap)
 {
 	if (this != &clapTrap)
 	{
