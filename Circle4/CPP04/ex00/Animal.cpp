@@ -1,7 +1,7 @@
 #include "Animal.hpp"
 #include <iostream>
 
-Animal::Animal(): type("")
+Animal::Animal(): type("Animal")
 {
 	std::cout << ANIMAL_COLOR << "Animal";
 	std::cout << WHITE << " class call default constructor." << std::endl;
@@ -27,4 +27,14 @@ Animal& Animal::operator=(Animal const& animal)
 		this->type = animal.type;
 	}
 	return *this;
+}
+
+const std::string&	Animal::getType() const
+{
+	return this->type;
+}
+
+void	Animal::makeSound() const
+{
+	std::cout << "Blabla" << std::endl;
 }
