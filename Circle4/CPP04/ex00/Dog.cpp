@@ -3,16 +3,16 @@
 
 Dog::Dog() : Animal()
 {
-	this->type = "Dog";
 	std::cout << DOG_COLOR << "Dog";
 	std::cout << WHITE << " class call default constructor." << std::endl;
+	this->type = "Dog";
 }
 
 Dog::Dog(const Dog& dog) : Animal()
 {
-	*this = dog; 
 	std::cout << DOG_COLOR << "Dog";
 	std::cout << WHITE << " class call constructor." << std::endl;
+	*this = dog; 
 }
 
 Dog::~Dog()
@@ -21,7 +21,7 @@ Dog::~Dog()
 	std::cout << WHITE << " class call destructor." << std::endl;
 }
 
-Dog& Dog::operator=(Dog const& dog)
+Dog& Dog::operator=(const Dog& dog)
 {
 	if (this != &dog)
 	{

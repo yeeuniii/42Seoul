@@ -3,16 +3,16 @@
 
 Cat::Cat() : Animal()
 {
-	this->type = "Cat";
 	std::cout << CAT_COLOR << "Cat";
 	std::cout << WHITE << " class call default constructor." << std::endl;
+	this->type = "Cat";
 }
 
 Cat::Cat(const Cat& cat) : Animal()
 {
-	*this = cat; 
 	std::cout << CAT_COLOR << "Cat";
 	std::cout << WHITE << " class call constructor." << std::endl;
+	*this = cat; 
 }
 
 Cat::~Cat()
@@ -21,7 +21,7 @@ Cat::~Cat()
 	std::cout << WHITE << " class call destructor." << std::endl;
 }
 
-Cat& Cat::operator=(Cat const& cat)
+Cat& Cat::operator=(const Cat& cat)
 {
 	if (this != &cat)
 	{

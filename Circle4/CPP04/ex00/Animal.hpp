@@ -16,7 +16,7 @@ class Animal
 		Animal();
 		Animal(const Animal& animal);
 		virtual ~Animal();
-		Animal& operator=(Animal const& animal);
+		Animal& operator=(const Animal& animal);
 
 		const std::string&	getType() const;
 

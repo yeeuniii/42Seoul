@@ -9,9 +9,9 @@ Animal::Animal(): type("Animal")
 
 Animal::Animal(const Animal& animal)
 {
-	*this = animal;
 	std::cout << ANIMAL_COLOR << "Animal";
 	std::cout << WHITE << " class call constructor." << std::endl;
+	*this = animal;
 }
 
 Animal::~Animal()
@@ -20,7 +20,7 @@ Animal::~Animal()
 	std::cout << WHITE << " class call destructor." << std::endl;
 }
 
-Animal& Animal::operator=(Animal const& animal)
+Animal& Animal::operator=(const Animal& animal)
 {
 	if (this != &animal)
 	{
