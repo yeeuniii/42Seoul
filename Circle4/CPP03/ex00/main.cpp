@@ -27,8 +27,11 @@ int main(void)
 		ClapTrap claptrap2("two");
 
 		claptrap2.setAttackDamage(1);
+		claptrap1.displayStatus();
+		claptrap2.displayStatus();
 		for (int idx = 0; idx < 10; idx++)
 		{
+			std::cout << "## " << idx << " ##" << std::endl;
 			claptrap2.attack(claptrap1.getName());
 			claptrap1.takeDamage(claptrap2.getAttackDamage());
 		}
