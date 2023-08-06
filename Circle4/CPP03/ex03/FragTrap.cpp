@@ -13,7 +13,6 @@ FragTrap::FragTrap() : ClapTrap()
 
 FragTrap::FragTrap(std::string name) : ClapTrap(name)
 {
-	// this->name = name;
 	this->hitPoint = 100;
 	this->energyPoint = 100;
 	this->attackDamage = 30;
