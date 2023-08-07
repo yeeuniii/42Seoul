@@ -3,6 +3,7 @@
 #define __ICE_HPP__
 
 #include "AMateria.hpp"
+#include "ICharacter.hpp"
 
 class Ice : public AMateria
 {
@@ -15,7 +16,7 @@ class Ice : public AMateria
 		Ice& operator=(const Ice& ice);
 
 		virtual AMateria*	clone() const;
-		// virtual void use(ICharacer& target);
+		virtual void use(ICharacter& target);
 };
 
 

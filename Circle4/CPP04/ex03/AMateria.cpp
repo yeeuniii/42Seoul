@@ -1,4 +1,5 @@
 #include "AMateria.hpp"
+#include <iostream>
 
 AMateria::AMateria() : type("") {}
 
@@ -31,7 +32,7 @@ std::string const&	AMateria::getType() const
 	return this->type;
 }
 
-// void	use(ICharacter& target)
-// {
-
-// }
+void	AMateria::use(ICharacter& target)
+{
+	std::cout << "* AMaterial " << target.getName() << " *" << std::endl;
+}
