@@ -1,6 +1,6 @@
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = aanimal 
+NAME = a.out 
 SRCS = main.cpp \
 	   AMateria.cpp \
 	   Ice.cpp \
