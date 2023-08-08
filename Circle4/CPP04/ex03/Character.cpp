@@ -25,10 +25,8 @@ Character::Character(const Character& character)
 
 Character::~Character()
 {
-	for (int idx = 0; idx < size; idx++)
-		delete this->inventory[idx];
-	delete this->inventory;
-
+	deleteInventorySlot();
+	delete[] this->inventory;
 }
 
 Character&	Character::operator=(const Character& character)
@@ -36,6 +34,7 @@ Character&	Character::operator=(const Character& character)
 	if (this == &character)
 		return *this;
 	this->name = character.name;
+	deleteInventorySlot();
 	for (int idx = 0; idx < this->size; idx++)
 	{
 		this->inventory[idx] = character.inventory[idx]->clone();
@@ -62,6 +61,7 @@ void	Character::unequip(int idx)
 	if (idx < 0 || idx >= this->size)
 		return ;
 	this->inventory[idx] = 0;
+	this->size--;
 	while (idx < acceptableSize - 1)
 	{
 		this->inventory[idx] = this->inventory[idx + 1];
@@ -74,4 +74,19 @@ void	Character::use(int idx, ICharacter& target)
 	if (idx < 0 || idx >= this->size)
 		return ;
 	this->inventory[idx]->use(target);
+}
+
+void	Character::deleteInventorySlot()
+{
+	for (int idx = 0; idx < this->size; idx++)
+	{
+		delete this->inventory[idx];
+	}
+}
+
+AMateria*	Character::getInventorySlot(int idx) const
+{
+	if (idx < 0 || idx >= this->size)
+		return 0;
+	return this->inventory[idx];
 }
