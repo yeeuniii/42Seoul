@@ -35,7 +35,7 @@ Character&	Character::operator=(const Character& character)
 		return *this;
 	this->name = character.name;
 	deleteInventorySlot();
-	for (int idx = 0; idx < this->size; idx++)
+	for (int idx = 0; idx < character.size; idx++)
 	{
 		this->inventory[idx] = character.inventory[idx]->clone();
 	}
