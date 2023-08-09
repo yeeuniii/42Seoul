@@ -53,16 +53,16 @@ int main()
 		
 		Dog		dog(brain);
 		Dog		puppy(dog);
+		std::cout << std::endl;
 		
-		brain.addIdea("And sleep too...");
-		puppy.setBrain(brain);
 		dog.think();
 		puppy.think();
-		
+		std::cout << std::endl;
+
+		brain.addIdea("And sleep too...");
 		Cat	cat(brain);
-		
 		cat.think();
+		std::cout << std::endl;
 	}
-	std::cout << std::endl;
 	return 0;
 }
