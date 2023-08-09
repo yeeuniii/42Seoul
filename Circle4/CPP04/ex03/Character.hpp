@@ -27,6 +27,7 @@ class Character : public ICharacter
 
 		void		deleteInventorySlot();
 		AMateria*	getInventorySlot(int idx) const;
+		bool		isValidIndex(int index) const;
 };
 
 #endif

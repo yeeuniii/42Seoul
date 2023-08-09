@@ -24,12 +24,15 @@ MateriaSource::~MateriaSource()
 
 MateriaSource&	MateriaSource::operator=(const MateriaSource& materiaSource)
 {
+	const AMateria	*slot;
+
 	if (this == &materiaSource)
 		return *this;
 	deleteInventorySlot();
-	for (int idx = 0; idx < materiaSource.size; idx++)
+	for (int idx = 0; idx < acceptableSize; idx++)
 	{
-		this->inventory[idx] = materiaSource.inventory[idx]->clone();
+		slot = materiaSource.inventory[idx];
+		this->inventory[idx] = slot ? slot->clone() : 0;
 	}
 	this->size = materiaSource.size;
 	return *this;
@@ -37,36 +40,39 @@ MateriaSource&	MateriaSource::operator=(const MateriaSource& materiaSource)
 
 void	MateriaSource::learnMateria(AMateria* materia)
 {
-	if (this->size == 4)
+	int	idx = 0;
+
+	if (this->size >= 4)
 	{
 		delete materia;
 		return ;
 	}
-	this->inventory[size] = materia;
+	while (idx < 4 && this->inventory[idx])
+		idx++;
+	this->inventory[idx] = materia;
 	size++;
 }
-/* Copies the Materia passed as a parameter and store it in memory so it can be cloned
-later. Like the Character, the MateriaSource can know at most 4 Materias. They
-are not necessarily unique. */
-// 4개가 넘으면?
 
 AMateria*	MateriaSource::createMateria(std::string const& type)
 {
-	int	idx = 0;
+	const AMateria	*slot;
+	int		idx = -1;
+	bool	exist = false;
 
-	while (idx < 4 && this->inventory[idx]->getType() != type)
-		idx++;
-	if (idx < 4)
-		return this->inventory[idx]->clone();
-	return 0;
+	while (exist == false && ++idx < acceptableSize)
+	{	
+		slot = this->inventory[idx];
+		exist = slot ? slot->getType() == type : false;
+	}
+	return exist ? this->inventory[idx]->clone() : 0;
 }
-/* Returns a new Materia. The latter is a copy of the Materia previously learned by
-the MateriaSource whose type equals the one passed as parameter. Returns 0 if
-the type is unknown. */
-// 이게 뭔 소릴까 ... 후자가
 
 void	MateriaSource::deleteInventorySlot()
 {
 	for (int idx = 0; idx < this->size; idx++)
-		delete this->inventory[idx];
+	{
+		if (this->inventory[idx])
+			delete this->inventory[idx];
+		this->inventory[idx] = 0;
+	}
 }

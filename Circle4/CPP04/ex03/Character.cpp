@@ -31,13 +31,16 @@ Character::~Character()
 
 Character&	Character::operator=(const Character& character)
 {
+	const AMateria	*slot;
+
 	if (this == &character)
 		return *this;
 	this->name = character.name;
 	deleteInventorySlot();
 	for (int idx = 0; idx < character.size; idx++)
 	{
-		this->inventory[idx] = character.inventory[idx]->clone();
+		slot = character.inventory[idx];
+		this->inventory[idx] = slot ? slot->clone() : 0;
 	}
 	this->size = character.size;
 	return *this;
@@ -48,45 +51,49 @@ std::string const& Character::getName() const
 	return this->name;
 }
 
+bool	Character::isValidIndex(int index) const
+{
+	return ((index >= 0 && index < acceptableSize) && this->inventory[index]);
+}
+
 void	Character::equip(AMateria* m)
 {
-	if (this->size == acceptableSize)
+	int	idx = 0;
+
+	if (!m || this->size >= acceptableSize)
 		return ;
-	this->inventory[this->size] = m;
+	while (idx < 4 && this->inventory[idx])
+		idx++;
+	this->inventory[idx] = m;
 	this->size++;
 }
 
 void	Character::unequip(int idx)
 {
-	if (idx < 0 || idx >= this->size)
+	if (isValidIndex(idx) == false)
 		return ;
 	this->inventory[idx] = 0;
 	this->size--;
-	while (idx < acceptableSize - 1)
-	{
-		this->inventory[idx] = this->inventory[idx + 1];
-		idx++;
-	}
 }
 
 void	Character::use(int idx, ICharacter& target)
 {
-	if (idx < 0 || idx >= this->size)
+	if (isValidIndex(idx) == false)
 		return ;
 	this->inventory[idx]->use(target);
 }
 
 void	Character::deleteInventorySlot()
 {
-	for (int idx = 0; idx < this->size; idx++)
+	for (int idx = 0; idx < acceptableSize; idx++)
 	{
-		delete this->inventory[idx];
+		if (this->inventory[idx])
+			delete this->inventory[idx];
+		this->inventory[idx] = 0;
 	}
 }
 
 AMateria*	Character::getInventorySlot(int idx) const
 {
-	if (idx < 0 || idx >= this->size)
-		return 0;
-	return this->inventory[idx];
+	return isValidIndex(idx) ? this->inventory[idx] : 0;
 }
