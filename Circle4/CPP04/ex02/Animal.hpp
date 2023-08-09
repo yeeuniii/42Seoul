@@ -1,6 +1,6 @@
 #pragma once
-#ifndef __Animal_HPP__
-#define __Animal_HPP__
+#ifndef __ANIMAL_HPP__
+#define __ANIMAL_HPP__
 
 #include <string>
 
