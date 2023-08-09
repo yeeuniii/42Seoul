@@ -7,11 +7,12 @@
 
 void leaks()
 {
-	system("leaks a.out");
+	system("leaks materia");
 }
 
 void	subjectTest()
 {
+	std::cout << "---------- Subject test ----------" << std::endl;
 	IMateriaSource *src = new MateriaSource();
 	src->learnMateria(new Ice());
 	src->learnMateria(new Cure());
@@ -32,10 +33,13 @@ void	subjectTest()
 	delete bob;
 	delete me;
 	delete src;
+	
+	std::cout << std::endl;
 }
 
 void	myTest()
 {
+	std::cout << "---------- My test ----------" << std::endl;
 	IMateriaSource *src = new MateriaSource();
 	src->learnMateria(new Ice());
 	src->learnMateria(new Cure());
@@ -49,46 +53,57 @@ void	myTest()
 	AMateria *tmp;
 	tmp = src->createMateria("ice");
 	me->equip(tmp);
-	tmp = src->createMateria("cure");
+	tmp = src->createMateria("ice");
 	me->equip(tmp);
 
 	Character *mi = (Character *)me;
 	tmp = mi->getInventorySlot(0);	
 	me->unequip(0);
 	me->use(0, *me);
-	me->equip(tmp);
-	me->use(1, *me);
+	
+	me->unequip(4);
+	me->use(4, *me);
+	
+	// AMateria	*cure = src->createMateria("cure");
+	// me->equip(cure);
+	// me->use(0, *me);
 
-	// delete tmp;
+	delete tmp;
 	delete src;
 	delete me;
+	
+	std::cout << std::endl;
 }
 
 void	copyTest()
 {
+	std::cout << "---------- Copy test ----------" << std::endl;
 	IMateriaSource *src = new MateriaSource();
 	src->learnMateria(new Ice());
 	src->learnMateria(new Cure());
 
 	ICharacter *me = new Character("me");
 
-	me->equip(new Ice());
+	AMateria	*ice = src->createMateria("ice");
+	me->equip(ice);
 
 	Character *mi = (Character*)me;
 	Character you(*mi);
 	
+	delete me;
+	
 	you.use(0, you);
 
-	// delete you;
-	delete me;
 	delete src;
+	
+	std::cout << std::endl;
 }
 
 int main()
 {
 	atexit(leaks);
-	// subjectTest();
-	// myTest();
+	subjectTest();
+	myTest();
 	copyTest();
 	return 0;
 }
