@@ -20,7 +20,6 @@ Cure&	Cure::operator=(const Cure& cure)
 {
 	if (this != &cure)
 	{
-		this->type = cure.type;
 	}
 	return *this;
 }

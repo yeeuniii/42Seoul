@@ -22,7 +22,6 @@ AMateria&	AMateria::operator=(const AMateria& aMateria)
 {
 	if (this != &aMateria)
 	{
-		this->type = aMateria.type;
 	}
 	return *this;
 }

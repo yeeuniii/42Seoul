@@ -20,7 +20,6 @@ Ice&	Ice::operator=(const Ice& ice)
 {
 	if (this != &ice)
 	{
-		this->type = ice.type;
 	}
 	return *this;
 }
