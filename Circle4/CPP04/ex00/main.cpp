@@ -1,10 +1,18 @@
 #include "Animal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
+#include "WrongAnimal.hpp"
+#include "WrongCat.hpp"
 #include <iostream>
+
+void	leaks()
+{
+	system("leaks animal");
+}
 
 int main()
 {
+	atexit(leaks);
 	std::cout << "---------------TEST1---------------" << std::endl;
 	{
 		const Animal *base = new Animal();
@@ -35,6 +43,18 @@ int main()
 		}
 		for (int idx = 0; idx < 3; idx++)
 			delete animals[idx];
+	}
+	std::cout << std::endl;
+	std::cout << "---------------Wrong Case---------------" << std::endl;
+	{
+		WrongAnimal*	animal = new WrongCat();
+		WrongCat		cat;
+
+		animal->makeSound();
+		cat.makeSound();
+		
+		delete animal;
+		std::cout << std::endl;
 	}
 	return 0;
 }
