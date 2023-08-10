@@ -51,18 +51,13 @@ int main()
 		brain.addIdea("Hello!!");
 		brain.addIdea("I`m very hungry.");
 		
-		Dog		dog(brain);
-		Dog		puppy(dog);
-		std::cout << std::endl;
+		Dog		*dog = new Dog(brain);
+		Dog		*puppy = new Dog(*dog);
 		
-		dog.think();
-		puppy.think();
-		std::cout << std::endl;
-
-		brain.addIdea("And sleep too...");
-		Cat	cat(brain);
-		cat.think();
-		std::cout << std::endl;
+		dog->think();
+		delete dog;
+		puppy->think();
+		delete puppy;
 	}
 	return 0;
 }
