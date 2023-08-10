@@ -62,7 +62,7 @@ void	Character::equip(AMateria* m)
 
 	if (!m || this->size >= acceptableSize)
 		return ;
-	while (idx < 4 && this->inventory[idx])
+	while (idx < acceptableSize && this->inventory[idx])
 		idx++;
 	this->inventory[idx] = m;
 	this->size++;

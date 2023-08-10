@@ -42,12 +42,12 @@ void	MateriaSource::learnMateria(AMateria* materia)
 {
 	int	idx = 0;
 
-	if (this->size >= 4)
+	if (this->size >= acceptableSize)
 	{
 		delete materia;
 		return ;
 	}
-	while (idx < 4 && this->inventory[idx])
+	while (idx < acceptableSize && this->inventory[idx])
 		idx++;
 	this->inventory[idx] = materia;
 	size++;
@@ -69,7 +69,7 @@ AMateria*	MateriaSource::createMateria(std::string const& type)
 
 void	MateriaSource::deleteInventorySlot()
 {
-	for (int idx = 0; idx < this->size; idx++)
+	for (int idx = 0; idx < acceptableSize; idx++)
 	{
 		if (this->inventory[idx])
 			delete this->inventory[idx];
