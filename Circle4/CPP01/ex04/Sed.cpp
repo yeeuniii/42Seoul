@@ -7,32 +7,25 @@
 Sed::Sed(std::string file_name, std::string old_value, std::string new_value): 
 	fileName(file_name), oldValue(old_value), newValue(new_value) {}
 
-void	Sed::displayManual()
+void	Sed::handleOpenError(int isError) const
 {
-	std::cout << "Enter the following, if you execute replace of sed command." << std::endl;
-	std::cout << std::string(44, '-') << std::endl;
-	std::cout << "| ./sed <filename> <old_value> <new_value> |" << std::endl; 
-	std::cout << std::string(44, '-') << std::endl;
+	if (isError)
+	{
+		std::cout << this->fileName << " is not open." << std::endl;
+		exit(1);
+	}
 }
 
 void	Sed::openFile(std::ifstream &file_stream) const
 {
 	file_stream.open(this->fileName.c_str());
-	if (!file_stream.is_open())
-	{
-		std::cout << this->fileName << " is not open." << std::endl;
-		exit(1);
-	}
+	handleOpenError(!file_stream.is_open());
 }
 
 void	Sed::openFile(std::ofstream &file_stream) const
 {
 	file_stream.open((this->fileName + ".replace").c_str(), std::ios::trunc);
-	if (!file_stream.is_open())
-	{
-		std::cout << this->fileName << " is not open." << std::endl;
-		exit(1);
-	}
+	handleOpenError(!file_stream.is_open());
 }
 
 std::string	Sed::readFile() const
@@ -58,6 +51,8 @@ std::string	Sed::replace(std::string file_content) const
 	std::string	replace_content;
 	int			index;
 
+	if (this->oldValue == this->newValue)
+		return file_content;
 	index = file_content.find(this->oldValue);
 	while (index != -1)
 	{

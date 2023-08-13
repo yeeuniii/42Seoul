@@ -12,6 +12,7 @@ class Sed
 		
 		void		openFile(std::ifstream &file_stream) const;
 		void		openFile(std::ofstream &file_stream) const;
+		void		handleOpenError(int isError) const;
 		std::string	readFile() const;
 		void		writeFile(std::string write_content) const;
 		std::string	replace(std::string file_content) const;
@@ -20,7 +21,6 @@ class Sed
 		Sed(std::string file_name, std::string old_value, std::string new_value);
 
 		void	execute() const;
-		static void	displayManual();
 };
 
 #endif
