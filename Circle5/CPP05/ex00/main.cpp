@@ -8,6 +8,7 @@ void	testConstructor()
 		try
 		{
 			Bureaucrat basic("basic", 150);
+			std::cout << basic;
 		}
 		catch (std::exception &e)
 		{
@@ -20,6 +21,7 @@ void	testConstructor()
 		try
 		{
 			Bureaucrat high("high", 151);
+			std::cout << high;
 		}
 		catch (std::exception &e)
 		{
@@ -32,6 +34,7 @@ void	testConstructor()
 		try
 		{
 			Bureaucrat low("low", 0);
+			std::cout << low;
 		}
 		catch (std::exception &e)
 		{
@@ -49,7 +52,10 @@ void	testIncrementGrade()
 		{
 			Bureaucrat one("one", 3);
 
+			std::cout << one;
+			std::cout << "Try 1 grade increment" << std::endl;
 			one.incrementGrade(1);
+			std::cout << one;
 		}
 		catch (std::exception &e)
 		{
@@ -63,7 +69,10 @@ void	testIncrementGrade()
 		{
 			Bureaucrat one("one", 3);
 
+			std::cout << one;
+			std::cout << "Try 3 grade increment" << std::endl;
 			one.incrementGrade(3);
+			std::cout << one;
 		}
 		catch (std::exception &e)
 		{
@@ -81,7 +90,10 @@ void	testDecrementGrade()
 		{
 			Bureaucrat one("one", 140);
 
+			std::cout << one;
+			std::cout << "Try 5 grade decrement" << std::endl;
 			one.decrementGrade(5);
+			std::cout << one;
 		}
 		catch (std::exception &e)
 		{
@@ -93,9 +105,12 @@ void	testDecrementGrade()
 	{
 		try
 		{
-			Bureaucrat one("one", 149);
+			Bureaucrat one("one", 141);
 
-			one.decrementGrade(5);
+			std::cout << one;
+			std::cout << "Try 10 grade decrement" << std::endl;
+			one.decrementGrade(10);
+			std::cout << one;
 		}
 		catch (std::exception &e)
 		{
@@ -108,12 +123,9 @@ int main()
 {
 	std::cout << "1. Construct" << std::endl;
 	testConstructor();
-	std::cout << std::endl;
 	std::cout << "2. Increment grade" << std::endl;
 	testIncrementGrade();
-	std::cout << std::endl;
 	std::cout << "3. Decrement grade" << std::endl;
 	testDecrementGrade();
-	std::cout << std::endl;
 	return 0;
 }
