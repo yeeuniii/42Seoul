@@ -25,9 +25,10 @@ class	Bureaucrat
 		Bureaucrat();
 
 		void	handleGradeException() const;
+		void	handleHighGradeException() const;
+		void	handleLowGradeException() const;
 		bool	isHighGrade() const;
 		bool	isLowGrade() const;
-
 	
 	public:
 		Bureaucrat(std::string name, int grade);
@@ -38,6 +39,8 @@ class	Bureaucrat
 		const std::string&	getName();
 		const int&			getGrade();
 
+		void	incrementGrade(int grade);
+		void	decrementGrade(int grade);
 };
 
 #endif

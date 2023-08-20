@@ -37,8 +37,18 @@ Bureaucrat&	Bureaucrat::operator=(const Bureaucrat &bureaucrat)
 
 void	Bureaucrat::handleGradeException() const
 {
+	handleHighGradeException();
+	handleLowGradeException();
+}
+
+void	Bureaucrat::handleHighGradeException() const
+{
 	if (isHighGrade())
 		throw Bureaucrat::GradeTooHighException();
+}
+
+void	Bureaucrat::handleLowGradeException() const
+{
 	if (isLowGrade())
 		throw Bureaucrat::GradeTooLowException();
 }
@@ -61,4 +71,16 @@ const std::string&	Bureaucrat::getName()
 const int&	Bureaucrat::getGrade()
 {
 	return this->grade;
+}
+
+void	Bureaucrat::incrementGrade(int grade)
+{
+	this->grade -= grade;
+	handleLowGradeException();
+}
+
+void	Bureaucrat::decrementGrade(int grade)
+{
+	this->grade += grade;
+	handleHighGradeException();
 }
