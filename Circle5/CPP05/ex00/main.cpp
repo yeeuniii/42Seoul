@@ -12,7 +12,7 @@ void	testConstructor()
 		}
 		catch (std::exception &e)
 		{
-			std::cout << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 		}
 	}
 	std::cout << std::endl;
@@ -25,7 +25,7 @@ void	testConstructor()
 		}
 		catch (std::exception &e)
 		{
-			std::cout << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 		}
 	}
 	std::cout << std::endl;
@@ -38,7 +38,7 @@ void	testConstructor()
 		}
 		catch (std::exception &e)
 		{
-			std::cout << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 		}
 	}
 	std::cout << std::endl;
@@ -59,7 +59,7 @@ void	testIncrementGrade()
 		}
 		catch (std::exception &e)
 		{
-			std::cout << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 		}
 	}
 	std::cout << std::endl;
@@ -76,7 +76,7 @@ void	testIncrementGrade()
 		}
 		catch (std::exception &e)
 		{
-			std::cout << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 		}
 	}	
 	std::cout << std::endl;
@@ -97,7 +97,7 @@ void	testDecrementGrade()
 		}
 		catch (std::exception &e)
 		{
-			std::cout << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 		}
 	}
 	std::cout << std::endl;
@@ -114,7 +114,7 @@ void	testDecrementGrade()
 		}
 		catch (std::exception &e)
 		{
-			std::cout << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 		}
 	}	
 	std::cout << std::endl;

@@ -3,7 +3,7 @@
 
 const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return "Bureaucrat`s grade is too high";
+	return "Bureaucrat`s grade is too high.";
 }
 
 const char* Bureaucrat::GradeTooLowException::what() const throw()
@@ -22,10 +22,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat &bureaucrat) : name(bureaucrat.name)
 	handleGradeException();
 }
 
-Bureaucrat::~Bureaucrat()
-{
-
-}
+Bureaucrat::~Bureaucrat() {}
 
 Bureaucrat&	Bureaucrat::operator=(const Bureaucrat &bureaucrat)
 {
