@@ -3,12 +3,12 @@
 
 const char* Form::GradeTooHighException::what() const throw()
 {
-	return "Form`s grade is too high.";
+	return "form`s grade is too high.";
 }
 
 const char* Form::GradeTooLowException::what() const throw()
 {
-	return "Form`s grade is too low.";
+	return "form`s grade is too low.";
 }
 
 Form::Form(std::string name, int signableGrade, int executableGrade) :

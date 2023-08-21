@@ -15,7 +15,19 @@ class	Form
 		const int		signableGrade;
 		const int		executableGrade;
 	
+		class GradeTooHighException : public std::exception
+		{
+			public:
+				virtual const char	*what() const throw();
+		};
+		class GradeTooLowException : public std::exception
+		{
+			public:
+				virtual const char	*what() const throw();
+		};
+		
 		Form();
+	
 		void	handleGradeException() const;
 		void	handleHighGradeException() const;
 		void	handleLowGradeException() const;
@@ -32,17 +44,6 @@ class	Form
 		const bool&			getIsSigned() const;
 		const int&			getSignableGrade() const;
 		const int&			getExecutableGrade() const;		
-
-		class GradeTooHighException : public std::exception
-		{
-			public:
-				virtual const char	*what() const throw();
-		};
-		class GradeTooLowException : public std::exception
-		{
-			public:
-				virtual const char	*what() const throw();
-		};
 
 		void	beSigned(Bureaucrat bureaucrat);
 };
