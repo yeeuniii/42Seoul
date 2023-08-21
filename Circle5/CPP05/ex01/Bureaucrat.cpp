@@ -3,7 +3,7 @@
 
 const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return "Bureaucrat`s grade is too high";
+	return "Bureaucrat`s grade is too high.";
 }
 
 const char* Bureaucrat::GradeTooLowException::what() const throw()
@@ -22,10 +22,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat &bureaucrat) : name(bureaucrat.name)
 	handleGradeException();
 }
 
-Bureaucrat::~Bureaucrat()
-{
-
-}
+Bureaucrat::~Bureaucrat() {}
 
 Bureaucrat&	Bureaucrat::operator=(const Bureaucrat &bureaucrat)
 {
@@ -90,4 +87,15 @@ std::ostream&	operator<<(std::ostream &out, const Bureaucrat &bureaucrat)
 {
 	out << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << "." << std::endl;
 	return out;
+}
+		
+void	Bureaucrat::signForm(const Form &form) const
+{
+	if (form.getIsSigned())
+	{
+		std::cout << this->name << " signed " << form.getName() << std::endl;
+		return ;
+	}
+	std::cout << this->name << " couldn`t sign " << form.getName() 
+		<< " because " << Form::GradeTooLowException().what() << std::endl;
 }
