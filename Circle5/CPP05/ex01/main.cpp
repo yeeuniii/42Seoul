@@ -48,7 +48,6 @@ void	testConstructor()
 void	testSign()
 {
 	std::cout << "----------Success----------" << std::endl;
-	try
 	{
 		Bureaucrat bureaucrat("tom", 23);
 		Form form("form", 25, 1);
@@ -56,31 +55,25 @@ void	testSign()
 		std::cout << bureaucrat;
 		std::cout << form;
 
-		form.beSigned(bureaucrat);
 		bureaucrat.signForm(form);
 	
 		std::cout << bureaucrat;
 		std::cout << form;
 	}
-	catch(std::exception &e)
-	{
-		std::cerr << e.what() << '\n';
-	}
 	std::cout << std::endl;
 	std::cout << "----------Fail----------" << std::endl;
-	try
 	{
 		Bureaucrat bureaucrat("brown", 100);
 		Form form("form", 25, 1);
 	
-		form.beSigned(bureaucrat);
+		std::cout << bureaucrat;
+		std::cout << form;
+
 		bureaucrat.signForm(form);
-	}
-	catch(std::exception &e)
-	{
-		std::cerr << e.what() << '\n';
-	}
 	
+		std::cout << bureaucrat;
+		std::cout << form;
+	}
 }
 
 int main()
