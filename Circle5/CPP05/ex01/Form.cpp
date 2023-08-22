@@ -11,16 +11,16 @@ const char* Form::GradeTooLowException::what() const throw()
 	return "form`s grade is too low.";
 }
 
-Form::Form() : name(""), signableGrade(150), executableGrade(150) {} 
+Form::Form() : name(""), isSigned(false), signableGrade(150), executableGrade(150) {} 
 
 Form::Form(std::string name, int signableGrade, int executableGrade)
-: name(name), signableGrade(signableGrade), executableGrade(executableGrade)
+: name(name), isSigned(false), signableGrade(signableGrade), executableGrade(executableGrade)
 {
 	handleGradeException();
 }
 
 Form::Form(const Form& form)
-: name(form.name), signableGrade(form.signableGrade), executableGrade(form.executableGrade)
+: name(form.name), isSigned(form.isSigned), signableGrade(form.signableGrade), executableGrade(form.executableGrade)
 {
 	handleGradeException();	
 }
@@ -95,10 +95,10 @@ std::ostream&	operator<<(std::ostream &out, const Form &form)
 {
 	out << form.getName()
 		<< ", form signable grade " << form.getSignableGrade()
-		<< ", executable grade " << form.getExecutableGrade() << "." << std::endl;
-	out << "And it got signed";
+		<< ", executable grade " << form.getExecutableGrade()
+		<< ", and it got signed";
 	if (form.getIsSigned() == false)
-		out << " fail";
+		out << " not yet";
 	out << "." << std::endl;;
 	return out;
 }

@@ -24,16 +24,16 @@ const char*	AForm::NotSignException::what() const throw()
 	return "form is not signed yet.";
 }
 
-AForm::AForm() : name(""), signableGrade(150), executableGrade(150) {} 
+AForm::AForm() : name(""), isSigned(false), signableGrade(150), executableGrade(150) {} 
 
 AForm::AForm(std::string name, int signableGrade, int executableGrade)
-: name(name), signableGrade(signableGrade), executableGrade(executableGrade)
+: name(name), isSigned(false), signableGrade(signableGrade), executableGrade(executableGrade)
 {
 	handleGradeException();
 }
 
 AForm::AForm(const AForm& form)
-: name(form.name), signableGrade(form.signableGrade), executableGrade(form.executableGrade)
+: name(form.name), isSigned(form.isSigned), signableGrade(form.signableGrade), executableGrade(form.executableGrade)
 {
 	handleGradeException();	
 }

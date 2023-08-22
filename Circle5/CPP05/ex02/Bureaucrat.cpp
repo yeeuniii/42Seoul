@@ -11,7 +11,7 @@ const char* Bureaucrat::GradeTooLowException::what() const throw()
 	return "Bureaucrat`s grade is too low.";
 }
 
-Bureaucrat::Bureaucrat() : name(""), grade(150) {}
+Bureaucrat::Bureaucrat() : name("") {}
 
 Bureaucrat::Bureaucrat(std::string name, int grade) : name(name), grade(grade)
 {
