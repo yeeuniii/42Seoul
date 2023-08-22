@@ -35,6 +35,11 @@ class	AForm
 				GradeTooLowException(const char *message);
 				virtual const char	*what() const throw();
 		};
+		class NotSignException : public std::exception
+		{
+			public:
+				virtual const char	*what() const throw();
+		};
 		
 		AForm();
 		

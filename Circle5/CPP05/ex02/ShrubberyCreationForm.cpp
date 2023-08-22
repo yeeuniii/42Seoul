@@ -32,7 +32,7 @@ const std::string&	ShrubberyCreationForm::getTarget() const
 void	ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
 	if (this->isSigned == false)
-		throw AForm::GradeTooLowException();
+		throw AForm::NotSignException();
 	if (this->executableGrade < executor.getGrade())
-		throw AForm::GradeTooLowException("form`s grade is too high than executor.");
+		throw AForm::GradeTooHighException("form`s grade is too high than executor.");
 }

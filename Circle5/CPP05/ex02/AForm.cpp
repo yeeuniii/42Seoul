@@ -19,6 +19,11 @@ const char* AForm::GradeTooLowException::what() const throw()
 	return this->message;
 }
 
+const char*	AForm::NotSignException::what() const throw()
+{
+	return "form is not signed yet.";
+}
+
 AForm::AForm() : name(""), signableGrade(150), executableGrade(150) {} 
 
 AForm::AForm(std::string name, int signableGrade, int executableGrade)
@@ -103,10 +108,10 @@ std::ostream&	operator<<(std::ostream &out, const AForm &form)
 {
 	out << form.getName()
 		<< ", form signable grade " << form.getSignableGrade()
-		<< ", executable grade " << form.getExecutableGrade() << "." << std::endl;
-	out << "And it got signed";
+		<< ", executable grade " << form.getExecutableGrade()
+		<< ", and it got signed";
 	if (form.getIsSigned() == false)
-		out << " fail";
+		out << " not yet";
 	out << "." << std::endl;;
 	return out;
 }
