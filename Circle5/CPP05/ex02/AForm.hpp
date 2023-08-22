@@ -9,9 +9,6 @@ class	Bureaucrat;
 
 class	AForm
 {
-	private:
-		AForm();
-
 	protected:
 		const std::string name;
 		bool			isSigned;
@@ -38,6 +35,8 @@ class	AForm
 				GradeTooLowException(const char *message);
 				virtual const char	*what() const throw();
 		};
+		
+		AForm();
 		
 		void	handleGradeException() const;
 		void	handleHighGradeException() const;

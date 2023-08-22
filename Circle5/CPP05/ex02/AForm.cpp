@@ -19,6 +19,8 @@ const char* AForm::GradeTooLowException::what() const throw()
 	return this->message;
 }
 
+AForm::AForm() : name(""), signableGrade(150), executableGrade(150) {} 
+
 AForm::AForm(std::string name, int signableGrade, int executableGrade)
 : name(name), signableGrade(signableGrade), executableGrade(executableGrade)
 {

@@ -11,14 +11,16 @@ const char* Form::GradeTooLowException::what() const throw()
 	return "form`s grade is too low.";
 }
 
-Form::Form(std::string name, int signableGrade, int executableGrade) :
-	name(name), signableGrade(signableGrade), executableGrade(executableGrade)
+Form::Form() : name(""), signableGrade(150), executableGrade(150) {} 
+
+Form::Form(std::string name, int signableGrade, int executableGrade)
+: name(name), signableGrade(signableGrade), executableGrade(executableGrade)
 {
 	handleGradeException();
 }
 
-Form::Form(const Form& form) :
-	name(form.name), signableGrade(form.signableGrade), executableGrade(form.executableGrade)
+Form::Form(const Form& form)
+: name(form.name), signableGrade(form.signableGrade), executableGrade(form.executableGrade)
 {
 	handleGradeException();	
 }
