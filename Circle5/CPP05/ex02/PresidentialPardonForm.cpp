@@ -3,7 +3,7 @@
 PresidentialPardonForm::PresidentialPardonForm() : AForm(), target("") {} 
 
 PresidentialPardonForm::PresidentialPardonForm(std::string target) 
-: AForm("ShrubberyCreation", 145, 137)
+: AForm("PresidentialPardon", 25, 5)
 {
 	this->target = target;
 }
