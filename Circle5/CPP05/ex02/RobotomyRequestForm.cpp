@@ -1,11 +1,13 @@
 #include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm("RobotomyRequest", 72, 45)
+RobotomyRequestForm::RobotomyRequestForm(std::string target)
+: AForm("RobotomyRequest", 72, 45)
 {
 	this->target = target;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &form) : AForm(form)
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &form)
+: AForm(form)
 {
 	*this = form;
 }
@@ -24,4 +26,12 @@ RobotomyRequestForm&	RobotomyRequestForm::operator=(const RobotomyRequestForm &f
 const std::string&	RobotomyRequestForm::getTarget() const
 {
 	return this->target;
+}
+
+void	RobotomyRequestForm::execute(Bureaucrat const &executor) const
+{
+	if (this->isSigned == false)
+		throw AForm::GradeTooLowException();
+	if (this->executableGrade < executor.getGrade())
+		throw AForm::GradeTooLowException("form`s grade is too high than executor.");
 }

@@ -1,24 +1,32 @@
 #include "AForm.hpp"
 #include <iostream>
 
+AForm::GradeTooHighException::GradeTooHighException() : message("form`s grade is too high.") {}
+
+AForm::GradeTooHighException::GradeTooHighException(const char *message) : message(message) {}
+
 const char* AForm::GradeTooHighException::what() const throw()
 {
-	return "form`s grade is too high.";
+	return this->message;
 }
+
+AForm::GradeTooLowException::GradeTooLowException() : message("form`s grade is too low.") {}
+
+AForm::GradeTooLowException::GradeTooLowException(const char *message) : message(message) {}
 
 const char* AForm::GradeTooLowException::what() const throw()
 {
-	return "form`s grade is too low.";
+	return this->message;
 }
 
-AForm::AForm(std::string name, int signableGrade, int executableGrade) :
-	name(name), signableGrade(signableGrade), executableGrade(executableGrade)
+AForm::AForm(std::string name, int signableGrade, int executableGrade)
+: name(name), signableGrade(signableGrade), executableGrade(executableGrade)
 {
 	handleGradeException();
 }
 
-AForm::AForm(const AForm& form) :
-	name(form.name), signableGrade(form.signableGrade), executableGrade(form.executableGrade)
+AForm::AForm(const AForm& form)
+: name(form.name), signableGrade(form.signableGrade), executableGrade(form.executableGrade)
 {
 	handleGradeException();	
 }

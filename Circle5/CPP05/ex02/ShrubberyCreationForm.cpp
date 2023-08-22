@@ -1,11 +1,13 @@
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : AForm("ShrubberyCreation", 145, 137)
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target)
+: AForm("ShrubberyCreation", 145, 137)
 {
 	this->target = target;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &form) : AForm(form)
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &form)
+: AForm(form)
 {
 	*this = form;
 }
@@ -24,4 +26,11 @@ ShrubberyCreationForm&	ShrubberyCreationForm::operator=(const ShrubberyCreationF
 const std::string&	ShrubberyCreationForm::getTarget() const
 {
 	return this->target;
+}
+void	ShrubberyCreationForm::execute(Bureaucrat const &executor) const
+{
+	if (this->isSigned == false)
+		throw AForm::GradeTooLowException();
+	if (this->executableGrade < executor.getGrade())
+		throw AForm::GradeTooLowException("form`s grade is too high than executor.");
 }

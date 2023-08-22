@@ -20,12 +20,22 @@ class	AForm
 	
 		class GradeTooHighException : public std::exception
 		{
+			private:
+				const char*	message;
+
 			public:
+				GradeTooHighException();
+				GradeTooHighException(const char *message);
 				virtual const char	*what() const throw();
 		};
 		class GradeTooLowException : public std::exception
 		{
+			private:
+				const char*	message;
+			
 			public:
+				GradeTooLowException();
+				GradeTooLowException(const char *message);
 				virtual const char	*what() const throw();
 		};
 		
@@ -38,7 +48,7 @@ class	AForm
 	public:
 		AForm(std::string name, int signableGrade, int executableGrade);
 		AForm(const AForm& form);
-		~AForm();
+		virtual ~AForm();
 		AForm& operator=(const AForm& form);
 
 		const std::string&	getName() const;
@@ -47,6 +57,7 @@ class	AForm
 		const int&			getExecutableGrade() const;		
 
 		void	beSigned(Bureaucrat bureaucrat);
+		virtual void	execute(Bureaucrat const &executor) const = 0;
 };
 
 std::ostream&	operator<<(std::ostream &out, const AForm &form);
