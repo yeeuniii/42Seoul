@@ -3,7 +3,7 @@
 ShrubberyCreationForm::ShrubberyCreationForm() : AForm(), target("") {}
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target)
-: AForm("ShrubberyCreation", 145, 137)
+: AForm("shrubbery creation", 145, 137)
 {
 	this->target = target;
 }

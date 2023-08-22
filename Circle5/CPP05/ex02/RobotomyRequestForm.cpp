@@ -3,7 +3,7 @@
 RobotomyRequestForm::RobotomyRequestForm() : AForm(), target("") {}
 
 RobotomyRequestForm::RobotomyRequestForm(std::string target)
-: AForm("RobotomyRequest", 72, 45)
+: AForm("robotomy request", 72, 45)
 {
 	this->target = target;
 }
