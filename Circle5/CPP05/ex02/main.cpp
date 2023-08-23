@@ -15,11 +15,12 @@ void	signAndExecuteForm(Bureaucrat *bureaucrats[], AForm *form)
 		bureaucrats[idx]->signForm(*form);
 		idx--;
 	}
-	std::cout << *form;
+	std::cout << *form << std::endl;
 	for (int idx = 0; idx < 4; idx++)
 	{
 		std::cout << *bureaucrats[idx];
 		bureaucrats[idx]->executeForm(*form);
+		std::cout << std::endl;
 	}
 }
 
@@ -44,7 +45,7 @@ int main()
 	std::cout << std::endl;
 	std::cout << "----------Shruberry Creation Form----------" << std::endl;
 	{
-		AForm	*form = new ShrubberyCreationForm("mountain");
+		AForm	*form = new ShrubberyCreationForm("home");
 
 		signAndExecuteForm(bureaucrats, form);
 		delete form;
@@ -52,7 +53,7 @@ int main()
 	std::cout << std::endl;
 	std::cout << "----------Robotomy Request Form----------" << std::endl;
 	{
-		AForm	*form = new RobotomyRequestForm("factory");
+		AForm	*form = new RobotomyRequestForm("robot");
 		
 		signAndExecuteForm(bureaucrats, form);
 		delete form;
@@ -60,14 +61,13 @@ int main()
 	std::cout << std::endl;
 	std::cout << "----------Presidential Pardon Form----------" << std::endl;
 	{
-		AForm	*form = new PresidentialPardonForm("home");
+		AForm	*form = new PresidentialPardonForm("tom");
 		
 		signAndExecuteForm(bureaucrats, form);
 		delete form;
 	}
-	std::cout << std::endl;
 	for (int idx = 0; idx < 4; idx++)
 		delete bureaucrats[idx];
-	system("leaks form");
+	// system("leaks form");
 	return 0;
 }
