@@ -7,7 +7,7 @@
 
 Intern::MakingFormException::MakingFormException(std::string formName) 
 {
-	std::string	message(formName + " does not exist");
+	std::string	message(formName + " is not a form name that exist");
 
 	this->message = message.c_str();
 	this->message = strdup(this->message);
