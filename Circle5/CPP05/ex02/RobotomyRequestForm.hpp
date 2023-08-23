@@ -20,6 +20,7 @@ class RobotomyRequestForm : public AForm
 
 		const std::string&	getTarget() const;
 		virtual void		execute(Bureaucrat const &executor) const;
+		std::string			makeExecuteMessage(int sucess) const;	
 };
 
 #endif

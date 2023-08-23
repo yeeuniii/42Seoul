@@ -1,4 +1,7 @@
 #include "RobotomyRequestForm.hpp"
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 RobotomyRequestForm::RobotomyRequestForm() : AForm(), target("") {}
 
@@ -32,8 +35,18 @@ const std::string&	RobotomyRequestForm::getTarget() const
 
 void	RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
-	if (this->isSigned == false)
-		throw AForm::NotSignException();
-	if (this->executableGrade < executor.getGrade())
-		throw AForm::GradeTooHighException("form`s grade is too high than executor.");
+	checkExecute(executor.getGrade());
+	
+	std::cout << "Drrrrrrrrrrrr..." << std::endl;
+	srand((unsigned int)time(0));
+	int	randomNumber = rand() + executor.getGrade();
+	std::cout << makeExecuteMessage(randomNumber % 2) << std::endl;
+}
+
+std::string			RobotomyRequestForm::makeExecuteMessage(int success) const
+{
+	std::string message = "Target " + this->target + " has been robotomized "; 
+	
+	message += success ? "success" : "fail";
+	return message;
 }
