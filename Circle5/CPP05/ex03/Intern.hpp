@@ -2,9 +2,22 @@
 #define __INTERN_HPP__
 
 #include "AForm.hpp"
+#include <exception>
 
 class Intern
 {
+	private:
+		class MakingFormException : public std::exception
+		{
+			private:
+				const char*	message;
+
+			public:
+				MakingFormException(std::string formName);
+				virtual ~MakingFormException() throw();
+				virtual const char*	what() const throw();
+		};
+
 	public:
 		Intern();
 		Intern(const Intern &intern);

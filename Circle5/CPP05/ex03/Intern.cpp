@@ -5,6 +5,25 @@
 #include <string>
 #include <iostream>
 
+Intern::MakingFormException::MakingFormException(std::string formName) 
+{
+	std::string	message(formName + " does not exist");
+
+	this->message = message.c_str();
+	this->message = strdup(this->message);
+}
+
+Intern::MakingFormException::~MakingFormException() throw()
+{
+	if (this->message)
+		delete this->message;
+}
+
+const char*	Intern::MakingFormException::what() const throw()
+{
+	return this->message;
+}
+
 Intern::Intern() {}
 
 Intern::Intern(const Intern &intern)
@@ -14,7 +33,7 @@ Intern::Intern(const Intern &intern)
 
 Intern::~Intern() {}
 
-Intern&	Intern::operator=(const Intern &intern)
+Intern &Intern::operator=(const Intern &intern)
 {
 	if (this != &intern)
 	{
@@ -22,29 +41,26 @@ Intern&	Intern::operator=(const Intern &intern)
 	return *this;
 }
 
-AForm*	Intern::makeForm(const std::string &formName, const std::string &formTarget) const
+AForm *Intern::makeForm(const std::string &formName, const std::string &formTarget) const
 {
 	const std::string names[3] = {"shrubbery creation", "robotomy request", "presidential pardon"};
-	int	idx = 0;
+	int idx = 0;
 
-	try
+	while (idx < 3 && formName != names[idx])
+		idx++;
+	if (idx == 3)
 	{
-		while (formName != names[idx])
-			idx++;
-		std::cout << "Intern creates " << names[idx] << std::endl;
-		switch (idx)
-		{
-			case 0:
-				return new ShrubberyCreationForm(formTarget);
-			case 1:
-				return new RobotomyRequestForm(formTarget);
-			case 2:
-				return new PresidentialPardonForm(formTarget);
-		}
+		throw MakingFormException(formName);
 	}
-	catch (...)
+	std::cout << "Intern creates " << names[idx] << std::endl;
+	switch (idx)
 	{
-		std::cerr << "Form name is not invalid." << std::endl;
+		case 0:
+			return new ShrubberyCreationForm(formTarget);
+		case 1:
+			return new RobotomyRequestForm(formTarget);
+		case 2:
+			return new PresidentialPardonForm(formTarget);
 	}
 	return 0;
 }
