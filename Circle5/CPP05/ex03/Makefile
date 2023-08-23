@@ -1,14 +1,16 @@
 CC = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 
-NAME = form
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98  
+NAME = intern
 SRCS = \
 	main.cpp \
 	Bureaucrat.cpp \
 	AForm.cpp \
 	ShrubberyCreationForm.cpp \
 	RobotomyRequestForm.cpp \
-	PresidentialPardonForm.cpp
+	PresidentialPardonForm.cpp \
+	Intern.cpp
 OBJS = $(SRCS:.cpp=.o)
+TREES = $(wildcard ./*_shrubbery) 
 
 all : $(NAME)
 
@@ -20,6 +22,7 @@ $(NAME) : $(OBJS)
 
 clean :
 	rm -f $(OBJS)
+	rm -f $(TREES)
 
 fclean : clean
 	rm -f $(NAME)

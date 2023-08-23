@@ -1,4 +1,6 @@
 #include "ShrubberyCreationForm.hpp"
+#include <fstream>
+#include <iostream>
 
 ShrubberyCreationForm::ShrubberyCreationForm() : AForm(), target("") {}
 
@@ -32,8 +34,37 @@ const std::string&	ShrubberyCreationForm::getTarget() const
 
 void	ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
-	if (this->isSigned == false)
-		throw AForm::NotSignException();
-	if (this->executableGrade < executor.getGrade())
-		throw AForm::GradeTooHighException("form`s grade is too high than executor.");
+	std::ofstream	file;
+	
+	checkExecute(executor.getGrade());
+	try
+	{
+		file.open(std::string(this->target + "_shrubbery").c_str());
+		if (file.is_open() == false)
+			throw false;
+		std::string	tree = makeAsciiTree();
+		file.write(tree.c_str(), tree.size());
+		file.close();
+	}
+	catch (bool is_open)
+	{
+		std::cerr << "Fail open file." << std::endl;
+	}
+}
+
+std::string		ShrubberyCreationForm::makeAsciiTree() 
+{
+	std::string tree = "                          	   # #### ####\n \
+	                       ### \\/#|### |/####\n \
+ 	                      ##\\/#/ \\||/##/_/##/_#\n \
+  	                      ###  \\/###|/ \\/ # ###\n \
+   	                 ##_\\_#\\_\\## | #/###_/_####\n \
+    	               ## #### # \\ #| /  #### ##/##\n \
+     	               __#_--###`  |{,###---###-~\n \
+      	                        \\ }{\n \
+    	                          }}{\n \
+    	                          }}{\n \
+     	                          {{}\n \
+                    	    , -=-~{ .-^- _\n";
+	return tree;
 }

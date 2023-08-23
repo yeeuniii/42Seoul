@@ -9,7 +9,7 @@ class	Bureaucrat;
 
 class	AForm
 {
-	protected:
+	private:
 		const std::string name;
 		bool			isSigned;
 		const int		signableGrade;
@@ -40,9 +40,7 @@ class	AForm
 			public:
 				virtual const char	*what() const throw();
 		};
-		
-		AForm();
-		
+				
 		void	handleGradeException() const;
 		void	handleHighGradeException() const;
 		void	handleLowGradeException() const;
@@ -50,6 +48,7 @@ class	AForm
 		bool	isLowGrade() const;
 
 	public:
+		AForm();
 		AForm(std::string name, int signableGrade, int executableGrade);
 		AForm(const AForm& form);
 		virtual ~AForm();
@@ -62,6 +61,7 @@ class	AForm
 
 		void	beSigned(Bureaucrat bureaucrat);
 		virtual void	execute(Bureaucrat const &executor) const = 0;
+		void	checkExecute(int executorGrade) const;
 };
 
 std::ostream&	operator<<(std::ostream &out, const AForm &form);
