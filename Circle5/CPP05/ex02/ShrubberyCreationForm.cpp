@@ -39,7 +39,7 @@ void	ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 	checkExecute(executor.getGrade());
 	try
 	{
-		file.open(this->target + "_shrubbery");
+		file.open(std::string(this->target + "_shrubbery").c_str());
 		if (file.is_open() == false)
 			throw false;
 		std::string	tree = makeAsciiTree();
