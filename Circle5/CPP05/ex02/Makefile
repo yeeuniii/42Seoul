@@ -9,6 +9,7 @@ SRCS = \
 	RobotomyRequestForm.cpp \
 	PresidentialPardonForm.cpp
 OBJS = $(SRCS:.cpp=.o)
+TREES = $(wildcard ./*_shrubbery) 
 
 all : $(NAME)
 
@@ -20,6 +21,7 @@ $(NAME) : $(OBJS)
 
 clean :
 	rm -f $(OBJS)
+	rm -f $(TREES)
 
 fclean : clean
 	rm -f $(NAME)
