@@ -104,6 +104,14 @@ void	AForm::beSigned(Bureaucrat bureaucrat)
 		throw AForm::GradeTooLowException();
 }
 
+void	AForm::checkExecute(int executorGrade) const
+{
+	if (this->isSigned == false)
+		throw AForm::NotSignException();
+	if (this->executableGrade < executorGrade)
+		throw AForm::GradeTooHighException("form`s grade is too high than executor.");
+}
+
 std::ostream&	operator<<(std::ostream &out, const AForm &form)
 {
 	out << form.getName()
