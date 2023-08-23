@@ -1,4 +1,5 @@
 #include "PresidentialPardonForm.hpp"
+#include <iostream>
 
 PresidentialPardonForm::PresidentialPardonForm() : AForm(), target("") {} 
 
@@ -32,8 +33,6 @@ const std::string&	PresidentialPardonForm::getTarget() const
 
 void	PresidentialPardonForm::execute(Bureaucrat const &executor) const
 {
-	if (this->isSigned == false)
-		throw AForm::NotSignException();
-	if (this->executableGrade < executor.getGrade())
-		throw AForm::GradeTooHighException("form`s grade is too high than executor.");
+	checkExecute(executor.getGrade());
+	std::cout << "Target " << this->target << " has been pardoned by Zamphod Beeblebrox." << std::endl;
 }
