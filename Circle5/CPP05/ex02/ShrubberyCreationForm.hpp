@@ -20,6 +20,7 @@ class ShrubberyCreationForm : public AForm
 
 		const std::string&	getTarget() const;
 		virtual void	execute(Bureaucrat const &executor) const;
+		static std::string		makeAsciiTree();
 };
 
 #endif
