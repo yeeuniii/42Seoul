@@ -55,12 +55,12 @@ void	Bureaucrat::handleLowGradeException() const
 
 bool	Bureaucrat::isHighGrade() const
 {
-	return this->grade > 150;
+	return this->grade < 1;
 }
 
 bool	Bureaucrat::isLowGrade() const
 {
-	return this->grade < 1;
+	return this->grade > 150;
 }
 
 const std::string&	Bureaucrat::getName() const
@@ -76,13 +76,13 @@ const int&	Bureaucrat::getGrade() const
 void	Bureaucrat::incrementGrade(int grade)
 {
 	this->grade -= grade;
-	handleLowGradeException();
+	handleHighGradeException();
 }
 
 void	Bureaucrat::decrementGrade(int grade)
 {
 	this->grade += grade;
-	handleHighGradeException();
+	handleLowGradeException();
 }
 
 std::ostream&	operator<<(std::ostream &out, const Bureaucrat &bureaucrat)
@@ -90,7 +90,7 @@ std::ostream&	operator<<(std::ostream &out, const Bureaucrat &bureaucrat)
 	out << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << "." << std::endl;
 	return out;
 }
-		
+
 void	Bureaucrat::signForm(AForm &form) const
 {
 	try
@@ -104,7 +104,6 @@ void	Bureaucrat::signForm(AForm &form) const
 			<< " because " << e.what() << std::endl;
 	}
 }
-
 
 void	Bureaucrat::executeForm(AForm const &form)
 {
