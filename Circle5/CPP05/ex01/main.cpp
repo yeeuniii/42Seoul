@@ -21,7 +21,7 @@ void	testConstructor()
 	{
 		try
 		{
-			Form high("high", 151, 1);
+			Form high("high", 0, 1);
 			std::cout << high;
 		}
 		catch (std::exception &e)
@@ -34,7 +34,7 @@ void	testConstructor()
 	{
 		try
 		{
-			Form low("low", 150, 0);
+			Form low("low", 150, 151);
 			std::cout << low;
 		}
 		catch (std::exception &e)

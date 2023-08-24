@@ -20,7 +20,7 @@ void	testConstructor()
 	{
 		try
 		{
-			Bureaucrat high("high", 151);
+			Bureaucrat high("high", 0);
 			std::cout << high;
 		}
 		catch (std::exception &e)
@@ -33,7 +33,7 @@ void	testConstructor()
 	{
 		try
 		{
-			Bureaucrat low("low", 0);
+			Bureaucrat low("low", 151);
 			std::cout << low;
 		}
 		catch (std::exception &e)
