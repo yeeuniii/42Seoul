@@ -56,12 +56,12 @@ void	Form::handleLowGradeException() const
 
 bool	Form::isHighGrade() const
 {
-	return this->signableGrade > 150 || this->executableGrade > 150;
+	return this->signableGrade < 1 || this->executableGrade < 1;
 }
 
 bool	Form::isLowGrade() const
 {
-	return this->signableGrade < 1 || this->executableGrade < 1;
+	return this->signableGrade > 150 || this->executableGrade > 150;
 }
 
 const std::string&	Form::getName() const
