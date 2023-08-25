@@ -17,9 +17,26 @@ bool	isInf(std::string str)
 	return str.substr(1) == "inf";
 }
 
-bool	isPseudoLiteral(std::string str)
+bool	isNanf(std::string str)
+{
+	return str == "nanf";
+}
+
+bool	isInff(std::string str)
+{
+	if (isSign(str[0]) == false)
+		return false;
+	return str.substr(1) == "inff";
+}
+
+bool	isPseudoDoubleLiteral(std::string str)
 {
 	return isNan(str) || isInf(str);
+}
+
+bool	isPseudoFloatLiteral(std::string str)
+{
+	return isNanf(str) || isInff(str);
 }
 
 bool	isCharLiteral(std::string literal)
@@ -50,7 +67,7 @@ bool	isFloatLiteral(std::string literal)
 
 	if (literal[size - 1] != 'f')
 		return false;
-	if (isPseudoLiteral(literal.substr(0, size - 1)))
+	if (isPseudoFloatLiteral(literal))
 		return true;
 	if (isSign(literal[0]))
 		idx++;
@@ -68,7 +85,7 @@ bool	isDoubleLiteral(std::string literal)
 	int	idx = 0;
 	int	size = literal.size();
 
-	if (isPseudoLiteral(literal))
+	if (isPseudoDoubleLiteral(literal))
 		return true;
 	if (isSign(literal[0]))
 		idx++;
