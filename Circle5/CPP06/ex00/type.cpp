@@ -1,5 +1,27 @@
 #include "type.hpp"
 
+bool	isSign(char	c)
+{
+	return c == '+' || c == '-';
+}
+
+bool	isNan(std::string str)
+{
+	return str == "nan";
+}
+
+bool	isInf(std::string str)
+{
+	if (isSign(str[0]) == false)
+		return false;
+	return str.substr(1) == "inf";
+}
+
+bool	isPseudoLiteral(std::string str)
+{
+	return isNan(str) || isInf(str);
+}
+
 bool	isCharLiteral(std::string literal)
 {
 	int	size = literal.size();
@@ -14,7 +36,7 @@ bool	isIntLiteral(std::string literal)
 	int	idx = 0;
 	int	size = literal.size();
 
-	if (literal[0] == '+' || literal[0] == '-')
+	if (isSign(literal[0]))
 		idx++;
 	while (idx < size && isdigit(literal[idx]))
 		idx++;
@@ -28,7 +50,9 @@ bool	isFloatLiteral(std::string literal)
 
 	if (literal[size - 1] != 'f')
 		return false;
-	if (literal[0] == '+' || literal[0] == '-')
+	if (isPseudoLiteral(literal.substr(0, size - 1)))
+		return true;
+	if (isSign(literal[0]))
 		idx++;
 	while (idx < size - 1 && isdigit(literal[idx]))
 		idx++;
@@ -44,7 +68,9 @@ bool	isDoubleLiteral(std::string literal)
 	int	idx = 0;
 	int	size = literal.size();
 
-	if (literal[0] == '+' || literal[0] == '-')
+	if (isPseudoLiteral(literal))
+		return true;
+	if (isSign(literal[0]))
 		idx++;
 	while (idx < size && isdigit(literal[idx]))
 		idx++;
