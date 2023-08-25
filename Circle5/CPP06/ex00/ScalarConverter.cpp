@@ -1,4 +1,7 @@
 #include "ScalarConverter.hpp"
+#include <sstream>
+#include <limits>
+
 
 ScalarConverter::ScalarConverter() {}
 
@@ -32,4 +35,80 @@ void	ScalarConverter::setLiteral(const std::string& string)
 e_type	ScalarConverter::getType() const
 {
 	return this->type;
+}
+
+void	ScalarConverter::convert()
+{
+	if (this->type == CHAR)
+	{
+		convertCharacter();
+		this->_int = static_cast<int>(this->_char);
+		this->_float = static_cast<float>(this->_char);
+		this->_double = static_cast<double>(this->_char);
+		return ;
+	}
+	if (this->type == INT)
+	{
+		convertInteger();
+		this->_char = static_cast<char>(this->_int);
+		this->_float = static_cast<float>(this->_int);
+		this->_double = static_cast<double>(this->_int);
+		return ;
+	}
+	if (this->type == FLOAT)
+	{
+		convertFloat();
+		this->_char = static_cast<char>(this->_float);
+		this->_int = static_cast<int>(this->_float);
+		this->_double = static_cast<double>(this->_float);
+		return ;
+	}
+	if (this->type == DOUBLE)
+	{
+		convertDouble();
+		this->_char = static_cast<char>(this->_double);
+		this->_int = static_cast<int>(this->_double);
+		this->_float = static_cast<float>(this->_double);
+		return ;
+	}
+}
+
+void	ScalarConverter::convertCharacter()
+{
+	const char	*str = this->literal.c_str();
+	
+	this->_char = str[0];
+}
+
+void	ScalarConverter::convertInteger()
+{
+	std::stringstream	ss;
+
+	ss << this->literal;	
+	ss >> this->_int;
+}
+
+void	ScalarConverter::convertFloat()
+{
+	if (isInff(this->literal))
+		this->_float = std::numeric_limits<float>::infinity();
+	if (isNanf(this->literal))
+		this->_float = std::numeric_limits<float>::quiet_NaN();
+	
+	std::stringstream ss;
+
+	ss << this->literal;
+	ss >> this->_float;
+}
+void	ScalarConverter::convertDouble()
+{
+	if (isInff(this->literal))
+		this->_double = std::numeric_limits<double>::infinity();
+	if (isNanf(this->literal))
+		this->_double = std::numeric_limits<double>::quiet_NaN();
+	
+	std::stringstream ss;
+
+	ss << this->literal;
+	ss >> this->_double;
 }
