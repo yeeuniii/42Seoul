@@ -1,7 +1,7 @@
 #include "ScalarConverter.hpp"
 #include <sstream>
 #include <limits>
-
+#include <ios>
 
 ScalarConverter::ScalarConverter() {}
 
@@ -37,7 +37,7 @@ e_type	ScalarConverter::getType() const
 	return this->type;
 }
 
-void	ScalarConverter::convert()
+void	ScalarConverter::convertScalar()
 {
 	if (this->type == CHAR)
 	{
@@ -111,4 +111,51 @@ void	ScalarConverter::convertDouble()
 
 	ss << this->literal;
 	ss >> this->_double;
+}
+
+void	ScalarConverter::display() const
+{
+	displayCharacter();
+	displayInteger();
+	displayFloat();
+	displayDouble();
+}
+
+void	ScalarConverter::displayCharacter() const
+{
+	std::cout << "char: ";
+	if (isprint(this->_char) == false)
+	{
+		std::cout << "Non displayable" << std::endl;
+		return ;
+	}
+	std::cout << "'" << this->_char << "'" << std::endl;
+
+}
+
+void	ScalarConverter::displayInteger() const
+{
+	std::cout << "int: " << this->_int << std::endl;
+}
+
+void	ScalarConverter::displayFloat() const
+{
+	if (this->_float - this->_int == 0)
+	{
+		std::cout.setf(std::ios::fixed);
+		std::cout.precision(1);
+	}
+	std::cout << "float: " << this->_float << "f" << std::endl;
+	std::cout.unsetf(std::ios::fixed);
+}
+
+void	ScalarConverter::displayDouble() const
+{
+	if (this->_double - this->_int == 0)
+	{
+		std::cout.setf(std::ios::fixed);
+		std::cout.precision(1);
+	}
+	std::cout << "double: " << this->_double << std::endl;
+	std::cout.unsetf(std::ios::fixed);
 }

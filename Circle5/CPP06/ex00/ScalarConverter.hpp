@@ -2,6 +2,7 @@
 #define __SCALARCONVERTER_HPP__
 
 #include <string>
+#include <iostream>
 #include "type.hpp"
 
 class ScalarConverter
@@ -9,14 +10,24 @@ class ScalarConverter
 	private:
 		std::string literal;
 		e_type		type;
-		
-		ScalarConverter();
-		
-	public:
 		char		_char;
 		int			_int;
 		float		_float;
 		double		_double;
+		
+		ScalarConverter();
+		
+		void	convertCharacter();
+		void	convertInteger();
+		void	convertFloat();
+		void	convertDouble();
+		
+		void	displayCharacter() const;
+		void	displayInteger() const;
+		void	displayFloat() const;
+		void	displayDouble() const;
+		
+	public:
 		ScalarConverter(const std::string& literal);
 		ScalarConverter(const ScalarConverter&);
 		~ScalarConverter();
@@ -25,16 +36,10 @@ class ScalarConverter
 		void	setLiteral(const std::string& string);
 		e_type	getType() const;
 
-		// void	setCharacter(const char& character);
-		// void	setInteger(const int& integer);
-		// void	setFloat(const float& floatLiteral);
-		// void	setDouble(const double& doubleLiteral);
-
-		void	convert();
-		void	convertCharacter();
-		void	convertInteger();
-		void	convertFloat();
-		void	convertDouble();
+		void	convertScalar();
+		void	display() const;
 };
+
+std::ostream&	operator<<(std::ostream&, const ScalarConverter&);
 
 #endif
