@@ -103,6 +103,7 @@ void	ScalarConverter::convertFloat()
 	if (isInff(this->literal))
 	{
 		this->_float = std::numeric_limits<float>::infinity();
+		this->_float *= (this->literal[0] == '+') - (this->literal[0] == '-');
 		this->isPseudo = true;
 	}
 	if (isNanf(this->literal))
@@ -124,6 +125,7 @@ void	ScalarConverter::convertDouble()
 	if (isInf(this->literal))
 	{
 		this->_double = std::numeric_limits<double>::infinity();
+		this->_double *= (this->literal[0] == '+') - (this->literal[0] == '-');
 		this->isPseudo = true;
 	}
 	if (isNan(this->literal))
