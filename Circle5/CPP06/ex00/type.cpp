@@ -43,9 +43,11 @@ bool	isCharLiteral(std::string literal)
 {
 	int	size = literal.size();
 
-	if (size != 1)
+	if (size == 1 && isdigit(literal[0]) == false)
+		return true;
+	if (size != 3)
 		return false;
-	return isdigit(literal[0]) == false;
+	return literal[0] == '\'' && literal[2] == '\'';
 }
 
 bool	isIntLiteral(std::string literal)

@@ -76,8 +76,10 @@ void	ScalarConverter::convertScalar()
 void	ScalarConverter::convertCharacter()
 {
 	const char	*str = this->literal.c_str();
-	
+
 	this->_char = str[0];
+	if (this->literal.size() == 3)
+		this->_char = str[1];
 }
 
 void	ScalarConverter::convertInteger()
@@ -100,6 +102,7 @@ void	ScalarConverter::convertFloat()
 	ss << this->literal;
 	ss >> this->_float;
 }
+
 void	ScalarConverter::convertDouble()
 {
 	if (isInff(this->literal))
@@ -130,7 +133,6 @@ void	ScalarConverter::displayCharacter() const
 		return ;
 	}
 	std::cout << "'" << this->_char << "'" << std::endl;
-
 }
 
 void	ScalarConverter::displayInteger() const
