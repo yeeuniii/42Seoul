@@ -5,9 +5,11 @@
 
 ScalarConverter::ScalarConverter() {}
 
-ScalarConverter::ScalarConverter(const std::string& literal) : literal(literal)
+ScalarConverter::ScalarConverter(const std::string& literal)
+: literal(literal), isPseudo(false)
 {
 	this->type = getScalarType(this->literal);
+	convertScalar();
 }
 
 ScalarConverter::ScalarConverter(const ScalarConverter& scalarConverter)
@@ -23,6 +25,11 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& scalarConvert
 	{
 		this->literal = scalarConverter.literal;
 		this->type = scalarConverter.type;
+		this->isPseudo = scalarConverter.isPseudo;
+		this->_char = scalarConverter._char;
+		this->_int = scalarConverter._int;
+		this->_float = scalarConverter._float;
+		this->_double = scalarConverter._double;
 	}
 	return *this;
 }
@@ -93,31 +100,49 @@ void	ScalarConverter::convertInteger()
 void	ScalarConverter::convertFloat()
 {
 	if (isInff(this->literal))
+	{
 		this->_float = std::numeric_limits<float>::infinity();
+		this->isPseudo = true;
+	}
 	if (isNanf(this->literal))
+	{
 		this->_float = std::numeric_limits<float>::quiet_NaN();
-	
+		this->isPseudo = true;
+	}
+	if (this->isPseudo == true)
+		return ;
+
 	std::stringstream ss;
 
-	ss << this->literal;
+	ss << this->literal.substr(0, this->literal.size() - 1);
 	ss >> this->_float;
 }
 
 void	ScalarConverter::convertDouble()
 {
-	if (isInff(this->literal))
+	if (isInf(this->literal))
+	{
 		this->_double = std::numeric_limits<double>::infinity();
-	if (isNanf(this->literal))
+		this->isPseudo = true;
+	}
+	if (isNan(this->literal))
+	{
 		this->_double = std::numeric_limits<double>::quiet_NaN();
+		this->isPseudo = true;
+	}
+	if (this->isPseudo == true)
+		return ;
 	
 	std::stringstream ss;
-
+	
 	ss << this->literal;
 	ss >> this->_double;
 }
 
 void	ScalarConverter::display() const
 {
+	if (!handleNoneType())
+		return ;
 	displayCharacter();
 	displayInteger();
 	displayFloat();
@@ -127,6 +152,11 @@ void	ScalarConverter::display() const
 void	ScalarConverter::displayCharacter() const
 {
 	std::cout << "char: ";
+	if (this->isPseudo == true)
+	{
+		std::cout << "impossible" << std::endl;
+		return ;
+	}
 	if (isprint(this->_char) == false)
 	{
 		std::cout << "Non displayable" << std::endl;
@@ -137,27 +167,47 @@ void	ScalarConverter::displayCharacter() const
 
 void	ScalarConverter::displayInteger() const
 {
-	std::cout << "int: " << this->_int << std::endl;
+	std::cout << "int: ";
+	if (this->isPseudo == true)
+	{
+		std::cout << "impossible" << std::endl;
+		return ;
+	}
+	std::cout << this->_int << std::endl;
 }
 
 void	ScalarConverter::displayFloat() const
 {
+	std::cout << "float: ";
 	if (this->_float - this->_int == 0)
 	{
 		std::cout.setf(std::ios::fixed);
 		std::cout.precision(1);
 	}
-	std::cout << "float: " << this->_float << "f" << std::endl;
+	std::cout << this->_float << "f" << std::endl;
 	std::cout.unsetf(std::ios::fixed);
 }
 
 void	ScalarConverter::displayDouble() const
 {
+	std::cout << "double: ";
 	if (this->_double - this->_int == 0)
 	{
 		std::cout.setf(std::ios::fixed);
 		std::cout.precision(1);
 	}
-	std::cout << "double: " << this->_double << std::endl;
+	std::cout << this->_double << std::endl;
 	std::cout.unsetf(std::ios::fixed);
+}
+
+e_type		ScalarConverter::handleNoneType() const
+{
+	if (this->type == none)
+	{
+		std::cout << "char: impossible" << std::endl
+			<< "int: impossible" << std::endl
+			<< "float: impossible" << std::endl
+			<< "double: impossible" << std::endl;
+	}
+	return this->type;
 }

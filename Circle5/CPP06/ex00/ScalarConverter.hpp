@@ -10,13 +10,16 @@ class ScalarConverter
 	private:
 		std::string literal;
 		e_type		type;
+		bool		isPseudo;
+		
 		char		_char;
 		int			_int;
 		float		_float;
 		double		_double;
-		
+
 		ScalarConverter();
 		
+		void	convertScalar();
 		void	convertCharacter();
 		void	convertInteger();
 		void	convertFloat();
@@ -26,6 +29,7 @@ class ScalarConverter
 		void	displayInteger() const;
 		void	displayFloat() const;
 		void	displayDouble() const;
+		e_type	handleNoneType() const;
 		
 	public:
 		ScalarConverter(const std::string& literal);
@@ -36,7 +40,6 @@ class ScalarConverter
 		void	setLiteral(const std::string& string);
 		e_type	getType() const;
 
-		void	convertScalar();
 		void	display() const;
 };
 
