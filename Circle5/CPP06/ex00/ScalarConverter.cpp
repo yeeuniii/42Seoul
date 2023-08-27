@@ -9,7 +9,7 @@ ScalarConverter::ScalarConverter(const std::string& literal)
 : literal(literal), isPseudo(false)
 {
 	this->type = getScalarType(this->literal);
-	convertScalar();
+	convert();
 }
 
 ScalarConverter::ScalarConverter(const ScalarConverter& scalarConverter)
@@ -37,6 +37,7 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& scalarConvert
 void	ScalarConverter::setLiteral(const std::string& string)
 {
 	this->literal = string;
+	convert();
 }
 
 e_type	ScalarConverter::getType() const
@@ -44,7 +45,7 @@ e_type	ScalarConverter::getType() const
 	return this->type;
 }
 
-void	ScalarConverter::convertScalar()
+void	ScalarConverter::convert()
 {
 	if (this->type == CHAR)
 	{

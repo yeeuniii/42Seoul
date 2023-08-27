@@ -19,7 +19,6 @@ class ScalarConverter
 
 		ScalarConverter();
 		
-		void	convertScalar();
 		void	convertCharacter();
 		void	convertInteger();
 		void	convertFloat();
@@ -40,6 +39,7 @@ class ScalarConverter
 		void	setLiteral(const std::string& string);
 		e_type	getType() const;
 
+		void	convert();
 		void	display() const;
 };
 
