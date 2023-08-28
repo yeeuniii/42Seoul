@@ -16,11 +16,11 @@ Base	*generate()
 	switch (randomValue % 3)
 	{
 		case 0:
-			return new A();
+			return dynamic_cast<Base*>(new A());
 		case 1:
-			return new B();
+			return dynamic_cast<Base*>(new B());
 		case 2:
-			return new C();
+			return dynamic_cast<Base*>(new C());
 	}
 	return 0;
 }
