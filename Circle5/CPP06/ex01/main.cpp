@@ -4,12 +4,11 @@
 
 int	main()
 {
-	static Serializer serializer;
 	Data*	data = new Data;
 
 	data->data = "data";
 
-	Data*	rtv = serializer.deserialize(serializer.serialize(data));
+	Data*	rtv = Serializer::deserialize(Serializer::serialize(data));
 
 	std::cout << "----------Address----------" << std::endl;
 	std::cout << "Original : " << data << std::endl;

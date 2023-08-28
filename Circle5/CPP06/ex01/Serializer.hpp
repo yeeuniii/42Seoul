@@ -7,15 +7,15 @@
 class Serializer
 {
 	private:
+		Serializer();
 
 	public:
-		Serializer();
 		Serializer(const Serializer &serializer);
 		~Serializer();
 		Serializer&	operator=(const Serializer &serializer);
 	
-		uintptr_t	serialize(Data* ptr);
-		Data		*deserialize(uintptr_t raw);
+		static uintptr_t	serialize(Data* ptr);
+		static Data			*deserialize(uintptr_t raw);
 };
 
 #endif
