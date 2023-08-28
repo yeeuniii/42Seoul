@@ -182,6 +182,8 @@ void	ScalarConverter::displayInteger() const
 void	ScalarConverter::displayFloat() const
 {
 	std::cout << "float: ";
+	if (this->isPseudo)
+		std::cout.setf(std::ios_base::showpos);
 	if (this->_float - this->_int == 0)
 	{
 		std::cout.setf(std::ios::fixed);
@@ -194,6 +196,8 @@ void	ScalarConverter::displayFloat() const
 void	ScalarConverter::displayDouble() const
 {
 	std::cout << "double: ";
+	if (this->isPseudo)
+		std::cout.setf(std::ios_base::showpos);
 	if (this->_double - this->_int == 0)
 	{
 		std::cout.setf(std::ios::fixed);
