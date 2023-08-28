@@ -27,10 +27,13 @@ Base	*generate()
 
 void	identify(Base *p)
 {
+	if (!p)
+		return ;
+	
 	A	*a = dynamic_cast<A*>(p);
 	B	*b = dynamic_cast<B*>(p);
 	C	*c = dynamic_cast<C*>(p);
-	std::string	type;
+	std::string	type = "base";
 
 	std::cout << "My actual type is ";
 	if (a)
@@ -44,7 +47,7 @@ void	identify(Base *p)
 
 void	identify(Base &p)
 {
-	std::string	type;
+	std::string	type = "base";
 
 	std::cout << "My actual type is ";
 	try
