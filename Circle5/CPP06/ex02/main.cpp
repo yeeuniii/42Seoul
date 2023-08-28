@@ -9,16 +9,36 @@ void leaks()
 	system("leaks base");
 }
 
-int	main()
-{	
-	Base	*base = generate();
-	Base	&baseRef = *base;
-	
+int main()
+{
 	// atexit(leaks);
-	
-	identify(base);
-	identify(baseRef);
+	std::cout << "----------Dervied class----------" << std::endl;
+	{
+		Base *base = generate();
+		Base &baseRef = *base;
 
-	delete base;
+		identify(base);
+		identify(baseRef);
+
+		delete base;
+	}
+	std::cout << std::endl;
+	std::cout << "----------Base class----------" << std::endl;
+	{
+		Base *base = new Base();
+		Base &baseRef = *base;
+
+		identify(base);
+		identify(baseRef);
+
+		delete base;
+	}
+	std::cout << std::endl;
+	std::cout << "----------NULL----------" << std::endl;
+	{
+		Base *base = 0;
+
+		identify(base);
+	}
 	return 0;
 }
