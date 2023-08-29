@@ -10,39 +10,30 @@ class ScalarConverter
 	private:
 		std::string literal;
 		e_type		type;
-		bool		isPseudo;
+		bool		isInChar;
+		bool		isInInt;
 		
-		char		_char;
-		int			_int;
-		float		_float;
-		double		_double;
-
 		ScalarConverter();
-		
-		void	convertCharacter();
-		void	convertInteger();
-		void	convertFloat();
-		void	convertDouble();
-		
-		void	displayCharacter() const;
-		void	displayInteger() const;
-		void	displayFloat() const;
-		void	displayDouble() const;
-		e_type	handleNoneType() const;
-		
+	
 	public:
 		ScalarConverter(const std::string& literal);
 		ScalarConverter(const ScalarConverter&);
 		~ScalarConverter();
 		ScalarConverter& operator=(const ScalarConverter&);
 
-		void	setLiteral(const std::string& string);
-		e_type	getType() const;
-
-		void	convert();
-		void	display() const;
+		static void	convert(std::string literal);
+		static void	convertAll(std::string literal, char&, int&, float&, double&);
+		static char	convertCharacter(std::string literal);
+		static int	convertInteger(std::string literal);
+		static float convertFloat(std::string literal);
+		static double convertDouble(std::string literal);
+		
+		static void	display(char, int, float, double);
+		static void	displayNoneType();
+		static void	displayCharacter(char, bool isPseudo);
+		static void	displayInteger(int, bool isPseudo);
+		static void	displayFloat(float, bool notDecimalPoint);
+		static void	displayDouble(double, bool notDecimalPoint);
 };
-
-std::ostream&	operator<<(std::ostream&, const ScalarConverter&);
 
 #endif

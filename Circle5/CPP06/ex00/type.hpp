@@ -18,6 +18,7 @@ bool 	isIntLiteral(std::string);
 bool 	isFloatLiteral(std::string);
 bool 	isDoubleLiteral(std::string);
 
+bool	isSign(char	c);
 bool	isNan(std::string str);
 bool	isInf(std::string str);
 bool	isNanf(std::string str);

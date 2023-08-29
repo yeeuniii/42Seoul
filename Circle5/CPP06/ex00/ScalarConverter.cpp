@@ -1,16 +1,10 @@
 #include "ScalarConverter.hpp"
+#include "utils.hpp"
 #include <sstream>
 #include <limits>
 #include <ios>
 
 ScalarConverter::ScalarConverter() {}
-
-ScalarConverter::ScalarConverter(const std::string& literal)
-: literal(literal), isPseudo(false)
-{
-	this->type = getScalarType(this->literal);
-	convert();
-}
 
 ScalarConverter::ScalarConverter(const ScalarConverter& scalarConverter)
 {
@@ -23,198 +17,191 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& scalarConvert
 {
 	if (this != &scalarConverter)
 	{
-		this->literal = scalarConverter.literal;
-		this->type = scalarConverter.type;
-		this->isPseudo = scalarConverter.isPseudo;
-		this->_char = scalarConverter._char;
-		this->_int = scalarConverter._int;
-		this->_float = scalarConverter._float;
-		this->_double = scalarConverter._double;
 	}
 	return *this;
 }
 
-void	ScalarConverter::setLiteral(const std::string& string)
+void	ScalarConverter::convert(std::string literal)
 {
-	this->literal = string;
-	convert();
+	char	_char;
+	int		_int;
+	float	_float;
+	double	_double;
+
+	convertAll(literal, _char, _int, _float, _double);
+	display(_char, _int, _float, _double);
 }
 
-e_type	ScalarConverter::getType() const
+void	ScalarConverter::convertAll(std::string literal, char& _char, int&_int, float& _float, double& _double)
 {
-	return this->type;
+	e_type	type = getScalarType(literal);
+	
+	if (type == none)
+		return displayNoneType();
+	if (type == CHAR)
+	{
+		_char = convertCharacter(literal);
+		_int = static_cast<int>(_char);
+		_float = static_cast<float>(_char);
+		_double = static_cast<double>(_char);
+		return ;
+	}
+	if (type == INT)
+	{
+		_int = convertInteger(literal);
+		_char = static_cast<char>(_int);
+		_float = static_cast<float>(_int);
+		_double = static_cast<double>(_int);
+		return ;
+	}
+	if (type == FLOAT)
+	{
+		_float = convertFloat(literal);
+		_char = static_cast<char>(_float);
+		_int = static_cast<int>(_float);
+		_double = static_cast<double>(_float);
+		return ;
+	}
+	if (type == DOUBLE)
+	{
+		_double = convertDouble(literal);
+		_char = static_cast<char>(_double);
+		_int = static_cast<int>(_double);
+		_float = static_cast<float>(_double);
+		return ;
+	}
 }
 
-void	ScalarConverter::convert()
+char	ScalarConverter::convertCharacter(std::string literal)
 {
-	if (this->type == CHAR)
-	{
-		convertCharacter();
-		this->_int = static_cast<int>(this->_char);
-		this->_float = static_cast<float>(this->_char);
-		this->_double = static_cast<double>(this->_char);
-		return ;
-	}
-	if (this->type == INT)
-	{
-		convertInteger();
-		this->_char = static_cast<char>(this->_int);
-		this->_float = static_cast<float>(this->_int);
-		this->_double = static_cast<double>(this->_int);
-		return ;
-	}
-	if (this->type == FLOAT)
-	{
-		convertFloat();
-		this->_char = static_cast<char>(this->_float);
-		this->_int = static_cast<int>(this->_float);
-		this->_double = static_cast<double>(this->_float);
-		return ;
-	}
-	if (this->type == DOUBLE)
-	{
-		convertDouble();
-		this->_char = static_cast<char>(this->_double);
-		this->_int = static_cast<int>(this->_double);
-		this->_float = static_cast<float>(this->_double);
-		return ;
-	}
+	const char	*str = literal.c_str();
+	char		_char;
+
+	_char = str[0];
+	if (literal.size() == 3)
+		_char = str[1];
+	return _char;
 }
 
-void	ScalarConverter::convertCharacter()
-{
-	const char	*str = this->literal.c_str();
-
-	this->_char = str[0];
-	if (this->literal.size() == 3)
-		this->_char = str[1];
-}
-
-void	ScalarConverter::convertInteger()
+int	ScalarConverter::convertInteger(std::string literal)
 {
 	std::stringstream	ss;
+	int		_int;
 
-	ss << this->literal;	
-	ss >> this->_int;
+	ss << literal;	
+	ss >> _int;
+	return _int;
 }
 
-void	ScalarConverter::convertFloat()
+float	ScalarConverter::convertFloat(std::string literal)
 {
-	if (isInff(this->literal))
+	float	_float;
+
+	if (isInff(literal))
 	{
-		this->_float = std::numeric_limits<float>::infinity();
-		this->_float *= (this->literal[0] == '+') - (this->literal[0] == '-');
-		this->isPseudo = true;
+		_float = std::numeric_limits<float>::infinity();
+		_float *= isSign(literal[0]) ? (literal[0] == '+') - (literal[0] == '-') : 1;
+		return _float;
 	}
-	if (isNanf(this->literal))
+	if (isNanf(literal))
 	{
-		this->_float = std::numeric_limits<float>::quiet_NaN();
-		this->isPseudo = true;
+		_float = std::numeric_limits<float>::quiet_NaN();
+		return _float;
 	}
-	if (this->isPseudo == true)
-		return ;
 
 	std::stringstream ss;
 
-	ss << this->literal.substr(0, this->literal.size() - 1);
-	ss >> this->_float;
+	ss << literal.substr(0, literal.size() - 1);
+	ss >> _float;
+	return _float;
 }
 
-void	ScalarConverter::convertDouble()
+double	ScalarConverter::convertDouble(std::string literal)
 {
-	if (isInf(this->literal))
+	double	_double;
+
+	if (isInf(literal))
 	{
-		this->_double = std::numeric_limits<double>::infinity();
-		this->_double *= (this->literal[0] == '+') - (this->literal[0] == '-');
-		this->isPseudo = true;
+		_double = std::numeric_limits<double>::infinity();
+		_double *= isSign(literal[0]) ? (literal[0] == '+') - (literal[0] == '-') : 1;
+		return _double;
 	}
-	if (isNan(this->literal))
+	if (isNan(literal))
 	{
-		this->_double = std::numeric_limits<double>::quiet_NaN();
-		this->isPseudo = true;
+		_double = std::numeric_limits<double>::quiet_NaN();
+		return _double;
 	}
-	if (this->isPseudo == true)
-		return ;
 	
 	std::stringstream ss;
 	
-	ss << this->literal;
-	ss >> this->_double;
+	ss << literal;
+	ss >> _double;
+	return _double;
 }
 
-void	ScalarConverter::display() const
+void	ScalarConverter::display(char _char, int _int, float _float, double _double)
 {
-	if (!handleNoneType())
-		return ;
-	displayCharacter();
-	displayInteger();
-	displayFloat();
-	displayDouble();
+	displayCharacter(_char, isPseudo(_float) || isPseudo(_double));
+	displayInteger(_int, isPseudo(_float) || isPseudo(_double));
+	displayFloat(_float, _float - _int == 0);
+	displayDouble(_double, _double - _int == 0);
 }
-
-void	ScalarConverter::displayCharacter() const
+	
+void	ScalarConverter::displayNoneType()
 {
-	std::cout << "char: ";
-	if (this->isPseudo == true)
-	{
-		std::cout << "impossible" << std::endl;
-		return ;
-	}
-	if (isprint(this->_char) == false)
-	{
-		std::cout << "Non displayable" << std::endl;
-		return ;
-	}
-	std::cout << "'" << this->_char << "'" << std::endl;
-}
-
-void	ScalarConverter::displayInteger() const
-{
-	std::cout << "int: ";
-	if (this->isPseudo == true)
-	{
-		std::cout << "impossible" << std::endl;
-		return ;
-	}
-	std::cout << this->_int << std::endl;
-}
-
-void	ScalarConverter::displayFloat() const
-{
-	std::cout << "float: ";
-	if (this->isPseudo)
-		std::cout.setf(std::ios_base::showpos);
-	if (this->_float - this->_int == 0)
-	{
-		std::cout.setf(std::ios::fixed);
-		std::cout.precision(1);
-	}
-	std::cout << this->_float << "f" << std::endl;
-	std::cout.unsetf(std::ios::fixed);
-}
-
-void	ScalarConverter::displayDouble() const
-{
-	std::cout << "double: ";
-	if (this->isPseudo)
-		std::cout.setf(std::ios_base::showpos);
-	if (this->_double - this->_int == 0)
-	{
-		std::cout.setf(std::ios::fixed);
-		std::cout.precision(1);
-	}
-	std::cout << this->_double << std::endl;
-	std::cout.unsetf(std::ios::fixed);
-}
-
-e_type		ScalarConverter::handleNoneType() const
-{
-	if (this->type == none)
-	{
 		std::cout << "char: impossible" << std::endl
 			<< "int: impossible" << std::endl
 			<< "float: impossible" << std::endl
 			<< "double: impossible" << std::endl;
+}
+
+void	ScalarConverter::displayCharacter(char _char, bool isPseudo)
+{
+	std::cout << "char: ";
+	if (isPseudo == true)
+	{
+		std::cout << "impossible" << std::endl;
+		return ;
 	}
-	return this->type;
+	if (isprint(_char) == false)
+	{
+		std::cout << "Non displayable" << std::endl;
+		return ;
+	}
+	std::cout << "'" << _char << "'" << std::endl;
+}
+
+void	ScalarConverter::displayInteger(int _int, bool isPseudo)
+{
+	std::cout << "int: ";
+	if (isPseudo == true)
+	{
+		std::cout << "impossible" << std::endl;
+		return ;
+	}
+	std::cout << _int << std::endl;
+}
+
+void	ScalarConverter::displayFloat(float _float, bool notDecimalPoint)
+{
+	std::cout << "float: ";
+	if (notDecimalPoint)
+	{
+		std::cout.setf(std::ios::fixed);
+		std::cout.precision(1);
+	}
+	std::cout << _float << "f" << std::endl;
+	std::cout.unsetf(std::ios::fixed);
+}
+
+void	ScalarConverter::displayDouble(double _double, bool notDecimalPoint)
+{
+	std::cout << "double: ";
+	if (notDecimalPoint)
+	{
+		std::cout.setf(std::ios::fixed);
+		std::cout.precision(1);
+	}
+	std::cout << _double << std::endl;
+	std::cout.unsetf(std::ios::fixed);
 }
