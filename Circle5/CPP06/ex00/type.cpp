@@ -12,9 +12,11 @@ bool	isNan(std::string str)
 
 bool	isInf(std::string str)
 {
-	if (isSign(str[0]) == false)
-		return false;
-	return str.substr(1) == "inf";
+	int	idx = 0;
+
+	if (isSign(str[idx]))
+		idx++;
+	return str.substr(idx) == "inf";
 }
 
 bool	isNanf(std::string str)
@@ -24,9 +26,11 @@ bool	isNanf(std::string str)
 
 bool	isInff(std::string str)
 {
-	if (isSign(str[0]) == false)
-		return false;
-	return str.substr(1) == "inff";
+	int	idx = 0;
+
+	if (isSign(str[idx]))
+		idx++;
+	return str.substr(idx) == "inff";
 }
 
 bool	isPseudoDoubleLiteral(std::string str)
