@@ -59,6 +59,7 @@ bool	isIntLiteral(std::string literal)
 	int	idx = 0;
 	int	size = literal.size();
 
+	
 	if (isSign(literal[0]))
 		idx++;
 	while (idx < size && isdigit(literal[idx]))

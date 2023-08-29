@@ -1,4 +1,5 @@
 #include "utils.hpp"
+#include <limits>
 
 bool    isNan(float f)
 {
@@ -28,4 +29,9 @@ bool    isInfinity(double d)
 bool	isPseudo(double d)
 {
 	return isNan(d) || isInfinity(d);
+}
+
+bool	isInChar(int value)
+{
+	return value >= 0 && value <= 255;
 }

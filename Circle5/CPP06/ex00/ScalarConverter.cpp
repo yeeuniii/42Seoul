@@ -141,8 +141,10 @@ double	ScalarConverter::convertDouble(std::string literal)
 
 void	ScalarConverter::display(char _char, int _int, float _float, double _double)
 {
-	displayCharacter(_char, isPseudo(_float) || isPseudo(_double));
-	displayInteger(_int, isPseudo(_float) || isPseudo(_double));
+	bool	isInfOrNan = isPseudo(_float) || isPseudo(_double);
+
+	displayCharacter(_char, !isInfOrNan && isInChar(_int));
+	displayInteger(_int, !isInfOrNan);
 	displayFloat(_float, _float - _int == 0);
 	displayDouble(_double, _double - _int == 0);
 }
@@ -155,10 +157,10 @@ void	ScalarConverter::displayNoneType()
 			<< "double: impossible" << std::endl;
 }
 
-void	ScalarConverter::displayCharacter(char _char, bool isPseudo)
+void	ScalarConverter::displayCharacter(char _char, bool isPossible)
 {
 	std::cout << "char: ";
-	if (isPseudo == true)
+	if (isPossible == false)
 	{
 		std::cout << "impossible" << std::endl;
 		return ;
@@ -171,10 +173,10 @@ void	ScalarConverter::displayCharacter(char _char, bool isPseudo)
 	std::cout << "'" << _char << "'" << std::endl;
 }
 
-void	ScalarConverter::displayInteger(int _int, bool isPseudo)
+void	ScalarConverter::displayInteger(int _int, bool isPossible)
 {
 	std::cout << "int: ";
-	if (isPseudo == true)
+	if (isPossible == false)
 	{
 		std::cout << "impossible" << std::endl;
 		return ;

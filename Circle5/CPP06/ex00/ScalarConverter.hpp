@@ -8,11 +8,6 @@
 class ScalarConverter
 {
 	private:
-		std::string literal;
-		e_type		type;
-		bool		isInChar;
-		bool		isInInt;
-		
 		ScalarConverter();
 	
 	public:
