@@ -8,5 +8,6 @@ bool    isNan(double d);
 bool    isInfinity(double d);
 bool	isPseudo(double d);
 bool	isInChar(int value);
+bool	isInInt(double value);
 
 #endif

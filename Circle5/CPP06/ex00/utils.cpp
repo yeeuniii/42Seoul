@@ -35,3 +35,9 @@ bool	isInChar(int value)
 {
 	return value >= 0 && value <= 255;
 }
+
+bool	isInInt(double value)
+{
+	return value >= std::numeric_limits<int>::min()
+		&& value <= std::numeric_limits<int>::max();
+}

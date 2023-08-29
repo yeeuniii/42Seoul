@@ -25,10 +25,10 @@ class ScalarConverter
 		
 		static void	display(char, int, float, double);
 		static void	displayNoneType();
-		static void	displayCharacter(char, bool isPseudo);
-		static void	displayInteger(int, bool isPseudo);
-		static void	displayFloat(float, bool notDecimalPoint);
-		static void	displayDouble(double, bool notDecimalPoint);
+		static void	displayCharacter(char, bool isPossible);
+		static void	displayInteger(int, bool isPossible);
+		static void	displayFloat(float, bool hasNotDecimalPoint);
+		static void	displayDouble(double, bool hasNotDecimalPoint);
 };
 
 #endif

@@ -23,5 +23,6 @@ bool	isNan(std::string str);
 bool	isInf(std::string str);
 bool	isNanf(std::string str);
 bool	isInff(std::string str);
+bool	checkOver(std::string literal);
 
 #endif

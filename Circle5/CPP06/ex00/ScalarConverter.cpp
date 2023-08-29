@@ -144,7 +144,7 @@ void	ScalarConverter::display(char _char, int _int, float _float, double _double
 	bool	isInfOrNan = isPseudo(_float) || isPseudo(_double);
 
 	displayCharacter(_char, !isInfOrNan && isInChar(_int));
-	displayInteger(_int, !isInfOrNan);
+	displayInteger(_int, !isInfOrNan && isInInt(_double));
 	displayFloat(_float, _float - _int == 0);
 	displayDouble(_double, _double - _int == 0);
 }
@@ -184,10 +184,10 @@ void	ScalarConverter::displayInteger(int _int, bool isPossible)
 	std::cout << _int << std::endl;
 }
 
-void	ScalarConverter::displayFloat(float _float, bool notDecimalPoint)
+void	ScalarConverter::displayFloat(float _float, bool hasNotDecimalPoint)
 {
 	std::cout << "float: ";
-	if (notDecimalPoint)
+	if (hasNotDecimalPoint)
 	{
 		std::cout.setf(std::ios::fixed);
 		std::cout.precision(1);
@@ -196,10 +196,10 @@ void	ScalarConverter::displayFloat(float _float, bool notDecimalPoint)
 	std::cout.unsetf(std::ios::fixed);
 }
 
-void	ScalarConverter::displayDouble(double _double, bool notDecimalPoint)
+void	ScalarConverter::displayDouble(double _double, bool hasNotDecimalPoint)
 {
 	std::cout << "double: ";
-	if (notDecimalPoint)
+	if (hasNotDecimalPoint)
 	{
 		std::cout.setf(std::ios::fixed);
 		std::cout.precision(1);
