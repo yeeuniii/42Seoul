@@ -1,0 +1,31 @@
+#include "utils.hpp"
+
+bool    isNan(float f)
+{
+    return f != f;
+}
+
+bool    isInfinity(float f)
+{
+    return f != 0 && f * 2 == f;
+}
+
+bool	isPseudo(float f)
+{
+	return isNan(f) || isInfinity(f);
+}
+
+bool    isNan(double d)
+{
+	return d != d;
+}
+
+bool    isInfinity(double d)
+{
+    return d != 0 && d * 2 == d;
+}
+
+bool	isPseudo(double d)
+{
+	return isNan(d) || isInfinity(d);
+}
