@@ -28,23 +28,26 @@ void	ScalarConverter::convert(std::string literal)
 	float	_float;
 	double	_double;
 
-	convertAll(literal, _char, _int, _float, _double);
-	display(_char, _int, _float, _double);
+	if (convertAll(literal, _char, _int, _float, _double))
+		display(_char, _int, _float, _double);
 }
 
-void	ScalarConverter::convertAll(std::string literal, char& _char, int&_int, float& _float, double& _double)
+bool	ScalarConverter::convertAll(std::string literal, char& _char, int&_int, float& _float, double& _double)
 {
 	e_type	type = getScalarType(literal);
 	
 	if (type == none)
-		return displayNoneType();
+	{
+		displayNoneType();
+		return false;
+	}
 	if (type == CHAR)
 	{
 		_char = convertCharacter(literal);
 		_int = static_cast<int>(_char);
 		_float = static_cast<float>(_char);
 		_double = static_cast<double>(_char);
-		return ;
+		return true;
 	}
 	if (type == INT)
 	{
@@ -52,7 +55,7 @@ void	ScalarConverter::convertAll(std::string literal, char& _char, int&_int, flo
 		_char = static_cast<char>(_int);
 		_float = static_cast<float>(_int);
 		_double = static_cast<double>(_int);
-		return ;
+		return true;
 	}
 	if (type == FLOAT)
 	{
@@ -60,7 +63,7 @@ void	ScalarConverter::convertAll(std::string literal, char& _char, int&_int, flo
 		_char = static_cast<char>(_float);
 		_int = static_cast<int>(_float);
 		_double = static_cast<double>(_float);
-		return ;
+		return true;
 	}
 	if (type == DOUBLE)
 	{
@@ -68,8 +71,9 @@ void	ScalarConverter::convertAll(std::string literal, char& _char, int&_int, flo
 		_char = static_cast<char>(_double);
 		_int = static_cast<int>(_double);
 		_float = static_cast<float>(_double);
-		return ;
+		return true;
 	}
+	return false;
 }
 
 char	ScalarConverter::convertCharacter(std::string literal)

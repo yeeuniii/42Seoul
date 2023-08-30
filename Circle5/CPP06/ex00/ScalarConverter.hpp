@@ -17,7 +17,7 @@ class ScalarConverter
 		ScalarConverter& operator=(const ScalarConverter&);
 
 		static void	convert(std::string literal);
-		static void	convertAll(std::string literal, char&, int&, float&, double&);
+		static bool	convertAll(std::string literal, char&, int&, float&, double&);
 		static char	convertCharacter(std::string literal);
 		static int	convertInteger(std::string literal);
 		static float convertFloat(std::string literal);
