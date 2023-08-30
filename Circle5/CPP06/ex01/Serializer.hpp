@@ -8,9 +8,9 @@ class Serializer
 {
 	private:
 		Serializer();
+		Serializer(const Serializer &serializer);
 
 	public:
-		Serializer(const Serializer &serializer);
 		~Serializer();
 		Serializer&	operator=(const Serializer &serializer);
 	
