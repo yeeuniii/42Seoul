@@ -1,50 +1,46 @@
 #include "iter.hpp"
 #include <iostream>
 
-void plusTen(int n)
+void	plusTen(int n)
 {
 	n += 10;
 	std::cout << n << std::endl;
 }
 
-struct print
+template <typename T>
+void	print(T value)
 {
-	template <typename T>
-		void	operator()(T element)
-		{
-			std::cout << element << std::endl;
-		}
+	std::cout << value << std::endl;
+}
+
+template <typename T>
+struct	printer
+{
+	void	operator()(T value)
+	{
+		std::cout << value << std::endl;
+	}
 };
 
-int main()
+int	main()
 {
-	std::cout << "----------int array----------" << std::endl;
+	std::cout << "-----Int array-----" << std::endl;
 	{
-		int *arr = new int[3];
+		int	arr[3] = {0, 1, 2};
+		printer<int> printInt;
 
-		arr[0] = 1;
-		arr[1] = 2;
-		arr[2] = 3;
-	
-		::iter(&arr, 3, print());
-		std::cout << std::endl;
-		::iter(&arr, 3, &plusTen);
-		
-		delete[] arr;
+		iter(arr, 3, plusTen); // function pointer
+		iter(arr, 3, print<int>); // function template
+		iter(arr, 3, printInt); // function object
+		iter(arr, 3, printer<int>()); // function temporary object
 	}
-	std::cout << std::endl;
-	std::cout << "----------char array----------" << std::endl;
+	std::cout << "-----Char* array-----" << std::endl;
 	{
-		char *arr = new char[4];
+		const char*	arr[3] = {"hi", "hello", "bye"};
 
-		arr[0] = 'a';
-		arr[1] = 's';
-		arr[2] = 'd';
-		arr[3] = 'f';
-
-		::iter(&arr, 4, print());
-		
-		delete[] arr;
+		iter(arr, 3, print<const char*>); // function template
+		iter(arr, 3, printer<const char*>()); // function temporary object
 	}
+
 	return 0;
 }
