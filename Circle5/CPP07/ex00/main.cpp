@@ -22,12 +22,14 @@ int main(void)
 		std::cout << "max( c, d ) = " << ::max(c, d) << std::endl;
 	}
 	std::cout << std::endl;
-	std::cout << "----------Subject`s test----------" << std::endl;
+	std::cout << "----------My test----------" << std::endl;
 	{
 		const char	*a = "aaa";
 		const char	*b = "bbb";
 
 		::swap(a, b);
+		std::cout << "a = " << a << ", b = " << b << std::endl;
+		swap(a, b);
 		std::cout << "a = " << a << ", b = " << b << std::endl;
 	}
 	return 0;
