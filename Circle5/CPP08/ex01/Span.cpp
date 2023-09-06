@@ -1,11 +1,9 @@
 #include "Span.hpp"
 #include <limits>
 
-Span::NotUnableSave::NotUnableSave(const char* message) : message(message) {}
-
 const char*	Span::NotUnableSave::what() const throw()
 {
-	return this->message;
+	return "Cannot add number since already maximum elements stored.";
 }
 
 Span::NotFound::NotFound(const char* message) : message(message) {}
@@ -39,7 +37,7 @@ Span &Span::operator=(const Span &span)
 void Span::addNumber(int number)
 {
 	if (this->set.size() >= this->size)
-		throw (NotUnableSave("Cannot add number since already maximum elements stored."));
+		throw (NotUnableSave());
 	this->set.insert(number);
 }
 
@@ -49,17 +47,17 @@ unsigned int Span::shortestSpan() const
 	
 	std::set<int>::iterator itr = this->set.begin();
 	unsigned int			tmp = 0;
-	unsigned int			span = std::numeric_limits<unsigned int>::max();
-	
+	std::set<unsigned int>	gaps;
+
 	tmp -= *itr;
 	while (++itr != this->set.end())
 	{
 		tmp += *itr;
-		span = min<unsigned int>(span, tmp);
+		gaps.insert(tmp);	
 		tmp = 0;
 		tmp -= *itr;
 	}
-	return span;
+	return *gaps.begin();
 }
 
 unsigned int Span::longestSpan() const

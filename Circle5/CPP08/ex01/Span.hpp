@@ -15,10 +15,7 @@ class Span
 		
 		class NotUnableSave : public std::exception
 		{
-			private:
-				const char* message;
 			public:
-				NotUnableSave(const char* message);
 				virtual const char*	what() const throw();
 		};
 		class NotFound : public std::exception
@@ -41,11 +38,5 @@ class Span
 		unsigned int	longestSpan() const;
 
 };
-
-template <typename T>
-T	min(const T &x, const T &y)
-{
-	return x < y ? x : y;
-}
 
 #endif
