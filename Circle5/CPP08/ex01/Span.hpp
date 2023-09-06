@@ -4,10 +4,12 @@
 #include <set>
 #include <exception>
 
+#include <iostream>
+
 class Span
 {
 	private:
-		std::set<int>	set;
+		std::multiset<int>	set;
 		unsigned int	size;
 
 		class NotUnableSave : public std::exception
