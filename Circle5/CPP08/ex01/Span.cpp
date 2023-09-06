@@ -1,5 +1,6 @@
 #include "Span.hpp"
 #include <limits>
+#include <string>
 
 const char*	Span::NotUnableSave::what() const throw()
 {
@@ -36,9 +37,29 @@ Span &Span::operator=(const Span &span)
 
 void Span::addNumber(int number)
 {
-	if (this->set.size() >= this->size)
+	if (canStored() == false)
 		throw (NotUnableSave());
 	this->set.insert(number);
+}
+
+void Span::addNumbers(int *numbers, unsigned int size)
+{
+	unsigned int idx = 0;
+
+	if (canStored() == false)
+		throw (NotUnableSave());
+	while (idx < size && this->set.size() < this->size)
+	{
+		this->set.insert(numbers[idx]);
+		idx++;
+	}
+	if (idx != size)
+		throw (NotUnableSave());		
+}
+
+bool	Span::canStored() const
+{
+	return this->set.size() < this->size;
 }
 
 unsigned int Span::shortestSpan() const
@@ -71,8 +92,8 @@ unsigned int Span::longestSpan() const
 
 void	Span::handleError() const
 {
-	if (this->size == 0)
-		throw (NotFound("There are no numbers stored."));
-	if (this->size == 1)
-		throw (NotFound("There exist only one number."));
+	if (this->set.size() == 0)
+		throw (NotFound("Cannot find span since there are no numbers stored."));
+	if (this->set.size() == 1)
+		throw (NotFound("Cannot find span since there exist only one number."));
 }

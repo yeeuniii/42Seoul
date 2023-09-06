@@ -10,9 +10,6 @@ class Span
 		std::set<int>	set;
 		unsigned int	size;
 
-		Span();
-		void	handleError() const;
-		
 		class NotUnableSave : public std::exception
 		{
 			public:
@@ -26,6 +23,11 @@ class Span
 				NotFound(const char* message);
 				virtual const char*	what() const throw();
 		};
+		
+		Span();
+		
+		void	handleError() const;
+		bool	canStored() const;
 	
 	public:
 		Span(unsigned int N);
@@ -34,6 +36,8 @@ class Span
 		Span& operator=(const Span& span);
 
 		void	addNumber(int number);
+		void	addNumbers(int *numbers, unsigned int size);
+
 		unsigned int	shortestSpan() const;
 		unsigned int	longestSpan() const;
 
