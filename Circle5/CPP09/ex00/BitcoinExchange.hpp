@@ -53,27 +53,26 @@ class BitcoinExchange
 		};
 
 		BitcoinExchange();
+		BitcoinExchange(const BitcoinExchange&);
 		
-		void	handleInputFile(const std::string&);
-		void	openInputFile(const std::string&, std::ifstream&) const;
-		void	readInputFile(std::ifstream&);
-		std::pair<std::string, float>	makeInputPair(const std::string&) const;
-		bool	isValidDate(const std::string&) const;
-		bool	checkDateFormat(const std::string&) const;
-		void	checkValidValue(const std::string&) const;
-		bool	checkValueFormat(const std::string&) const;
+		static void	processInput(const std::string&, const std::map<std::string, float>&);
+		static void	handleInputFile(const std::string&);
+		static void	openInputFile(const std::string&, std::ifstream&);
+		static void	readInputFile(std::ifstream&);
+		static std::pair<std::string, float>	makeInputPair(const std::string&);
+		static bool	isValidDate(const std::string&);
+		static bool	checkDateFormat(const std::string&);
+		static bool	checkValueFormat(const std::string&);
 		
-		void	readDataBase();
-		float	convertFloat(std::string) const;
-		int		convertInteger(std::string string) const;
+		static void		readDataBase(std::map<std::string, float>&);
+		static float	convertFloat(std::string);
+		static int		convertInteger(std::string string);
 
 	public:
-		BitcoinExchange(const std::string&);
-		BitcoinExchange(const BitcoinExchange&);
 		~BitcoinExchange();
 		BitcoinExchange& operator=(const BitcoinExchange&);
 
-		void	exchange();
+		static void	run(const std::string& fileName);
 };
 
 #endif

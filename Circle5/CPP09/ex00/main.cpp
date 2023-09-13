@@ -9,12 +9,9 @@ int	main(int argc, char* argv[])
 		return 1;
 	}
 	
-	BitcoinExchange bitcoin(argv[1]);
-	
 	try
 	{
-
-		// bitcoin.exchange();
+		BitcoinExchange::run(argv[1]);
 	}
 	catch(std::exception& e)
 	{
