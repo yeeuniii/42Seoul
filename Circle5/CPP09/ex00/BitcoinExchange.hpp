@@ -23,28 +23,35 @@ class BitcoinExchange
 				BadInput(const std::string&);
 				const char*	what() const throw();
 		};
-		class NotValidDate : public BadInput
+		class InvalidDate : public BadInput
 		{
 			public:
-				NotValidDate(const std::string&);
+				InvalidDate(const std::string&);
 		};
-		class NotValidValue : public BadInput
+		class InvalidDateFormat : public BadInput
 		{
 			public:
-				NotValidValue(const std::string&);
+				InvalidDateFormat(const std::string&);
+		};
+		class InvalidValue : public BadInput
+		{
+			public:
+				InvalidValue(const std::string&);
 		};
 
 		BitcoinExchange();
 		
 		void	handleInputFile(const std::string& fileName);
-		void	openInputFile(const std::string&, std::ifstream&);
+		void	openInputFile(const std::string&, std::ifstream&) const;
 		void	readInputFile(std::ifstream&);
-		std::pair<std::string, float>	makeInputPair(const std::string&);
-		bool	isValidDate(const std::string&);
-		bool	isValidValue(const std::string&);
+		std::pair<std::string, float>	makeInputPair(const std::string&) const;
+		bool	isValidDate(const std::string&) const;
+		void	checkDateFormat(const std::string& date) const;
+		void	checkValidValue(const std::string&) const;
 		
 		void	readDataBase();
 		float	convertFloat(std::string) const;
+		int		convertInteger(std::string string) const;
 
 	public:
 		BitcoinExchange(const std::string&);
