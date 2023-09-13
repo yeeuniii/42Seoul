@@ -125,11 +125,43 @@ void	BitcoinExchange::processInput(const std::string& fileName, std::map<std::st
 {	
 	std::ifstream	inputFile;
 	std::string		line;
+	std::pair<std::string, float>	input;
+	float			result;
 
 	openInputFile(fileName, inputFile);
 	std::getline(inputFile, line);
+	while (inputFile.eof() == false)
+	{
+		try
+		{
+			std::getline(inputFile, line);
+			input = makeInputPair(line);
+			result = multipleValueAndRate(input, data);
+			std::cout << input.first << " => " << input.second << " = " << result << std::endl;
+		}
+		catch(std::exception& e)
+		{
+			std::cerr << e.what() << std::endl;
+		}
+	}
 	inputFile.close();
 	(void)data;
+}
+
+float	BitcoinExchange::multipleValueAndRate(
+	const std::pair<std::string, float>& input,
+	std::map<std::string, float>& data)
+{
+	std::map<std::string, float>::iterator	itr = data.begin();
+	std::pair<std::string, float>	matchingPair;
+
+	while (itr != data.end() && input.first != itr->first)
+	{
+		itr++;
+	}
+	if (itr == data.end())
+		throw (NotExistDate());
+	return input.second * itr->second;
 }
 
 void	BitcoinExchange::openInputFile(const std::string& fileName, std::ifstream &inputFile)
