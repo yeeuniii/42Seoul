@@ -20,6 +20,7 @@ class BitcoinExchange
 			protected:
 				const char*	message;
 			public:
+				BadInput();
 				BadInput(const std::string&);
 				const char*	what() const throw();
 		};
@@ -33,21 +34,34 @@ class BitcoinExchange
 			public:
 				InvalidDateFormat(const std::string&);
 		};
-		class InvalidValue : public BadInput
+		class NegativeValue : public BadInput
 		{
 			public:
-				InvalidValue(const std::string&);
+				NegativeValue();
+				const char*	what() const throw();
+		};
+		class TooLargeValue : public BadInput
+		{
+			public:
+				TooLargeValue();
+				const char*	what() const throw();
+		};
+		class InvalidValueFormat : public BadInput
+		{
+			public:
+				InvalidValueFormat(const std::string&);
 		};
 
 		BitcoinExchange();
 		
-		void	handleInputFile(const std::string& fileName);
+		void	handleInputFile(const std::string&);
 		void	openInputFile(const std::string&, std::ifstream&) const;
 		void	readInputFile(std::ifstream&);
 		std::pair<std::string, float>	makeInputPair(const std::string&) const;
 		bool	isValidDate(const std::string&) const;
-		void	checkDateFormat(const std::string& date) const;
+		bool	checkDateFormat(const std::string&) const;
 		void	checkValidValue(const std::string&) const;
+		bool	checkValueFormat(const std::string&) const;
 		
 		void	readDataBase();
 		float	convertFloat(std::string) const;
