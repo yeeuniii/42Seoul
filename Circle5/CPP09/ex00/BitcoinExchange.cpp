@@ -157,11 +157,13 @@ float	BitcoinExchange::multipleValueAndRate(
 
 	while (itr != data.end() && input.first != itr->first)
 	{
+		if (itr->first < input.first && itr->first > matchingPair.first)
+			matchingPair = *itr;
 		itr++;
 	}
-	if (itr == data.end())
+	if (itr == data.end() && matchingPair.first == "")
 		throw (NotExistDate());
-	return input.second * itr->second;
+	return input.second * matchingPair.second;
 }
 
 void	BitcoinExchange::openInputFile(const std::string& fileName, std::ifstream &inputFile)
