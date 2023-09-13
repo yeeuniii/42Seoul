@@ -3,35 +3,40 @@
 #include <sstream>
 #include <cstring>
 
-BitcoinExchange::BadInput::BadInput() : message("") {}
+BitcoinExchange::BadInput::BadInput() {}
 
 BitcoinExchange::BadInput::BadInput(const std::string& detail)
 {
 	std::string	message;
 
 	message = "Error: " + detail;
-	message = message.c_str();
+	this->message = strdup(message.c_str());
+}
+
+BitcoinExchange::BadInput::~BadInput() throw()
+{
+	delete this->message;
 }
 
 const char* BitcoinExchange::BadInput::what() const throw()
 {
-	return  this->message;
+	return const_cast<const char*>(this->message);
 }
 
-BitcoinExchange::InvalidDate::InvalidDate(const std::string& detail) : BadInput(detail)
+BitcoinExchange::InvalidDate::InvalidDate(const std::string& detail) : BadInput()
 {
 	std::string	message;
 
 	message = "Error: non-existent date => " + detail;
-	message = message.c_str();
+	this->message = strdup(message.c_str());
 }
 
-BitcoinExchange::InvalidDateFormat::InvalidDateFormat(const std::string& detail) : BadInput(detail)
+BitcoinExchange::InvalidDateFormat::InvalidDateFormat(const std::string& detail) : BadInput()
 {
-	std::string	message;
+	std::string	message("Error: invalid date format(Year-Month-Day) => ");
 
-	message = "Error: invalid date format(Year-Month-Day) => " + detail;
-	message = message.c_str();
+	message += detail;
+	this->message = strdup(message.c_str());
 }
 
 BitcoinExchange::NegativeValue::NegativeValue() : BadInput() {}
@@ -56,6 +61,12 @@ BitcoinExchange::InvalidValueFormat::InvalidValueFormat(const std::string& detai
 	message = message.c_str();
 }
 
+const char* BitcoinExchange::NotExistDate::what() const throw()
+{
+	return "Error: does not match the date in the database.";
+}
+
+
 BitcoinExchange::BitcoinExchange() {}
 		
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& bitcoinExchange)
@@ -75,8 +86,8 @@ BitcoinExchange&	BitcoinExchange::operator=(const BitcoinExchange& bitcoinExchan
 
 void	BitcoinExchange::run(const std::string& fileName)
 {
-	std::map<std::string, float>		data;
-
+	std::map<std::string, float>	data;
+	
 	try
 	{
 		readDataBase(data);
@@ -86,8 +97,6 @@ void	BitcoinExchange::run(const std::string& fileName)
 	{
 		std::cerr << e.what() << '\n';
 	}
-	
-
 }
 
 void	BitcoinExchange::readDataBase(std::map<std::string, float>& data)
@@ -112,16 +121,17 @@ void	BitcoinExchange::readDataBase(std::map<std::string, float>& data)
 	// 	std::cout << itr->first << "," << itr->second << std::endl;
 }
 
-void	BitcoinExchange::processInput(const std::string& fileName, const std::map<std::string, float>& data)
+void	BitcoinExchange::processInput(const std::string& fileName, std::map<std::string, float>& data)
 {	
-	std::multimap<std::string, float>	input;
 	std::ifstream	inputFile;
+	std::string		line;
 
 	openInputFile(fileName, inputFile);
-	// calculateResult();
-	(void)data;
+	std::getline(inputFile, line);
 	inputFile.close();
+	(void)data;
 }
+
 void	BitcoinExchange::openInputFile(const std::string& fileName, std::ifstream &inputFile)
 {
 	inputFile.open(fileName);
@@ -137,11 +147,10 @@ std::pair<std::string, float>	BitcoinExchange::makeInputPair(const std::string &
 	if (line.size() < 14 || line.find(" | ") == std::string::npos)
 		throw (BadInput("bad input => " + line));
 	date = line.substr(0, line.find(" | "));
-	value = line.substr(13);
-	if (checkDateFormat(date) == false)
-		throw (InvalidDateFormat(date));
-	if (checkValueFormat(value) == false)
-		throw (InvalidValueFormat(value));
+	value = line.substr(date.size() + 3);
+	if (isValidDate(date) == false)
+		throw (InvalidDate(date));
+	checkValidValue(value);
 	return std::make_pair(date, convertFloat(value));
 }
 
@@ -171,6 +180,8 @@ bool	BitcoinExchange::isValidDate(const std::string& date)
 	int	day = convertInteger(date.substr(8, 2));
 	int	endOfMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
+	if (checkDateFormat(date) == false)
+		throw (InvalidDateFormat(date));
 	if ((year % 4 == 0 && year % 100) || year % 400 == 0)
 		endOfMonth[1] = 29;
 	if (month < 1 || month > 12)
@@ -194,6 +205,18 @@ bool	BitcoinExchange::checkValueFormat(const std::string& value)
 	while (idx < size && isdigit(value[idx]))
 		idx++;
 	return idx == size;
+}
+
+void	BitcoinExchange::checkValidValue(const std::string& valueString)
+{
+	float	value = convertFloat(valueString);
+
+	if (checkValueFormat(valueString) == false)
+		throw (InvalidValueFormat(valueString));
+	if (value < 0)
+		throw (NegativeValue());
+	if (value > 1000)
+		throw (TooLargeValue());
 }
 
 float	BitcoinExchange::convertFloat(std::string string)
