@@ -124,6 +124,8 @@ void	BitcoinExchange::processInput(
 
 	openInputFile(fileName, inputFile);
 	std::getline(inputFile, line);
+	if (line != "date | value")
+		throw (BadInput("the input file should start with 'date | value'."));
 	while (inputFile.eof() == false)
 	{
 		processOneLine(inputFile, data);
@@ -132,7 +134,7 @@ void	BitcoinExchange::processInput(
 }
 
 void	BitcoinExchange::processOneLine(
-	std::ifstream &inputFile,
+	std::ifstream& inputFile,
 	std::map<std::string, float>& data)
 {
 	std::string						line;

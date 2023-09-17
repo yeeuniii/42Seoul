@@ -66,7 +66,7 @@ class BitcoinExchange
 		static float	multipleValueAndRate(const std::pair<std::string, float>&, std::map<std::string, float>&);
 		
 		static void	openInputFile(const std::string&, std::ifstream&);
-		static std::pair<std::string, float>	makeInputPair(const std::string&);
+		static std::pair<std::string, float> makeInputPair(const std::string&);
 		static bool	isValidDate(const std::string&);
 		static bool	checkDateFormat(const std::string&);
 		static void	checkValidValue(const std::string&);
