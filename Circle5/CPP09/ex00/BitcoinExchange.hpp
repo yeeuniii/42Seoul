@@ -62,6 +62,7 @@ class BitcoinExchange
 		BitcoinExchange(const BitcoinExchange&);
 		
 		static void	processInput(const std::string&, std::map<std::string, float>&);
+		static void	processOneLine(std::ifstream&, std::map<std::string, float>&);
 		static float	multipleValueAndRate(const std::pair<std::string, float>&, std::map<std::string, float>&);
 		
 		static void	openInputFile(const std::string&, std::ifstream&);

@@ -7,9 +7,8 @@ BitcoinExchange::BadInput::BadInput() {}
 
 BitcoinExchange::BadInput::BadInput(const std::string& detail)
 {
-	std::string	message;
+	std::string	message("Error: " + detail);
 
-	message = "Error: " + detail;
 	this->message = strdup(message.c_str());
 }
 
@@ -20,22 +19,20 @@ BitcoinExchange::BadInput::~BadInput() throw()
 
 const char* BitcoinExchange::BadInput::what() const throw()
 {
-	return const_cast<const char*>(this->message);
+	return this->message;
 }
 
 BitcoinExchange::InvalidDate::InvalidDate(const std::string& detail) : BadInput()
 {
-	std::string	message;
+	std::string	message("Error: non-existent date => " + detail);
 
-	message = "Error: non-existent date => " + detail;
 	this->message = strdup(message.c_str());
 }
 
 BitcoinExchange::InvalidDateFormat::InvalidDateFormat(const std::string& detail) : BadInput()
 {
-	std::string	message("Error: invalid date format(Year-Month-Day) => ");
+	std::string	message("Error: invalid date format(Year-Month-Day) => " + detail);
 
-	message += detail;
 	this->message = strdup(message.c_str());
 }
 
@@ -93,9 +90,9 @@ void	BitcoinExchange::run(const std::string& fileName)
 		readDataBase(data);
 		processInput(fileName, data);
 	}
-	catch(const std::exception& e)
+	catch(std::exception& e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr << e.what() << std::endl;
 	}
 }
 
@@ -116,36 +113,43 @@ void	BitcoinExchange::readDataBase(std::map<std::string, float>& data)
 		data.insert(std::make_pair(date, convertFloat(rate)));
 	}
 	database.close();
-	// std::map<std::string, float>::iterator itr = data.begin();
-	// for(; itr != data.end(); itr++)
-	// 	std::cout << itr->first << "," << itr->second << std::endl;
 }
 
-void	BitcoinExchange::processInput(const std::string& fileName, std::map<std::string, float>& data)
+void	BitcoinExchange::processInput(
+	const std::string& fileName,
+	std::map<std::string, float>& data)
 {	
 	std::ifstream	inputFile;
 	std::string		line;
-	std::pair<std::string, float>	input;
-	float			result;
 
 	openInputFile(fileName, inputFile);
 	std::getline(inputFile, line);
 	while (inputFile.eof() == false)
 	{
-		try
-		{
-			std::getline(inputFile, line);
-			input = makeInputPair(line);
-			result = multipleValueAndRate(input, data);
-			std::cout << input.first << " => " << input.second << " = " << result << std::endl;
-		}
-		catch(std::exception& e)
-		{
-			std::cerr << e.what() << std::endl;
-		}
+		processOneLine(inputFile, data);
 	}
 	inputFile.close();
-	(void)data;
+}
+
+void	BitcoinExchange::processOneLine(
+	std::ifstream &inputFile,
+	std::map<std::string, float>& data)
+{
+	std::string						line;
+	std::pair<std::string, float>	input;
+	float							result;
+	
+	try
+	{
+		std::getline(inputFile, line);
+		input = makeInputPair(line);
+		result = multipleValueAndRate(input, data);
+		std::cout << input.first << " => " << input.second << " = " << result << std::endl;
+	}
+	catch(std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
 }
 
 float	BitcoinExchange::multipleValueAndRate(
@@ -161,7 +165,7 @@ float	BitcoinExchange::multipleValueAndRate(
 			matchingPair = *itr;
 		itr++;
 	}
-	if (itr == data.end() && matchingPair.first == "")
+	if (matchingPair.first == "")
 		throw (NotExistDate());
 	return input.second * matchingPair.second;
 }
