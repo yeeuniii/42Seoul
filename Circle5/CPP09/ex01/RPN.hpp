@@ -3,6 +3,7 @@
 
 #include <string>
 #include <stack>
+#include <exception>
 
 class RPN
 {
@@ -10,8 +11,15 @@ class RPN
 		RPN();
 		RPN(const RPN& rpn);
 
-		static bool	checkSyntax(const std::stack<std::string>&);
+		static void	checkSyntax(std::stack<std::string>);
+		static void	handleSyntaxError(const std::string&, const int&);
+		static bool	isSyntaxError(const std::string&, const int&);
 		
+		class SyntaxError : public std::exception
+		{
+			public:
+				const char*	what() const throw();
+		};
 	
 	public:
 		~RPN();
@@ -21,6 +29,7 @@ class RPN
 };
 
 std::stack<std::string>	split(const std::string&, const char&);
+bool	isOperator(const char&);
 int		convertInteger(std::string);
 
 #endif
