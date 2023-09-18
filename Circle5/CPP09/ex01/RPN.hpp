@@ -2,6 +2,7 @@
 #define __RPN_HPP__
 
 #include <string>
+#include <stack>
 
 class RPN
 {

@@ -1,7 +1,7 @@
 #include "RPN.hpp"
 #include <stack>
 #include <sstream>
-#include <iostream>
+#include <cctype>
 
 RPN::RPN() {}
 
@@ -25,12 +25,14 @@ int	RPN::calculate(const std::string& argument)
 	std::stack<int>	stack;
 	std::stack<std::string>	expression = split(argument, ' ');
 
-	// checkSyntax(expression);
+	checkSyntax(expression);
+	return 1;
 }
 
 bool	RPN::checkSyntax(const std::stack<std::string>& expression)
 {
-
+	return true;
+	(void)expression;
 }
 
 std::stack<std::string>	split(const std::string& string, const char& delimeter)
@@ -41,7 +43,7 @@ std::stack<std::string>	split(const std::string& string, const char& delimeter)
 
 	while (std::getline(ss, line, delimeter))
 	{
-		if (isspace(line[0]) == false)
+		if (line[0])
 			destination.push(line);
 	}
 	return destination;	
