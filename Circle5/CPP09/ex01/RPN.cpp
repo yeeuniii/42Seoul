@@ -26,19 +26,21 @@ RPN&	RPN::operator=(const RPN& rpn)
 
 int	RPN::run(const std::string& argument)
 {
-	// std::queue<int>			queue;
+	std::queue<int>			queue;
 	std::queue<std::string>	expression = split(argument, ' ');
 
 	try
 	{
 		checkSyntax(expression);
-		// calculate(expression, queue);
+		queue.push(convertInteger(expression.front()));
+		expression.pop();
+		calculate(expression, queue);
 	}
 	catch(std::exception& e)
 	{
 		std::cout << e.what() << std::endl;
 	}
-	return 1;
+	return queue.front();
 }
 
 void	RPN::checkSyntax(std::queue<std::string> expression)
@@ -68,6 +70,49 @@ bool	RPN::isSyntaxError(const std::string& value, const int& index)
 	return value.size() != 1
 		|| (index % 2 == 0 && isOperator(value[0]) == false)
 		|| (index % 2 == 1 && std::isdigit(value[0]) == false);
+}
+
+void	RPN::calculate(std::queue<std::string>& expression, std::queue<int>& queue)
+{
+	if (expression.size() == 0)
+		return ;
+	queue.push(convertInteger(expression.front()));
+	expression.pop();	
+	queue.push(handleOperator(queue, expression.front()));
+	expression.pop();
+	calculate(expression, queue);
+}
+
+int		RPN::handleOperator(std::queue<int>& queue, const std::string& operation)
+{
+	int	value = queue.front();
+
+	queue.pop();
+	if (operation == "+")
+	{
+		value += queue.front();
+		queue.pop();
+		return value;
+	}
+	if (operation == "-")
+	{
+		value -= queue.front();
+		queue.pop();
+		return value;
+	}
+	if (operation == "/")
+	{
+		value /= queue.front();
+		queue.pop();
+		return value;
+	}
+	if (operation == "*")
+	{
+		value *= queue.front();
+		queue.pop();
+		return value;
+	}
+	return value;
 }
 
 
