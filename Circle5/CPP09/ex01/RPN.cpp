@@ -1,5 +1,5 @@
 #include "RPN.hpp"
-#include <stack>
+#include <queue>
 #include <sstream>
 #include <cctype>
 #include <iostream>
@@ -24,14 +24,15 @@ RPN&	RPN::operator=(const RPN& rpn)
 	return *this;
 }
 
-int	RPN::calculate(const std::string& argument)
+int	RPN::run(const std::string& argument)
 {
-	std::stack<int>			stack;
-	std::stack<std::string>	expression = split(argument, ' ');
+	// std::queue<int>			queue;
+	std::queue<std::string>	expression = split(argument, ' ');
 
 	try
 	{
 		checkSyntax(expression);
+		// calculate(expression, queue);
 	}
 	catch(std::exception& e)
 	{
@@ -40,22 +41,20 @@ int	RPN::calculate(const std::string& argument)
 	return 1;
 }
 
-void	RPN::checkSyntax(std::stack<std::string> expression)
+void	RPN::checkSyntax(std::queue<std::string> expression)
 {
 	unsigned int	size = expression.size();
-	unsigned int	idx = size;
-	std::string		value;
+	unsigned int	idx = 0;
 	
 	if (size % 2 == 0)
 		throw (SyntaxError());
-	while (--idx > 0)
+	handleSyntaxError(expression.front(), 1);
+	expression.pop();
+	while (++idx < size)
 	{
-		value = expression.top();
-		handleSyntaxError(value, idx);	
+		handleSyntaxError(expression.front(), idx);	
 		expression.pop();
 	}
-	value = expression.top();
-	handleSyntaxError(value, 1);	
 }
 
 void	RPN::handleSyntaxError(const std::string& value, const int& index)
@@ -71,11 +70,14 @@ bool	RPN::isSyntaxError(const std::string& value, const int& index)
 		|| (index % 2 == 1 && std::isdigit(value[0]) == false);
 }
 
-std::stack<std::string>	split(const std::string& string, const char& delimeter)
+
+/* utils */
+
+std::queue<std::string>	split(const std::string& string, const char& delimeter)
 {
 	std::stringstream		ss(string);
 	std::string				line;
-	std::stack<std::string>	destination;
+	std::queue<std::string>	destination;
 
 	while (std::getline(ss, line, delimeter))
 	{
