@@ -49,18 +49,45 @@ void testList(std::list<T> &lst)
 	}
 }
 
+template <typename T>
+void testMutantStackReverse(MutantStack<T> &mstack)
+{
+	mstack.push(0);
+	mstack.push(1);
+	mstack.push(10);
+	mstack.push(100);
+	mstack.push(1000);
+	std::cout << "top: " << mstack.top() << std::endl;
+	std::cout << "size: " << mstack.size() << std::endl;
+	MutantStack<int>::reverse_iterator it = mstack.rbegin();
+	MutantStack<int>::reverse_iterator ite = mstack.rend();
+	++it;
+	--it;
+	while (it != ite)
+	{
+		std::cout << *it << std::endl;
+		++it;
+	}
+}
+
 int main()
 {
 	std::cout << "----------Mutant Stack----------" << std::endl;
 	{
-		MutantStack<int> matack;
-		testMutantStack(matack);
+		MutantStack<int> mstack;
+		testMutantStack(mstack);
 	}
 	std::cout << std::endl;
 	std::cout << "----------List----------" << std::endl;
 	{
 		std::list<int> lst;
 		testList(lst);
+	}
+	std::cout << std::endl;
+	std::cout << "----------Reverse Iterator----------" << std::endl;
+	{
+		MutantStack<int> mstack;
+		testMutantStackReverse(mstack);
 	}
 	return 0;
 }
