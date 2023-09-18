@@ -42,13 +42,13 @@ void Span::addNumber(int number)
 	this->set.insert(number);
 }
 
-void Span::addNumbers(int *numbers, unsigned int size)
+void	Span::addNumbers(int *numbers, unsigned int size)
 {
 	unsigned int idx = 0;
 
 	if (canStored() == false)
 		throw (NotUnableSave());
-	while (idx < size && this->set.size() < this->size)
+	while (idx < size && canStored())
 	{
 		this->set.insert(numbers[idx]);
 		idx++;
@@ -67,17 +67,16 @@ unsigned int Span::shortestSpan() const
 	handleError();	
 	
 	std::multiset<int>::iterator itr = this->set.begin();
-	int			tmp = 0;
+	int			tmp;
 	std::set<unsigned int>	gaps;
 
-	tmp -= *itr;
+	tmp = *itr;
 	while (++itr != this->set.end())
 	{
-		tmp += *itr;
+		tmp -= *itr;
 		tmp *= tmp < 0 ? -1 : 1;
 		gaps.insert(tmp);
-		tmp = 0;
-		tmp -= *itr;
+		tmp = *itr;
 	}
 	return *gaps.begin();
 }
