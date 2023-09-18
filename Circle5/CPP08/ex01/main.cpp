@@ -1,7 +1,6 @@
 #include "Span.hpp"
 #include <iostream>
-#include <ctime>
-#include <cstdlib>
+#include <vector>
 
 int main()
 {
@@ -64,19 +63,17 @@ int main()
 		}
 	}
 	std::cout << std::endl;
-	std::cout << "----------Try 1000 numbers----------" << std::endl;
+	std::cout << "----------call addNumber using iterator----------" << std::endl;
 	{
-		Span	sp(1000);
-		int		arr[1000];
+		Span				sp(1000);
+		std::vector<int>	vec;
 
-		srand(time(NULL));
 		for (int idx = 0; idx < 1000; idx++)
-			arr[idx] = rand() % 1000; // 0 ~ 999
-		arr[999] = -10;
-
+			vec.push_back(idx);
+		
 		try
 		{
-			sp.addNumbers(arr, 1000);
+			sp.addNumber(vec.begin(), vec.end());
 			std::cout << "The shortest span : " << sp.shortestSpan() << std::endl;
 			std::cout << "The longest span : " << sp.longestSpan() << std::endl;
 		}
