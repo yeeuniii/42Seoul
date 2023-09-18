@@ -38,7 +38,11 @@ class Span
 		Span& operator=(const Span& span);
 
 		void	addNumber(int number);
-		void	addNumbers(int *numbers, unsigned int size);
+		template <typename iterator>
+		void	addNumber(iterator begin, iterator end)
+		{
+			this->set.insert(begin, end);
+		}
 
 		unsigned int	shortestSpan() const;
 		unsigned int	longestSpan() const;

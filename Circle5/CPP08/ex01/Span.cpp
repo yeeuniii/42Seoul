@@ -42,21 +42,6 @@ void Span::addNumber(int number)
 	this->set.insert(number);
 }
 
-void	Span::addNumbers(int *numbers, unsigned int size)
-{
-	unsigned int idx = 0;
-
-	if (canStored() == false)
-		throw (NotUnableSave());
-	while (idx < size && canStored())
-	{
-		this->set.insert(numbers[idx]);
-		idx++;
-	}
-	if (idx != size)
-		throw (NotUnableSave());
-}
-
 bool	Span::canStored() const
 {
 	return this->set.size() < this->size;
