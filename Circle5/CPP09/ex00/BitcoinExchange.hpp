@@ -61,20 +61,20 @@ class BitcoinExchange
 		BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange&);
 		
-		static void	processInput(const std::string&, std::map<std::string, float>&);
-		static void	processOneLine(std::ifstream&, std::map<std::string, float>&);
+		static void		readDataBase(std::map<std::string, float>&);
+		static void		processInput(const std::string&, std::map<std::string, float>&);
+		static void		processOneLine(std::ifstream&, std::map<std::string, float>&);
 		static float	multipleValueAndRate(const std::pair<std::string, float>&, std::map<std::string, float>&);
 		
-		static void	openInputFile(const std::string&, std::ifstream&);
+		static void		openInputFile(const std::string&, std::ifstream&);
 		static std::pair<std::string, float> makeInputPair(const std::string&);
-		static bool	isValidDate(const std::string&);
-		static bool	checkDateFormat(const std::string&);
-		static void	checkValidValue(const std::string&);
-		static bool	checkValueFormat(const std::string&);
+		static bool		isValidDate(const std::string&);
+		static bool		checkDateFormat(const std::string&);
+		static void		checkValidValue(const std::string&);
+		static bool		checkValueFormat(const std::string&);
 		
-		static void		readDataBase(std::map<std::string, float>&);
 		static float	convertFloat(std::string);
-		static int		convertInteger(std::string string);
+		static int		convertInteger(std::string);
 
 	public:
 		~BitcoinExchange();

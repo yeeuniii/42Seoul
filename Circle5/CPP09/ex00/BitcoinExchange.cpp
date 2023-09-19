@@ -3,7 +3,7 @@
 #include <sstream>
 #include <cstring>
 
-BitcoinExchange::BadInput::BadInput() {}
+BitcoinExchange::BadInput::BadInput() : message(strdup("")) {}
 
 BitcoinExchange::BadInput::BadInput(const std::string& detail)
 {
@@ -26,6 +26,8 @@ BitcoinExchange::InvalidDate::InvalidDate(const std::string& detail) : BadInput(
 {
 	std::string	message("Error: non-existent date => " + detail);
 
+	if (this->message)
+		delete this->message;
 	this->message = strdup(message.c_str());
 }
 
@@ -33,6 +35,8 @@ BitcoinExchange::InvalidDateFormat::InvalidDateFormat(const std::string& detail)
 {
 	std::string	message("Error: invalid date format(Year-Month-Day) => " + detail);
 
+	if (this->message)
+		delete this->message;
 	this->message = strdup(message.c_str());
 }
 
@@ -52,17 +56,17 @@ const char*	BitcoinExchange::TooLargeValue::what() const throw()
 
 BitcoinExchange::InvalidValueFormat::InvalidValueFormat(const std::string& detail) : BadInput(detail)
 {
-	std::string	message("Error: invalid value format(a float or a positive integer) => ");
+	std::string	message("Error: invalid value format(a float or a positive integer) => " + detail);
 
-	message += detail;
-	message = message.c_str();
+	if (this->message)
+		delete this->message;
+	message = strdup(message.c_str());
 }
 
 const char* BitcoinExchange::NotExistDate::what() const throw()
 {
 	return "Error: does not match the date in the database.";
 }
-
 
 BitcoinExchange::BitcoinExchange() {}
 		
@@ -269,7 +273,7 @@ float	BitcoinExchange::convertFloat(std::string string)
 	return _float;
 }
 
-int	BitcoinExchange::convertInteger(std::string string)
+int		BitcoinExchange::convertInteger(std::string string)
 {
 	std::stringstream	ss;
 	int		_int;
