@@ -19,8 +19,8 @@ class RPN
 		};
 		
 		static void	checkSyntax(std::queue<std::string>);
-		static void	handleSyntaxError(const std::string&, const int&);
-		static bool	isSyntaxError(const std::string&, const int&);
+		static void	handleSyntaxError(const std::string&);
+		static bool	isSyntaxError(const std::string&);
 		
 		static void	calculate(std::queue<std::string>&, std::queue<int>&);
 		static int	handleOperator(std::queue<int>&, const std::string&);

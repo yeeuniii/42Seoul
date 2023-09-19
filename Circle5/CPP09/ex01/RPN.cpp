@@ -50,26 +50,25 @@ void	RPN::checkSyntax(std::queue<std::string> expression)
 	
 	if (size % 2 == 0)
 		throw (SyntaxError());
-	handleSyntaxError(expression.front(), 1);
+	handleSyntaxError(expression.front());
 	expression.pop();
 	while (++idx < size)
 	{
-		handleSyntaxError(expression.front(), idx);	
+		handleSyntaxError(expression.front());
 		expression.pop();
 	}
 }
 
-void	RPN::handleSyntaxError(const std::string& value, const int& index)
+void	RPN::handleSyntaxError(const std::string& value)
 {
-	if (isSyntaxError(value, index))
+	if (isSyntaxError(value))
 		throw (SyntaxError());
 }
 
-bool	RPN::isSyntaxError(const std::string& value, const int& index)
+bool	RPN::isSyntaxError(const std::string& value)
 {
-	return value.size() != 1
-		|| (index % 2 == 0 && isOperator(value[0]) == false)
-		|| (index % 2 == 1 && std::isdigit(value[0]) == false);
+	return !(value.size() == 1
+		&& (isOperator(value[0]) || std::isdigit(value[0])));
 }
 
 void	RPN::calculate(std::queue<std::string>& expression, std::queue<int>& queue)
