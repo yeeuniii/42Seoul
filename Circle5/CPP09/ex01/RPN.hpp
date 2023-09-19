@@ -22,18 +22,18 @@ class RPN
 		static void	handleSyntaxError(const std::string&);
 		static bool	isSyntaxError(const std::string&);
 		
-		static void	calculate(std::queue<std::string>&, std::queue<int>&);
-		static int	handleOperator(std::queue<int>&, const std::string&);
+		static void	calculate(std::queue<std::string>&, std::stack<float>&);
+		static void	handleOperator(std::stack<float>&, const std::string&);
 	
 	public:
 		~RPN();
 		RPN&	operator=(const RPN& rpn);
 
-		static int	run(const std::string&);
+		static float	run(const std::string&);
 };
 
 std::queue<std::string>	split(const std::string&, const char&);
 bool	isOperator(const char&);
-int		convertInteger(std::string);
+float	convertFloat(std::string string);
 
 #endif

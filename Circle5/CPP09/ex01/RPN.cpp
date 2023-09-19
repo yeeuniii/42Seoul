@@ -24,23 +24,21 @@ RPN&	RPN::operator=(const RPN& rpn)
 	return *this;
 }
 
-int	RPN::run(const std::string& argument)
+float	RPN::run(const std::string& argument)
 {
-	std::queue<int>			queue;
+	std::stack<float>		stack;
 	std::queue<std::string>	expression = split(argument, ' ');
 
 	try
 	{
 		checkSyntax(expression);
-		queue.push(convertInteger(expression.front()));
-		expression.pop();
-		calculate(expression, queue);
+		calculate(expression, stack);
 	}
 	catch(std::exception& e)
 	{
 		std::cout << e.what() << std::endl;
 	}
-	return queue.front();
+	return stack.top();
 }
 
 void	RPN::checkSyntax(std::queue<std::string> expression)
@@ -71,47 +69,57 @@ bool	RPN::isSyntaxError(const std::string& value)
 		&& (isOperator(value[0]) || std::isdigit(value[0])));
 }
 
-void	RPN::calculate(std::queue<std::string>& expression, std::queue<int>& queue)
+void	RPN::calculate(std::queue<std::string>& expression, std::stack<float>& stack)
 {
+	std::string	value;
+
 	if (expression.size() == 0)
 		return ;
-	queue.push(convertInteger(expression.front()));
-	expression.pop();	
-	queue.push(handleOperator(queue, expression.front()));
+	value = expression.front();
 	expression.pop();
-	calculate(expression, queue);
+	if (isOperator(value[0]))
+	{
+		handleOperator(stack, value);
+		calculate(expression, stack);
+		return ;
+	}
+	stack.push(convertFloat(value));
+	calculate(expression, stack);
 }
 
-int		RPN::handleOperator(std::queue<int>& queue, const std::string& operation)
+void	RPN::handleOperator(std::stack<float>& stack, const std::string& operation)
 {
-	int	value = queue.front();
+	float	second;
+	float	result;
 
-	queue.pop();
+	second = stack.top();
+	stack.pop();
+	result = stack.top();
+	stack.pop();
 	if (operation == "+")
 	{
-		value += queue.front();
-		queue.pop();
-		return value;
+		result += second;
+		stack.push(result);
+		return ;
 	}
 	if (operation == "-")
 	{
-		value -= queue.front();
-		queue.pop();
-		return value;
+		result -= second;
+		stack.push(result);
+		return ;
 	}
 	if (operation == "/")
 	{
-		value /= queue.front();
-		queue.pop();
-		return value;
+		result /= second;
+		stack.push(result);
+		return ;
 	}
 	if (operation == "*")
 	{
-		value *= queue.front();
-		queue.pop();
-		return value;
+		result *= second;
+		stack.push(result);
+		return ;
 	}
-	return value;
 }
 
 
@@ -136,12 +144,12 @@ bool	isOperator(const char& c)
 	return c == '+' || c == '-' || c == '/' || c == '*';
 }
 
-int		convertInteger(std::string string)
+float	convertFloat(std::string string)
 {
-	std::stringstream	ss;
-	int		_int;
-
+	std::stringstream ss;
+	float	_float;
+	
 	ss << string;
-	ss >> _int;
-	return _int;
+	ss >> _float;
+	return _float;
 }
