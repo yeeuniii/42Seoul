@@ -24,6 +24,10 @@ class RPN
 		
 		static void	calculate(std::queue<std::string>&, std::stack<float>&);
 		static void	handleOperator(std::stack<float>&, const std::string&);
+		static void	handleAddition(std::stack<float>&);
+		static void	handleSubtraction(std::stack<float>&);
+		static void	handleDivision(std::stack<float>&);
+		static void	handleMultiplication(std::stack<float>&);
 	
 	public:
 		~RPN();

@@ -3,6 +3,7 @@
 #include <sstream>
 #include <cctype>
 #include <iostream>
+#include <stdexcept>
 
 const char*	RPN::SyntaxError::what() const throw()
 {
@@ -36,7 +37,7 @@ float	RPN::run(const std::string& argument)
 	}
 	catch(std::exception& e)
 	{
-		std::cout << e.what() << std::endl;
+	 	std::cout << e.what() << std::endl;
 	}
 	return stack.top();
 }
@@ -83,11 +84,39 @@ void	RPN::calculate(std::queue<std::string>& expression, std::stack<float>& stac
 		calculate(expression, stack);
 		return ;
 	}
-	stack.push(convertFloat(value));
-	calculate(expression, stack);
+	if (isdigit(value[0]))
+	{
+		stack.push(convertFloat(value));
+		calculate(expression, stack);
+		return ;
+	}
 }
 
 void	RPN::handleOperator(std::stack<float>& stack, const std::string& operation)
+{
+	if (operation == "+")
+	{
+		handleAddition(stack);
+		return ;
+	}
+	if (operation == "-")
+	{
+		handleSubtraction(stack);
+		return ;
+	}
+	if (operation == "/")
+	{
+		handleDivision(stack);
+		return ;
+	}
+	if (operation == "*")
+	{
+		handleMultiplication(stack);
+		return ;
+	}
+}
+
+void	RPN::handleAddition(std::stack<float>& stack)
 {
 	float	second;
 	float	result;
@@ -96,32 +125,50 @@ void	RPN::handleOperator(std::stack<float>& stack, const std::string& operation)
 	stack.pop();
 	result = stack.top();
 	stack.pop();
-	if (operation == "+")
-	{
-		result += second;
-		stack.push(result);
-		return ;
-	}
-	if (operation == "-")
-	{
-		result -= second;
-		stack.push(result);
-		return ;
-	}
-	if (operation == "/")
-	{
-		result /= second;
-		stack.push(result);
-		return ;
-	}
-	if (operation == "*")
-	{
-		result *= second;
-		stack.push(result);
-		return ;
-	}
+	result += second;
+	stack.push(result);
 }
 
+void	RPN::handleSubtraction(std::stack<float>& stack)
+{
+	float	second;
+	float	result;
+
+	second = stack.top();
+	stack.pop();
+	result = stack.top();
+	stack.pop();
+	result -= second;
+	stack.push(result);
+}
+
+void	RPN::handleDivision(std::stack<float>& stack)
+{
+	float	second;
+	float	result;
+
+	second = stack.top();
+	stack.pop();
+	result = stack.top();
+	stack.pop();
+	result /= second;
+	stack.push(result);
+
+}
+
+void	RPN::handleMultiplication(std::stack<float>& stack)
+{
+	float	second;
+	float	result;
+
+	second = stack.top();
+	stack.pop();
+	result = stack.top();
+	stack.pop();
+	result *= second;
+	stack.push(result);
+
+}
 
 /* utils */
 
