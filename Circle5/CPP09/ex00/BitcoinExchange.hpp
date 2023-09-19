@@ -73,14 +73,14 @@ class BitcoinExchange
 		static void		checkValidValue(const std::string&);
 		static bool		checkValueFormat(const std::string&);
 		
-		static float	convertFloat(std::string);
-		static int		convertInteger(std::string);
-
 	public:
 		~BitcoinExchange();
 		BitcoinExchange& operator=(const BitcoinExchange&);
 
 		static void	run(const std::string& fileName);
 };
+
+float	convertFloat(std::string);
+int		convertInteger(std::string);
 
 #endif

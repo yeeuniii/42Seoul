@@ -263,7 +263,7 @@ void	BitcoinExchange::checkValidValue(const std::string& valueString)
 		throw (TooLargeValue());
 }
 
-float	BitcoinExchange::convertFloat(std::string string)
+float	convertFloat(std::string string)
 {
 	std::stringstream ss;
 	float	_float;
@@ -273,7 +273,7 @@ float	BitcoinExchange::convertFloat(std::string string)
 	return _float;
 }
 
-int		BitcoinExchange::convertInteger(std::string string)
+int		convertInteger(std::string string)
 {
 	std::stringstream	ss;
 	int		_int;
