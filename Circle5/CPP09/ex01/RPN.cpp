@@ -25,20 +25,13 @@ RPN&	RPN::operator=(const RPN& rpn)
 	return *this;
 }
 
-float	RPN::run(const std::string& argument)
+float	RPN::getSolution(const std::string& argument)
 {
 	std::stack<float>		stack;
 	std::queue<std::string>	expression = split(argument, ' ');
 
-	try
-	{
-		checkSyntax(expression);
-		calculate(expression, stack);
-	}
-	catch(std::exception& e)
-	{
-	 	std::cout << e.what() << std::endl;
-	}
+	checkSyntax(expression);
+	calculate(expression, stack);
 	return stack.top();
 }
 
@@ -151,9 +144,10 @@ void	RPN::handleDivision(std::stack<float>& stack)
 	stack.pop();
 	result = stack.top();
 	stack.pop();
+	if (second == 0)
+		throw (std::overflow_error("Error: divide by zero exception."));
 	result /= second;
 	stack.push(result);
-
 }
 
 void	RPN::handleMultiplication(std::stack<float>& stack)
@@ -167,7 +161,6 @@ void	RPN::handleMultiplication(std::stack<float>& stack)
 	stack.pop();
 	result *= second;
 	stack.push(result);
-
 }
 
 /* utils */

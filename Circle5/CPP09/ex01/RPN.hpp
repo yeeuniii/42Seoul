@@ -33,7 +33,7 @@ class RPN
 		~RPN();
 		RPN&	operator=(const RPN& rpn);
 
-		static float	run(const std::string&);
+		static float	getSolution(const std::string&);
 };
 
 std::queue<std::string>	split(const std::string&, const char&);

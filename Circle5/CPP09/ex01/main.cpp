@@ -9,6 +9,13 @@ int	main(int argc, char *argv[])
 		return 1;
 	}
 
-	std::cout << RPN::run(argv[1]) << std::endl;
+	try
+	{
+		std::cout << RPN::getSolution(argv[1]) << std::endl;
+	}
+	catch(std::exception& e)
+	{
+	 	std::cout << e.what() << std::endl;
+	}
 	return 0;	
 }
