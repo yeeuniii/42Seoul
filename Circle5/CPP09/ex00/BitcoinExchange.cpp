@@ -1,43 +1,29 @@
 #include "BitcoinExchange.hpp"
 #include <iostream>
 #include <sstream>
-#include <cstring>
 
-BitcoinExchange::BadInput::BadInput() : message(strdup("")) {}
+BitcoinExchange::BadInput::BadInput() {}
 
 BitcoinExchange::BadInput::BadInput(const std::string& detail)
 {
-	std::string	message("Error: " + detail);
-
-	this->message = strdup(message.c_str());
+	this->message = "Error: " + detail;
 }
 
-BitcoinExchange::BadInput::~BadInput() throw()
-{
-	delete this->message;
-}
+BitcoinExchange::BadInput::~BadInput() throw() {}
 
 const char* BitcoinExchange::BadInput::what() const throw()
 {
-	return this->message;
+	return this->message.c_str();
 }
 
 BitcoinExchange::InvalidDate::InvalidDate(const std::string& detail) : BadInput()
 {
-	std::string	message("Error: non-existent date => " + detail);
-
-	if (this->message)
-		delete this->message;
-	this->message = strdup(message.c_str());
+	this->message = "Error: non-existent date => " + detail;
 }
 
 BitcoinExchange::InvalidDateFormat::InvalidDateFormat(const std::string& detail) : BadInput()
 {
-	std::string	message("Error: invalid date format(Year-Month-Day) => " + detail);
-
-	if (this->message)
-		delete this->message;
-	this->message = strdup(message.c_str());
+	this->message = "Error: invalid date format(Year-Month-Day) => " + detail;
 }
 
 BitcoinExchange::NegativeValue::NegativeValue() : BadInput() {}
@@ -56,11 +42,7 @@ const char*	BitcoinExchange::TooLargeValue::what() const throw()
 
 BitcoinExchange::InvalidValueFormat::InvalidValueFormat(const std::string& detail) : BadInput(detail)
 {
-	std::string	message("Error: invalid value format(a float or a positive integer) => " + detail);
-
-	if (this->message)
-		delete this->message;
-	message = strdup(message.c_str());
+	message = "Error: invalid value format(a float or a positive integer) => " + detail;
 }
 
 const char* BitcoinExchange::NotExistDate::what() const throw()
@@ -178,7 +160,7 @@ float	BitcoinExchange::multipleValueAndRate(
 
 void	BitcoinExchange::openInputFile(const std::string& fileName, std::ifstream &inputFile)
 {
-	inputFile.open(fileName);
+	inputFile.open(fileName.c_str());
 	if (inputFile.is_open() == false)
 		throw std::ifstream::failure("Error: could not open file.");
 }
