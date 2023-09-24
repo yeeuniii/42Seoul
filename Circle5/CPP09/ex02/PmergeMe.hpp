@@ -10,6 +10,20 @@ class PmergeMe
 		unsigned int	size;
 		
 		PmergeMe();
+		
+		void	checkargument(const int& size, const char* argv[]) const;
+		void	setSequence(const int& size, const char* argv[]);
+		
+		template <typename T>
+		void	pushAll(T& sequence);
+		template <typename T>
+		void	divide(T& sequence);
+		template <typename T>
+		T	makeMainChain(T& sequence);
+		template <typename T>
+		void	sortMerge(T& sequence, T& mainChahin, int start, int mid, int end);
+		template <typename T>
+		void	sortMainChain(T& sequence, T& mainChain, int start, int end);
 
 	public:
 		PmergeMe(const int& size, const char* argv[]);
@@ -17,17 +31,8 @@ class PmergeMe
 		~PmergeMe();
 		PmergeMe&	operator=(const PmergeMe& pm);
 
-		void	checkargument(const int& size, const char* argv[]) const;
-		void	setSequence(const int& size, const char* argv[]);
-
 		template <typename T>
 		void	sortMergeInsertion(T sequence);
-		template <typename T>
-		void	pushAll(T& sequence);
-		template <typename T>
-		void	divide(T& sequence);
-		template <typename T>
-		void	makeMainChain();
 };
 
 bool	isPositiveIntString(std::string string);
