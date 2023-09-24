@@ -19,11 +19,9 @@ class PmergeMe
 		template <typename T>
 		void	divide(T& sequence);
 		template <typename T>
-		T	makeMainChain(T& sequence);
+		void	sortMerge(T& sequence, int start, int mid, int end);
 		template <typename T>
-		void	sortMerge(T& sequence, T& mainChahin, int start, int mid, int end);
-		template <typename T>
-		void	sortMainChain(T& sequence, T& mainChain, int start, int end);
+		void	sortMainChain(T& sequence, int start, int end);
 
 	public:
 		PmergeMe(const int& size, const char* argv[]);
