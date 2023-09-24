@@ -76,3 +76,11 @@ bool	isPositiveIntString(std::string string)
 		idx++;
 	return idx == size;
 }
+
+void	swap(int& first, int& last)
+{
+	int	tmp = first;
+
+	first = last;
+	last = tmp;
+}
