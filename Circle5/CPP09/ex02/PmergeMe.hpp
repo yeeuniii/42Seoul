@@ -22,6 +22,12 @@ class PmergeMe
 		void	sortMerge(T& sequence, int start, int mid, int end);
 		template <typename T>
 		void	sortMainChain(T& sequence, int start, int end);
+		template <typename T>
+		T		makeMainChain(T& sequence);
+		template <typename T>
+		void	insert(T& sequence);
+		template <typename T>
+		int		searchBinary(T& sorted, const int& value);
 
 	public:
 		PmergeMe(const int& size, const char* argv[]);

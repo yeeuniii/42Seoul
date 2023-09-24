@@ -8,7 +8,8 @@ void	PmergeMe::sortMergeInsertion(T sequence)
 	pushAll(sequence);
 	divide(sequence);
 	sortMainChain(sequence, 0, sequence.size() / 2 - 1);
-	
+	insert(sequence);
+
 	typename T::iterator itr;  
 	std::cout << "sequence" << std::endl;
 	for (itr = sequence.begin(); itr != sequence.end(); itr++)
@@ -77,4 +78,55 @@ void	PmergeMe::sortMerge(T& sequence, int start, int mid, int end)
 		sorted[k++ * 2 + 1] = sequence[l++ * 2 + 1];
 	}
 	sequence = sorted;
+}
+
+template <typename T>
+T	PmergeMe::makeMainChain(T& sequence)
+{
+	unsigned int	idx = 0;
+	T				mainChain;
+
+	while (idx < sequence.size() / 2 * 2)
+	{
+		mainChain.push_back(sequence[idx]);
+		idx += 2;
+	}
+	return mainChain;
+}
+
+template <typename T>
+void	PmergeMe::insert(T& sequence)
+{
+	int	idx = 0;
+	int	size = static_cast<int>(sequence.size()) / 2;
+	T	sorted = makeMainChain(sequence);
+
+	while (idx < size)
+	{
+		int			value = sequence[idx * 2 + 1];
+		typename T::iterator	itr = sorted.begin();
+
+		itr += searchBinary(sorted, value);
+		sorted.insert(itr, value);
+		idx++;
+	}
+	sequence = sorted;
+}
+
+template <typename T>
+int		PmergeMe::searchBinary(T& sorted, const int& value)
+{
+	int	start = 0;
+	int	end = static_cast<int>(sorted.size());
+	int	mid = (start + end) / 2;
+
+	while (sorted[mid] != value && start < end)
+	{
+		if (value < sorted[mid])
+			end = mid - 1;
+		else
+			start = mid + 1;
+		mid = (start + end) / 2;
+	}
+	return value < sorted[mid] ? mid : mid + 1;
 }
