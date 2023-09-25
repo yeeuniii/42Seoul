@@ -165,7 +165,6 @@ void	PmergeMe::setNextIndex(int& index, int JacobstalNumbers[], const int& n, co
 	index--;
 	if (index + 1 != JacobstalNumbers[0] || size <= JacobstalNumbers[1])
 		return ;
-	std::cout << JacobstalNumbers[0] << " " << JacobstalNumbers[1] << std::endl;
 	JacobstalNumbers[0] = JacobstalNumbers[1];
 	JacobstalNumbers[1] = getJacobstalNumber(JacobstalNumbers[1], n);
 	index = JacobstalNumbers[1] - 1;
@@ -184,7 +183,6 @@ void	PmergeMe::sortInsertion(std::vector<int>& vec)
 	JacobstalNumbers[1] = 1;
 	while (idx + 1 != JacobstalNumbers[0])
 	{
-		std::cout << "idx : " << idx << std::endl;
 		insert(sorted, vec[idx * 2 + 1]);
 		setNextIndex(idx, JacobstalNumbers, n++, static_cast<int>(vec.size()) / 2);
 	}
@@ -238,7 +236,7 @@ bool	isWellSorted(std::vector<int> vector)
 	std::vector<int>::iterator	itr = vector.begin();
 	int	prev = *itr;
 
-	while (itr != vector.end() && (*++itr) >= prev)
+	while (++itr != vector.end() && *itr >= prev)
 		prev = *itr;
 	return itr == vector.end();
 }
