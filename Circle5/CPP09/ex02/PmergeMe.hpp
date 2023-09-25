@@ -33,4 +33,6 @@ class PmergeMe
 bool	isPositiveIntString(std::string string);
 void	swap(int& front, int& back);
 
+bool	isWellSorted(std::vector<int> vector);
+
 #endif

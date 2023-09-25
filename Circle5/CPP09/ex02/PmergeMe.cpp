@@ -70,6 +70,7 @@ void	PmergeMe::sortByVector()
 	std::vector<int>::iterator	itr = vec.begin();
 	for (itr = vec.begin(); itr != vec.end(); itr++)
 		std::cout << *itr << std::endl;
+	std::cout << "well sorted : " << std::boolalpha << isWellSorted(vec) << std::endl;
 }
 
 void	PmergeMe::divideTwo(std::vector<int>& vec)
@@ -218,3 +219,12 @@ void	swap(int& first, int& last)
 	last = tmp;
 }
 
+bool	isWellSorted(std::vector<int> vector)
+{
+	std::vector<int>::iterator	itr = vector.begin();
+	int	prev = *itr;
+
+	while (itr != vector.end() && (*++itr) >= prev)
+		prev = *itr;
+	return itr == vector.end();
+}
