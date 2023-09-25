@@ -160,32 +160,33 @@ void	PmergeMe::insert(std::vector<int>& vec, int value)
 	vec.insert(itr, value);
 }
 
+void	PmergeMe::setNextIndex(int& index, int JacobstalNumbers[], const int& n, const int& size)
+{
+	index--;
+	if (index + 1 != JacobstalNumbers[0] || size <= JacobstalNumbers[1])
+		return ;
+	std::cout << JacobstalNumbers[0] << " " << JacobstalNumbers[1] << std::endl;
+	JacobstalNumbers[0] = JacobstalNumbers[1];
+	JacobstalNumbers[1] = getJacobstalNumber(JacobstalNumbers[1], n);
+	index = JacobstalNumbers[1] - 1;
+	if (size <= JacobstalNumbers[1])
+		index = size - 1;
+}
+
 void	PmergeMe::sortInsertion(std::vector<int>& vec)
 {
 	int	idx = 0;
-	int	size = static_cast<int>(vec.size()) / 2;
-	std::vector<int>	sorted = makeMainChain(vec);
-	int	JacobstalNumbers[2];
 	int	n = 2;
-	bool	isEnd = false;
+	int	JacobstalNumbers[2];
+	std::vector<int>	sorted = makeMainChain(vec);
+	
 	JacobstalNumbers[0] = 0;
 	JacobstalNumbers[1] = 1;
-
-	while (!(isEnd && idx + 1 == JacobstalNumbers[0]))
+	while (idx + 1 != JacobstalNumbers[0])
 	{
+		std::cout << "idx : " << idx << std::endl;
 		insert(sorted, vec[idx * 2 + 1]);
-		idx--;
-		if (!isEnd && idx + 1 == JacobstalNumbers[0])
-		{
-			JacobstalNumbers[0] = JacobstalNumbers[1];
-			JacobstalNumbers[1] = getJacobstalNumber(JacobstalNumbers[1], n++);
-			idx = JacobstalNumbers[1] - 1;
-			if (JacobstalNumbers[1] >= size)
-			{
-				idx = size - 1;
-				isEnd = true;
-			}
-		}
+		setNextIndex(idx, JacobstalNumbers, n++, static_cast<int>(vec.size()) / 2);
 	}
 	vec = sorted;
 }
