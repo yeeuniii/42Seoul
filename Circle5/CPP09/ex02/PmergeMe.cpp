@@ -1,21 +1,16 @@
 #include "PmergeMe.hpp"
-#include <iostream>
 #include <stdexcept>
 #include <sstream>
+#include <cmath>
+
+#include <iostream>
 
 PmergeMe::PmergeMe() {}
 
 PmergeMe::PmergeMe(const int& size, const char* argv[])
 {
-	try
-	{
-		checkargument(size, argv);
-		setSequence(size, argv);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
+	checkargument(size, argv);
+	setSequence(size, argv);
 }
 
 PmergeMe::PmergeMe(const PmergeMe &pm)
@@ -71,9 +66,9 @@ void	PmergeMe::sortByVector()
 	divideTwo(vec);
 	sortMainChain(vec, 0, vec.size() / 2 - 1);
 	insert(vec);
-
+	
 	std::vector<int>::iterator	itr = vec.begin();
-	for (; itr != vec.end(); itr++)
+	for (itr = vec.begin(); itr != vec.end(); itr++)
 		std::cout << *itr << std::endl;
 }
 
@@ -149,20 +144,41 @@ std::vector<int>	makeMainChain(std::vector<int>& vec)
 
 void	PmergeMe::insert(std::vector<int>& vec)
 {
-	unsigned int	idx = 0;
-	unsigned int	size = vec.size() / 2;
+	int	idx = 0;
+	int	size = static_cast<int>(vec.size()) / 2;
 	std::vector<int>	sorted = makeMainChain(vec);
+	int	JacobstalNumbers[2];
+	int	n = 2;
+	bool	isEnd = false;
+	JacobstalNumbers[0] = 0;
+	JacobstalNumbers[1] = 1;
 
-	while (idx < size)
+	while (!(isEnd && idx + 1 == JacobstalNumbers[0]))
 	{
 		int	value = vec[idx * 2 + 1];
 		std::vector<int>::iterator itr;
 
 		itr = sorted.begin() + searchBinary(sorted, value);
 		sorted.insert(itr, value);
-		idx++;
+		idx--;
+		if (!isEnd && idx + 1 == JacobstalNumbers[0])
+		{
+			JacobstalNumbers[0] = JacobstalNumbers[1];
+			JacobstalNumbers[1] = getJacobstalNumber(JacobstalNumbers[1], n++);
+			idx = JacobstalNumbers[1] - 1;
+			if (JacobstalNumbers[1] >= size)
+			{
+				idx = size - 1;
+				isEnd = true;
+			}
+		}
 	}
 	vec = sorted;
+}
+
+int	PmergeMe::getJacobstalNumber(const int& prev, const int& n)
+{
+	return pow(2, n) - prev;
 }
 
 int	PmergeMe::searchBinary(const std::vector<int>& sorted, const int& value)
