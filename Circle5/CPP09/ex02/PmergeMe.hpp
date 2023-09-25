@@ -6,35 +6,54 @@
 
 class PmergeMe
 {
+private:
+	std::vector<int> origin;
+
+	PmergeMe();
+
+	void checkArgument(const int &size, const char *argv[]) const;
+	void setSequence(const int &size, const char *argv[]);
+
+	class Vector
+	{
 	private:
-		std::vector<int>	seq;
+		std::vector<int>	_seq;
+		int					_size;
+		long 				_time;
+
+		Vector();
 		
-		PmergeMe();
-		
-		void	checkargument(const int& size, const char* argv[]) const;
-		void	setSequence(const int& size, const char* argv[]);
-		
-		void	divideTwo(std::vector<int>& vec);
-		void	sortMainChain(std::vector<int>& vec, int start, int end);
-		void	sortMerge(std::vector<int>& vec, int start, int mid, int end);
-		void	insert(std::vector<int>& vec, int value);
-		void	sortInsertion(std::vector<int>& vec);
-		void	setNextIndex(int& index, int JacobstalNumbers[], const int& n, const int& size);
-		int		getJacobstalNumber(const int& prev, const int& n);
-		int		searchBinary(const std::vector<int>& sorted, const int& value);
+		void divideTwo();
+		void sortMainChain(int start, int end);
+		void sortMerge(int start, int mid, int end);
+		std::vector<int>	makeMainChain();
+		void insert(std::vector<int>& _seq, const int& value);
+		void sortInsertion();
+		void setNextIndex(int &index, int JacobstalNumbers[], const int &n);
+		int getJacobstalNumber(const int &prev, const int &n);
+		int searchBinary(const std::vector<int>& sorted, const int &value);
 
 	public:
-		PmergeMe(const int& size, const char* argv[]);
-		PmergeMe(const PmergeMe& pm);
-		~PmergeMe();
-		PmergeMe&	operator=(const PmergeMe& pm);
+		Vector(const std::vector<int>&);
+		Vector(const Vector& vector);
+		~Vector();
+		Vector&	operator=(const Vector& vector);
 		
-		void	sortByVector();
+		void sort();
+	};
+
+public:
+	PmergeMe(const int &size, const char *argv[]);
+	PmergeMe(const PmergeMe &pm);
+	~PmergeMe();
+	PmergeMe &operator=(const PmergeMe &pm);
+
+	void	sort();
 };
 
-bool	isPositiveIntString(std::string string);
-void	swap(int& front, int& back);
+bool isPositiveIntString(std::string string);
+void swap(int &front, int &back);
 
-bool	isWellSorted(std::vector<int> vector);
+bool isWellSorted(std::vector<int> vector);
 
 #endif

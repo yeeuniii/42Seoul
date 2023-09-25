@@ -10,7 +10,7 @@ int	main(int argc, char* argv[])
 	{
 		PmergeMe	pm(argc - 1, const_cast<const char**>(argv + 1));
 	
-		pm.sortByVector();
+		pm.sort();
 	}
 	catch(const std::exception& e)
 	{

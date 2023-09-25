@@ -9,7 +9,7 @@ PmergeMe::PmergeMe() {}
 
 PmergeMe::PmergeMe(const int& size, const char* argv[])
 {
-	checkargument(size, argv);
+	checkArgument(size, argv);
 	setSequence(size, argv);
 }
 
@@ -24,16 +24,16 @@ PmergeMe&	PmergeMe::operator=(const PmergeMe& pm)
 {
 	if (this != &pm)
 	{
-		this->seq.clear();
-		std::vector<int>::iterator	itr = this->seq.begin();
-		this->seq.insert(itr, pm.seq.begin(), pm.seq.end());
+		this->origin.clear();
+		std::vector<int>::iterator	itr = this->origin.begin();
+		this->origin.insert(itr, pm.origin.begin(), pm.origin.end());
 	}
 	return *this;
 }
 
 /* parsing */
 
-void	PmergeMe::checkargument(const int& size, const char* argv[]) const
+void	PmergeMe::checkArgument(const int& size, const char* argv[]) const
 {
 	int		idx = 0;
 	bool	isValid = true;
@@ -56,150 +56,183 @@ void	PmergeMe::setSequence(const int& size, const char* argv[])
 	{
 		std::stringstream	ss(argv[idx]);
 		ss >> num;
-		this->seq.push_back(num);
+		this->origin.push_back(num);
 	}
 }
 
-/* sort using vector */
+/* sort */
 
-void	PmergeMe::sortByVector()
+void	PmergeMe::sort()
 {
-	std::vector<int>	vec;
+	PmergeMe::Vector	vec(this->origin);
+
+	vec.sort();
+}
+
+/* Vector */
+
+PmergeMe::Vector::Vector() {}
+
+PmergeMe::Vector::Vector(const std::vector<int>& origin)
+{
+	_seq = origin;
+	_size = static_cast<int>(_seq.size());
+}
+
+PmergeMe::Vector::Vector(const Vector& vector)
+{
+	*this = vector;
+}
+
+PmergeMe::Vector::~Vector() {}
+
+PmergeMe::Vector&	PmergeMe::Vector::operator=(const Vector& vector)
+{
+	if (this != &vector)
+	{
+		_seq = vector._seq;
+		_size = vector._size;
+		_time = vector._time;
+	}
+	return *this;
+}
+
+void	PmergeMe::Vector::Vector::sort()
+{
 	int					isOdd;
 	int					last;
 
-	vec = this->seq;
-	isOdd = vec.size() % 2;
-	divideTwo(vec);
+	isOdd = _size % 2;
+	divideTwo();
 	if (isOdd)
-		last = *(--vec.end());
-	sortMainChain(vec, 0, vec.size() / 2 - 1);
-	sortInsertion(vec);
+		last = *(--_seq.end());
+	sortMainChain(0, _size / 2 - 1);
+	sortInsertion();
 	if (isOdd)
-		insert(vec, last);
+		insert(_seq, last);
 
-	std::vector<int>::iterator	itr = vec.begin();
-	for (itr = vec.begin(); itr != vec.end(); itr++)
-		std::cout << *itr << std::endl;
-	std::cout << "well sorted : " << std::boolalpha << isWellSorted(vec) << std::endl;
+	std::vector<int>::iterator	itr = _seq.begin();
+	for (itr = _seq.begin(); itr != _seq.end(); itr++)
+		std::cout << *itr << " ";
+	std::cout << "\nwell sorted : " << std::boolalpha << isWellSorted(_seq) << std::endl;
 }
 
-void	PmergeMe::divideTwo(std::vector<int>& vec)
+void	PmergeMe::Vector::divideTwo()
 {
 	unsigned int	idx = 0;
-	unsigned int	size = vec.size() / 2 * 2;
+	unsigned int	size = _size / 2 * 2;
 
 	while (idx < size)
 	{
-		if (vec[idx] < vec[idx + 1])
-			swap(vec[idx], vec[idx + 1]);
+		if (_seq[idx] < _seq[idx + 1])
+			swap(_seq[idx], _seq[idx + 1]);
 		idx += 2;
 	}
 }
 
-void	PmergeMe::sortMainChain(std::vector<int>& vec, int start, int end)
+void	PmergeMe::Vector::sortMainChain(int start, int end)
 {
 	if (start >= end)
 		return ;
 
 	int	mid = (end + start) / 2;
 
-	sortMainChain(vec, start, mid);
-	sortMainChain(vec, mid + 1, end);
-	sortMerge(vec, start, mid, end);
+	sortMainChain(start, mid);
+	sortMainChain(mid + 1, end);
+	sortMerge(start, mid, end);
 }
 
-void	PmergeMe::sortMerge(std::vector<int>& vec, int start, int mid, int end)
+void	PmergeMe::Vector::sortMerge(int start, int mid, int end)
 {
 	int	i, j, k, l;
-	std::vector<int>	sorted(vec);
+	std::vector<int>	sorted(_seq);
 
 	i = start;
 	j = mid + 1;
 	k = start;
 	while (i <= mid && j <= end)
 	{
-		if (vec[i * 2] < vec[j * 2])
+		if (_seq[i * 2] < _seq[j * 2])
 		{
-			sorted[k * 2] = vec[i * 2];
-			sorted[k++ * 2 + 1] = vec[i++ * 2 + 1];
+			sorted[k * 2] = _seq[i * 2];
+			sorted[k++ * 2 + 1] = _seq[i++ * 2 + 1];
 		}
 		else
 		{
-			sorted[k * 2] = vec[j * 2];
-			sorted[k++ * 2 + 1] = vec[j++ * 2 + 1];
+			sorted[k * 2] = _seq[j * 2];
+			sorted[k++ * 2 + 1] = _seq[j++ * 2 + 1];
 		}
 	}
 	l = i <= mid ? i : j;
 	while (k <= end)
 	{
-		sorted[k * 2] = vec[l * 2];
-		sorted[k++ * 2 + 1] = vec[l++ * 2 + 1];
+		sorted[k * 2] = _seq[l * 2];
+		sorted[k++ * 2 + 1] = _seq[l++ * 2 + 1];
 	}
-	vec = sorted;
+	_seq = sorted;
 }
 
-std::vector<int>	makeMainChain(std::vector<int>& vec)
+std::vector<int>	PmergeMe::Vector::makeMainChain()
 {
 	std::vector<int>	mainChain;
 	std::vector<int>::iterator	itr;
-	std::vector<int>::iterator	end = vec.end();
+	std::vector<int>::iterator	end = _seq.end();
 
-	if (vec.size() % 2)
+	if (_size % 2)
 		end--;
-	for (itr = vec.begin(); itr != end; itr += 2)
+	for (itr = _seq.begin(); itr != end; itr += 2)
 		mainChain.push_back(*itr);
 	return mainChain;
 }
 
-void	PmergeMe::insert(std::vector<int>& vec, int value)
+void	PmergeMe::Vector::insert(std::vector<int>& seq, const int& value)
 {
 	std::vector<int>::iterator itr;
-		
-	itr = vec.begin() + searchBinary(vec, value);
-	vec.insert(itr, value);
+
+	itr = seq.begin() + searchBinary(seq, value);
+	seq.insert(itr, value);
 }
 
-void	PmergeMe::setNextIndex(int& index, int JacobstalNumbers[], const int& n, const int& size)
+void	PmergeMe::Vector::setNextIndex(int& index, int JacobstalNumbers[], const int& n)
 {
 	index--;
-	if (index + 1 != JacobstalNumbers[0] || size <= JacobstalNumbers[1])
+	if (index + 1 != JacobstalNumbers[0] || _size / 2 <= JacobstalNumbers[1])
 		return ;
 	JacobstalNumbers[0] = JacobstalNumbers[1];
 	JacobstalNumbers[1] = getJacobstalNumber(JacobstalNumbers[1], n);
 	index = JacobstalNumbers[1] - 1;
-	if (size <= JacobstalNumbers[1])
-		index = size - 1;
+	if (_size / 2 <= JacobstalNumbers[1])
+		index = _size / 2 - 1;
 }
 
-void	PmergeMe::sortInsertion(std::vector<int>& vec)
+void	PmergeMe::Vector::sortInsertion()
 {
 	int	idx = 0;
 	int	n = 2;
 	int	JacobstalNumbers[2];
-	std::vector<int>	sorted = makeMainChain(vec);
-	
+	std::vector<int>	sorted = makeMainChain();
+
 	JacobstalNumbers[0] = 0;
 	JacobstalNumbers[1] = 1;
 	while (idx + 1 != JacobstalNumbers[0])
 	{
-		insert(sorted, vec[idx * 2 + 1]);
-		setNextIndex(idx, JacobstalNumbers, n++, static_cast<int>(vec.size()) / 2);
+		insert(sorted, _seq[idx * 2 + 1]);
+		setNextIndex(idx, JacobstalNumbers, n++);
 	}
-	vec = sorted;
+	_seq = sorted;
 }
 
-int	PmergeMe::getJacobstalNumber(const int& prev, const int& n)
+int	PmergeMe::Vector::getJacobstalNumber(const int& prev, const int& n)
 {
 	return pow(2, n) - prev;
 }
 
-int	PmergeMe::searchBinary(const std::vector<int>& sorted, const int& value)
+int	PmergeMe::Vector::searchBinary(const std::vector<int>& sorted, const int& value)
 {
 	int	start = 0;
 	int	end = static_cast<int>(sorted.size());
 	int	mid = (start + end) / 2;
-
+	
 	while (sorted[mid] != value && start < end)
 	{
 		if (value < sorted[mid])
