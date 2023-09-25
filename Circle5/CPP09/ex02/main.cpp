@@ -1,6 +1,4 @@
 #include "PmergeMe.hpp"
-#include <cstdlib>
-#include <vector>
 
 int	main(int argc, char* argv[])
 {
@@ -9,9 +7,6 @@ int	main(int argc, char* argv[])
 	
 	PmergeMe	pm(argc - 1, const_cast<const char**>(argv + 1));
 	
-	std::vector<int> vec;
-	pm.sortMergeInsertion(vec);
-
-	// system("leaks PmergeMe");
+	pm.sortByVector();
 	return 0;
 }

@@ -63,6 +63,125 @@ void	PmergeMe::setSequence(const int& size, const char* argv[])
 	}
 }
 
+void	PmergeMe::sortByVector()
+{
+	std::vector<int>	vec;
+
+	vec = this->seq;
+	divideTwo(vec);
+	sortMainChain(vec, 0, vec.size() / 2 - 1);
+	insert(vec);
+
+	std::vector<int>::iterator	itr = vec.begin();
+	for (; itr != vec.end(); itr++)
+		std::cout << *itr << std::endl;
+}
+
+void	PmergeMe::divideTwo(std::vector<int>& vec)
+{
+	unsigned int	idx = 0;
+	unsigned int	size = vec.size() / 2 * 2;
+
+	while (idx < size)
+	{
+		if (vec[idx] < vec[idx + 1])
+			swap(vec[idx], vec[idx + 1]);
+		idx += 2;
+	}
+}
+
+void	PmergeMe::sortMainChain(std::vector<int>& vec, int start, int end)
+{
+	if (start >= end)
+		return ;
+
+	int	mid = (end + start) / 2;
+
+	sortMainChain(vec, start, mid);
+	sortMainChain(vec, mid + 1, end);
+	sortMerge(vec, start, mid, end);
+}
+
+void	PmergeMe::sortMerge(std::vector<int>& vec, int start, int mid, int end)
+{
+	int	i, j, k, l;
+	std::vector<int>	sorted(vec);
+
+	i = start;
+	j = mid + 1;
+	k = start;
+	while (i <= mid && j <= end)
+	{
+		if (sorted[i * 2] < sorted[j * 2])
+		{
+			sorted[k * 2] = vec[i * 2];
+			sorted[k++ * 2 + 1] = vec[i++ * 2 + 1];
+		}
+		else
+		{
+			sorted[k * 2] = vec[j * 2];
+			sorted[k++ * 2 + 1] = vec[j++ * 2 + 1];
+		}
+	}
+	l = i <= mid ? i : j;
+	while (k <= end)
+	{
+		sorted[k * 2] = vec[l * 2];
+		sorted[k++ * 2 + 1] = vec[l++ * 2 + 1];
+	}
+	vec = sorted;
+}
+
+std::vector<int>	makeMainChain(std::vector<int>& vec)
+{
+	std::vector<int>	mainChain;
+	std::vector<int>::iterator	itr;
+	std::vector<int>::iterator	end = vec.end();
+
+	if (vec.size() % 2)
+		end--;
+	for (itr = vec.begin(); itr != end; itr += 2)
+	{
+		mainChain.push_back(*itr);
+	}
+	return mainChain;
+}
+
+void	PmergeMe::insert(std::vector<int>& vec)
+{
+	unsigned int	idx = 0;
+	unsigned int	size = vec.size() / 2;
+	std::vector<int>	sorted = makeMainChain(vec);
+
+	while (idx < size)
+	{
+		int	value = vec[idx * 2 + 1];
+		std::vector<int>::iterator itr;
+
+		itr = sorted.begin() + searchBinary(sorted, value);
+		sorted.insert(itr, value);
+		idx++;
+	}
+	vec = sorted;
+}
+
+int	PmergeMe::searchBinary(const std::vector<int>& sorted, const int& value)
+{
+	int	start = 0;
+	int	end = static_cast<int>(sorted.size());
+	int	mid = (start + end) / 2;
+
+	while (sorted[mid] != value && start < end)
+	{
+		if (value < sorted[mid])
+			end = mid - 1;
+		else
+			start = mid + 1;
+		mid = (start + end) / 2;
+	}
+	return value < sorted[mid] ? mid : mid + 1;
+}
+
 /* util functions */
 
 bool	isPositiveIntString(std::string string)
