@@ -31,6 +31,8 @@ PmergeMe&	PmergeMe::operator=(const PmergeMe& pm)
 	return *this;
 }
 
+/* parsing */
+
 void	PmergeMe::checkargument(const int& size, const char* argv[]) const
 {
 	int		idx = 0;
@@ -58,15 +60,24 @@ void	PmergeMe::setSequence(const int& size, const char* argv[])
 	}
 }
 
+/* sort using vector */
+
 void	PmergeMe::sortByVector()
 {
 	std::vector<int>	vec;
+	int					isOdd;
+	int					last;
 
 	vec = this->seq;
+	isOdd = vec.size() % 2;
 	divideTwo(vec);
+	if (isOdd)
+		last = *(--vec.end());
 	sortMainChain(vec, 0, vec.size() / 2 - 1);
-	insert(vec);
-	
+	sortInsertion(vec);
+	if (isOdd)
+		insert(vec, last);
+
 	std::vector<int>::iterator	itr = vec.begin();
 	for (itr = vec.begin(); itr != vec.end(); itr++)
 		std::cout << *itr << std::endl;
@@ -137,13 +148,19 @@ std::vector<int>	makeMainChain(std::vector<int>& vec)
 	if (vec.size() % 2)
 		end--;
 	for (itr = vec.begin(); itr != end; itr += 2)
-	{
 		mainChain.push_back(*itr);
-	}
 	return mainChain;
 }
 
-void	PmergeMe::insert(std::vector<int>& vec)
+void	PmergeMe::insert(std::vector<int>& vec, int value)
+{
+	std::vector<int>::iterator itr;
+		
+	itr = vec.begin() + searchBinary(vec, value);
+	vec.insert(itr, value);
+}
+
+void	PmergeMe::sortInsertion(std::vector<int>& vec)
 {
 	int	idx = 0;
 	int	size = static_cast<int>(vec.size()) / 2;
@@ -156,11 +173,7 @@ void	PmergeMe::insert(std::vector<int>& vec)
 
 	while (!(isEnd && idx + 1 == JacobstalNumbers[0]))
 	{
-		int	value = vec[idx * 2 + 1];
-		std::vector<int>::iterator itr;
-
-		itr = sorted.begin() + searchBinary(sorted, value);
-		sorted.insert(itr, value);
+		insert(sorted, vec[idx * 2 + 1]);
 		idx--;
 		if (!isEnd && idx + 1 == JacobstalNumbers[0])
 		{

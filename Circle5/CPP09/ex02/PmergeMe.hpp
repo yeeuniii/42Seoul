@@ -17,7 +17,8 @@ class PmergeMe
 		void	divideTwo(std::vector<int>& vec);
 		void	sortMainChain(std::vector<int>& vec, int start, int end);
 		void	sortMerge(std::vector<int>& vec, int start, int mid, int end);
-		void	insert(std::vector<int>& vec);
+		void	insert(std::vector<int>& vec, int value);
+		void	sortInsertion(std::vector<int>& vec);
 		int		getJacobstalNumber(const int& prev, const int& n);
 		int		searchBinary(const std::vector<int>& sorted, const int& value);
 
