@@ -108,7 +108,7 @@ void	PmergeMe::sortMerge(std::vector<int>& vec, int start, int mid, int end)
 	k = start;
 	while (i <= mid && j <= end)
 	{
-		if (sorted[i * 2] < sorted[j * 2])
+		if (vec[i * 2] < vec[j * 2])
 		{
 			sorted[k * 2] = vec[i * 2];
 			sorted[k++ * 2 + 1] = vec[i++ * 2 + 1];
