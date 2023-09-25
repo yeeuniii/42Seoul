@@ -2,46 +2,28 @@
 #define __PMERGEME_HPP__
 
 #include <string>
+#include <vector>
 
 class PmergeMe
 {
 	private:
-		int				*seq;
-		unsigned int	size;
+		std::vector<int>	seq;
 		
 		PmergeMe();
 		
 		void	checkargument(const int& size, const char* argv[]) const;
 		void	setSequence(const int& size, const char* argv[]);
 		
-		template <typename T>
-		void	pushAll(T& sequence);
-		template <typename T>
-		void	divide(T& sequence);
-		template <typename T>
-		void	sortMerge(T& sequence, int start, int mid, int end);
-		template <typename T>
-		void	sortMainChain(T& sequence, int start, int end);
-		template <typename T>
-		T		makeMainChain(T& sequence);
-		template <typename T>
-		void	insert(T& sequence);
-		template <typename T>
-		int		searchBinary(T& sorted, const int& value);
-
 	public:
 		PmergeMe(const int& size, const char* argv[]);
 		PmergeMe(const PmergeMe& pm);
 		~PmergeMe();
 		PmergeMe&	operator=(const PmergeMe& pm);
-
-		template <typename T>
-		void	sortMergeInsertion(T sequence);
 };
 
 bool	isPositiveIntString(std::string string);
 void	swap(int& front, int& back);
 
-#include "PmergeMe.tpp"
+// #include "PmergeMe.tpp"
 
 #endif

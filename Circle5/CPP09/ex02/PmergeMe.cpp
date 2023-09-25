@@ -5,7 +5,7 @@
 
 PmergeMe::PmergeMe() {}
 
-PmergeMe::PmergeMe(const int& size, const char* argv[]) : seq(new int[size]), size(size)
+PmergeMe::PmergeMe(const int& size, const char* argv[])
 {
 	try
 	{
@@ -23,20 +23,15 @@ PmergeMe::PmergeMe(const PmergeMe &pm)
 	*this = pm;
 }
 
-PmergeMe::~PmergeMe()
-{
-	delete[] this->seq;
-}
+PmergeMe::~PmergeMe() {}
 
 PmergeMe&	PmergeMe::operator=(const PmergeMe& pm)
 {
 	if (this != &pm)
 	{
-		delete[] this->seq;
-		this->seq = new int[pm.size];
-		for (unsigned int idx = 0; idx < pm.size; idx++)
-			this->seq[idx] = pm.seq[idx];
-		this->size = pm.size;
+		this->seq.clear();
+		std::vector<int>::iterator	itr = this->seq.begin();
+		this->seq.insert(itr, pm.seq.begin(), pm.seq.end());
 	}
 	return *this;
 }
@@ -58,10 +53,13 @@ void	PmergeMe::checkargument(const int& size, const char* argv[]) const
 
 void	PmergeMe::setSequence(const int& size, const char* argv[])
 {
+	int	num;
+	
 	for (int idx = 0; idx < size; idx++)
 	{
-		std::stringstream ss(argv[idx]);
-		ss >> this->seq[idx];
+		std::stringstream	ss(argv[idx]);
+		ss >> num;
+		this->seq.push_back(num);
 	}
 }
 
