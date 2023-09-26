@@ -139,6 +139,8 @@ void	PmergeMe::Vector::sort()
 	int					isOdd;
 	int					last;
 
+	if (this->_size == 1)
+		return ;
 	isOdd = _size % 2;
 	divideTwo();
 	if (isOdd)
