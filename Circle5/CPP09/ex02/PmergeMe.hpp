@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <ctime>
 
 class PmergeMe
 {
@@ -19,10 +20,10 @@ private:
 	private:
 		std::vector<int>	_seq;
 		int					_size;
-		long 				_time;
+		double				_time;
 
 		Vector();
-		
+
 		void divideTwo();
 		void sortMainChain(int start, int end);
 		void sortMerge(int start, int mid, int end);
@@ -30,7 +31,6 @@ private:
 		void insert(std::vector<int>& _seq, const int& value);
 		void sortInsertion();
 		void setNextIndex(int &index, int JacobstalNumbers[], const int &n);
-		int getJacobstalNumber(const int &prev, const int &n);
 		int searchBinary(const std::vector<int>& sorted, const int &value);
 
 	public:
@@ -39,21 +39,26 @@ private:
 		~Vector();
 		Vector&	operator=(const Vector& vector);
 		
+		void set_time(const std::clock_t& start, const std::clock_t& end);
+		const double& get_time();
+
 		void sort();
 	};
+	
 
 public:
 	PmergeMe(const int &size, const char *argv[]);
 	PmergeMe(const PmergeMe &pm);
 	~PmergeMe();
 	PmergeMe &operator=(const PmergeMe &pm);
-
+	
 	void	sort();
 };
 
-bool isPositiveIntString(std::string string);
-void swap(int &front, int &back);
+bool	isPositiveIntString(std::string string);
+void	swap(int &front, int &back);
+int		getJacobstalNumber(const int &prev, const int &n);
 
-bool isWellSorted(std::vector<int> vector);
+bool	isWellSorted(std::vector<int> vector);
 
 #endif

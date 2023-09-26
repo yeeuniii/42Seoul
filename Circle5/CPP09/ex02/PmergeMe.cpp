@@ -65,8 +65,13 @@ void	PmergeMe::setSequence(const int& size, const char* argv[])
 void	PmergeMe::sort()
 {
 	PmergeMe::Vector	vec(this->origin);
+	std::clock_t		start, end;
 
+	start = clock();
 	vec.sort();
+	end = clock();
+	vec.set_time(start, end);
+	std::cout << vec.get_time() << "ms" << std::endl;
 }
 
 /* Vector */
@@ -97,6 +102,16 @@ PmergeMe::Vector&	PmergeMe::Vector::operator=(const Vector& vector)
 	return *this;
 }
 
+void	PmergeMe::Vector::set_time(const std::clock_t& start, const std::clock_t& end)
+{
+	this->_time = static_cast<double>(end - start);
+}
+
+const double& PmergeMe::Vector::get_time()
+{
+	return this->_time;
+}
+
 void	PmergeMe::Vector::Vector::sort()
 {
 	int					isOdd;
@@ -110,11 +125,6 @@ void	PmergeMe::Vector::Vector::sort()
 	sortInsertion();
 	if (isOdd)
 		insert(_seq, last);
-
-	std::vector<int>::iterator	itr = _seq.begin();
-	for (itr = _seq.begin(); itr != _seq.end(); itr++)
-		std::cout << *itr << " ";
-	std::cout << "\nwell sorted : " << std::boolalpha << isWellSorted(_seq) << std::endl;
 }
 
 void	PmergeMe::Vector::divideTwo()
@@ -222,11 +232,6 @@ void	PmergeMe::Vector::sortInsertion()
 	_seq = sorted;
 }
 
-int	PmergeMe::Vector::getJacobstalNumber(const int& prev, const int& n)
-{
-	return pow(2, n) - prev;
-}
-
 int	PmergeMe::Vector::searchBinary(const std::vector<int>& sorted, const int& value)
 {
 	int	start = 0;
@@ -262,6 +267,11 @@ void	swap(int& first, int& last)
 
 	first = last;
 	last = tmp;
+}
+
+int		getJacobstalNumber(const int& prev, const int& n)
+{
+	return pow(2, n) - prev;
 }
 
 bool	isWellSorted(std::vector<int> vector)
