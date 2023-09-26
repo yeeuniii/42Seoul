@@ -3,8 +3,6 @@
 #include <sstream>
 #include <cmath>
 
-#include <iostream>
-
 PmergeMe::PmergeMe() {}
 
 PmergeMe::PmergeMe(const int& size, const char* argv[])
@@ -71,7 +69,19 @@ void	PmergeMe::sort()
 	vec.sort();
 	end = clock();
 	vec.set_time(start, end);
-	std::cout << vec.get_time() << "ms" << std::endl;
+	display(vec);
+}
+
+void	PmergeMe::display(Vector& vec) const
+{
+	std::vector<int>	tmp = this->origin;
+
+	std::cout << "Before:\t";
+	displaySequence(this->origin);
+	std::cout << "After:\t";
+	displaySequence(vec.get_seq());
+	std::cout << "Time to process a range of\t" << vec.get_size()
+			<< " elements with std::vector : " << vec.get_time() / 1000 << " us" << std::endl;
 }
 
 /* Vector */
@@ -107,7 +117,17 @@ void	PmergeMe::Vector::set_time(const std::clock_t& start, const std::clock_t& e
 	this->_time = static_cast<double>(end - start);
 }
 
-const double& PmergeMe::Vector::get_time()
+std::vector<int>	PmergeMe::Vector::get_seq()
+{
+	return this->_seq;
+}
+
+const int&	PmergeMe::Vector::get_size()
+{
+	return this->_size;
+}
+
+const double&	PmergeMe::Vector::get_time()
 {
 	return this->_time;
 }

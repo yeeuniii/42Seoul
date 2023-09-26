@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <ctime>
+#include <iostream>
 
 class PmergeMe
 {
@@ -39,12 +40,15 @@ private:
 		~Vector();
 		Vector&	operator=(const Vector& vector);
 		
-		void set_time(const std::clock_t& start, const std::clock_t& end);
-		const double& get_time();
+		void	set_time(const std::clock_t& start, const std::clock_t& end);
+		std::vector<int>	get_seq();
+		const int&		get_size();
+		const double&	get_time();
 
 		void sort();
 	};
 	
+	void	display(Vector& vec) const;
 
 public:
 	PmergeMe(const int &size, const char *argv[]);
@@ -58,6 +62,16 @@ public:
 bool	isPositiveIntString(std::string string);
 void	swap(int &front, int &back);
 int		getJacobstalNumber(const int &prev, const int &n);
+
+template <typename T>
+void	displaySequence(T container)
+{
+	typename T::iterator	itr;
+
+	for (itr = container.begin(); itr != container.end(); itr++)
+		std::cout << *itr << " ";
+	std::cout << std::endl;
+}
 
 bool	isWellSorted(std::vector<int> vector);
 
