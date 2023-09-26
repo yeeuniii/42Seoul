@@ -1,6 +1,8 @@
 #include "PmergeMe.hpp"
 #include <stdexcept>
 #include <sstream>
+#include <limits>
+#include <cstdlib>
 #include <cmath>
 
 PmergeMe::PmergeMe() {}
@@ -43,7 +45,7 @@ void	PmergeMe::checkArgument(const int& size, const char* argv[]) const
 		idx++;
 	}
 	if (isValid == false)
-		throw (std::invalid_argument("Error: not a positive number."));
+		throw (std::invalid_argument("Error: not a positive integer."));
 }
 
 void	PmergeMe::setSequence(const int& size, const char* argv[])
@@ -132,7 +134,7 @@ const double&	PmergeMe::Vector::get_time()
 	return this->_time;
 }
 
-void	PmergeMe::Vector::Vector::sort()
+void	PmergeMe::Vector::sort()
 {
 	int					isOdd;
 	int					last;
@@ -276,6 +278,8 @@ bool	isPositiveIntString(std::string string)
 	int	idx = 0;
 	int	size = string.size();
 
+	if (string == "0" || atol(string.c_str()) > std::numeric_limits<int>::max())
+		return false;
 	while (idx < size && isdigit(string[idx]))
 		idx++;
 	return idx == size;
