@@ -81,7 +81,7 @@ void	PmergeMe::display(Vector& vec) const
 	std::cout << "After:\t";
 	displaySequence(vec.get_seq());
 	std::cout << "Time to process a range of\t" << vec.get_size()
-			<< " elements with std::vector : " << vec.get_time() / 1000 << " us" << std::endl;
+			<< " elements with std::vector : " << vec.get_time() << " us" << std::endl;
 }
 
 /* Vector */
@@ -114,7 +114,7 @@ PmergeMe::Vector&	PmergeMe::Vector::operator=(const Vector& vector)
 
 void	PmergeMe::Vector::set_time(const std::clock_t& start, const std::clock_t& end)
 {
-	this->_time = static_cast<double>(end - start);
+	this->_time = static_cast<double>(end - start) / 1000.0;
 }
 
 std::vector<int>	PmergeMe::Vector::get_seq()

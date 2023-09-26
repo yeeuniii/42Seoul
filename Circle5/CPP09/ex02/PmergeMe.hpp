@@ -25,14 +25,14 @@ private:
 
 		Vector();
 
-		void divideTwo();
-		void sortMainChain(int start, int end);
-		void sortMerge(int start, int mid, int end);
+		void	divideTwo();
+		void	sortMainChain(int start, int end);
+		void	sortMerge(int start, int mid, int end);
 		std::vector<int>	makeMainChain();
-		void insert(std::vector<int>& _seq, const int& value);
-		void sortInsertion();
-		void setNextIndex(int &index, int JacobstalNumbers[], const int &n);
-		int searchBinary(const std::vector<int>& sorted, const int &value);
+		void	insert(std::vector<int>& _seq, const int& value);
+		void	sortInsertion();
+		void	setNextIndex(int &index, int JacobstalNumbers[], const int &n);
+		int		searchBinary(const std::vector<int>& sorted, const int &value);
 
 	public:
 		Vector(const std::vector<int>&);
@@ -42,8 +42,8 @@ private:
 		
 		void	set_time(const std::clock_t& start, const std::clock_t& end);
 		std::vector<int>	get_seq();
-		const int&		get_size();
-		const double&	get_time();
+		const int&			get_size();
+		const double&		get_time();
 
 		void sort();
 	};
@@ -54,7 +54,7 @@ public:
 	PmergeMe(const int &size, const char *argv[]);
 	PmergeMe(const PmergeMe &pm);
 	~PmergeMe();
-	PmergeMe &operator=(const PmergeMe &pm);
+	PmergeMe	&operator=(const PmergeMe &pm);
 	
 	void	sort();
 };
