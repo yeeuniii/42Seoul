@@ -146,7 +146,7 @@ void	PmergeMe::Vector::sort()
 	divideTwo();
 	if (isOdd)
 		last = *(--_seq.end());
-	sortMainChain(0, _size / 2 - 1);
+	sortMerge(0, _size / 2 - 1);
 	sortInsertion();
 	if (isOdd)
 		insert(_seq, last);
@@ -165,19 +165,19 @@ void	PmergeMe::Vector::divideTwo()
 	}
 }
 
-void	PmergeMe::Vector::sortMainChain(int start, int end)
+void	PmergeMe::Vector::sortMerge(int start, int end)
 {
 	if (start >= end)
 		return ;
 
 	int	mid = (end + start) / 2;
 
-	sortMainChain(start, mid);
-	sortMainChain(mid + 1, end);
-	sortMerge(start, mid, end);
+	sortMerge(start, mid);
+	sortMerge(mid + 1, end);
+	merge(start, mid, end);
 }
 
-void	PmergeMe::Vector::sortMerge(int start, int mid, int end)
+void	PmergeMe::Vector::merge(int start, int mid, int end)
 {
 	int	i, j, k, l;
 	std::vector<int>	sorted(_seq);
@@ -334,7 +334,10 @@ void	PmergeMe::List::sort()
 	if (isOdd)
 		last = *(--_seq.end());
 	divideTwo();	
-	// sortMainChain(0, _size / 2 - 1);
+	for (std::list<int>::iterator itr = _seq.begin(); itr != _seq.end(); itr++)
+		std::cout << *itr << " ";
+	std::cout << std::endl;
+	_seq = sortMerge(_seq);
 	// sortInsertion();
 	// if (isOdd)
 	// 	insert(_seq, last);
@@ -362,6 +365,71 @@ void	PmergeMe::List::divideTwo()
 	_seq = lst;
 }
 
+std::list<int>	PmergeMe::List::sortMerge(std::list<int>& lst)
+{
+	if (lst.size() <= 2)
+		return lst;
+
+	std::list<int> left, right, sorted;
+	std::list<int>::iterator	itr = lst.begin();
+	int size = static_cast<int>(lst.size());
+	int	idx = 0;
+
+	for (; idx < size / 2; idx += 2)
+	{
+		left.push_back(*(itr++));
+		left.push_back(*(itr++));
+	}
+	for (; idx < size; idx += 2)
+	{
+		right.push_back(*(itr++));
+		right.push_back(*(itr++));
+	}
+	left = sortMerge(left);
+	right = sortMerge(right);
+	sorted = merge(left, right);
+	return sorted;
+}
+
+std::list<int>	PmergeMe::List::merge(std::list<int> &left, std::list<int> &right)
+{
+	std::list<int> sorted;
+
+	while (!left.empty() && !right.empty())
+	{
+		if (left.front() <= right.front())
+		{
+			sorted.push_back(left.front());
+			left.pop_front();
+			sorted.push_back(left.front());
+			left.pop_front();
+		}
+		else
+		{
+			sorted.push_back(right.front());
+			right.pop_front();
+			sorted.push_back(right.front());
+			right.pop_front();
+		}
+	}
+	while (!left.empty())
+	{
+		sorted.push_back(left.front());
+		left.pop_front();
+		sorted.push_back(left.front());
+		left.pop_front();
+	}
+	while (!right.empty())
+	{
+		sorted.push_back(right.front());
+		right.pop_front();
+		sorted.push_back(right.front());
+		right.pop_front();
+	}
+	return sorted;
+}
+
+
 /* util functions */
 
 bool	isPositiveIntString(std::string string)
@@ -388,6 +456,7 @@ int		getJacobstalNumber(const int& prev, const int& n)
 {
 	return pow(2, n) - prev;
 }
+
 
 bool	isWellSorted(std::vector<int> vector)
 {

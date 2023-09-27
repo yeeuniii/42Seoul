@@ -27,8 +27,8 @@ private:
 		Vector();
 
 		void	divideTwo();
-		void	sortMainChain(int start, int end);
-		void	sortMerge(int start, int mid, int end);
+		void	sortMerge(int start, int end);
+		void	merge(int start, int mid, int end);
 		std::vector<int>	makeMainChain();
 		void	insert(std::vector<int>& _seq, const int& value);
 		void	sortInsertion();
@@ -59,9 +59,8 @@ private:
 		List();
 
 		void	divideTwo();
-		void	sortMainChain(int start, int end);
-		void	sortMerge(int start, int mid, int end);
-		std::vector<int>	makeMainChain();
+		std::list<int>	sortMerge(std::list<int>& lst);
+		std::list<int>	merge(std::list<int> &left, std::list<int> &right);
 		void	insert(std::vector<int>& _seq, const int& value);
 		void	sortInsertion();
 		void	setNextIndex(int &index, int JacobstalNumbers[], const int &n);
