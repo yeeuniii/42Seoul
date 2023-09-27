@@ -262,8 +262,8 @@ int	PmergeMe::Vector::searchBinary(const std::vector<int>& sorted, const int& va
 	int	start = 0;
 	int	end = static_cast<int>(sorted.size());
 	int	mid = (start + end) / 2;
-	
-	while (sorted[mid] != value && start < end)
+
+	while (start < end && sorted[mid] != value)
 	{
 		if (value < sorted[mid])
 			end = mid - 1;
@@ -271,6 +271,8 @@ int	PmergeMe::Vector::searchBinary(const std::vector<int>& sorted, const int& va
 			start = mid + 1;
 		mid = (start + end) / 2;
 	}
+	if (start >= end)
+		return mid;
 	return value < sorted[mid] ? mid : mid + 1;
 }
 
