@@ -309,17 +309,17 @@ void	PmergeMe::List::set_time(const std::clock_t& start, const std::clock_t& end
 	this->_time = static_cast<double>(end - start) / 1000.0;
 }
 
-std::list<int>	PmergeMe::List::get_seq()
+std::list<int>	PmergeMe::List::get_seq() const
 {
 	return this->_seq;
 }
 
-const int&	PmergeMe::List::get_size()
+const int&	PmergeMe::List::get_size() const
 {
 	return this->_size;
 }
 
-const double&	PmergeMe::List::get_time()
+const double&	PmergeMe::List::get_time() const
 {
 	return this->_time;
 }
@@ -334,17 +334,10 @@ void	PmergeMe::List::sort()
 	if (isOdd)
 		last = *(--_seq.end());
 	divideTwo();	
-	for (std::list<int>::iterator itr = _seq.begin(); itr != _seq.end(); itr++)
-		std::cout << *itr << " ";
-	std::cout << std::endl;
 	_seq = sortMerge(_seq);
-	// sortInsertion();
-	// if (isOdd)
-	// 	insert(_seq, last);
-
-	for (std::list<int>::iterator itr = _seq.begin(); itr != _seq.end(); itr++)
-		std::cout << *itr << " ";
-	std::cout << std::endl;
+	sortInsertion();
+	if (isOdd)
+		insert(_seq, last);
 }
 
 void	PmergeMe::List::divideTwo()
@@ -409,7 +402,99 @@ std::list<int>	PmergeMe::List::merge(std::list<int> &left, std::list<int> &right
 	return sorted;
 }
 
+void	PmergeMe::List::pushFrontElement(std::list<int>& pushList, std::list<int>& popList, const int& time)
+{
+	int	idx = 0;
 
+	while (idx < time)
+	{
+		pushList.push_back(popList.front());
+		popList.pop_front();
+		idx++;
+	}
+}
+
+std::list<int> PmergeMe::List::makeMainChain()
+{
+	std::list<int> mainChain;
+	std::list<int>::iterator itr = _seq.begin();
+
+	for (int idx = 0; idx < _size / 2; idx++)
+	{
+		mainChain.push_back(*(itr++));
+		itr++;
+	}
+	return mainChain;
+}
+
+void PmergeMe::List::insert(std::list<int> &seq, const int &value)
+{
+	std::list<int>::iterator itr = seq.begin();
+	int	pos = searchBinary(seq, value);
+
+	for (int idx = 0; idx < pos; idx++)
+		itr++;
+	seq.insert(itr, value);
+}
+
+void PmergeMe::List::setNextIndex(int &index, int JacobstalNumbers[], const int &n)
+{
+	index--;
+	if (index + 1 != JacobstalNumbers[0] || _size / 2 <= JacobstalNumbers[1])
+		return;
+	JacobstalNumbers[0] = JacobstalNumbers[1];
+	JacobstalNumbers[1] = getJacobstalNumber(JacobstalNumbers[1], n);
+	index = JacobstalNumbers[1] - 1;
+	if (_size / 2 <= JacobstalNumbers[1])
+		index = _size / 2 - 1;
+}
+
+void PmergeMe::List::sortInsertion()
+{
+	int idx = 0;
+	int n = 2;
+	int JacobstalNumbers[2];
+	std::list<int> sorted = makeMainChain();
+
+	JacobstalNumbers[0] = 0;
+	JacobstalNumbers[1] = 1;
+	while (idx + 1 != JacobstalNumbers[0])
+	{
+		insert(sorted, getElement(_seq, idx * 2 + 1));
+		setNextIndex(idx, JacobstalNumbers, n++);
+	}
+	_seq = sorted;
+}
+
+int PmergeMe::List::searchBinary(const std::list<int> &sorted, const int &value)
+{
+	int	start = 0;
+	int	end = static_cast<int>(sorted.size());
+	int	mid = (start + end) / 2;
+	int	midValue = getElement(const_cast<std::list<int>&>(sorted), mid);
+
+	while (start < end && midValue != value)
+	{
+		if (value < midValue)
+			end = mid - 1;
+		else
+			start = mid + 1;
+		mid = (start + end) / 2;
+		midValue = getElement(const_cast<std::list<int>&>(sorted), mid);
+	}
+	return value < midValue ? mid : mid + 1;
+}
+
+int	PmergeMe::List::getElement(std::list<int>& lst, const int& pos) 
+{
+	std::list<int>::iterator	itr = lst.begin();
+
+	for (int idx = 0; idx < pos; idx++)
+		itr++;
+	return *itr;
+}
+
+		
 /* util functions */
 
 bool	isPositiveIntString(std::string string)
@@ -437,17 +522,7 @@ int		getJacobstalNumber(const int& prev, const int& n)
 	return pow(2, n) - prev;
 }
 
-void	pushFrontElement(std::list<int>& pushList, std::list<int>& popList, const int& time)
-{
-	int	idx = 0;
 
-	while (idx < time)
-	{
-		pushList.push_back(popList.front());
-		popList.pop_front();
-		idx++;
-	}
-}
 
 bool	isWellSorted(std::vector<int> vector)
 {

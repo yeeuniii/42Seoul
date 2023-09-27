@@ -61,11 +61,14 @@ private:
 		void	divideTwo();
 		std::list<int>	sortMerge(std::list<int>& lst);
 		std::list<int>	merge(std::list<int> &left, std::list<int> &right);
-		void	insert(std::vector<int>& _seq, const int& value);
+		void	pushFrontElement(std::list<int>& pushList, std::list<int>& popList, const int& time);
+		std::list<int>	makeMainChain();
+		void	insert(std::list<int>& _seq, const int& value);
 		void	sortInsertion();
 		void	setNextIndex(int &index, int JacobstalNumbers[], const int &n);
 		int		searchBinary(const std::list<int>& sorted, const int &value);
-
+		int		getElement(std::list<int>& lst, const int& pos);
+	
 	public:
 		List(const std::vector<int>&);
 		List(const List& vector);
@@ -73,9 +76,9 @@ private:
 		List&	operator=(const List& vector);
 
 		void	set_time(const std::clock_t& start, const std::clock_t& end);
-		std::list<int>	get_seq();
-		const int&			get_size();
-		const double&		get_time();
+		std::list<int>	get_seq() const;
+		const int&			get_size() const;
+		const double&		get_time() const;
 
 		void sort();
 	};
@@ -91,11 +94,9 @@ public:
 	void	sort();
 };
 
-
 bool	isPositiveIntString(std::string string);
 void	swap(int &front, int &back);
 int		getJacobstalNumber(const int &prev, const int &n);
-void	pushFrontElement(std::list<int>& pushList, std::list<int>& popList, const int& time);
 
 template <typename T>
 void	displaySequence(T container)
