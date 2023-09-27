@@ -121,17 +121,17 @@ void	PmergeMe::Vector::set_time(const std::clock_t& start, const std::clock_t& e
 	this->_time = static_cast<double>(end - start) / 1000.0;
 }
 
-std::vector<int>	PmergeMe::Vector::get_seq()
+std::vector<int>	PmergeMe::Vector::get_seq() const
 {
 	return this->_seq;
 }
 
-const int&	PmergeMe::Vector::get_size()
+const int&	PmergeMe::Vector::get_size() const
 {
 	return this->_size;
 }
 
-const double&	PmergeMe::Vector::get_time()
+const double&	PmergeMe::Vector::get_time() const
 {
 	return this->_time;
 }
@@ -271,8 +271,6 @@ int	PmergeMe::Vector::searchBinary(const std::vector<int>& sorted, const int& va
 			start = mid + 1;
 		mid = (start + end) / 2;
 	}
-	if (start >= end)
-		return mid;
 	return value < sorted[mid] ? mid : mid + 1;
 }
 

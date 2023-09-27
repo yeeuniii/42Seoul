@@ -42,9 +42,9 @@ private:
 		Vector&	operator=(const Vector& vector);
 		
 		void	set_time(const std::clock_t& start, const std::clock_t& end);
-		std::vector<int>	get_seq();
-		const int&			get_size();
-		const double&		get_time();
+		std::vector<int>	get_seq() const;
+		const int&			get_size() const;
+		const double&		get_time() const;
 
 		void sort();
 	};
