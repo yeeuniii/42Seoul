@@ -72,20 +72,29 @@ void	PmergeMe::sort()
 	vec.sort();
 	end = clock();
 	vec.set_time(start, end);
+	start = clock();
 	lst.sort();
-	display(vec);
+	end = clock();
+	lst.set_time(start, end);
+	display(vec, lst);
 }
 
-void	PmergeMe::display(Vector& vec) const
+void	PmergeMe::display(Vector& vec, List& lst) const
 {
-	std::vector<int>	tmp = this->origin;
-
+	if (isWellSorted(vec.get_seq()) == false)
+	{
+		std::cout << "not sorted" << std::endl;
+		return ;
+	}
 	std::cout << "Before:\t";
 	displaySequence(this->origin);
 	std::cout << "After:\t";
 	displaySequence(vec.get_seq());
 	std::cout << "Time to process a range of\t" << vec.get_size()
 			<< " elements with std::vector : " << vec.get_time() << " us" << std::endl;
+	std::cout << "Time to process a range of\t" << lst.get_size()
+			<< " elements with std::list : " << lst.get_time() << " us" << std::endl;
+
 }
 
 /* Vector */

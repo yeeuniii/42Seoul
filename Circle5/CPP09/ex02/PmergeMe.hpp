@@ -83,7 +83,7 @@ private:
 		void sort();
 	};
 
-	void	display(Vector& vec) const;
+	void	display(Vector& vec, List& list) const;
 
 public:
 	PmergeMe(const int &size, const char *argv[]);
