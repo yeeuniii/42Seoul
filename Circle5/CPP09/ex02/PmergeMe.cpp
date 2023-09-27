@@ -65,12 +65,14 @@ void	PmergeMe::setSequence(const int& size, const char* argv[])
 void	PmergeMe::sort()
 {
 	PmergeMe::Vector	vec(this->origin);
+	PmergeMe::List		lst(this->origin);
 	std::clock_t		start, end;
 
 	start = clock();
 	vec.sort();
 	end = clock();
 	vec.set_time(start, end);
+	lst.sort();
 	display(vec);
 }
 
@@ -136,12 +138,11 @@ const double&	PmergeMe::Vector::get_time()
 
 void	PmergeMe::Vector::sort()
 {
-	int					isOdd;
-	int					last;
+	int	isOdd = _size % 2;
+	int	last;
 
-	if (this->_size == 1)
+	if (_size == 1)
 		return ;
-	isOdd = _size % 2;
 	divideTwo();
 	if (isOdd)
 		last = *(--_seq.end());
@@ -271,6 +272,92 @@ int	PmergeMe::Vector::searchBinary(const std::vector<int>& sorted, const int& va
 		mid = (start + end) / 2;
 	}
 	return value < sorted[mid] ? mid : mid + 1;
+}
+
+/* List */
+
+PmergeMe::List::List() {}
+
+PmergeMe::List::List(const std::vector<int>& origin)
+{
+	_seq.insert(_seq.begin(), origin.begin(), origin.end());
+	_size = static_cast<int>(_seq.size());
+}
+
+PmergeMe::List::List(const List& list)
+{
+	*this = list;
+}
+
+PmergeMe::List::~List() {}
+
+PmergeMe::List&	PmergeMe::List::operator=(const List& list)
+{
+	if (this != &list)
+	{
+		_seq = list._seq;
+		_size = list._size;
+		_time = list._time;
+	}
+	return *this;
+}
+
+void	PmergeMe::List::set_time(const std::clock_t& start, const std::clock_t& end)
+{
+	this->_time = static_cast<double>(end - start) / 1000.0;
+}
+
+std::list<int>	PmergeMe::List::get_seq()
+{
+	return this->_seq;
+}
+
+const int&	PmergeMe::List::get_size()
+{
+	return this->_size;
+}
+
+const double&	PmergeMe::List::get_time()
+{
+	return this->_time;
+}
+
+void	PmergeMe::List::sort()
+{
+	int	isOdd = _size % 2;
+	int	last;
+
+	if (_size == 1)
+		return ;
+	if (isOdd)
+		last = *(--_seq.end());
+	divideTwo();	
+	// sortMainChain(0, _size / 2 - 1);
+	// sortInsertion();
+	// if (isOdd)
+	// 	insert(_seq, last);
+
+	for (std::list<int>::iterator itr = _seq.begin(); itr != _seq.end(); itr++)
+		std::cout << *itr << " ";
+	std::cout << std::endl;
+}
+
+void	PmergeMe::List::divideTwo()
+{
+	std::list<int>				lst;
+	std::list<int>::iterator	itr;
+	int		first, second;
+
+	for (itr = _seq.begin(); lst.size() < _seq.size() / 2 * 2; itr++)
+	{
+		first = *(itr++);
+		second = *itr;
+		if (first < second)
+			swap(first, second);
+		lst.push_back(first);
+		lst.push_back(second);
+	}
+	_seq = lst;
 }
 
 /* util functions */

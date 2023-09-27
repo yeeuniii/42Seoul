@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <list>
 #include <ctime>
 #include <iostream>
 
@@ -48,6 +49,38 @@ private:
 		void sort();
 	};
 	
+	class List
+	{
+	private:
+		std::list<int>	_seq;
+		int				_size;
+		double			_time;
+
+		List();
+
+		void	divideTwo();
+		void	sortMainChain(int start, int end);
+		void	sortMerge(int start, int mid, int end);
+		std::vector<int>	makeMainChain();
+		void	insert(std::vector<int>& _seq, const int& value);
+		void	sortInsertion();
+		void	setNextIndex(int &index, int JacobstalNumbers[], const int &n);
+		int		searchBinary(const std::list<int>& sorted, const int &value);
+
+	public:
+		List(const std::vector<int>&);
+		List(const List& vector);
+		~List();
+		List&	operator=(const List& vector);
+
+		void	set_time(const std::clock_t& start, const std::clock_t& end);
+		std::list<int>	get_seq();
+		const int&			get_size();
+		const double&		get_time();
+
+		void sort();
+	};
+
 	void	display(Vector& vec) const;
 
 public:
@@ -58,6 +91,7 @@ public:
 	
 	void	sort();
 };
+
 
 bool	isPositiveIntString(std::string string);
 void	swap(int &front, int &back);
