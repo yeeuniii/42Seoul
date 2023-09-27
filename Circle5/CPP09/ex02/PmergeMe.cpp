@@ -1,5 +1,6 @@
 #include "PmergeMe.hpp"
 #include <stdexcept>
+#include <exception>
 #include <sstream>
 #include <limits>
 #include <cstdlib>
@@ -81,10 +82,13 @@ void	PmergeMe::sort()
 
 void	PmergeMe::display(Vector& vec, List& lst) const
 {
-	if (isWellSorted(vec.get_seq()) == false)
+	if (!(isWellSorted(vec.get_seq()) && isWellSorted(lst.get_seq())))
 	{
-		std::cout << "not sorted" << std::endl;
-		return ;
+		std::cout << "vec:\t";
+		displaySequence(vec.get_seq());
+		std::cout << "lst:\t";
+		displaySequence(lst.get_seq());
+		throw (std::exception());
 	}
 	std::cout << "Before:\t";
 	displaySequence(this->origin);
@@ -280,6 +284,9 @@ int	PmergeMe::Vector::searchBinary(const std::vector<int>& sorted, const int& va
 			start = mid + 1;
 		mid = (start + end) / 2;
 	}
+	int size = static_cast<int>(sorted.size());
+	if (mid >= size)
+		return size;
 	return value < sorted[mid] ? mid : mid + 1;
 }
 
@@ -489,6 +496,9 @@ int PmergeMe::List::searchBinary(const std::list<int> &sorted, const int &value)
 		mid = (start + end) / 2;
 		midValue = getElement(const_cast<std::list<int>&>(sorted), mid);
 	}
+	int size = static_cast<int>(sorted.size());
+	if (mid >= size)
+		return size;
 	return value < midValue ? mid : mid + 1;
 }
 
@@ -496,7 +506,7 @@ int	PmergeMe::List::getElement(std::list<int>& lst, const int& pos)
 {
 	std::list<int>::iterator	itr = lst.begin();
 
-	for (int idx = 0; idx < pos; idx++)
+	for (int idx = 0; itr != lst.end() && idx < pos; idx++)
 		itr++;
 	return *itr;
 }
@@ -527,16 +537,4 @@ void	swap(int& first, int& last)
 int		getJacobstalNumber(const int& prev, const int& n)
 {
 	return pow(2, n) - prev;
-}
-
-
-
-bool	isWellSorted(std::vector<int> vector)
-{
-	std::vector<int>::iterator	itr = vector.begin();
-	int	prev = *itr;
-
-	while (++itr != vector.end() && *itr >= prev)
-		prev = *itr;
-	return itr == vector.end();
 }

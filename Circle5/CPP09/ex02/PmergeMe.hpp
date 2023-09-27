@@ -108,6 +108,15 @@ void	displaySequence(T container)
 	std::cout << std::endl;
 }
 
-bool	isWellSorted(std::vector<int> vector);
+template <typename T>
+bool	isWellSorted(T container)
+{
+	typename T::iterator	itr = container.begin();
+	int	prev = *itr;
+
+	while (++itr != container.end() && *itr >= prev)
+		prev = *itr;
+	return itr == container.end();
+}
 
 #endif
