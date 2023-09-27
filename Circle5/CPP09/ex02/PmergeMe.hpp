@@ -95,6 +95,7 @@ public:
 bool	isPositiveIntString(std::string string);
 void	swap(int &front, int &back);
 int		getJacobstalNumber(const int &prev, const int &n);
+void	pushFrontElement(std::list<int>& pushList, std::list<int>& popList, const int& time);
 
 template <typename T>
 void	displaySequence(T container)

@@ -398,34 +398,14 @@ std::list<int>	PmergeMe::List::merge(std::list<int> &left, std::list<int> &right
 	while (!left.empty() && !right.empty())
 	{
 		if (left.front() <= right.front())
-		{
-			sorted.push_back(left.front());
-			left.pop_front();
-			sorted.push_back(left.front());
-			left.pop_front();
-		}
+			pushFrontElement(sorted, left, 2);
 		else
-		{
-			sorted.push_back(right.front());
-			right.pop_front();
-			sorted.push_back(right.front());
-			right.pop_front();
-		}
+			pushFrontElement(sorted, right, 2);
 	}
 	while (!left.empty())
-	{
-		sorted.push_back(left.front());
-		left.pop_front();
-		sorted.push_back(left.front());
-		left.pop_front();
-	}
+		pushFrontElement(sorted, left, 2);
 	while (!right.empty())
-	{
-		sorted.push_back(right.front());
-		right.pop_front();
-		sorted.push_back(right.front());
-		right.pop_front();
-	}
+		pushFrontElement(sorted, right, 2);
 	return sorted;
 }
 
@@ -457,6 +437,17 @@ int		getJacobstalNumber(const int& prev, const int& n)
 	return pow(2, n) - prev;
 }
 
+void	pushFrontElement(std::list<int>& pushList, std::list<int>& popList, const int& time)
+{
+	int	idx = 0;
+
+	while (idx < time)
+	{
+		pushList.push_back(popList.front());
+		popList.pop_front();
+		idx++;
+	}
+}
 
 bool	isWellSorted(std::vector<int> vector)
 {
