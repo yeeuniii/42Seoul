@@ -33,6 +33,6 @@ int	main(void)
 		read(sockfd, &buff, BUFFER_SIZE);
 		std::cout << "response : " << buff << std::endl;
 	}
-	close(sockfd);
+	//close(sockfd);
 	return 0;
 }

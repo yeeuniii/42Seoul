@@ -30,23 +30,25 @@ int	main(void)
 
 	struct sockaddr_in client_address;
 	socklen_t client_address_len = sizeof(client_address);
-	int new_sockfd = accept(sockfd, (struct sockaddr*)&client_address, &client_address_len);
-	
-	if (new_sockfd == -1) {
-		std::cout << "fail" << std::endl;
-	}
+	int n;
 	while (1) {
-		std::cout << "original fd : " << sockfd << std::endl;
-		std::cout << "new socket fd : " << new_sockfd << std::endl;
-		
+		int new_sockfd = accept(sockfd, (struct sockaddr*)&client_address, &client_address_len);
 		char buff[BUFFER_SIZE];
 
+		if (new_sockfd == -1) {
+			std::cout << "fail" << std::endl;
+		}
+		std::cout << "original fd : " << sockfd << std::endl;
+		std::cout << "new socket fd : " << new_sockfd << std::endl;
 		memset(buff, 0, sizeof(buff));
-		read(new_sockfd, &buff, BUFFER_SIZE);
-		std::cout << "request : " << buff << std::endl;
-		*buff = '1';
-		write(new_sockfd, buff, strlen(buff) + 1);
+		while ((n = read(new_sockfd, &buff, BUFFER_SIZE)) > 0) {
+
+			std::cout << "request : " << buff << std::endl;
+			*buff = '1';
+			write(new_sockfd, buff, strlen(buff) + 1);
+			memset(buff, 0, sizeof(buff));
+		}
+		close(new_sockfd);
 	}
-	//close(new_sockfd);
 	return 0;
 }
