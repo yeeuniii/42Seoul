@@ -53,8 +53,8 @@ void Connection::processEvents(const int& times) {
 
 		processListenEvent(event);
 		processReadEvent(event);
+		processWriteEvent(event);
 	}
-
 }
 
 void Connection::processListenEvent(const struct kevent& event) {
@@ -91,6 +91,17 @@ void Connection::processReadEvent(const struct kevent& event) {
 		buff[n] = 0;
 	_clients[event.ident] += buff;
 	printf("Read in socket %lu : %s", event.ident, _clients[event.ident].c_str());
+}
+
+void Connection::processWriteEvent(const struct kevent& event) {
+	if ((_clients.find(event.ident) != _clients.end() && event.filter == EVFILT_WRITE) == false || _clients[event.ident] == "")
+		return ;
+
+	int n =write(event.ident, _clients[event.ident].c_str(), _clients[event.ident].size());
+
+	if (n == -1)
+		throw(strerror(errno));	
+	_clients[event.ident].clear();
 }
 
 void Connection::addEventToChangeList(
