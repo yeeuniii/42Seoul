@@ -10,6 +10,8 @@ Connection::Connection() {}
 
 Connection::Connection(int socket) {
 	_kqueue = kqueue();
+	if (_kqueue == -1)
+		throw(strerror(errno));
 	memset(_event_list, 0, sizeof(struct kevent) * NUMBER_OF_EVENT);
 	_listen_socket = socket;
 }
@@ -33,16 +35,13 @@ Connection Connection::operator=(const Connection &other) {
 Connection::~Connection() {}
 
 void Connection::run() {
-	_kqueue = kqueue();
-	if (_kqueue == -1)
-		throw(errno);
 	addEventToChangeList(_listen_socket, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
 	while (1) {
 		memset(_event_list, 0, sizeof(struct kevent) * NUMBER_OF_EVENT);
 		int times = kevent(_kqueue, &(_change_list[0]), _change_list.size(), _event_list, NUMBER_OF_EVENT, 0);
+		if (times == -1)
+			throw(strerror(errno));	
 		_change_list.clear();
-		/* return value에 따른 처리 */
-
 		processEvents(times);
 	}
 }
@@ -51,10 +50,19 @@ void Connection::processEvents(const int& times) {
 	for (int idx = 0; idx < times; idx++) {
 		struct kevent event = _event_list[idx];
 
+		checkEventError(event);
 		processListenEvent(event);
 		processReadEvent(event);
 		processWriteEvent(event);
 	}
+}
+
+void Connection::checkEventError(const struct kevent& event) {
+	if ((event.flags & EV_ERROR) == false)
+		return ;
+	// if (event.ident == _listen_socket)
+	if (_clients.find(event.ident) != _clients.end())
+		disconnectWithClient(event);	
 }
 
 void Connection::processListenEvent(const struct kevent& event) {
@@ -78,19 +86,18 @@ void Connection::processReadEvent(const struct kevent& event) {
 		return ;
 
 	int n;
-	char buff[BUFFER_SIZE];
+	char buff[BUFFER_SIZE + 1];
 	
 	memset(buff, 0, sizeof(buff));
-	while ((n = read(event.ident, &buff, BUFFER_SIZE)) == BUFFER_SIZE) {
-		_clients[event.ident] += buff;
-		memset(buff, 0, sizeof(buff));
+	n = read(event.ident, &buff, BUFFER_SIZE);
+	if (n < 1)
+	{	
+		disconnectWithClient(event);
+		return ;
 	}
-	if (n == -1)
-		throw(strerror(errno));	
-	if (n > 0)
-		buff[n] = 0;
+	buff[n] = 0; 
 	_clients[event.ident] += buff;
-	printf("Read in socket %lu : %s", event.ident, _clients[event.ident].c_str());
+	printf("Read in socket %lu : %s\n", event.ident, _clients[event.ident].c_str());
 }
 
 void Connection::processWriteEvent(const struct kevent& event) {
@@ -100,7 +107,10 @@ void Connection::processWriteEvent(const struct kevent& event) {
 	int n =write(event.ident, _clients[event.ident].c_str(), _clients[event.ident].size());
 
 	if (n == -1)
-		throw(strerror(errno));	
+	{
+		disconnectWithClient(event);
+		return ;
+	}
 	_clients[event.ident].clear();
 }
 
@@ -115,4 +125,10 @@ void Connection::addEventToChangeList(
 	
 	EV_SET(&event, ident, filter, flags, fflags, data, udata);
 	_change_list.push_back(event);
+}
+
+void Connection::disconnectWithClient(const struct kevent& event) {
+	printf("Dissconnect with client. socket : %lu\n", event.ident);
+	close(event.ident);
+	_clients[event.ident].clear();
 }

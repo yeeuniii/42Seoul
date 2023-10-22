@@ -21,6 +21,12 @@ private:
 
 	Connection();
 
+	void processWriteEvent(const struct kevent& event);
+	void processEvents(const int& times);
+	void checkEventError(const struct kevent& event);
+	void processListenEvent(const struct kevent& event);
+	void processReadEvent(const struct kevent& event);
+	
 	void addEventToChangeList(
 		uintptr_t ident,
 		int16_t filter,
@@ -28,10 +34,7 @@ private:
 		uint32_t fflags,
 		intptr_t data,
 		void *udata);
-	void processEvents(const int& times);
-	void processListenEvent(const struct kevent& event);
-	void processReadEvent(const struct kevent& event);
-	void processWriteEvent(const struct kevent& event);
+	void disconnectWithClient(const struct kevent& event);
 
 public:
 	Connection(int socket);
