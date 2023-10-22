@@ -1,5 +1,4 @@
 #include "Connection.hpp"
-#include "SocketError.hpp"
 #include <sys/errno.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -66,7 +65,7 @@ void Connection::checkEventError(const struct kevent& event) {
 }
 
 void Connection::processListenEvent(const struct kevent& event) {
-	if ((event.ident == _listen_socket && event.filter == EVFILT_READ) == false) 
+	if ((static_cast<int>(event.ident) == _listen_socket && event.filter == EVFILT_READ) == false)
 		return ;
 
 	struct sockaddr_in client_address;
