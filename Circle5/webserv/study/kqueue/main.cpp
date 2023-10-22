@@ -13,12 +13,7 @@ int	main(void)
 
 		connection.run();
 	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << std::endl;
-		return 1;
-	}
-	catch(const std::string& error_message)
+	catch(const char* error_message)
 	{
 		std::cerr << error_message << std::endl;
 		return 1;
