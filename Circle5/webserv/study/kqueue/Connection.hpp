@@ -1,8 +1,10 @@
 #ifndef __CONNECTION_HPP__
 #define __CONNECTION_HPP__
 
-#include <vector>
 #include <sys/event.h>
+#include <map>
+#include <vector>
+#include <string>
 #include <exception>
 
 #define BUFFER_SIZE 10000
@@ -15,18 +17,9 @@ private:
 	std::vector<struct kevent> _change_list;
 	struct kevent _event_list[NUMBER_OF_EVENT];
 	int _listen_socket;
+	std::map<int, std::string> _clients;
 
 	Connection();
-
-	class KqueueError : public std::exception
-	{
-	private:
-		const char *message;
-
-	public:
-		KqueueError(const char *message);
-		virtual const char *what() const throw();
-	};
 
 	void addEventToChangeList(
 		uintptr_t ident,
@@ -36,9 +29,9 @@ private:
 		intptr_t data,
 		void *udata);
 	void processEvents(const int& times);
-	void processListenEvent(const struct kevent& evnet);
-	void processReadEvent(const struct kevent& evnet);
-	void processWriteEvent(const struct kevent& evnet);
+	void processListenEvent(const struct kevent& event);
+	void processReadEvent(const struct kevent& event);
+	void processWriteEvent(const struct kevent& event);
 
 public:
 	Connection(int socket);

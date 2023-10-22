@@ -4,12 +4,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <stdio.h>
-
-Connection::KqueueError::KqueueError(const char *message) : message(message) {}
-
-const char* Connection::KqueueError::what() const throw() {
-	return this->message;
-}
+#include <unistd.h>
 
 Connection::Connection() {}
 
@@ -30,6 +25,7 @@ Connection Connection::operator=(const Connection &other) {
 		for (int idx = 0; idx < NUMBER_OF_EVENT; idx++)
 			_event_list[idx] = other._event_list[idx];
 		_listen_socket = other._listen_socket;
+		_clients = other._clients;
 	}
 	return *this;
 }
@@ -39,7 +35,7 @@ Connection::~Connection() {}
 void Connection::run() {
 	_kqueue = kqueue();
 	if (_kqueue == -1)
-		throw(strerror(errno));
+		throw(errno);
 	addEventToChangeList(_listen_socket, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
 	while (1) {
 		memset(_event_list, 0, sizeof(struct kevent) * NUMBER_OF_EVENT);
@@ -56,6 +52,7 @@ void Connection::processEvents(const int& times) {
 		struct kevent event = _event_list[idx];
 
 		processListenEvent(event);
+		processReadEvent(event);
 	}
 
 }
@@ -69,18 +66,40 @@ void Connection::processListenEvent(const struct kevent& event) {
 	int server_socket = accept(_listen_socket, (struct sockaddr*)&client_address, &client_address_len);
 	
 	if (server_socket == -1)
-		throw(SocketError(strerror(errno)));
+		throw(strerror(errno));
+	_clients[server_socket] = "";
 	addEventToChangeList(server_socket, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
 	addEventToChangeList(server_socket, EVFILT_WRITE, EV_ADD | EV_ENABLE, 0, 0, NULL);
+	printf("Connet with socket %d\n", server_socket);
+}
+	
+void Connection::processReadEvent(const struct kevent& event) {
+	if ((_clients.find(event.ident) != _clients.end() && event.filter == EVFILT_READ) == false) 
+		return ;
+
+	int n;
+	char buff[BUFFER_SIZE];
+	
+	memset(buff, 0, sizeof(buff));
+	while ((n = read(event.ident, &buff, BUFFER_SIZE)) == BUFFER_SIZE) {
+		_clients[event.ident] += buff;
+		memset(buff, 0, sizeof(buff));
+	}
+	if (n == -1)
+		throw(strerror(errno));	
+	if (n > 0)
+		buff[n] = 0;
+	_clients[event.ident] += buff;
+	printf("Read in socket %lu : %s", event.ident, _clients[event.ident].c_str());
 }
 
 void Connection::addEventToChangeList(
-uintptr_t ident,
-int16_t filter,
-uint16_t flags,
-uint32_t fflags,
-intptr_t data,
-void* udata) {
+	uintptr_t ident,
+	int16_t filter,
+	uint16_t flags,
+	uint32_t fflags,
+	intptr_t data,
+	void* udata) {
 	struct kevent event;
 	
 	EV_SET(&event, ident, filter, flags, fflags, data, udata);
