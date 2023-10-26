@@ -130,6 +130,11 @@ void	BitcoinExchange::processOneLine(
 	try
 	{
 		std::getline(inputFile, line);
+		if (line.empty())
+		{
+			std::cout << std::endl;
+			return ;
+		}
 		input = makeInputPair(line);
 		result = multipleValueAndRate(input, data);
 		std::cout << input.first << " => " << input.second << " = " << result << std::endl;
@@ -172,12 +177,12 @@ std::pair<std::string, float>	BitcoinExchange::makeInputPair(const std::string &
 	std::string			value;
 
 	ss >> date;
-	if (isValidDate(date) == false)
-		throw (InvalidDate(date));
 	ss >> value;
 	if (value != "|")
 		throw (BadInput("bad input => " + line));
 	ss >> value;
+	if (isValidDate(date) == false)
+		throw (InvalidDate(date));
 	checkValidValue(value);
 	return std::make_pair(date, convertFloat(value));
 }
@@ -221,10 +226,11 @@ bool	BitcoinExchange::checkDateFormat(const std::string& date)
 
 void	BitcoinExchange::checkValidValue(const std::string& valueString)
 {
-	float	value = convertFloat(valueString);
+	float	value;
 
 	if (checkValueFormat(valueString) == false)
 		throw (InvalidValueFormat(valueString));
+	value = convertFloat(valueString);
 	if (value < 0)
 		throw (NegativeValue());
 	if (value > 1000)
