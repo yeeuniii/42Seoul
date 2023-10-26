@@ -80,7 +80,8 @@ class BitcoinExchange
 		static void	run(const std::string& fileName);
 };
 
-float	convertFloat(std::string);
-int		convertInteger(std::string);
+bool	isFloatString(const std::string& string);
+float	convertFloat(const std::string&);
+int		convertInteger(const std::string&);
 
 #endif
