@@ -145,24 +145,6 @@ void	BitcoinExchange::processOneLine(
 	}
 }
 
-float	BitcoinExchange::multipleValueAndRate(
-	const std::pair<std::string, float>& input,
-	std::map<std::string, float>& data)
-{
-	std::map<std::string, float>::iterator	itr = data.begin();
-	std::pair<std::string, float>	matchingPair;
-
-	while (itr != data.end() && input.first != itr->first)
-	{
-		if (itr->first < input.first && itr->first > matchingPair.first)
-			matchingPair = *itr;
-		itr++;
-	}
-	if (matchingPair.first == "")
-		throw (NotExistDate());
-	return input.second * matchingPair.second;
-}
-
 void	BitcoinExchange::openInputFile(const std::string& fileName, std::ifstream &inputFile)
 {
 	inputFile.open(fileName.c_str());
@@ -242,6 +224,21 @@ bool	BitcoinExchange::checkValueFormat(const std::string& value)
 	return isFloatString(value);
 }
 
+float	BitcoinExchange::multipleValueAndRate(
+	const std::pair<std::string, float>& input,
+	std::map<std::string, float>& data)
+{
+	std::map<std::string, float>::iterator	itr = data.begin();
+
+	while (itr != data.end() && input.first >= itr->first)
+		itr++;
+	if (itr == data.begin())
+		throw (NotExistDate());
+	itr--;
+	return input.second * itr->second;
+}
+
+
 bool	isFloatString(const std::string& string)
 {
 	int	idx = 0;
@@ -256,7 +253,6 @@ bool	isFloatString(const std::string& string)
 	while (idx < size && isdigit(string[idx]))
 		idx++;
 	return idx == size;
-
 }
 
 float	convertFloat(const std::string& string)
