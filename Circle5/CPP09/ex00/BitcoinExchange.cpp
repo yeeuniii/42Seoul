@@ -2,6 +2,11 @@
 #include <iostream>
 #include <sstream>
 
+const char* BitcoinExchange::InvalidDatabase::what() const throw()
+{
+	return "Error: invalid database format";
+}
+
 BitcoinExchange::BadInput::BadInput() {}
 
 BitcoinExchange::BadInput::BadInput(const std::string& detail)
@@ -85,20 +90,51 @@ void	BitcoinExchange::run(const std::string& fileName)
 void	BitcoinExchange::readDataBase(std::map<std::string, float>& data)
 {
 	std::ifstream	database;
-	std::string		date;
-	std::string		rate;
+	char			delimiter;
+	std::string		line;
 
 	database.open(DB);
 	if (database.is_open() == false)
-		throw std::ifstream::failure("Error: could not open file.");
-	std::getline(database, date);
+		throw std::ifstream::failure("Error: could not open file.");	
+	delimiter = findDelimiter(database);
+	std::cout << "delimiter : " << delimiter << std::endl;
 	while (database.eof() == false)
 	{
-		std::getline(database, date, ',');
-		std::getline(database, rate, '\n');
-		data.insert(std::make_pair(date, convertFloat(rate)));
+		std::getline(database, line);
+		checkDatabaseFormat(line, delimiter);
+		data.insert(std::make_pair(line.substr(0, 10), convertFloat(line.substr(11))));
 	}
 	database.close();
+}
+
+char	BitcoinExchange::findDelimiter(std::ifstream& database)
+{
+	std::string	line;
+	char 		delimiter;
+
+	std::getline(database, line);
+	if (line.find("date") == std::string::npos)
+		throw(InvalidDatabase());
+	line = line.substr(4);
+	delimiter = line[0];
+	line = line.substr(1);
+	if (line != "exchange_rate")
+		throw(InvalidDatabase());
+	return delimiter;
+}
+
+void	BitcoinExchange::checkDatabaseFormat(const std::string& line, const char& delimiter)
+{
+	std::string		date;
+	std::string		rate;
+
+	if (line.find(delimiter) == std::string::npos)
+		throw (InvalidDatabase());
+	date = line.substr(0, 10);
+	if (isValidDate(date) == false)
+		throw (InvalidDate(date));
+	rate = line.substr(11);
+	checkValueFormat(rate);
 }
 
 void	BitcoinExchange::processInput(
@@ -176,7 +212,7 @@ bool	BitcoinExchange::isValidDate(const std::string& date)
 	int	day = convertInteger(date.substr(8, 2));
 	int	endOfMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-	if (checkDateFormat(date) == false)
+	if (isDateFormat(date) == false)
 		throw (InvalidDateFormat(date));
 	if ((year % 4 == 0 && year % 100) || year % 400 == 0)
 		endOfMonth[1] = 29;
@@ -187,7 +223,7 @@ bool	BitcoinExchange::isValidDate(const std::string& date)
 	return true;
 }
 
-bool	BitcoinExchange::checkDateFormat(const std::string& date)
+bool	BitcoinExchange::isDateFormat(const std::string& date)
 {
 	unsigned int idx = 0;
 
@@ -210,8 +246,7 @@ void	BitcoinExchange::checkValidValue(const std::string& valueString)
 {
 	float	value;
 
-	if (checkValueFormat(valueString) == false)
-		throw (InvalidValueFormat(valueString));
+	checkValueFormat(valueString);
 	value = convertFloat(valueString);
 	if (value < 0)
 		throw (NegativeValue());
@@ -219,9 +254,10 @@ void	BitcoinExchange::checkValidValue(const std::string& valueString)
 		throw (TooLargeValue());
 }
 
-bool	BitcoinExchange::checkValueFormat(const std::string& value)
+void	BitcoinExchange::checkValueFormat(const std::string& value)
 {
-	return isFloatString(value);
+	if (isFloatString(value) == false)
+		throw (InvalidValueFormat(value));
 }
 
 float	BitcoinExchange::multipleValueAndRate(

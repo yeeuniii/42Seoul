@@ -15,6 +15,11 @@ class BitcoinExchange
 		std::map<std::string, float>		data;
 		std::multimap<std::string, float>	input;
 
+		class InvalidDatabase : public std::exception
+		{
+			public:
+				const char*	what() const throw();
+		};
 		class BadInput : public std::exception
 		{
 			protected:
@@ -62,6 +67,9 @@ class BitcoinExchange
 		BitcoinExchange(const BitcoinExchange&);
 		
 		static void		readDataBase(std::map<std::string, float>&);
+		static char		findDelimiter(std::ifstream& database);
+		static void		checkDatabaseFormat(const std::string& line, const char& delimiter);
+		
 		static void		processInput(const std::string&, std::map<std::string, float>&);
 		static void		processOneLine(std::ifstream&, std::map<std::string, float>&);
 		static float	multipleValueAndRate(const std::pair<std::string, float>&, std::map<std::string, float>&);
@@ -69,9 +77,9 @@ class BitcoinExchange
 		static void		openInputFile(const std::string&, std::ifstream&);
 		static std::pair<std::string, float> makeInputPair(const std::string&);
 		static bool		isValidDate(const std::string&);
-		static bool		checkDateFormat(const std::string&);
+		static bool		isDateFormat(const std::string&);
 		static void		checkValidValue(const std::string&);
-		static bool		checkValueFormat(const std::string&);
+		static void		checkValueFormat(const std::string&);
 		
 	public:
 		~BitcoinExchange();
