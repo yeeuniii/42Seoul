@@ -38,13 +38,10 @@ float	RPN::getSolution(const std::string& argument)
 void	RPN::checkSyntax(std::queue<std::string> expression)
 {
 	unsigned int	size = expression.size();
-	unsigned int	idx = 0;
 	
 	if (size % 2 == 0)
 		throw (SyntaxError());
-	handleSyntaxError(expression.front());
-	expression.pop();
-	while (++idx < size)
+	while (expression.size())
 	{
 		handleSyntaxError(expression.front());
 		expression.pop();
@@ -53,13 +50,13 @@ void	RPN::checkSyntax(std::queue<std::string> expression)
 
 void	RPN::handleSyntaxError(const std::string& value)
 {
-	if (isSyntaxError(value))
+	if (!isValidSyntax(value))
 		throw (SyntaxError());
 }
 
-bool	RPN::isSyntaxError(const std::string& value)
+bool	RPN::isValidSyntax(const std::string& value)
 {
-	return !(value.size() == 1
+	return (value.size() == 1
 		&& (isOperator(value[0]) || std::isdigit(value[0])));
 }
 
@@ -73,7 +70,7 @@ void	RPN::calculate(std::queue<std::string>& expression, std::stack<float>& stac
 	expression.pop();
 	if (isOperator(value[0]))
 	{
-		handleOperator(stack, value);
+		(getOperationFunction(value))(stack);
 		calculate(expression, stack);
 		return ;
 	}
@@ -81,35 +78,21 @@ void	RPN::calculate(std::queue<std::string>& expression, std::stack<float>& stac
 	{
 		stack.push(convertFloat(value));
 		calculate(expression, stack);
-		return ;
 	}
 }
 
-void	RPN::handleOperator(std::stack<float>& stack, const std::string& operation)
+void (*RPN::getOperationFunction(const std::string& operation))(std::stack<float>&)
 {
 	if (operation == "+")
-	{
-		handleAddition(stack);
-		return ;
-	}
+		return RPN::add;
 	if (operation == "-")
-	{
-		handleSubtraction(stack);
-		return ;
-	}
+		return RPN::subtract;
 	if (operation == "/")
-	{
-		handleDivision(stack);
-		return ;
-	}
-	if (operation == "*")
-	{
-		handleMultiplication(stack);
-		return ;
-	}
+		return RPN::divide;
+	return RPN::multiply;
 }
 
-void	RPN::handleAddition(std::stack<float>& stack)
+void	RPN::add(std::stack<float>& stack)
 {
 	float	second;
 	float	result;
@@ -122,7 +105,7 @@ void	RPN::handleAddition(std::stack<float>& stack)
 	stack.push(result);
 }
 
-void	RPN::handleSubtraction(std::stack<float>& stack)
+void	RPN::subtract(std::stack<float>& stack)
 {
 	float	second;
 	float	result;
@@ -135,7 +118,7 @@ void	RPN::handleSubtraction(std::stack<float>& stack)
 	stack.push(result);
 }
 
-void	RPN::handleDivision(std::stack<float>& stack)
+void	RPN::divide(std::stack<float>& stack)
 {
 	float	second;
 	float	result;
@@ -150,7 +133,7 @@ void	RPN::handleDivision(std::stack<float>& stack)
 	stack.push(result);
 }
 
-void	RPN::handleMultiplication(std::stack<float>& stack)
+void	RPN::multiply(std::stack<float>& stack)
 {
 	float	second;
 	float	result;
@@ -173,7 +156,7 @@ std::queue<std::string>	split(const std::string& string, const char& delimeter)
 
 	while (std::getline(ss, line, delimeter))
 	{
-		if (line[0])
+		if (!line.empty())
 			destination.push(line);
 	}
 	return destination;	

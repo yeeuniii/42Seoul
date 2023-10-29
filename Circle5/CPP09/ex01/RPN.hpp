@@ -20,14 +20,14 @@ class RPN
 		
 		static void	checkSyntax(std::queue<std::string>);
 		static void	handleSyntaxError(const std::string&);
-		static bool	isSyntaxError(const std::string&);
+		static bool	isValidSyntax(const std::string&);
 		
 		static void	calculate(std::queue<std::string>&, std::stack<float>&);
-		static void	handleOperator(std::stack<float>&, const std::string&);
-		static void	handleAddition(std::stack<float>&);
-		static void	handleSubtraction(std::stack<float>&);
-		static void	handleDivision(std::stack<float>&);
-		static void	handleMultiplication(std::stack<float>&);
+		static void (*getOperationFunction(const std::string& operation))(std::stack<float>&);
+		static void	add(std::stack<float>&);
+		static void	subtract(std::stack<float>&);
+		static void	divide(std::stack<float>&);
+		static void	multiply(std::stack<float>&);
 	
 	public:
 		~RPN();
