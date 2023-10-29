@@ -2,6 +2,7 @@
 #include <sstream>
 #include <algorithm>
 
+#include <iostream>
 /* struct Element */
 
 PmergeMe::Element::Element() {}
@@ -66,7 +67,7 @@ std::vector<int> PmergeMe::sort(const std::vector<int>& seq)
 	while (mainchain.size() < seq.size() / 2)
 	{
 		Element large(*itr++, idx);
-		Element small(*itr++, idx);
+		Element small(*itr++, idx++);
 
 		if (large.number < small.number)
 			large.swap(small);
