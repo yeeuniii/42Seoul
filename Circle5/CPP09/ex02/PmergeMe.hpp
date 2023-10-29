@@ -5,6 +5,10 @@
 #include <vector>
 #include <deque>
 #include <ctime>
+#include <iostream>
+
+void displaySequence(std::vector<int>& seq);
+void displaySequence(std::deque<int>& seq);
 
 class PmergeMe
 {
@@ -49,11 +53,28 @@ public:
 
 	std::vector<int> sort(const std::vector<int> &seq);
 	std::deque<int> sort(const std::deque<int> &seq);
+	
+	template <typename T>
+	void display(T& seq, T& sorted, double vectorTime, double dequeTime)
+	{
+		unsigned int size = seq.size();
+
+		std::cout << "Before:\t";
+		displaySequence(seq);
+		std::cout << "After:\t";
+		displaySequence(sorted);
+		std::cout << "Time to process a range of\t" << size
+				<< " elements with std::vector : " << vectorTime << " us" << std::endl;
+		std::cout << "Time to process a range of\t" << size
+				<< " elements with std::deque : " << dequeTime << " us" << std::endl;
+
+	}
 };
 
 bool isPositiveIntString(std::string string);
 int convertInteger(std::string string);
 int getJacobsthalNumber(const int& prev, const int& n);
+double calculateRunningTime(const std::clock_t& start, const std::clock_t& end);
 
 template <typename T>
 T setSequence(const unsigned int &size, const char *argv[])

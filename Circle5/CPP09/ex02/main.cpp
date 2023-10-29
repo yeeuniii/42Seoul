@@ -1,8 +1,6 @@
 #include "PmergeMe.hpp"
 #include <iostream>
-
-#include <algorithm>
-
+#include <ctime>
 
 int	main(int argc, char* argv[])
 {
@@ -14,12 +12,19 @@ int	main(int argc, char* argv[])
 		std::vector<int> vec = setSequence<std::vector<int> >(static_cast<int>(argc - 1), const_cast<const char**>(argv + 1));
 		std::deque<int> deq = setSequence<std::deque<int> >(static_cast<int>(argc - 1), const_cast<const char**>(argv + 1));
 		PmergeMe pm;
+		
+		std::clock_t start, end;
+		double vectorTime, dequeTime;
 
-		std::vector<int> sortedVector= pm.sort(vec);
-		std::deque<int> sortedDeque= pm.sort(deq);
-
-		std::cout << "vector is well sorted : " << std::boolalpha << std::is_sorted(sortedVector.begin(), sortedVector.end()) << std::endl;
-		std::cout << "deque is well sorted : " << std::boolalpha << std::is_sorted(sortedDeque.begin(), sortedDeque.end()) << std::endl;
+		start = clock();
+		std::vector<int> vectorSorted= pm.sort(vec);
+		end = clock();
+		vectorTime = calculateRunningTime(start, end);
+		start = clock();
+		std::deque<int> dequeSorted= pm.sort(deq);
+		end = clock();
+		dequeTime = calculateRunningTime(start, end);
+		pm.display(vec, vectorSorted, vectorTime, dequeTime);
 	}
 	catch(const std::exception& e)
 	{

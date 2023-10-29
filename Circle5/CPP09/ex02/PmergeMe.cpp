@@ -2,7 +2,6 @@
 #include <sstream>
 #include <algorithm>
 
-#include <iostream>
 /* struct Element */
 
 PmergeMe::Element::Element() {}
@@ -61,7 +60,7 @@ std::vector<int> PmergeMe::sort(const std::vector<int>& seq)
 	std::vector<Element> pending;
 	std::vector<int>::const_iterator itr = seq.begin();
 	int idx = 0;
-
+	
 	if (seq.size() == 1)
 		return seq;	
 	while (mainchain.size() < seq.size() / 2)
@@ -317,7 +316,7 @@ int	PmergeMe::searchBinary(const std::deque<Element>& sorted, const int& value)
 
 /* utils */
 
-bool	isPositiveIntString(std::string string)
+bool isPositiveIntString(std::string string)
 {
 	int	idx = 0;
 	int	size = string.size();
@@ -338,7 +337,30 @@ int convertInteger(std::string string)
 	return num;
 }
 
-int		getJacobsthalNumber(const int& prev, const int& n)
+int getJacobsthalNumber(const int& prev, const int& n)
 {
 	return pow(2, n) - prev;
+}
+
+double calculateRunningTime(const std::clock_t& start, const std::clock_t& end)
+{
+	return static_cast<double>(end - start) / 1000.0;
+}
+
+void displaySequence(std::vector<int>& seq)
+{
+	std::vector<int>::iterator itr = seq.begin();
+
+	for (; itr != seq.end(); itr++)
+		std::cout << *itr << " ";
+	std::cout << std::endl;
+}
+
+void displaySequence(std::deque<int>& seq)
+{
+	std::deque<int>::iterator itr = seq.begin();
+
+	for (; itr != seq.end(); itr++)
+		std::cout << *itr << " ";
+	std::cout << std::endl;
 }
