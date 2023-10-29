@@ -2,8 +2,37 @@
 #include <sstream>
 #include <algorithm>
 
-#include <iostream>
-#include <stdio.h>
+/* struct Element */
+
+PmergeMe::Element::Element() {}
+
+PmergeMe::Element::Element(int number, int index) : number(number), index(index) {}
+
+PmergeMe::Element::Element(const Element& other)
+{
+	*this = other;
+}
+
+PmergeMe::Element& PmergeMe::Element::operator=(const Element& other)
+{
+	if (this != &other)
+	{
+		this->number = other.number;
+		this->index = other.index;
+	}
+	return *this;
+}
+
+PmergeMe::Element::~Element() {}
+
+
+/* PmergeMe */
+
+void PmergeMe::Element::swap(Element& other)
+{
+	std::swap(this->number, other.number);
+	std::swap(this->index, other.index);
+}
 
 PmergeMe::PmergeMe() {}
 
@@ -22,6 +51,9 @@ PmergeMe& PmergeMe::operator=(const PmergeMe &pm)
 	return *this;
 }
 
+
+/* vector */
+
 std::vector<int> PmergeMe::sort(const std::vector<int>& seq)
 {
 	std::vector<Element> mainchain;
@@ -33,23 +65,19 @@ std::vector<int> PmergeMe::sort(const std::vector<int>& seq)
 		return seq;	
 	while (mainchain.size() < seq.size() / 2)
 	{
-		int large = *(itr++);
-		int small = *(itr++);
-		if (large < small)
-			std::swap(large, small);
-		Element element(large, idx++);
-		mainchain.push_back(element);
-		element.number = small;
-		pending.push_back(element);
+		Element large(*itr++, idx);
+		Element small(*itr++, idx);
+
+		if (large.number < small.number)
+			large.swap(small);
+		mainchain.push_back(large);
+		pending.push_back(small);
 	}
 	sortMainchain(mainchain);
 	sortPendingElements(mainchain, pending);
 	sortFordJohnson(mainchain, pending);
-	if (seq.size() % 2)
-	{
-		Element element(*itr, 0);
-		insert(mainchain, element);
-	}
+	Element element(*itr, 0);
+	insertLast(seq.size() % 2, mainchain, element);
 	std::vector<int> sorted;
 	for (std::vector<Element>::iterator itr = mainchain.begin(); itr != mainchain.end(); itr++)
 		sorted.push_back((*itr).number);
@@ -58,13 +86,12 @@ std::vector<int> PmergeMe::sort(const std::vector<int>& seq)
 
 void PmergeMe::sortMainchain(std::vector<Element>& seq)
 {
-	if (seq.size() == 1)
-		return ;
-
 	std::vector<Element> mainchain;
 	std::vector<Element> pending;
 	std::vector<Element>::const_iterator itr = seq.begin();
 	
+	if (seq.size() == 1)
+		return ;
 	while (mainchain.size() < seq.size() / 2)
 	{
 		Element large((*itr++));
@@ -77,10 +104,14 @@ void PmergeMe::sortMainchain(std::vector<Element>& seq)
 	}
 	sortMainchain(mainchain);
 	sortFordJohnson(mainchain, pending);
-	if (seq.size() % 2) {
-		insert(mainchain, *itr);
-	}
+	insertLast(seq.size() % 2, mainchain, *itr);
 	seq = mainchain;
+}
+
+void PmergeMe::insertLast(bool isOdd, std::vector<Element>& mainchain, const Element& element)
+{
+	if (isOdd)
+		insert(mainchain, element);
 }
 
 void PmergeMe::sortPendingElements(std::vector<Element>& mainchain, std::vector<Element>& pending)
@@ -88,15 +119,12 @@ void PmergeMe::sortPendingElements(std::vector<Element>& mainchain, std::vector<
 	std::vector<Element> tmp;
 	std::vector<Element>::iterator itr = mainchain.begin();
 	
-	while (itr != mainchain.end())
-	{
+	for (; itr != mainchain.end(); itr++)
 		tmp.push_back(getMatchingElement((*itr).index, pending));
-		itr++;
-	}
 	pending = tmp;
 }
 
-Element PmergeMe::getMatchingElement(int index, std::vector<Element>& pending)
+PmergeMe::Element PmergeMe::getMatchingElement(int index, std::vector<Element>& pending)
 {
 	std::vector<Element>::iterator itr = pending.begin();
 
@@ -142,8 +170,9 @@ void PmergeMe::setNextIndex(int& index, const int& size, int JacobsthalNumbers[]
 
 int	PmergeMe::searchBinary(const std::vector<Element>& sorted, const int& value)
 {
+	int size = static_cast<int>(sorted.size());
 	int	start = 0;
-	int	end = static_cast<int>(sorted.size());
+	int	end = size;
 	int	mid = (start + end) / 2;
 
 	while (start < end && sorted[mid].number != value)
@@ -154,26 +183,134 @@ int	PmergeMe::searchBinary(const std::vector<Element>& sorted, const int& value)
 			start = mid + 1;
 		mid = (start + end) / 2;
 	}
-	int size = static_cast<int>(sorted.size());
 	if (mid >= size)
 		return size;
 	return value < sorted[mid].number ? mid : mid + 1;
 }
 
-std::pair<int, int> makePair(int num1, int num2)
-{
-	std::pair<int, int> pair;
-	int large = num1;
-	int small = num2;
 
-	if (num2 > num1)
+/* deque */
+
+std::deque<int> PmergeMe::sort(const std::deque<int>& seq)
+{
+	std::deque<Element> mainchain;
+	std::deque<Element> pending;
+	std::deque<int>::const_iterator itr = seq.begin();
+	int idx = 0;
+
+	if (seq.size() == 1)
+		return seq;	
+	while (mainchain.size() < seq.size() / 2)
 	{
-		large = num2;
-		small = num1;
+		Element large(*itr++, idx);
+		Element small(*itr++, idx);
+
+		if (large.number < small.number)
+			large.swap(small);
+		mainchain.push_back(large);
+		pending.push_back(small);
 	}
-	pair.first = large;
-	pair.second = small;
-	return pair;
+	sortMainchain(mainchain);
+	sortPendingElements(mainchain, pending);
+	sortFordJohnson(mainchain, pending);
+	Element element(*itr, 0);
+	insertLast(seq.size() % 2, mainchain, element);
+	std::deque<int> sorted;
+	for (std::deque<Element>::iterator itr = mainchain.begin(); itr != mainchain.end(); itr++)
+		sorted.push_back((*itr).number);
+	return sorted;
+}
+
+void PmergeMe::sortMainchain(std::deque<Element>& seq)
+{
+	std::deque<Element> mainchain;
+	std::deque<Element> pending;
+	std::deque<Element>::const_iterator itr = seq.begin();
+	
+	if (seq.size() == 1)
+		return ;
+	while (mainchain.size() < seq.size() / 2)
+	{
+		Element large((*itr++));
+		Element small((*itr++));
+		
+		if (large.number < small.number)
+			large.swap(small);
+		mainchain.push_back(large);
+		pending.push_back(small);
+	}
+	sortMainchain(mainchain);
+	sortFordJohnson(mainchain, pending);
+	insertLast(seq.size() % 2, mainchain, *itr);
+	seq = mainchain;
+}
+
+void PmergeMe::insertLast(bool isOdd, std::deque<Element>& mainchain, const Element& element)
+{
+	if (isOdd)
+		insert(mainchain, element);
+}
+
+void PmergeMe::sortPendingElements(std::deque<Element>& mainchain, std::deque<Element>& pending)
+{
+	std::deque<Element> tmp;
+	std::deque<Element>::iterator itr = mainchain.begin();
+	
+	for (; itr != mainchain.end(); itr++)
+		tmp.push_back(getMatchingElement((*itr).index, pending));
+	pending = tmp;
+}
+
+PmergeMe::Element PmergeMe::getMatchingElement(int index, std::deque<Element>& pending)
+{
+	std::deque<Element>::iterator itr = pending.begin();
+
+	while ((*itr).index != index)
+		itr++;
+	return *itr;
+}
+
+void PmergeMe::sortFordJohnson(std::deque<Element>& mainchain, std::deque<Element>& pending)
+{
+	int	idx = 0;
+	int	n = 2;
+	int	JacobsthalNumbers[2];
+
+	JacobsthalNumbers[0] = 0;
+	JacobsthalNumbers[1] = 1;
+	while (idx + 1 != JacobsthalNumbers[0])
+	{
+		insert(mainchain, pending[idx]);
+		setNextIndex(idx, static_cast<int>(pending.size()), JacobsthalNumbers, n++);
+	}
+}
+
+void PmergeMe::insert(std::deque<Element>& seq, const Element& value)
+{
+	std::deque<Element>::iterator itr;
+
+	itr = seq.begin() + searchBinary(seq, value.number);
+	seq.insert(itr, value);
+}
+
+int	PmergeMe::searchBinary(const std::deque<Element>& sorted, const int& value)
+{
+	int size = static_cast<int>(sorted.size());
+	int	start = 0;
+	int	end = size;
+	int	mid = (start + end) / 2;
+
+	while (start < end && sorted[mid].number != value)
+	{
+		if (value < sorted[mid].number)
+			end = mid - 1;
+		else
+			start = mid + 1;
+		mid = (start + end) / 2;
+	}
+	if (mid >= size)
+		return size;
+	return value < sorted[mid].number ? mid : mid + 1;
 }
 
 
@@ -199,14 +336,6 @@ int convertInteger(std::string string)
 	ss >> num;
 	return num;
 }
-
-// void	swap(int& first, int& last)
-// {
-// 	int	tmp = first;
-
-// 	first = last;
-// 	last = tmp;
-// }
 
 int		getJacobsthalNumber(const int& prev, const int& n)
 {
