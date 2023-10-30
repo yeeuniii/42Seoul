@@ -100,8 +100,11 @@ void	BitcoinExchange::readDataBase(std::map<std::string, float>& data)
 	while (database.eof() == false)
 	{
 		std::getline(database, line);
+		if (line.empty())
+			continue;
 		checkDatabaseFormat(line, delimiter);
 		data.insert(std::make_pair(line.substr(0, 10), convertFloat(line.substr(11))));
+		std::getline(database, line);
 	}
 	database.close();
 }
