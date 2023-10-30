@@ -97,7 +97,6 @@ void	BitcoinExchange::readDataBase(std::map<std::string, float>& data)
 	if (database.is_open() == false)
 		throw std::ifstream::failure("Error: could not open file.");	
 	delimiter = findDelimiter(database);
-	std::cout << "delimiter : " << delimiter << std::endl;
 	while (database.eof() == false)
 	{
 		std::getline(database, line);
@@ -113,7 +112,7 @@ char	BitcoinExchange::findDelimiter(std::ifstream& database)
 	char 		delimiter;
 
 	std::getline(database, line);
-	if (line.find("date") == std::string::npos)
+	if (line.empty() || line.substr(0, 4) != "date")
 		throw(InvalidDatabase());
 	line = line.substr(4);
 	delimiter = line[0];
