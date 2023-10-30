@@ -32,6 +32,8 @@ float	RPN::getSolution(const std::string& argument)
 
 	checkSyntax(expression);
 	calculate(expression, stack);
+	if (stack.size() != 1)
+		throw (SyntaxError());
 	return stack.top();
 }
 
@@ -68,6 +70,8 @@ void	RPN::calculate(std::queue<std::string>& expression, std::stack<float>& stac
 		return ;
 	value = expression.front();
 	expression.pop();
+	if (isOperator(value[0]) && stack.size() < 2)
+		throw (SyntaxError());
 	if (isOperator(value[0]))
 	{
 		(getOperationFunction(value))(stack);
