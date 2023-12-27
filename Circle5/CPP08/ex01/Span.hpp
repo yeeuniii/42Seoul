@@ -1,0 +1,52 @@
+#ifndef __SPAN_HPP__
+#define __SPAN_HPP__
+
+#include <set>
+#include <exception>
+
+#include <iostream>
+
+class Span
+{
+	private:
+		std::multiset<int>	set;
+		unsigned int	size;
+
+		class NotUnableSave : public std::exception
+		{
+			public:
+				virtual const char*	what() const throw();
+		};
+		class NotFound : public std::exception
+		{
+			private:
+				const char* message;
+			public:
+				NotFound(const char* message);
+				virtual const char*	what() const throw();
+		};
+		
+		Span();
+		
+		void	handleError() const;
+		bool	canStored() const;
+	
+	public:
+		Span(unsigned int N);
+		Span(const Span& span);
+		~Span();
+		Span& operator=(const Span& span);
+
+		void	addNumber(int number);
+		template <typename iterator>
+		void	addNumber(iterator begin, iterator end)
+		{
+			this->set.insert(begin, end);
+		}
+
+		unsigned int	shortestSpan() const;
+		unsigned int	longestSpan() const;
+
+};
+
+#endif
