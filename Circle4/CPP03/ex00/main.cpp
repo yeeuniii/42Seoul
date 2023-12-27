@@ -1,0 +1,44 @@
+#include "ClapTrap.hpp"
+#include <iostream>
+
+int main(void)
+{
+	std::cout << "----------TEST1----------" << std::endl;
+	// claptrap 메서드 실행 (attack, takeDamage, beRepaired)
+	{
+		ClapTrap claptrap1("one");
+		ClapTrap claptrap2("two");
+
+		claptrap1.displayStatus();
+		claptrap2.displayStatus();
+
+		claptrap2.attack(claptrap1.getName());
+		claptrap1.takeDamage(claptrap2.getAttackDamage());
+		claptrap1.beRepaired(40);
+
+		claptrap1.displayStatus();
+		claptrap2.displayStatus();
+	}
+	std::cout << std::endl;
+	std::cout << "----------TEST2----------" << std::endl;
+	// claptrap 죽었을때, 메서드 실행
+	{
+		ClapTrap claptrap1("one");
+		ClapTrap claptrap2("two");
+
+		claptrap2.setAttackDamage(1);
+		claptrap1.displayStatus();
+		claptrap2.displayStatus();
+		for (int idx = 0; idx < 10; idx++)
+		{
+			std::cout << "## " << idx << " ##" << std::endl;
+			claptrap2.attack(claptrap1.getName());
+			claptrap1.takeDamage(claptrap2.getAttackDamage());
+		}
+		claptrap1.beRepaired(10);
+		claptrap2.attack(claptrap1.getName());
+		claptrap1.displayStatus();
+		claptrap2.displayStatus();
+	}
+	return 0;
+}
