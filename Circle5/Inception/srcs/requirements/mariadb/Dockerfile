@@ -1,9 +1,13 @@
-FROM alpine:3.18.5
-RUN apk update && \
-    apk upgrade && \
-    apk add openrc --no-cache mariadb 
+FROM debian:bullseye
+RUN apt-get update && \
+    apt-get upgrade && \
+    apt-get -y install mariadb-server vim dumb-init
 
-COPY conf/mariadb-server.cnf /etc/my.cnf.d
-COPY tools/create_wordpress_user.sql /home
-COPY tools/docker-entrypoint.sh /home
-ENTRYPOINT ["sh", "/home/docker-entrypoint.sh"]
+# RUN apt-get install dumb-init
+
+COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY tools/ .
+
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+#CMD ["/bin/bash"]
+CMD ["sh", "docker-entrypoint.sh"]

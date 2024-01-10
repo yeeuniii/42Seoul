@@ -1,18 +1,40 @@
 version: '3'
 
+volumes:
+  data: {}
 services:
   mariadb:
-    image: mariadb
+    build: requirements/mariadb
     restart: always
     expose:
       - "3306"
-   network: docker-network
-  workpress:
-    image: workpress
+    networks:
+      - intra
+    tty: true
+    environment:
+    - MARIADB_ID=${MARIADB_ID}
+    - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+
+  nginx:
+    image: debian:bullseye
     restart: always
+    ports:
+      - "443:443"
+    volumes:
+      - data:/var/www/html
+    networks:
+      - intra
+    tty: true
+  wordpress:
+    image: debian:bullseye
+    restart: always
+    volumes:
+      - data:/var/www/html
     expose:
       - "9000"
-    networks: docker-network
+    networks:
+      - intra
+    tty: true
 networks:
-  docker-network:
+  intra:
     driver: bridge

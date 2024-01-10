@@ -1,7 +1,7 @@
-rc default
-/etc/init.d/mariadb setup
-rc-service mariadb start
-mysql -u root < /home/create_wordpressdb_user.sql
-#mysql -u root < /home/mysql_secure_installation.sql
-#rc-service mariadb stop
-#/usr/bin/mysqld_safe
+service mariadb start
+mysql -e "CREATE DATABASE wordpress_db;"
+mysql -e "CREATE USER '${MARIADB_ID}'@'%' IDENTIFIED BY '${MARIADB_PASSWORD}';"
+mysql -e "GRANT ALL ON wordpress_db.* TO '${MARIADB_ID}'@'%';";
+mysql -e "FLUSH PRIVILEGES;"
+service mariadb stop
+mysqld

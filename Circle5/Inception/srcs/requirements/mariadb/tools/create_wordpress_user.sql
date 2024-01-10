@@ -1,4 +1,4 @@
 CREATE DATABASE wordpress_db;
-CREATE USER 'yeepark'@'%' IDENTIFED BY 'password';
-GRANT ALL ON wordpress_db.* TO 'yeepark'@'%';
+CREATE USER '${MARIADB_ID}'@'%' IDENTIFIED BY '${MARIADB_PASSWORD}';
+GRANT ALL ON wordpress_db.* TO '{MARIADB_ID}'@'%';
 FLUSH PRIVILEGES;
