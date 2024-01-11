@@ -6,6 +6,7 @@ mysql -e "CREATE USER '${MARIADB_ID}'@'%' IDENTIFIED BY '${MARIADB_PASSWORD}';"
 mysql -e "GRANT ALL ON wordpress_db.* TO '${MARIADB_ID}'@'%';";
 mysql -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${MARIADB_PASSWORD}');"
 mysql -e "FLUSH PRIVILEGES;"
+sleep 1
 mysqladmin -uroot -ppassword shutdown
 #service mariadb stop
 mysqld
