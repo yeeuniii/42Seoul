@@ -1,7 +1,4 @@
-version: '3'
-
-volumes:
-  data: {}
+version: "3.9"
 
 services:
   mariadb:
@@ -9,11 +6,13 @@ services:
     restart: always
     expose:
       - "3306"
-    networks:
-      - docker-network 
     environment:
     - MARIADB_ID=${MARIADB_ID}
     - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - docker-network 
 
   nginx:
     image: debian:bullseye
@@ -34,6 +33,10 @@ services:
       - "9000"
     networks:
       - docker-network 
+
+volumes:
+  db: {}
+  data: {}
 
 networks:
   docker-network:
