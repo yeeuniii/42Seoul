@@ -1,12 +1,15 @@
-#export MARIADB_ID=yeepark
-#export MARIADB_PASSWORD=password
+#!/bin/sh
+
 service mariadb start
-mysql -e "CREATE DATABASE wordpress_db;"
-mysql -e "CREATE USER '${MARIADB_ID}'@'%' IDENTIFIED BY '${MARIADB_PASSWORD}';"
-mysql -e "GRANT ALL ON wordpress_db.* TO '${MARIADB_ID}'@'%';";
-mysql -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${MARIADB_PASSWORD}');"
-mysql -e "FLUSH PRIVILEGES;"
+
+chmod +x /scripts/init-user.sql
+
+# 환경 변수 값을 포함한 새 SQL 파일 생성
+envsubst < /scripts/init-user.sql > /tmp/init-user-filled.sql
+
+cat /tmp/init-user-filled.sql | mysql -uroot -p"$MARIADB_PASSWORD"
+# mysql -uroot -p"$MARIADB_PASSWORD" < /tmp/init-db-filled.sql
+
 sleep 1
-mysqladmin -uroot -ppassword shutdown
-#service mariadb stop
+mysqladmin -uroot -p"$MARIADB_PASSWORD" shutdown
 mysqld
