@@ -1,15 +1,14 @@
 FROM debian:bullseye
 RUN apt-get update && \
     apt-get upgrade && \
-    apt-get -y install mariadb-server dumb-init
-
-# RUN apt-get install dumb-init
-# RUN mkdir /run/mysqld && chown mysql:mysql /run/mysqld
+    apt-get -y install mariadb-server dumb-init gettext
 
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
-COPY tools .
+COPY tools/ /scripts
+
+RUN chmod +x /scripts/docker-entrypoint.sh
+
+EXPOSE 3306
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-#ENTRYPOINT ["/usr/bin/dumb-init", "--", "sh", "docker-entrypoint.sh"]
-#CMD ["/bin/bash"]
-CMD ["sh", "docker-entrypoint.sh"]
+CMD ["/scripts/docker-entrypoint.sh"]
