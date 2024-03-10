@@ -1,9 +1,8 @@
 #!/bin/sh
-
 service mariadb start
 chmod +x /scripts/init-user.sql
-envsubst < /scripts/init-user.sql > /tmp/init-user-filled.sql
-cat /tmp/init-user-filled.sql | mysql -uroot -p"$MARIADB_PASSWORD"
+envsubst < /scripts/init-user.sql > /scripts/init-user-filled.sql
+cat /scripts/init-user-filled.sql | mysql -uroot -p${MARIADB_ROOT_PASSWORD}
 sleep 1
-mysqladmin -uroot -p"$MARIADB_PASSWORD" shutdown
-mysqld
+mysqladmin -uroot -p${MARIADB_ROOT_PASSWORD} shutdown
+mysqld --user=mysql
