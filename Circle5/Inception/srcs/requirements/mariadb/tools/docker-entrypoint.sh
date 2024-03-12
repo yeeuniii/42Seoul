@@ -1,8 +1,10 @@
 #!/bin/sh
-service mariadb start
-chmod +x /scripts/init-user.sql
+mysqld_safe -uroot&
+until mysqladmin ping -hlocalhost -uroot > /dev/null 2>&1; do
+    echo "Waiting for mysql to run"
+    sleep 1
+done
 envsubst < /scripts/init-user.sql > /scripts/init-user-filled.sql
-cat /scripts/init-user-filled.sql | mysql -uroot -p${MARIADB_ROOT_PASSWORD}
-sleep 1
+mysql -uroot -p${MARIADB_ROOT_PASSWORD} < /scripts/init-user-filled.sql
 mysqladmin -uroot -p${MARIADB_ROOT_PASSWORD} shutdown
-mysqld --user=mysql
+exec mysqld --user=mysql
