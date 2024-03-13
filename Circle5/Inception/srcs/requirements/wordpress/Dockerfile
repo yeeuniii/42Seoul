@@ -11,5 +11,8 @@ COPY tools/ /scripts/
 WORKDIR /scripts
 RUN chmod +x run_wpcli.sh && \
 	sh run_wpcli.sh
+RUN chmod +x docker-entrypoint.sh
 
 EXPOSE 9000
+
+CMD ["sh", "/scripts/docker-entrypoint.sh"]
