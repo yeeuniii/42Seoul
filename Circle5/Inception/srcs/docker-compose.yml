@@ -13,23 +13,26 @@ services:
     networks:
       - docker-network 
 
-  # wordpress:
-  #   image: debian:bullseye
-  #   restart: always
-  #   depends_on:
-  #     - mariadb
-  #   volumes:
-  #     - wordpress_data:/var/www/html
-  #   expose:
-  #     - "9000"
-  #   networks:
-  #     - docker-network 
+  wordpress:
+    build: requirements/wordpress
+    restart: always
+    tty: true
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress_data:/var/www/html
+    expose:
+      - "9000"
+    networks:
+      - docker-network 
   
   nginx:
     build: requirements/nginx
     restart: always
-   # depends_on:
-   #   - wordpress
+    depends_on:
+      - wordpress
     env_file:
       - .env
     ports:
