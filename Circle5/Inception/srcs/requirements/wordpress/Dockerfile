@@ -5,13 +5,16 @@ RUN apt-get update && \
 	php php-common php-mysql \
 	php-gd php-xml php-mbstring \
 	php-curl php-intl php-json \
+	php7.4-fpm \
 	curl vim sudo
 
+COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 COPY tools/ /scripts/
 WORKDIR /scripts
-RUN chmod +x run_wpcli.sh && \
-	sh run_wpcli.sh
-RUN chmod +x docker-entrypoint.sh
+RUN chmod +x install_wpcli.sh docker-entrypoint.sh && sh install_wpcli.sh
+
+WORKDIR /var/www/html
+RUN mkdir -p /run/php/ && chown -R www-data:www-data /run/php/
 
 EXPOSE 9000
 
