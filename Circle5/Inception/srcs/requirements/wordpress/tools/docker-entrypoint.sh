@@ -6,7 +6,7 @@ chown -R wordpressmanager:wordpressmanager ${WORDPRESS_PATH}
 if [ ! -f ${WORDPRESS_PATH}/index.php ]; then
 	sudo -u wordpressmanager -i -- wp core download \
 								--path=${WORDPRESS_PATH} \
-								--locale=ko_KR # en_US
+								--locale=en_US
 	sudo -u wordpressmanager -i -- wp config create \
 								--path=${WORDPRESS_PATH} \
 								--dbname=${MARIADB_DATABASE} \
