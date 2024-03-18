@@ -13,9 +13,6 @@ COPY tools/ /scripts/
 WORKDIR /scripts
 RUN chmod +x install_wpcli.sh docker-entrypoint.sh && sh install_wpcli.sh
 
-WORKDIR /var/www/html
-RUN mkdir -p /run/php/ && chown -R www-data:www-data /run/php/
-
 EXPOSE 9000
 
 CMD ["sh", "/scripts/docker-entrypoint.sh"]

@@ -1,4 +1,5 @@
 #!/bin/sh
+cd ${WORDPRESS_PATH}
 useradd -m wordpressmanager
 chown -R wordpressmanager:wordpressmanager ${WORDPRESS_PATH}
 
@@ -26,6 +27,7 @@ if [ ! -f ${WORDPRESS_PATH}/index.php ]; then
 								--role=author
 fi
 
+mkdir -p /run/php/
 chown -R www-data:www-data ${WORDPRESS_PATH}
 
 exec php-fpm7.4 -F
