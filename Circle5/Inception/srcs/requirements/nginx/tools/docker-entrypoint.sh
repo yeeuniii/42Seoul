@@ -7,4 +7,4 @@ openssl req -x509 \
     -keyout /etc/nginx/ssl/nginx.key \
     -out /etc/nginx/ssl/nginx.crt \
     -subj "/C=KO/ST=Seoul/L=Gaepo-dong/O=42Seoul/CN=${DOMAIN_NAME}"
-nginx -g "daemon off;"
+exec nginx -g "daemon off;"

@@ -1,7 +1,7 @@
 FROM debian:bullseye
 RUN apt-get update && \
     apt-get upgrade && \
-    apt-get -y install mariadb-server dumb-init gettext
+    apt-get -y install mariadb-server gettext dumb-init
 
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 COPY tools/ /scripts/

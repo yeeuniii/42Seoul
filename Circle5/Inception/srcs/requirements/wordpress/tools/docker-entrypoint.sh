@@ -29,5 +29,4 @@ fi
 
 mkdir -p /run/php/
 chown -R www-data:www-data ${WORDPRESS_PATH}
-
 exec php-fpm7.4 -F
