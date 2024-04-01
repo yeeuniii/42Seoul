@@ -5,30 +5,28 @@
 #include <netinet/in.h>
 #include <stdio.h>
 
-struct serv_info {
-    int CLIENT_ID;
+struct server {
     int MAX_FD;
     int listen_socket;
     fd_set readfds;
     fd_set cpy_readfds;
+    int clients[1024];
+    int number_of_client;
 };
 
-void setup(char* argv[], struct serv_info *serv);
-void run(struct serv_info serv);
-void handle_event(int fd, struct serv_info *serv);
-void handle_read(int fd, struct serv_info *serv);
-
-void print(int fd, char* message) {
-    write(fd, message, strlen(message));
-}
+void setup(char* argv[], struct server *serv);
+void run(struct server serv);
+void handle_event(int fd, struct server *serv);
+void handle_read(int fd, struct server *serv);
+void send_all_clients(char* message, struct server serv);
 
 void print_error(char* message) {
-    print(2, message);
+    write(2, message, strlen(message));
     exit(1);
 }
 
 int main(int argc, char* argv[]) {
-    struct serv_info serv;
+    struct server serv;
 
     if (argc == 1) {
         print_error("Wrong number of arguments\n");
@@ -37,13 +35,13 @@ int main(int argc, char* argv[]) {
     run(serv);
 }
 
-void setup(char* argv[], struct serv_info *serv) {
+void setup(char* argv[], struct server *serv) {
     int port;
     int listen_socket;
     struct sockaddr_in server_addr;
     
     port = atoi(argv[1]);
-    serv->CLIENT_ID = 0;
+    serv->number_of_client = 0;
     serv->listen_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (serv->listen_socket == -1) {
         print_error("Fatal error\n");
@@ -60,7 +58,7 @@ void setup(char* argv[], struct serv_info *serv) {
     }
 }
 
-void run(struct serv_info serv) {
+void run(struct server serv) {
     int number_of_fds = 0;
     // 시간 설정 필요
     
@@ -84,30 +82,39 @@ void run(struct serv_info serv) {
     exit(0);
 }
 
-void handle_event(int fd, struct serv_info *serv) {
+void handle_event(int fd, struct server *serv) {
     if (FD_ISSET(fd, &serv->cpy_readfds)) {
         handle_read(fd, serv);
     }
 }
 
-void handle_read(int fd, struct serv_info *serv) {
+void handle_read(int fd, struct server *serv) {
     int client_socket;
     socklen_t client_addr_len;
     struct sockaddr_in client_addr;
     char message[100];
 
+    bzero(&message, sizeof(message));
     if (fd == serv->listen_socket) {
         client_addr_len = sizeof(client_addr);
         client_socket = accept(serv->listen_socket, (struct sockaddr *)&client_addr, &client_addr_len);
         if (client_socket == -1) {
             print_error("Fatal error\n"); 
         }
-        sprintf(message, "server: client %d just arrived\n", serv->CLIENT_ID);
-        serv->CLIENT_ID++;
-        print(client_socket, message); // 모든 클라이언트에게 전송해야 함
+        sprintf(message, "server: client %d just arrived\n", serv->number_of_client);
+        serv->clients[serv->number_of_client] = client_socket;
+        serv->number_of_client++;
         FD_SET(client_socket, &serv->readfds);
+        if (serv->MAX_FD < client_socket) {
+            serv->MAX_FD = client_socket;
+        }
+        send_all_clients(message, *serv);
+        return ;
     }
-    // client
-    // read(idx, )
 }
 
+void send_all_clients(char* message, struct server serv) {
+    for (int fd = 0; fd < serv.number_of_client; fd++) {
+        send(serv.clients[fd], message, strlen(message), 0);
+    }
+}
