@@ -6,20 +6,71 @@
 #include <stdio.h>
 
 struct server {
-    int MAX_FD;
     int listen_socket;
     fd_set readfds;
-    fd_set cpy_readfds;
-    int clients[1024];
+    fd_set writefds;
+    fd_set selectfds;
+    int clients[65536]; // fd -> id
+    char* messages[65536];
     int number_of_client;
+    int max_fd;
 };
 
 void setup(char* argv[], struct server *serv);
 void run(struct server serv);
-void handle_event(int fd, struct server *serv);
 void handle_read(int fd, struct server *serv);
-void send_all_clients(char* message, struct server serv);
-int find_client_id(int fd, struct server serv);
+void register_client(struct server *serv);
+void remove_client(int fd, struct server *serv);
+void send_other_clients(char* message, int my, struct server serv);
+
+/* given */
+
+int extract_message(char **buf, char **msg)
+{
+	char	*newbuf;
+	int	i;
+
+	*msg = 0;
+	if (*buf == 0)
+		return (0);
+	i = 0;
+	while ((*buf)[i])
+	{
+		if ((*buf)[i] == '\n')
+		{
+			newbuf = calloc(1, sizeof(*newbuf) * (strlen(*buf + i + 1) + 1));
+			if (newbuf == 0)
+				return (-1);
+			strcpy(newbuf, *buf + i + 1);
+			*msg = *buf;
+			(*msg)[i + 1] = 0;
+			*buf = newbuf;
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+char *str_join(char *buf, char *add)
+{
+	char	*newbuf;
+	int		len;
+
+	if (buf == 0)
+		len = 0;
+	else
+		len = strlen(buf);
+	newbuf = malloc(sizeof(*newbuf) * (len + strlen(add) + 1));
+	if (newbuf == 0)
+		return (0);
+	newbuf[0] = 0;
+	if (buf != 0)
+		strcat(newbuf, buf);
+	free(buf);
+	strcat(newbuf, add);
+	return (newbuf);
+}
 
 void print_error(char* message) {
     write(2, message, strlen(message));
@@ -47,6 +98,8 @@ void setup(char* argv[], struct server *serv) {
     if (serv->listen_socket == -1) {
         print_error("Fatal error\n");
     }
+    bzero(&serv->clients, sizeof(serv->clients));
+    bzero(&serv->messages, sizeof(serv->messages));
     bzero(&server_addr, sizeof(server_addr));
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = htonl(2130706433);
@@ -61,20 +114,20 @@ void setup(char* argv[], struct server *serv) {
 
 void run(struct server serv) {
     int number_of_fds = 0;
-    // 시간 설정 필요
     
-    FD_ZERO(&serv.readfds);
-    FD_SET(serv.listen_socket, &serv.readfds);
-    serv.MAX_FD = serv.listen_socket; // read에 한해서만
+    FD_ZERO(&serv.selectfds);
+    FD_SET(serv.listen_socket, &serv.selectfds);
+    serv.max_fd = serv.listen_socket;
 
     while (number_of_fds != -1) {
-        serv.cpy_readfds = serv.readfds;
+        serv.readfds = serv.selectfds;
+        serv.writefds = serv.selectfds;
+        number_of_fds = select(serv.max_fd + 1, &serv.readfds, &serv.writefds, NULL, NULL);        
 
-        number_of_fds = select(serv.MAX_FD + 1, &serv.cpy_readfds, NULL, NULL, NULL);
-        
-
-        for (int fd = 0; number_of_fds > 0 && fd < serv.MAX_FD + 1; fd++) {
-            handle_event(fd, &serv);
+        for (int fd = 0; number_of_fds > 0 && fd < serv.max_fd + 1; fd++) {
+            if (FD_ISSET(fd, &serv.readfds)) {
+                handle_read(fd, &serv);
+            }
         }
     }
     if (number_of_fds == -1) {
@@ -83,58 +136,69 @@ void run(struct server serv) {
     exit(0);
 }
 
-void handle_event(int fd, struct server *serv) {
-    if (FD_ISSET(fd, &serv->cpy_readfds)) {
-        handle_read(fd, serv);
+void handle_read(int fd, struct server *serv) {
+    if (fd == serv->listen_socket) {
+        register_client(serv);
+        return ;
+    }
+
+    char buffer[65536];
+    int read_byte = recv(fd, &buffer, 65536, 0); 
+    
+    if (read_byte < 1) {
+        remove_client(fd, serv);
+        return ;
+    }
+    buffer[read_byte] = '\0';
+    serv->messages[fd] = str_join(serv->messages[fd], buffer);
+    
+    int status;
+    char message[65536];
+    char* line;
+    while ((status = extract_message(&serv->messages[fd], &line)) > 0) {
+        sprintf(message, "client %d: %s", serv->clients[fd], line);
+        send_other_clients(message, fd, *serv);
+    }
+    if (status == -1) {
+        print_error("Fatal error\n");
     }
 }
 
-void handle_read(int fd, struct server *serv) {
+void register_client(struct server *serv) {
     int client_socket;
     socklen_t client_addr_len;
     struct sockaddr_in client_addr;
-    char message[4096];
-
-    bzero(&message, sizeof(message));
-    if (fd == serv->listen_socket) {
-        client_addr_len = sizeof(client_addr);
-        client_socket = accept(serv->listen_socket, (struct sockaddr *)&client_addr, &client_addr_len);
-        if (client_socket == -1) {
-            print_error("Fatal error\n"); 
-        }
-        sprintf(message, "server: client %d just arrived\n", serv->number_of_client);
-        serv->clients[serv->number_of_client] = client_socket;
-        serv->number_of_client++;
-        FD_SET(client_socket, &serv->readfds);
-        if (serv->MAX_FD < client_socket) {
-            serv->MAX_FD = client_socket;
-        }
-        send_all_clients(message, *serv);
-        return ;
+    char message[65536];
+    
+    client_addr_len = sizeof(client_addr);
+    client_socket = accept(serv->listen_socket, (struct sockaddr *)&client_addr, &client_addr_len);
+    if (client_socket == -1) {
+        print_error("Fatal error\n"); 
     }
-    // client
-    char buffer[4096];
-
-    bzero(&buffer, sizeof(buffer));
-    recv(fd, &buffer, 2048, 0);
-    sprintf(message, "client %d: %s", find_client_id(fd, *serv), buffer);
-    send_all_clients(message, *serv);
+    FD_SET(client_socket, &serv->selectfds);
+    if (serv->max_fd < client_socket) {
+        serv->max_fd = client_socket;
+    }
+    serv->clients[client_socket] = serv->number_of_client++;
+    serv->messages[client_socket] = NULL;
+    sprintf(message, "server: client %d just arrived\n", serv->clients[client_socket]);
+    send_other_clients(message, client_socket, *serv);
 }
 
-void send_all_clients(char* message, struct server serv) {
-    for (int fd = 0; fd < serv.number_of_client; fd++) {
-        send(serv.clients[fd], message, strlen(message), 0);
-    }
+void remove_client(int fd, struct server *serv) {
+    char message[65536];
+    
+    FD_CLR(fd, &serv->selectfds);
+    close(fd);
+    free(serv->messages[fd]);
+    sprintf(message, "server: client %d just left\n", serv->clients[fd]);
+    send_other_clients(message, fd, *serv);
 }
 
-int find_client_id(int fd, struct server serv) {
-    int id = 0;
-
-    while (id < serv.number_of_client && serv.clients[id] != fd) {
-        id++;
+void send_other_clients(char* message, int my, struct server serv) {
+    for (int fd = 0; fd < serv.max_fd + 1; fd++) {
+        if (FD_ISSET(fd, &serv.writefds) && fd != my) {
+            send(fd, message, strlen(message), 0);
+        }
     }
-    if (id == serv.number_of_client) {
-        return -1;
-    }
-    return id;
 }
