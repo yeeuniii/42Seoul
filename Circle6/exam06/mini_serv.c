@@ -19,6 +19,7 @@ void run(struct server serv);
 void handle_event(int fd, struct server *serv);
 void handle_read(int fd, struct server *serv);
 void send_all_clients(char* message, struct server serv);
+int find_client_id(int fd, struct server serv);
 
 void print_error(char* message) {
     write(2, message, strlen(message));
@@ -92,7 +93,7 @@ void handle_read(int fd, struct server *serv) {
     int client_socket;
     socklen_t client_addr_len;
     struct sockaddr_in client_addr;
-    char message[100];
+    char message[4096];
 
     bzero(&message, sizeof(message));
     if (fd == serv->listen_socket) {
@@ -111,10 +112,29 @@ void handle_read(int fd, struct server *serv) {
         send_all_clients(message, *serv);
         return ;
     }
+    // client
+    char buffer[4096];
+
+    bzero(&buffer, sizeof(buffer));
+    recv(fd, &buffer, 2048, 0);
+    sprintf(message, "client %d: %s", find_client_id(fd, *serv), buffer);
+    send_all_clients(message, *serv);
 }
 
 void send_all_clients(char* message, struct server serv) {
     for (int fd = 0; fd < serv.number_of_client; fd++) {
         send(serv.clients[fd], message, strlen(message), 0);
     }
+}
+
+int find_client_id(int fd, struct server serv) {
+    int id = 0;
+
+    while (id < serv.number_of_client && serv.clients[id] != fd) {
+        id++;
+    }
+    if (id == serv.number_of_client) {
+        return -1;
+    }
+    return id;
 }
