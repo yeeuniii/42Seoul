@@ -6,7 +6,7 @@ all: $(NAME)
 
 $(NAME): up
 
-up: 
+up:
 	sudo mkdir -p $(VOLUME_PATH)/mariadb_volume
 	sudo mkdir -p $(VOLUME_PATH)/wordpress_volume
 	docker-compose -f $(DOCKER-COMPOSE) up --build -d 
@@ -15,7 +15,7 @@ down:
 	docker-compose -f $(DOCKER-COMPOSE) down
 
 clean:
-	docker-compose -f $(DOCKER-COMPOSE) down -v
+	docker-compose -f $(DOCKER-COMPOSE) down -v --rmi all
 
 fclean: clean
 	rm -rf $(VOLUME_PATH)/
