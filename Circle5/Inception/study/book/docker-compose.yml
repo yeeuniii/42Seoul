@@ -1,0 +1,16 @@
+version: '3'
+
+# volumes:
+#     data: {}
+services:
+    mariadb:
+        image: ubuntu:14.04 
+        restart: always
+        expose:
+            - "80:80"
+        networks:
+            - intra
+        tty: true
+networks:
+    intra:
+        driver: bridge
