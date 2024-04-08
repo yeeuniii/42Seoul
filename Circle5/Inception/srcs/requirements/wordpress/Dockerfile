@@ -1,6 +1,6 @@
 FROM debian:bullseye
-RUN apt-get update && \
-	apt-get upgrade && \
+RUN apt-get -y update && \
+	apt-get -y upgrade && \
 	apt-get -y install \
 	php php-common php-mysql \
 	php-gd php-xml php-mbstring \

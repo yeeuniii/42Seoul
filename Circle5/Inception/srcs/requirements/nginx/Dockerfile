@@ -1,6 +1,6 @@
 FROM debian:bullseye
-RUN apt-get update && \
-    apt-get upgrade && \
+RUN apt-get -y update && \
+    apt-get -y upgrade && \
     apt-get -y install nginx openssl dumb-init
 
 COPY conf/ /etc/nginx/conf.d/
